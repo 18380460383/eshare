@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:weightSum="16"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/time_adress_title"
+        style="@style/TitleStyle"
+        layout="@layout/e_title" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        style="@style/body_wigth">
+        <ScrollView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:textColor="@color/text_hei"
+                    android:padding="@dimen/left_right_retract_small"
+                    android:text="活动时间"/>
+                <TextView
+                    android:id="@+id/act_time_reporter"
+                    android:drawableRight="@mipmap/icon_e_calendar"
+                    android:hint="选择活动时间"
+                    style="@style/En_EditText"
+                    android:padding="@dimen/left_right_retract_small"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:textColor="@color/text_hei"
+                    android:padding="@dimen/left_right_retract_small"
+                    android:text="活动地区"/>
+                <TextView
+                    android:id="@+id/act_time_address"
+                    android:drawableRight="@mipmap/into"
+                    android:hint="选择活动地点"
+                    style="@style/En_EditText"
+                    android:padding="@dimen/left_right_retract_small"/>
+            </LinearLayout>
+        </ScrollView>
+    <TextView
+        android:id="@+id/look_reporter"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:textSize="15dp"
+        android:textColor="@color/write"
+        android:background="@drawable/selector_e_tv_login"
+        android:text="查看记者"/>
+    </LinearLayout>
+
+
+</LinearLayout>

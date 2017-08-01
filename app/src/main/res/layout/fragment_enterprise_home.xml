@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#ffffff">
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_widthPercent="50%"
+            app:layout_heightPercent="30%"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/kaifa"/>
+        </android.support.percent.PercentRelativeLayout>
+
+</RelativeLayout>

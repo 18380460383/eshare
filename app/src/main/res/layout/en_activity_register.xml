@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:weightSum="16"
+    android:background="@color/bg_en"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/e_register_title"
+        style="@style/TitleStyle"
+        layout="@layout/e_title" />
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:layout_weight="14.5"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <EditText
+            android:id="@+id/register_phon"
+            android:paddingRight="14dp"
+            android:drawableLeft="@mipmap/icon_e_phone"
+            android:hint="请输入手机号"
+            style="@style/En_ET_Register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/register_code"
+                android:hint="验证码"
+                android:drawableLeft="@mipmap/icon_e_code"
+                android:layout_weight="1"
+                style="@style/En_ET_Register"
+                android:layout_margin="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/register_get_code"
+                android:layout_marginLeft="10dp"
+                android:padding="10dp"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:text="获取验证码"
+                android:background="@drawable/selector_e_tv_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/e_register_password"
+            android:hint="输入密码"
+            android:drawableLeft="@mipmap/icon_e_login_password"
+            style="@style/En_ET_Register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/e_register_ok_password"
+            android:hint="确认密码"
+            android:drawableLeft="@mipmap/icon_e_login_password"
+            style="@style/En_ET_Register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/register_e"
+            android:background="@drawable/selector_e_tv_login"
+            android:textColor="@android:color/white"
+            android:text="注册"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--宽高比750.240-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="240dp">
+    <ImageView
+        android:id="@+id/collect_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/jianbian"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/left_right_retract_small"
+        android:paddingRight="@dimen/left_right_retract_small"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp">
+        <LinearLayout
+            android:id="@+id/ll_c"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_alignParentBottom="true">
+            <ImageView
+                android:id="@+id/item_information_for_collect_share_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:src="@mipmap/home_f_share"/>
+            <TextView
+                android:id="@+id/item_information_for_collect_share_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/item_information_for_collect_share_iv"
+                android:layout_marginLeft="2dp"
+                android:textColor="#ffffff"
+                android:layout_alignParentBottom="true"
+                android:textSize="12dp"
+                android:text="33333"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/collect_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:textSize="14dp"
+            android:ellipsize="end"
+            android:textColor="#ffffff"
+            android:layout_above="@+id/ll_c"
+            android:layout_marginBottom="6dp"
+            android:text="每年春运我们都会摊上点难题今年是验证码"/>
+
+    </RelativeLayout>
+</RelativeLayout>

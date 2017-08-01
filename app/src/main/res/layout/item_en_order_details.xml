@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="@dimen/left_right_retract_small"
+            android:layout_marginRight="@dimen/left_right_retract_small">
+
+            <TextView
+                android:id="@+id/designee_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_hei"
+                android:text="案例及丰厚的" />
+
+            <TextView
+                android:id="@+id/status_str"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textColor="@color/gray"
+                android:text="待付款" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/left_right_retract_small"
+            android:layout_marginRight="@dimen/left_right_retract_small"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:text="￥200.00" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/download_adjunct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="下载附件"
+                android:textColor="@color/orange"
+                android:textSize="11dp" />
+
+            <TextView
+                android:id="@+id/reject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="驳回"
+                android:textColor="@color/orange"
+                android:textSize="11dp" />
+
+            <TextView
+                android:id="@+id/look_over"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="查看结果"
+                android:textColor="@color/orange"
+                android:textSize="11dp" />
+
+            <TextView
+                android:id="@+id/reject_reason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="驳回理由"
+                android:textColor="@color/orange"
+                android:textSize="11dp" />
+
+            <TextView
+                android:id="@+id/affirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="确认"
+                android:textColor="@color/orange"
+                android:textSize="11dp" />
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

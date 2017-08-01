@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="16">
+
+        <include
+            android:id="@+id/create_etitle"
+            style="@style/TitleStyle"
+            layout="@layout/e_title"/>
+
+     <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#ffffff"
+         style="@style/body_wigth">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.percent.PercentRelativeLayout
+                style="@style/new_C_RL"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/cg_title_text"
+                    android:text="推广标题"
+                    style="@style/TextViewTitle"
+                    app:layout_marginLeftPercent="3%"/>
+
+                <EditText
+                    android:id="@+id/g_titletext"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:layout_toRightOf="@+id/cg_title_text"
+                    android:textSize="13dp"
+                    android:background="@drawable/drawable_edittext"
+                    android:layout_centerVertical="true"
+                    android:textColorHint="#BDBDBD"
+                    android:textColor="#2b2a2a"
+                    app:layout_marginLeftPercent="3%"
+                    app:layout_marginRightPercent="3%"
+                    android:maxLines="1"
+                    android:gravity="start"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:hint="请输入推广标题25字以内" />
+                <TextView
+                    android:id="@+id/g_titletext_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:layout_toRightOf="@+id/cg_title_text"
+                    android:textSize="13dp"
+                    android:background="@drawable/drawable_edittext"
+                    android:layout_centerVertical="true"
+                    android:textColorHint="#BDBDBD"
+                    android:textColor="#2b2a2a"
+                    app:layout_marginLeftPercent="3%"
+                    app:layout_marginRightPercent="3%"
+                    android:maxLines="1"
+                    android:gravity="start"
+                    android:singleLine="true"
+                    android:hint="请输入推广标题"
+                    android:visibility="gone"
+                    android:ellipsize="end"/>
+
+            </android.support.percent.PercentRelativeLayout>
+            <TextView style="@style/halving_line_e"
+            android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+            />
+            <android.support.percent.PercentRelativeLayout
+                android:id="@+id/go_get_url"
+                android:background="@drawable/select_click"
+                style="@style/new_C_RL">
+
+                <TextView
+                    android:id="@+id/create_tv_link"
+                    style="@style/TextViewTitle"
+                    app:layout_marginLeftPercent="3%"
+                    android:text="推广连接"/>
+
+                <TextView
+                    android:layout_toRightOf="@+id/create_tv_link"
+                    android:id="@+id/g_url"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:textSize="13dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_centerVertical="true"
+                    android:textColorHint="#BDBDBD"
+                    android:textColor="#2b2a2a"
+                    app:layout_marginLeftPercent="3%"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:gravity="left|center_vertical"/>
+
+                <ImageView
+                    android:id="@+id/create_tv_link2"
+                    app:layout_widthPercent="2.5%"
+                    app:layout_marginRightPercent="3%"
+                    android:layout_centerVertical="true"
+                    style="@style/into_image_style" />
+
+            </android.support.percent.PercentRelativeLayout>
+            <TextView style="@style/halving_line_e"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                />
+            <android.support.percent.PercentRelativeLayout
+                style="@style/new_C_RL">
+                <TextView
+                    style="@style/TextViewTitle"
+                    app:layout_marginLeftPercent="3%"
+                    android:text="上传推广图片"/>
+                <ImageView
+                    android:id="@+id/g_up_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/uploading_image"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    app:layout_marginRightPercent="2%"/>
+            </android.support.percent.PercentRelativeLayout>
+            <android.support.percent.PercentRelativeLayout
+                android:id="@+id/g_image_preview_rlp"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:paddingTop="10dp"
+                android:background="#ffffff"
+                android:visibility="gone">
+                <ImageView
+                    android:id="@+id/g_image_preview"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:background="#ffffff"
+                    android:layout_centerInParent="true"/>
+            </android.support.percent.PercentRelativeLayout>
+            <TextView style="@style/halving_line_e"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                />
+            <android.support.percent.PercentRelativeLayout
+                android:id="@+id/g_money"
+                style="@style/new_C_RL"
+                android:background="@drawable/select_click">
+                <TextView
+                    style="@style/TextViewTitle"
+                    app:layout_marginLeftPercent="3%"
+                    android:text="推广费用"/>
+                <ImageView
+                    android:id="@+id/iv1"
+                    app:layout_widthPercent="2.5%"
+                    app:layout_marginRightPercent="3%"
+                    android:layout_centerVertical="true"
+                    style="@style/into_image_style" />
+                <TextView
+                    android:id="@+id/g_cost"
+                    style="@style/new_generalize"
+                    android:layout_toLeftOf="@+id/iv1"/>
+            </android.support.percent.PercentRelativeLayout>
+            <TextView style="@style/halving_line_e"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                />
+            <android.support.percent.PercentRelativeLayout
+                android:id="@+id/g_address"
+                android:background="@drawable/select_click"
+                style="@style/new_C_RL">
+                <TextView
+                    style="@style/TextViewTitle"
+                    app:layout_marginLeftPercent="3%"
+                    android:text="推广地域"/>
+                <ImageView
+                    android:id="@+id/iv2"
+                    app:layout_widthPercent="2.5%"
+                    style="@style/into_image_style"
+                    app:layout_marginRightPercent="3%"/>
+                <TextView
+                    android:id="@+id/create_g_address"
+                    style="@style/new_generalize"
+                    android:layout_toLeftOf="@+id/iv2"/>
+            </android.support.percent.PercentRelativeLayout>
+            <TextView style="@style/halving_line_e"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                />
+            <android.support.percent.PercentRelativeLayout
+                android:id="@+id/g_type"
+                android:background="@drawable/select_click"
+                style="@style/new_C_RL">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_marginLeftPercent="3%"
+                    app:layout_marginRightPercent="6%">
+                    <TextView
+                        android:id="@+id/hangye_text"
+                        style="@style/TextViewTitle"
+
+                        android:text="推广行业"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="15dp"
+                        android:id="@+id/industry_text"
+                        android:maxLines="1"
+                        android:gravity="right"
+                        android:layout_gravity="center"
+                        android:ellipsize="end"
+                        android:text="不限"
+                        android:textColor="#7e9999"/>
+
+
+                </LinearLayout>
+                <ImageView
+                android:id="@+id/iv3"
+                app:layout_widthPercent="2.5%"
+                style="@style/into_image_style"
+                app:layout_marginRightPercent="3%"
+                />
+
+            </android.support.percent.PercentRelativeLayout>
+            <TextView style="@style/halving_line_e"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="10"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent" />
+                <Button
+                    android:id="@+id/g_next"
+                    android:layout_width="0dp"
+                    android:layout_weight="8"
+                    android:background="@mipmap/login_ok"
+                    android:layout_height="40dp"
+                    android:text="下一步"
+                    android:textSize="18dp"
+                    android:textColor="#ffffff"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp" />
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
+
+</android.support.percent.PercentRelativeLayout>

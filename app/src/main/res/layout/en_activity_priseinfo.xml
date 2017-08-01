@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="16">
+
+        <include
+            android:id="@+id/create_e_title"
+            style="@style/TitleStyle"
+            layout="@layout/e_title" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/click_press"
+            style="@style/body_wigth">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/write"
+                android:orientation="vertical">
+                <TextView style="@style/halving_line_e" />
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="@dimen/left_right_retract_small">
+
+                    <TextView
+                        android:id="@+id/namehint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="企业名称"
+                        android:textSize="13dp"
+                        android:textColor="@color/text_hei"
+                        android:layout_marginLeft="@dimen/left_right_retract_small"/>
+
+                    <EditText
+                        android:id="@+id/e_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/namehint"
+                        android:layout_marginLeft="30dp"
+                        android:background="@null"
+                        android:hint="请输入企业名称"
+                        android:textColorHint="#BDBDBD"
+                        android:textSize="14dp"
+                        />
+                </android.support.percent.PercentRelativeLayout>
+
+                <TextView style="@style/halving_line_e" />
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="@dimen/left_right_retract_small">
+
+                    <TextView
+                        android:id="@+id/dizhihint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="企业地址"
+                        android:textSize="13dp"
+                        android:textColor="@color/text_hei"
+                        android:layout_marginLeft="@dimen/left_right_retract_small"/>
+
+                    <EditText
+                        android:id="@+id/e_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:layout_toRightOf="@+id/dizhihint"
+                        android:layout_marginLeft="30dp"
+                        android:layout_centerVertical="true"
+                        android:hint="请输入企业地址"
+                        android:textColorHint="#BDBDBD"
+                        android:textSize="13dp" />
+                </android.support.percent.PercentRelativeLayout>
+
+                <TextView
+                    style="@style/halving_line_e"
+                    android:layout_height="10dp"/>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="@dimen/left_right_retract_small">
+
+                    <TextView
+                        android:id="@+id/lianxirenhint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="联系人    "
+                        android:textSize="13dp"
+                        android:textColor="@color/text_hei"
+                        android:layout_marginLeft="@dimen/left_right_retract_small"/>
+
+                    <EditText
+                        android:id="@+id/e_linkman"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:layout_toRightOf="@+id/lianxirenhint"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="30dp"
+                        android:hint="请输入联系人姓名"
+                        android:textColorHint="#BDBDBD"
+                        android:textSize="13dp"/>
+                </android.support.percent.PercentRelativeLayout>
+
+                <TextView style="@style/halving_line_e" />
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="@dimen/left_right_retract_small">
+
+                    <TextView
+                        android:id="@+id/dianhuahint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="联系电话"
+                        android:textSize="13dp"
+                        android:textColor="@color/text_hei"
+                        android:layout_marginLeft="@dimen/left_right_retract_small"/>
+
+                    <EditText
+                        android:id="@+id/e_linkman_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/dianhuahint"
+                        android:layout_marginLeft="30dp"
+                        android:inputType="number"
+                        android:background="@null"
+                        android:layout_centerVertical="true"
+                        android:hint="请输入联系人电话"
+                        android:textColorHint="#BDBDBD"
+                        android:textSize="13dp" />
+                </android.support.percent.PercentRelativeLayout>
+
+                <TextView style="@style/halving_line_e"
+                    android:layout_height="10dp"/>
+
+                <android.support.percent.PercentRelativeLayout
+                    android:id="@+id/into_select_trade"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="@dimen/left_right_retract_small">
+
+                    <TextView
+                        android:id="@+id/hangyehint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="行业         "
+                        android:textSize="13dp"
+                        android:textColor="@color/text_hei"
+                        android:layout_marginLeft="@dimen/left_right_retract_small"/>
+                    <TextView
+                        android:id="@+id/hangye_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/hangyehint"
+                        android:layout_marginLeft="30dp"
+                        android:layout_centerVertical="true"
+                        android:textColor="#BDBDBD"
+                        android:textSize="13dp" />
+                    <ImageView
+                        android:id="@+id/iv1"
+                        style="@style/into_image_style"
+                        app:layout_marginRightPercent="3%"
+                        app:layout_widthPercent="2.5%" />
+
+
+                    <TextView
+                        android:id="@+id/e_trade"
+                        style="@style/new_generalize"
+                        android:layout_toLeftOf="@+id/iv1"
+                        android:textColor="@color/text_hei"
+                        android:textSize="13dp" />
+                </android.support.percent.PercentRelativeLayout>
+                <TextView style="@style/halving_line_e" />
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="@dimen/left_right_retract_small">
+
+                    <TextView
+                        android:id="@+id/qqhint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="联系QQ"
+                        android:textSize="13dp"
+                        android:textColor="@color/text_hei"
+                        android:layout_marginLeft="@dimen/left_right_retract_small"/>
+
+                    <EditText
+                        android:id="@+id/e_linkman_qq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/qqhint"
+                        android:layout_marginLeft="30dp"
+                        android:inputType="number"
+                        android:background="@null"
+                        android:layout_centerVertical="true"
+                        android:hint="请输入联系人QQ"
+                        android:textColorHint="#BDBDBD"
+                        android:textSize="13dp" />
+                </android.support.percent.PercentRelativeLayout>
+                <TextView style="@style/halving_line_e" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="上传企业营业执照"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="@dimen/left_right_retract_small"
+                    android:textColor="@color/text_hei"
+                    android:layout_marginLeft="@dimen/left_right_retract_small"/>
+                <TextView style="@style/halving_line_e" />
+
+                <ImageView
+                    android:id="@+id/camera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/publish_add"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_gravity="center_horizontal"/>
+                <TextView style="@style/halving_line_e" />
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="@dimen/left_right_retract_small">
+
+                    <TextView
+                        android:id="@+id/zhizhaohaohint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="营业执照号码"
+                        android:textSize="13dp"
+                        android:textColor="@color/text_hei"
+                        android:layout_marginLeft="@dimen/left_right_retract_small"/>
+
+                    <EditText
+                        android:id="@+id/e_permit_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/zhizhaohaohint"
+                        android:layout_marginLeft="30dp"
+                        android:background="@null"
+                        android:inputType="number"
+                        android:layout_centerVertical="true"
+                        android:hint="请输入营业执照号码"
+                        android:textColorHint="#BDBDBD"
+                        android:textSize="13dp" />
+                </android.support.percent.PercentRelativeLayout>
+                <LinearLayout
+                    style="@style/halving_line_e"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <Button
+                        android:id="@+id/submit_e_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="@drawable/select_log_button"
+                        android:text="确定"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="30dp"
+                        android:textColor="@color/write"/>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/get_photo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="#E7E7E7"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="gone"
+        app:layout_heightPercent="30%"
+        app:layout_widthPercent="90%">
+
+        <Button
+            android:id="@+id/go_cre"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="14dp"
+            android:background="#F9F9F9"
+            android:textColor="@color/text_hei"
+            android:text="相机" />
+
+        <Button
+            android:id="@+id/go_album"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="14dp"
+            android:textColor="@color/text_hei"
+            android:background="#F9F9F9"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:text="相册" />
+
+        <Button
+            android:id="@+id/no_photo"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="14dp"
+            android:background="#F9F9F9"
+            android:textColor="@color/text_hei"
+            android:text="取消" />
+    </LinearLayout>
+</android.support.percent.PercentRelativeLayout>

@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "D:\\AndroidStudioPro\\eshare\\OneSDK\\build\\intermediates\\res\\merged\\release\\anim\\popup_window_in.xml",
+        "source": "D:\\AndroidStudioPro\\eshare\\OneSDK\\res\\anim\\popup_window_in.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioPro\\eshare\\OneSDK\\build\\intermediates\\res\\merged\\release\\anim\\popup_window_out.xml",
+        "source": "D:\\AndroidStudioPro\\eshare\\OneSDK\\res\\anim\\popup_window_out.xml"
+    }
+]

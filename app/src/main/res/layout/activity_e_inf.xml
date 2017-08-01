@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="16">
+    <include
+        android:id="@+id/e_inf_title"
+        layout="@layout/e_title"
+        style="@style/TitleStyle"/>
+        <com.handmark.pulltorefresh.library.PullToRefreshStaggeredGridLayout
+            android:id="@+id/e_inf_listview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            style="@style/body_wigth"/>
+</LinearLayout>

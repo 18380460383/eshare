@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="16">
+
+    <RelativeLayout style="@style/TitleStyle">
+
+        <include
+            android:id="@+id/act_title"
+            layout="@layout/e_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确认"
+            android:textSize="20dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="@dimen/left_right_retract_small"
+            android:paddingRight="@dimen/left_right_retract_small"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/left_right_retract_small"
+            android:background="#000000"
+            android:textColor="@color/write"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/body_wigth"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/actlist_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10dp" />
+    </RelativeLayout>
+</LinearLayout>

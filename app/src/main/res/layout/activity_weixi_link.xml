@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="16"
+    android:orientation="vertical">
+    <include
+        android:id="@+id/go_weixi_title"
+        layout="@layout/e_title"
+        style="@style/TitleStyle"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="12.2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@mipmap/go_weixi_image"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/go_weixi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:background="@drawable/select_log_button"
+            android:text="打开微信"
+            android:textSize="16dp"
+            android:textColor="#ffffff"/>
+    </LinearLayout>
+
+
+</LinearLayout>

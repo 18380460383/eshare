@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/type_recyclerview"
+        android:layout_width="match_parent"
+        android:background="@color/write"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/screen_default_gray"/>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="86dp">
+
+        <ImageView
+            android:id="@+id/main_wuad"
+            android:layout_width="fill_parent"
+            android:layout_height="86dp"
+            android:scaleType="fitXY"
+            android:visibility="visible"
+            android:src="@mipmap/banner"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/main_ad"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+
+        <!-- 广告滑动点 -->
+        <LinearLayout
+            android:id="@+id/ad_dot_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/main_ad"
+            android:gravity="center_vertical|end"
+            android:paddingRight="16dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/guide_round"
+                android:visibility="invisible" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/fr1_tv_forecast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1px"
+        android:background="#fcf7f7"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="暂无预测信息"
+        android:textSize="12dp"
+        android:textColor="#6cabea" />
+
+</LinearLayout>

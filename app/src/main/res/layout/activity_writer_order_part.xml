@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    android:weightSum="16">
+
+    <include
+        android:id="@+id/writer_order_details"
+        style="@style/TitleStyle"
+        layout="@layout/e_title" />
+
+    <ScrollView
+        style="@style/body_wigth"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/write"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/left_right_retract_small"
+                android:layout_marginTop="@dimen/left_right_retract_small"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="推广类型："
+                    android:textSize="15dp"
+                    android:textColor="@color/text_hei" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/en_de_textview"
+                    android:textSize="15dp"
+                    android:text="软文代写" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/left_right_retract_small"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="截止时间："
+                    android:textSize="15dp"
+                    android:textColor="@color/text_hei" />
+
+                <TextView
+                    android:id="@+id/end_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/en_de_textview"
+                    android:textSize="15dp"
+                    android:text="软文代写" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/left_right_retract_small"
+                android:layout_marginTop="6dp"
+
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="字数要求："
+                    android:textSize="15dp"
+                    android:textColor="@color/text_hei" />
+
+                <TextView
+                    android:id="@+id/text_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/en_de_textview"
+                    android:textSize="15dp"
+                    android:text="软文代写" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/left_right_retract_small"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="文章标题："
+                    android:textSize="15dp"
+                    android:textColor="@color/text_hei" />
+
+                <TextView
+                    android:id="@+id/article_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:textColor="@color/en_de_textview"
+                    android:ellipsize="end"
+                    android:textSize="15dp"
+                    android:text="软文代写" />
+            </LinearLayout>
+            <TextView
+                style="@style/halving_line_e"
+                android:layout_marginTop="8dp"
+                android:layout_height="8dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/left_right_retract_small"
+                    android:textColor="@color/text_hei"
+                    android:textSize="15dp"
+                    android:text="撰写要求："/>
+                <TextView
+                    android:id="@+id/article_need"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/left_right_retract_small"
+                    android:textSize="13dp"
+                    android:textColor="@color/en_de_textview"
+                    android:text="爱看啥地方哈士大夫安徽的是覅阿红的司法hi啊大法师带符号收到货覅水电费"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

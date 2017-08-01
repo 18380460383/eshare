@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:weightSum="16"
+    android:background="#ffffff"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        style="@style/TitleStyle">
+        <include
+            android:id="@+id/choose_title"
+            layout="@layout/title"/>
+        <ImageView
+            android:id="@+id/to_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/search"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        style="@style/body_wigth"
+        android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/choose_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="4">
+            <CheckBox
+                android:id="@+id/choose_city"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:textSize="15dp"
+                android:text="地域"
+                android:button="@null"
+                android:textColor="@color/item_textview_textcolor"
+                android:drawableRight="@drawable/selector_choose_type"/>
+            <CheckBox
+                android:id="@+id/choose_price"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:textSize="15dp"
+                android:text="价格"
+                android:button="@null"
+                android:textColor="@color/item_textview_textcolor"
+
+                android:drawableRight="@drawable/selector_choose_type"/>
+            <CheckBox
+                android:id="@+id/choose_fans"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:textSize="15dp"
+                android:text="粉丝"
+                android:button="@null"
+                android:textColor="@color/item_textview_textcolor"
+
+                android:drawableRight="@drawable/selector_choose_type"/>
+            <CheckBox
+                android:id="@+id/choose_psone_type"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:gravity="center"
+                android:textSize="15dp"
+                android:text="类型"
+                android:button="@null"
+                android:textColor="@color/item_textview_textcolor"
+
+                android:drawableRight="@drawable/selector_choose_type"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="1px"
+    android:background="#bcb9b9"/>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="4">
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:scrollbars="none"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#ffffff">
+        <TextView
+            android:id="@+id/num_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:textSize="15dp"
+            android:textColor="@color/orange"
+            android:text="查看已选："/>
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/num_hint"
+            android:layout_centerVertical="true"
+            android:textSize="14dp"
+            android:textColor="#000000"
+            android:text="0"/>
+
+        <TextView
+            android:background="@color/orange"
+            android:text="确定"
+            android:id="@+id/tv_commit"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="4dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:textSize="14dp"
+            android:textColor="#ffffff"
+            />
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_centerVertical="true"
+            android:textSize="14dp"
+            android:gravity="center"
+            android:textColor="@color/orange"
+            android:layout_toLeftOf="@id/tv_commit"
+            android:layout_marginRight="20dp"
+            android:text="0.00"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="合计："
+            android:textColor="#959595"
+            android:textSize="15dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tv_money"/>
+
+
+
+    </RelativeLayout>
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/choose_type_fargment_super"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="#33696060"
+        >
+        <FrameLayout
+            android:id="@+id/choose_type_fargment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_heightPercent="60%"
+            android:background="@android:color/transparent"
+            android:layout_centerHorizontal="true">
+
+        </FrameLayout>
+    </android.support.percent.PercentRelativeLayout>
+
+</RelativeLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

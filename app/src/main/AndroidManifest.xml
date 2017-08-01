@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.jiebian.adwlf">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="com.jiebian.adwlf.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- Optional. Required for location feature -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <!--baidu-->
+    <!-- 这个权限用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 这个权限用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- Required -->
+    <permission
+        android:name="com.jiebian.adwlf.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <!-- 蓝牙分享所需的权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE" /> -->
+    <!--阿里百川-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_SETTINGS" />
+    <!--
+        <uses-permission
+            android:name="android.permission.PACKAGE_USAGE_STATS"
+            tools:ignore="ProtectedPermissions" />
+
+        &lt;!&ndash; 以下为可选权限 &ndash;&gt;
+        <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />-->
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
+    <application
+        android:name="com.jiebian.adwlf.AppContext"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/BaseAppTheme">
+        <!--友盟APPKEY-->
+        <!-- <meta-data
+             android:name="UMENG_APPKEY"
+             android:value="5643118867e58e4d35000918" />
+         <meta-data
+             android:name="UMENG_CHANNEL"
+             android:value="${ESHARE_CHANNEL_VALUE}" />-->
+        <!-- logo页面 -->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.LogoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LogoTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 使用说明界面 -->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.GuideActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 第一次引导界面 -->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.FirstGuideActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 微信回掉页面 -->
+        <activity
+            android:name="com.jiebian.adwlf.wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent" />
+
+        <!-- 主界面 -->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.MainTabActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <!-- 详情界面 -->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.DetialActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 个人信息界面 -->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.UserDetailInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
+
+        <!-- 个人记录界面 -->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.RecordActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+
+        <!-- 分享界面 -->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.ShareActivity"
+            android:screenOrientation="portrait" />
+        <!--验证手机号码界面-->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.CheckPhoneActivity"
+            android:screenOrientation="portrait" />
+        <!-- 网页界面 -->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.WebviewActivity"
+            android:screenOrientation="portrait" />
+
+        <!--认证身份界面-->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.AttestationActivity"
+            android:screenOrientation="portrait" />
+
+        <!--认证详情界面-->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.AttestationDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.MsgDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.SchoolAct"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.Generalize_Record"
+            android:screenOrientation="portrait" />
+
+
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.FinancialInformation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.ExplainActivity"
+            android:screenOrientation="portrait" />
+
+        android:name="com.jiebian.adwlf.ui.activity.Invoice"
+        android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.AccountActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.AboutActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.MsgCenterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.BindingWeixinActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.ForecastActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.SetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.ForecastDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.LoginActivity"
+            android:screenOrientation="portrait" />
+
+        android:name="com.jiebian.adwlf.view.EshareDialogActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
+        <!-- 摇一摇界面 -->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.YaoActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait" />
+        <!-- 签到界面 -->
+        <!-- 活动详情界面 -->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.BaseWebActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 兑换记录界面 -->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.ExchangeActivity"
+            android:screenOrientation="portrait" />
+
+        <!-- 兑换详情界面 -->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.DetailEXActivity"
+            android:screenOrientation="portrait" />
+
+
+        <!-- Ping++ SDK 注册 -->
+        <activity
+            android:name="com.pingplusplus.android.PaymentActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 微信支付 sdk ，也是 Ping++ sdk 调用入口 -->
+        <activity-alias
+            android:name=".wxapi.WXPayEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:targetActivity="com.pingplusplus.android.PaymentActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 支付宝 sdk -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"></activity>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"></activity>
+
+        <!-- Required SDK核心功能-->
+        -
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar">
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+        <!-- Required SDK核心功能-->
+        <service
+            android:name="cn.jpush.android.service.DownloadService"
+            android:enabled="true"
+            android:exported="false"></service>
+        <!-- Required SDK 核心功能-->
+
+        <!-- 可配置android:process参数将PushService放在其他进程中 -->
+        -
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+            </intent-filter>
+        </service>
+        <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+
+        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </service>
+        <!-- Required SDK核心功能-->
+        -
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true"
+            android:exported="false">-
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
+                <!--Required 显示通知栏 -->
+                <category android:name="${applicationId}" />
+            </intent-filter>
+            -
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <!-- Optional -->
+            -
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <!-- Required SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.android.service.AlarmReceiver"
+            android:exported="false" />
+        <receiver
+            android:name="com.jiebian.adwlf.broadcast.EshareBroadcast"
+            android:enabled="true">
+            <intent-filter>
+                <!--Required 用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <action android:name="cn.jpush.android.intent.UNREGISTRATION" />
+                <!--Required 用户接收SDK消息的intent-->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <!--Required 用户接收SDK通知栏信息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <!--Required 用户打开自定义通知栏的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <!--Optional 用户接受Rich Push Javascript 回调函数的intent-->
+                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" />
+                <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+                <category android:name="${applicationId}" />
+                <!--网络变化广播-->
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <!--监听卸载app广播-->
+                <action android:name="android.net.conn.ACTION_PACKAGE_REMOVED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- &lt;!&ndash; User defined. For test only 用户自定义的广播接收器&ndash;&gt;
+         -<receiver android:name="com.example.jpushdemo.MyReceiver" android:exported="false" android:enabled="true"> -<intent-filter> <action android:name="cn.jpush.android.intent.REGISTRATION"/>-->
+        <!--Required 用户注册SDK的intent-->
+        <!--<action android:name="cn.jpush.android.intent.UNREGISTRATION"/>
+        <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/>
+        &lt;!&ndash;Required 用户接收SDK消息的intent&ndash;&gt;
+        <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED"/>
+        &lt;!&ndash;Required 用户接收SDK通知栏信息的intent&ndash;&gt;
+        <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/>
+        &lt;!&ndash;Required 用户打开自定义通知栏的intent&ndash;&gt;
+        <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK"/>
+        &lt;!&ndash;Optional 用户接受Rich Push Javascript 回调函数的intent&ndash;&gt;
+        <action android:name="cn.jpush.android.intent.CONNECTION"/>
+        &lt;!&ndash; 接收网络变化 连接/断开 since 1.6.3 &ndash;&gt;
+        <category android:name="${applicationId}"/>
+    </intent-filter>
+</receiver>-->
+        <!-- Required . Enable it you can get statistics data with channel --><!--
+        <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>-->
+
+        <!--极光推送APPKEY-->
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="84a8d5e9efbae2a4199b2984" />
+        <!-- </>值来自开发者平台取得的AppKey-->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"></service>
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="86d1fcac1b94098dd65f2f4a7969fe9b" />
+        <!--查看分享的好友列表-->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.ShareFrindes"
+            android:screenOrientation="portrait" />
+
+        <!--企业修改密码界面-->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.AlterPassword"
+            android:screenOrientation="portrait" />
+
+
+        <!--个人端手机注册-->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.PersonageRegister"
+            android:screenOrientation="portrait" />
+
+        <!--选择行业-->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.Industry"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.PublishActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <data android:scheme="tencent100371282" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.AdvertActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.SuggestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.ActListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.ShopActivity"
+            android:screenOrientation="portrait" />
+        <!--<activity
+            android:name="kdx.kdy.kdz.LL"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
+        <service
+            android:name="kdx.kdy.kdz.II"
+            android:exported="false" >
+        </service>
+        <service
+            android:name="kdx.kdy.kdz.TT"
+            android:exported="false" >
+        </service>
+        <receiver
+            android:name="kdx.kdy.kdz.JJ" >
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>-->
+        <!--商品详情-->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.ShopDetailsActivity"
+            android:screenOrientation="portrait" />
+        <!--商品购买确认-->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.BuyShopSetActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--在线支付-->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.ShopOrderActivity"
+            android:screenOrientation="portrait" />
+        <!--添加管理收货地址-->
+        <!--    <activity
+                android:name="com.jiebian.adwlf.ui.activity.enterprise.AddShopAdrress"
+                android:screenOrientation="portrait" />-->
+
+        <!--选择多图-->
+        <activity
+            android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
+            android:configChanges="orientation|screenSize" />
+
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.ListResourceActivity"
+            android:screenOrientation="portrait" />
+
+
+        <!--用户关注企业列表-->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.ListEnterActivity"
+            android:screenOrientation="portrait" />
+
+        <!--搜索关注企业的列表-->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.SearchEnterActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--足迹-->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.UserSpoor"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--收藏-->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.C_Collect"
+            android:screenOrientation="portrait" />
+        <!--辩论观点式资讯详情-->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.InformationForDetails"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <!--提现记录界面-->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.WithdrawRecordMoney"
+            android:screenOrientation="portrait" />
+        <!--搜索更多资讯-->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.MoreNewsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <!--PDF阅读界面-->
+        <activity
+            android:name="com.jiebian.adwlf.ui.activity.personal.PdfActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.artifex.mupdflib.MuPDFActivity"
+            android:label="查看"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name="com.artifex.mupdflib.PrintDialogActivity"
+            android:label="印刷"></activity>
+        <activity
+            android:name="com.artifex.mupdflib.PDFPreviewGridActivity"
+            android:label="preview label"></activity>
+
+        <!--企业端界面_start-->
+
+        <!--企业登录界面-->
+        <!--<activity
+            android:name=".ui.activity.eactivity.EnLoginActivity"
+            android:screenOrientation="portrait" />
+
+        &lt;!&ndash;企业注册界面&ndash;&gt;
+        <activity
+            android:name=".ui.activity.eactivity.EnRegisterActivity"
+            android:screenOrientation="portrait" />-->
+
+
+        <!--企业端忘记密码-->
+        <!-- <activity
+             android:name=".ui.activity.eactivity.EnForgetActivity"
+             android:screenOrientation="portrait" />
+ -->
+
+
+        <!--微信下单要求界面-->
+        <!--<activity
+            android:name=".ui.activity.eactivity.EnRequireWeiXinActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />-->
+
+        <!--企业订单支付界面-->
+        <!--<activity
+            android:name=".ui.activity.eactivity.EnPayment"
+            android:screenOrientation="portrait" />-->
+        <!--企业订单管理界面-->
+        <!--<activity
+            android:name=".ui.activity.eactivity.EnOrderManagementActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />-->
+
+
+        <!--企业邀请好友界面-->
+        <!--<activity
+            android:name=".ui.activity.eactivity.InviteFriendsActivity"
+            android:screenOrientation="portrait" />-->
+
+
+        <!--网页跳转处理界面-->
+        <activity
+            android:name=".ui.activity.SchemeActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="jiebian" />
+            </intent-filter>
+        </activity>
+
+        <!--个人端纯网页资讯-->
+        <activity
+            android:name=".ui.activity.personal.InformationWebviewActivity"
+            android:screenOrientation="portrait" />
+
+        <!--创意征集-->
+        <activity
+            android:name=".ui.activity.personal.OriginalityCoollectActivity"
+            android:screenOrientation="portrait" />
+        <!--申请代理-->
+
+    </application>
+</manifest>

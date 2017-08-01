@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="13dp"
+        android:background="#ffffff">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_hei"
+            android:textSize="11dp"
+            android:layout_margin="@dimen/left_right_retract_small"
+            android:layout_centerVertical="true"
+            android:text="2016年4月16日"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/item_textview_gray"
+            android:textSize="11dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/left_right_retract_small"
+            android:layout_centerVertical="true"
+            android:text="编号201632348866"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="24dp"
+        android:background="#f2f2f2">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/left_right_retract_small"
+            android:src="@mipmap/ic_launcher"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/item_textview_gray"
+            android:textSize="11dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/left_right_retract_small"
+            android:layout_centerVertical="true"
+            android:text="编号201632348866"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="13dp"
+        android:background="#ffffff">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/item_textview_gray"
+            android:textSize="11dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/left_right_retract_small"
+            android:layout_centerVertical="true"
+            android:text="编号201632348866"/>
+
+    </RelativeLayout>
+</LinearLayout>

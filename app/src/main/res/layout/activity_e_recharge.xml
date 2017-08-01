@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    android:weightSum="16">
+
+    <include
+        android:id="@+id/e_recharge_title"
+        style="@style/TitleStyle"
+        layout="@layout/e_title" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        style="@style/body_wigth">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="40dp"
+        android:paddingBottom="40dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/rech_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.00"
+                android:textColor="#FE8208"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="企业账户余额"
+                android:textSize="12dp" />
+        </LinearLayout>
+    </android.support.percent.PercentRelativeLayout>
+    <TextView style="@style/halving_line_e"/>
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            app:layout_marginLeftPercent="3%"
+            app:layout_marginRightPercent="3%">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="¥"
+                android:textColor="@color/text_hei"
+                android:padding="4dp"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/recharge_money_num"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@null"
+                android:gravity="center"
+                android:hint="请输入整数金额"
+                android:layout_marginLeft="@dimen/left_right_retract_small"
+                android:padding="8dp"
+                android:inputType="number"
+                android:textColorHint="#B3B3B3"
+                android:textSize="13dp" />
+        </LinearLayout>
+
+    </android.support.percent.PercentRelativeLayout>
+    <TextView
+        android:id="@+id/recharge_msg"
+        style="@style/halving_line_e"
+        android:layout_height="wrap_content"/>
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:padding="@dimen/left_right_retract_small"
+        >
+
+        <LinearLayout
+            android:id="@+id/ll_weixin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="@drawable/select_click"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:scaleType="center"
+                android:src="@mipmap/wechat" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="微信支付"
+                android:layout_marginLeft="@dimen/left_right_retract_small"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/option_weixin_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:scaleType="center"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/option"
+
+            android:layout_marginRight="@dimen/left_right_retract_small" />
+
+    </android.support.percent.PercentRelativeLayout>
+    <TextView style="@style/halving_line_e"/>
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:padding="@dimen/left_right_retract_small">
+
+        <LinearLayout
+            android:id="@+id/ll_alipay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="@drawable/select_click">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:scaleType="center"
+                android:src="@mipmap/alipay" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="支付宝支付"
+                android:layout_marginLeft="@dimen/left_right_retract_small"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/option_alipay_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:scaleType="center"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/option"
+            android:layout_marginRight="@dimen/left_right_retract_small"/>
+    </android.support.percent.PercentRelativeLayout>
+    <TextView
+        style="@style/halving_line_e"/>
+
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:padding="@dimen/left_right_retract_small">
+
+        <LinearLayout
+            android:id="@+id/or_vx"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            android:background="@drawable/select_click">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/more_recharge"
+                android:scaleType="center"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:hint="其他方式充值"
+                android:layout_marginLeft="@dimen/left_right_retract_small"
+                android:textSize="14dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/unfold"
+            android:scaleType="center"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="26dp" />
+
+    </android.support.percent.PercentRelativeLayout>
+    <TextView style="@style/halving_line_e"/>
+    <TextView
+        android:id="@+id/or_m"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:paddingLeft="20dp"
+        android:textSize="11dp"/>
+    <TextView style="@style/halving_line_e"/>
+    <android.support.percent.PercentRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp">
+
+        <Button
+            android:id="@+id/recharge_ok"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/select_log_button"
+            android:text="立即充值"
+            android:textColor="#ffffff"
+            android:textSize="17dp"
+            app:layout_heightPercent="50%"
+            app:layout_widthPercent="86%" />
+    </android.support.percent.PercentRelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.4" />
+    <TextView style="@style/halving_line_e"/>
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/go_finance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/select_click"
+        android:padding="@dimen/left_right_retract_small">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:layout_centerVertical="true"
+            android:text="财务信息"/>
+        <ImageView
+            app:layout_widthPercent="2.5%"
+            style="@style/into_image_style"
+            android:layout_marginRight="@dimen/left_right_retract_small"/>
+    </android.support.percent.PercentRelativeLayout>
+    <TextView style="@style/halving_line_e"/>
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/get_invoice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/select_click"
+        android:padding="@dimen/left_right_retract_small">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:layout_centerVertical="true"
+            android:text="索要发票"/>
+        <ImageView
+            app:layout_widthPercent="2.5%"
+            style="@style/into_image_style"
+            android:layout_marginRight="@dimen/left_right_retract_small"/>
+    </android.support.percent.PercentRelativeLayout>
+    <TextView style="@style/halving_line_e"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

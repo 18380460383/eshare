@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:weightSum="16"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <include
+        style="@style/TitleStyle"
+        layout="@layout/e_title" />
+
+    <ScrollView
+        android:layout_weight="14.5"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:layout_weight="14.5"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <com.jiebian.adwlf.view.XCRoundRectImageView
+                    android:id="@+id/iv_avatar"
+                    android:src="@mipmap/icon_avatar_default"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp" />
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_account"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tv_attr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_margin="6dp"
+                android:text="阅读量"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/ly_tubiao"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"></LinearLayout>
+
+            <TextView
+                android:layout_margin="6dp"
+                android:text="发布文章"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ListView
+                android:layout_margin="6dp"
+                android:id="@+id/lv_weixin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

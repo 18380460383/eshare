@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 这是排名明细item -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:paddingTop="10dp"
+              android:paddingBottom="10dp">
+
+    <!-- 排名 -->
+    <TextView
+        android:id="@+id/topn_rank"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="1"
+        android:textSize="15dp"
+        android:textColor="#000"/>
+
+    <!-- 昵称 -->
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="姓名"
+        android:textSize="15dp"
+        android:textColor="#000"/>
+
+    <!-- 收入 -->
+    <TextView
+        android:id="@+id/earn_money"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="￥0"
+        android:textSize="15dp"
+        android:textColor="@color/orange"/>
+
+    <!-- 转发量 -->
+    <TextView
+        android:id="@+id/relaynum"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:text="0"
+        android:textSize="15dp"
+        android:textColor="#000"/>
+</LinearLayout>

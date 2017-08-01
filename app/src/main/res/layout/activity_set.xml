@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:weightSum="16"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/set_title"
+        style="@style/TitleStyle"
+        layout="@layout/e_title" />
+    <LinearLayout
+        android:weightSum="14"
+        android:orientation="vertical"
+        style="@style/body_wigth"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:layout_marginTop="40dp"
+            android:background="@drawable/select_click"
+            android:id="@+id/activity_set_ly_account"
+            android:layout_weight="1"
+            android:weightSum="4"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/set_text"
+                android:layout_gravity="center_vertical"
+                android:text="@string/set_account"
+                android:layout_weight="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:gravity="right"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_marginRight="20dp"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/into"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </LinearLayout>
+        <TextView
+            style="@style/halving_line_e"/>
+
+        <LinearLayout
+            android:background="@color/no4_white"
+            android:layout_weight="1"
+            android:weightSum="4"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/set_text"
+                android:text="@string/set_new_message"
+                android:layout_weight="3"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:gravity="right"
+                android:layout_height="match_parent">
+                <ToggleButton
+                    android:id="@+id/activity_set_tb_msg"
+                    android:textOn=""
+                    android:textOff=""
+                    android:text=""
+                    android:layout_marginRight="20dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/drawable_set_msg"
+                    android:layout_width="50dp"
+                    android:layout_height="24dp" />
+            </RelativeLayout>
+        </LinearLayout>
+        <TextView
+            style="@style/halving_line_e"/>
+        <LinearLayout
+            android:id="@+id/activity_set_ly_check"
+            android:background="@color/no4_white"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_gravity="center_vertical"
+                style="@style/set_text"
+                android:text="@string/set_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:gravity="right"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/activity_set_tv_version"
+                    android:text="1"
+                    android:layout_marginRight="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </LinearLayout>
+        <TextView
+            style="@style/halving_line_e"/>
+
+        <LinearLayout
+            android:background="@drawable/select_click"
+            android:id="@+id/activity_set_ly_about"
+            android:layout_weight="1"
+            android:weightSum="4"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_gravity="center_vertical"
+                style="@style/set_text"
+                android:text="@string/set_about"
+                android:layout_weight="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:gravity="right"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:layout_marginRight="20dp"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/into"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </LinearLayout>
+        <TextView
+            style="@style/halving_line_e"/>
+        <LinearLayout
+            android:background="@drawable/select_click"
+            android:id="@+id/exit"
+            android:layout_weight="1"
+            android:weightSum="4"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_gravity="center_vertical"
+                style="@style/set_text"
+                android:text="@string/set_exit"
+                android:layout_weight="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

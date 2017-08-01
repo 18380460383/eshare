@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:weightSum="16"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        style="@style/TitleStyle"
+        layout="@layout/e_title" />
+    <ScrollView
+        android:layout_weight="14.5"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </LinearLayout>
+            <TextView
+                style="@style/En_TextView"
+                android:text="文章标题" />
+
+            <EditText
+                android:id="@+id/et_title"
+                android:padding="6dp"
+                android:gravity="top"
+                android:hint="请填写本次文章标题"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:background="@drawable/shape_e_et_gray"
+                android:textSize="15sp"
+                android:lines="3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                style="@style/En_TextView"
+                android:text="投放时间"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_time_start"
+                    android:layout_weight="1"
+                    android:drawableRight="@mipmap/icon_e_calendar"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:padding="12dp"
+                    android:text="2016-5-1"
+                    android:background="@drawable/shape_e_et_gray"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:text="至"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_time_end"
+                    android:layout_weight="1"
+                    android:drawableRight="@mipmap/icon_e_calendar"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:padding="12dp"
+                    android:text="2016-5-1"
+                    android:background="@drawable/shape_e_et_gray"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+            <TextView
+                style="@style/En_TextView"
+                android:text="关键字"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/et_keyword"
+                style="@style/En_EditText"
+                android:hint="请输入关键字" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/orange"
+                    android:id="@+id/tv_hand_write"
+                    style="@style/En_TextView"
+                    android:text="手动编写" />
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/gray"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/tv_add_link"
+
+                    style="@style/En_TextView"
+                    android:text="添加链接"/>
+
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/et_content2"
+                    android:hint="请填写手动编写内容"
+                    android:padding="6dp"
+                    android:gravity="top"
+                    android:background="@drawable/shape_e_et_gray"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:lines="6"
+                    android:textSize="15sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+
+                    android:visibility="gone"
+                    android:id="@+id/et_content"
+                    android:hint="@string/et_jiebian"
+                    android:padding="6dp"
+                    android:gravity="top"
+                    android:background="@drawable/shape_e_et_gray"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:lines="6"
+                    android:textSize="15sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+                <CheckBox
+                    android:checked="true"
+                    android:id="@+id/cb_agree_turn"
+                    android:text="同意被转载"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <CheckBox
+                    android:checked="true"
+                    android:id="@+id/cb_agree_alter"
+                    android:layout_weight="1"
+                    android:text="同意被采编修改"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:weightSum="5"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_money_all"
+            android:textColor="@android:color/white"
+            android:padding="12dp"
+            android:gravity="center"
+            android:background="#333239"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_put_shopcar"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text="加入购物车"
+            android:padding="12dp"
+            android:background="@color/orange"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

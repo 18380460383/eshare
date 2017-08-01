@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/write"
+    android:weightSum="16"
+    >
+
+    <include android:id="@+id/title"
+        style="@style/TitleStyle"
+        layout="@layout/title" />
+
+    <!-- button切换按钮 -->
+    <!--<LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="0dp"
+        android:layout_width="fill_parent"
+        android:layout_weight="1.2">
+
+        <Button android:contentDescription="@string/app_name"
+            android:id="@+id/record_relay"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/record_relay"
+            android:textSize="12dp"
+            android:textColor="@color/gray"
+            android:background="@drawable/bottom_hometab"/>
+        <Button android:contentDescription="@string/app_name"
+            android:id="@+id/record_earn"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/record_earn"
+            android:textSize="12dp"
+            android:textColor="@color/gray"
+            android:background="@drawable/bottom_hometab"/>
+
+    </LinearLayout>-->
+
+    <FrameLayout
+        android:id="@+id/record_pager"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        style="@style/body_wigth"
+        />
+
+</LinearLayout>

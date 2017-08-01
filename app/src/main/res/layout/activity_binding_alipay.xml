@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:weightSum="16">
+
+    <include android:id="@+id/binding_title"
+             style="@style/TitleStyle"
+             layout="@layout/e_title" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        style="@style/body_wigth">
+        <!-- 线条 -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="#dcdcdc"/>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal"
+            android:stretchColumns="1"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+            <TableRow>
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="30dp"
+                    android:text="@string/alipay_name"
+                    android:textSize="15dp"
+                    android:textColor="#000"/>
+
+                <!-- 填写支付宝真实姓名 -->
+                <EditText
+                    android:id="@+id/alipay_name"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="@null"
+                    android:hint="@string/alipay_name_hint"
+                    android:textSize="13dp"
+                    android:maxLines="1"/>
+            </TableRow>
+
+            <!-- 线条 -->
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="#dcdcdc"/>
+
+            <TableRow>
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/alipay_account"
+                    android:textSize="15dp"
+                    android:textColor="#000"/>
+
+                <!-- 填写支付宝账号 -->
+                <EditText
+                    android:id="@+id/alipay_account"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:hint="@string/alipay_account_hint"
+                    android:background="@null"
+                    android:textSize="13dp"
+                    android:maxLines="1"/>
+
+
+            </TableRow>
+        </TableLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="#dcdcdc"/>
+
+        <!-- 绑定确认 -->
+        <Button
+            android:id="@+id/alipayBinding_affirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/withdraw_affirm"
+            android:layout_marginTop="40dp"
+            android:text="@string/affirm"
+            android:textColor="@color/write"/>
+    </LinearLayout>
+
+
+</LinearLayout>

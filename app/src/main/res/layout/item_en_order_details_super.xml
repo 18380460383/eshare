@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E7E7E7"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/into_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingBottom="8dp"
+        android:paddingLeft="@dimen/left_right_retract_small"
+        android:background="#E7E7E7"
+        android:paddingTop="8dp">
+
+        <ImageView
+            android:id="@+id/type_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_e_home_meiti" />
+
+        <TextView
+            android:id="@+id/type_name"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/left_right_retract_small"
+            android:text="媒体"
+            android:textColor="@color/blue"
+            android:textSize="14dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/into"
+            android:layout_marginRight="@dimen/left_right_retract_small"
+            />
+    </LinearLayout>
+    <com.jiebian.adwlf.view.MyListView
+        android:id="@+id/user_list"
+        android:layout_width="match_parent"
+        android:background="@color/write"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

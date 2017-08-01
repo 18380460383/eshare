@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/banner_rl"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/consule_banner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <com.jiebian.adwlf.view.PointListView
+            android:id="@+id/consule_pointlistview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="2dp"/>
+    </RelativeLayout>
+</LinearLayout>

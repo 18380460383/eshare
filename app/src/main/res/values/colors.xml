@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- No.1 -->
+    <color name="no1_bule_light">#11A8AB</color>
+    <!-- No.2 -->
+    <color name="no2_bule_dark">#038d90</color>
+    <!-- No.3 -->
+    <color name="no3_black">#000000</color>
+    <!-- No.4 -->
+    <color name="no4_white">#ffffff</color>
+    <!-- No.5 -->
+    <color name="no5_gray_backgroud">#c0c0c0</color>
+    <!-- no.6 -->
+    <color name="no6_gray_text">#8E97B5</color>
+    <color name="page_title_text">#5b8e97b5</color>
+
+    <!-- no.7 -->
+    <color name="no7_red_sidebar">#ffffffff</color>
+    <!-- No.8 -->
+    <color name="no8_gray_serach_list">#E0E0E0</color>
+    <!-- no.9 -->
+    <color name="no9_gray_diver">#d7d6d6</color>
+    <!-- no.10 -->
+    <color name="red">#ff0000</color>
+    <!--消息中心灰色小点-->
+    <color name="gray_spot">#D4D4D4</color>
+    <!--消息单个信息的线条-->
+    <color name="line_msg_center">#F1F1F1</color>
+    <!--普通文字颜色-->
+    <color name="text_normal">#000</color>
+    <color name="write">#ffffff</color>
+    <color name="gray">#b8a892</color>
+    <color name="orange">#FFB129</color>
+    <color name="blue">#169ada</color>
+    <color name="click_up">#ffffff</color>
+    <color name="click_press">#E7E7E7</color>
+    <color name="click_ok">#169ADA</color>
+    <color name="txtclick_press">#FF8208</color>
+    <color name="txtclick">#cecece</color>
+    <color name="umeng_fb_lightblue">#FF0FB0A8</color>
+    <color name="umeng_fb_gray">#FFD8D8D8</color>
+    <color name="umeng_fb_line">#DCDCDC</color>
+    <color name="umeng_fb_secondary_text_light">#8A000000</color>
+    <color name="umeng_fb_white">#FFFFFF</color>
+    <color name="umeng_fb_audo_dialog_bg">#F4F0745F</color>
+    <color name="umeng_fb_tab_bg_pressed">#6633B5E5</color>
+    <color name="umeng_fb_background">#F6F6F6</color>
+    <!--设置界面的文字颜色-->
+    <color name="set_text">#000000</color>
+    <color name="line_thin">#DADADA</color>
+    <color name="page_ground">#F0EFF5</color>
+    <color name="btn_register">#276290</color>
+    <color name="btn_login">#FF8208</color>
+
+    <color name="default_text">#000000</color>
+
+    <!--添加模板界面-->
+    <!--按下-->
+    <color name="publish_press">#DADADA</color>
+    <!--没按下-->
+    <color name="publish_normal">#E9E9E9</color>
+    <!--提示-->
+    <color name="publish_hint">#266390</color>
+    <!--图片背景-->
+    <color name="publish_picture">#266390</color>
+    <!--文字-->
+    <color name="publish_text">#797979</color>
+    <!--预览-->
+    <color name="preview_bg">#1C6BA5</color>
+    <color name="reg_packed">#47716565</color>
+    <color name="grey">#cac5c5</color>
+    <!--textview未选择底色-->
+    <color name="item_textview_nochecked">#EBEBEC</color>
+    <!--textview未选择文字颜色-->
+    <color name="item_textview_textcolor">#636363</color>
+    <color name="item_textview_gray">#999999</color>
+    <!--标题栏黑-->
+    <color name="title_hei">#33323A</color>
+    <!--字体黑-->
+    <color name="text_hei">#333333</color>
+    <color name="screen_default_gray">#F9F9F9</color>
+    <color name="halving_line">#ededed</color>
+    <color name="shop_kuang">#eaeaea</color>
+    <color name="shop_item">#eff1f2</color>
+    <color name="menu_press">#302f37</color>
+    <color name="menu_hei">#3a3940</color>
+    <color name="actionbar_background">#33323A</color>
+    <color name="actionbar_background_dark">#33323A</color>
+    <color name="actionbar_background_semitransp">#33323A</color>
+    <color name="actionbar_tint">#FFD0E5</color>
+    <color name="guide_nei_button">#69b6f7</color>
+
+    <!--企业端背景颜色-->
+    <color name="bg_en" >#EEF0F1</color>
+
+    <color name="en_line_hor">#d5d4d4d4</color>
+    <!--查看已选显示总金额的文字背景-->
+    <color name="en_selected_tv">#323239</color>
+    
+    <color name="en_request_tv">#FFB047</color>
+    <color name="en_order_m_money">#FF7979</color>
+    <color name="en_de_textview">#999999</color>
+
+    <color name="button_normal">#00000000</color>
+    <color name="button_pressed">#8C8C8C8C</color>
+    <color name="text_pressed">#FFFFFF</color>
+    <color name="text_border_normal">#8C8C8C</color>
+    <color name="text_border_pressed">#2572AC</color>
+    <color name="text_border_focused">#8C8C8C</color>
+
+    <color name="header">#FF33B5E5</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="thumbnail_selected_background">#BBA8A8A8</color>
+</resources>

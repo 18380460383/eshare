@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 这是提现明细item -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:layout_width="match_parent"
+      android:layout_height="80dp"
+    android:background="#ffffff"
+    >
+
+
+
+    <!-- 金额-->
+    <TextView
+        android:id="@+id/withdraw_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/left_right_retract_small"
+        android:layout_marginLeft="@dimen/left_right_retract_small"
+        android:textSize="18dp"
+        android:text="100.00"
+        android:textColor="@color/orange"/>
+    <!-- 时间-->
+    <TextView
+        android:id="@+id/withdraw_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:gravity="center"
+        android:layout_below="@+id/withdraw_money"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="@dimen/left_right_retract_small"
+        android:text="dsafdsaf"
+        />
+    <!-- 审核状态-->
+    <TextView
+        android:id="@+id/withdraw_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_alignTop="@+id/withdraw_money"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/left_right_retract_small"
+        android:text="待审核"
+        android:textSize="16dp"
+        android:textColor="@color/text_hei"/>
+</RelativeLayout>

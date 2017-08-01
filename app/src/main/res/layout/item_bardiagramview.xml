@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/left_right_retract_small">
+    <TextView
+        android:id="@+id/bar_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:text="asdfsdafa"/>
+    <TextView
+        android:id="@+id/bar_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:layout_alignParentRight="true"
+        android:text="3000"/>
+    <ProgressBar
+        android:id="@+id/bar_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_below="@+id/bar_name"
+        android:max="100"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progress="20"/>
+</RelativeLayout>
