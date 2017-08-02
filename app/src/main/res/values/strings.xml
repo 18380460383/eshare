@@ -64,7 +64,7 @@
     <string name="personal_quoted_price">转发报价</string>
     <string name="personal_quoted_email">邮箱地址</string>
     <string name="return_main">返回</string>
-    
+
     <!-- 榜单详情页面 -->
     <string name="topn_rank">排名</string>
     <string name="topn_name">昵称</string>
@@ -73,9 +73,9 @@
     <string name="record_relay">转发记录</string>
     <string name="record_earn">收入记录</string>
     <string name="record_money">提现明细</string>
- <!--验证手机-->
+    <!--验证手机-->
     <string name="withdraw_hint">如果提现失败，我们将电话联系您！</string>
-    
+
     <!--设置界面文字-->
     <string name="set_account">账号信息</string>
     <string name="set_new_message">新消息提醒</string>
@@ -96,7 +96,6 @@
     <string name="money_topN">榜单</string>
     <string name="money_record">个人记录</string>
     <string name="money_friend">我的好友</string>
-
 
 
     <!--界变1.1版本大更新全部替换配置 name规范（。xml文件:控件id_vstr;.class使用：class名_功能名_cstr）
