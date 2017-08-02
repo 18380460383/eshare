@@ -10,7 +10,7 @@
             android:id="@+id/consule_banner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <com.jiebian.adwlf.view.PointListView
+        <com.cardholder.adwlf.view.PointListView
             android:id="@+id/consule_pointlistview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

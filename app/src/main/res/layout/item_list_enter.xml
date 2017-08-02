@@ -9,7 +9,7 @@
     <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.jiebian.adwlf.view.SquareImageView
+        <com.cardholder.adwlf.view.SquareImageView
             android:layout_margin="10dp"
             app:layout_widthPercent="18%"
             android:id="@+id/item_iv_logo"

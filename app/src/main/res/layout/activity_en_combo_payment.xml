@@ -22,7 +22,7 @@
                 android:background="@color/write"
                 android:padding="@dimen/left_right_retract_small"
                 android:orientation="horizontal">
-                <com.jiebian.adwlf.view.XCRoundRectImageView
+                <com.cardholder.adwlf.view.XCRoundRectImageView
                     android:id="@+id/combo_image"
                     android:layout_width="100dp"
                     android:layout_height="100dp"

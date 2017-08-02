@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.jiebian.adwlf">
+    package="com.cardholder.adwlf">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -31,7 +31,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <!-- Required -->
     <permission
-        android:name="com.jiebian.adwlf.permission.JPUSH_MESSAGE"
+        android:name="com.cardholder.adwlf.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <!-- 蓝牙分享所需的权限 -->
@@ -59,7 +59,7 @@
         android:xlargeScreens="true" />
 
     <application
-        android:name="com.jiebian.adwlf.AppContext"
+        android:name="com.cardholder.adwlf.AppContext"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -73,7 +73,7 @@
              android:value="${ESHARE_CHANNEL_VALUE}" />-->
         <!-- logo页面 -->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.LogoActivity"
+            android:name="com.cardholder.adwlf.ui.activity.LogoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/LogoTheme">
             <intent-filter>
@@ -84,17 +84,17 @@
 
         <!-- 使用说明界面 -->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.GuideActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.GuideActivity"
             android:screenOrientation="portrait" />
 
         <!-- 第一次引导界面 -->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.FirstGuideActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.FirstGuideActivity"
             android:screenOrientation="portrait" />
 
         <!-- 微信回掉页面 -->
         <activity
-            android:name="com.jiebian.adwlf.wxapi.WXEntryActivity"
+            android:name="com.cardholder.adwlf.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -102,7 +102,7 @@
 
         <!-- 主界面 -->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.MainTabActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.MainTabActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
@@ -111,92 +111,92 @@
 
         <!-- 详情界面 -->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.DetialActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.DetialActivity"
             android:screenOrientation="portrait" />
 
         <!-- 个人信息界面 -->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.UserDetailInfoActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.UserDetailInfoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 
 
         <!-- 个人记录界面 -->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.RecordActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.RecordActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
 
         <!-- 分享界面 -->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.ShareActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.ShareActivity"
             android:screenOrientation="portrait" />
         <!--验证手机号码界面-->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.CheckPhoneActivity"
+            android:name="com.cardholder.adwlf.ui.activity.CheckPhoneActivity"
             android:screenOrientation="portrait" />
         <!-- 网页界面 -->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.WebviewActivity"
+            android:name="com.cardholder.adwlf.ui.activity.WebviewActivity"
             android:screenOrientation="portrait" />
 
         <!--认证身份界面-->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.AttestationActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.AttestationActivity"
             android:screenOrientation="portrait" />
 
         <!--认证详情界面-->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.AttestationDetailActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.AttestationDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.MsgDetailActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.MsgDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.SchoolAct"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.Generalize_Record"
+            android:name="com.cardholder.adwlf.ui.activity.personal.SchoolAct"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="com.cardholder.adwlf.ui.activity.personal.Generalize_Record"
+            android:screenOrientation="portrait" />
+
 
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.FinancialInformation"
+            android:name="com.cardholder.adwlf.ui.activity.personal.FinancialInformation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.ExplainActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.ExplainActivity"
             android:screenOrientation="portrait" />
 
         android:name="com.jiebian.adwlf.ui.activity.Invoice"
         android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.AccountActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.AccountActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.AboutActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.AboutActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.MsgCenterActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.MsgCenterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.BindingWeixinActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.BindingWeixinActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.ForecastActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.ForecastActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.SetActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.SetActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.ForecastDetailActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.ForecastDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.LoginActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.LoginActivity"
             android:screenOrientation="portrait" />
 
         android:name="com.jiebian.adwlf.view.EshareDialogActivity"
@@ -204,23 +204,23 @@
         android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <!-- 摇一摇界面 -->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.YaoActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.YaoActivity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <!-- 签到界面 -->
         <!-- 活动详情界面 -->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.BaseWebActivity"
+            android:name="com.cardholder.adwlf.ui.activity.BaseWebActivity"
             android:screenOrientation="portrait" />
 
         <!-- 兑换记录界面 -->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.ExchangeActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.ExchangeActivity"
             android:screenOrientation="portrait" />
 
         <!-- 兑换详情界面 -->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.DetailEXActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.DetailEXActivity"
             android:screenOrientation="portrait" />
 
 
@@ -326,7 +326,7 @@
             android:name="cn.jpush.android.service.AlarmReceiver"
             android:exported="false" />
         <receiver
-            android:name="com.jiebian.adwlf.broadcast.EshareBroadcast"
+            android:name="com.cardholder.adwlf.broadcast.EshareBroadcast"
             android:enabled="true">
             <intent-filter>
                 <!--Required 用户注册SDK的intent-->
@@ -384,27 +384,27 @@
             android:value="86d1fcac1b94098dd65f2f4a7969fe9b" />
         <!--查看分享的好友列表-->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.ShareFrindes"
+            android:name="com.cardholder.adwlf.ui.activity.personal.ShareFrindes"
             android:screenOrientation="portrait" />
 
         <!--企业修改密码界面-->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.AlterPassword"
+            android:name="com.cardholder.adwlf.ui.activity.AlterPassword"
             android:screenOrientation="portrait" />
 
 
         <!--个人端手机注册-->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.PersonageRegister"
+            android:name="com.cardholder.adwlf.ui.activity.personal.PersonageRegister"
             android:screenOrientation="portrait" />
 
         <!--选择行业-->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.Industry"
+            android:name="com.cardholder.adwlf.ui.activity.Industry"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.PublishActivity"
+            android:name="com.cardholder.adwlf.ui.activity.PublishActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -426,16 +426,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.AdvertActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.AdvertActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.SuggestActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.SuggestActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.ActListActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.ActListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.ShopActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.ShopActivity"
             android:screenOrientation="portrait" />
         <!--<activity
             android:name="kdx.kdy.kdz.LL"
@@ -459,16 +459,16 @@
         </receiver>-->
         <!--商品详情-->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.ShopDetailsActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.ShopDetailsActivity"
             android:screenOrientation="portrait" />
         <!--商品购买确认-->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.BuyShopSetActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.BuyShopSetActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!--在线支付-->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.ShopOrderActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.ShopOrderActivity"
             android:screenOrientation="portrait" />
         <!--添加管理收货地址-->
         <!--    <activity
@@ -476,56 +476,56 @@
                 android:screenOrientation="portrait" />-->
 
         <!--选择多图-->
-        <activity
+        <!--<activity
             android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
-            android:configChanges="orientation|screenSize" />
+            android:configChanges="orientation|screenSize" />-->
 
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
 
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.ListResourceActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.ListResourceActivity"
             android:screenOrientation="portrait" />
 
 
         <!--用户关注企业列表-->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.ListEnterActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.ListEnterActivity"
             android:screenOrientation="portrait" />
 
         <!--搜索关注企业的列表-->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.SearchEnterActivity"
+            android:name="com.cardholder.adwlf.ui.activity.SearchEnterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!--足迹-->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.UserSpoor"
+            android:name="com.cardholder.adwlf.ui.activity.personal.UserSpoor"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!--收藏-->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.C_Collect"
+            android:name="com.cardholder.adwlf.ui.activity.personal.C_Collect"
             android:screenOrientation="portrait" />
         <!--辩论观点式资讯详情-->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.InformationForDetails"
+            android:name="com.cardholder.adwlf.ui.activity.personal.InformationForDetails"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
         <!--提现记录界面-->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.WithdrawRecordMoney"
+            android:name="com.cardholder.adwlf.ui.activity.personal.WithdrawRecordMoney"
             android:screenOrientation="portrait" />
         <!--搜索更多资讯-->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.MoreNewsActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.MoreNewsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!--PDF阅读界面-->
         <activity
-            android:name="com.jiebian.adwlf.ui.activity.personal.PdfActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.PdfActivity"
             android:screenOrientation="portrait" />
-        <activity
+        <!--<activity
             android:name="com.artifex.mupdflib.MuPDFActivity"
             android:label="查看"
             android:screenOrientation="portrait"></activity>
@@ -534,7 +534,7 @@
             android:label="印刷"></activity>
         <activity
             android:name="com.artifex.mupdflib.PDFPreviewGridActivity"
-            android:label="preview label"></activity>
+            android:label="preview label"></activity>-->
 
         <!--企业端界面_start-->
 
@@ -581,7 +581,7 @@
 
         <!--网页跳转处理界面-->
         <activity
-            android:name=".ui.activity.SchemeActivity"
+            android:name="com.cardholder.adwlf.ui.activity.SchemeActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -595,14 +595,13 @@
 
         <!--个人端纯网页资讯-->
         <activity
-            android:name=".ui.activity.personal.InformationWebviewActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.InformationWebviewActivity"
             android:screenOrientation="portrait" />
 
         <!--创意征集-->
         <activity
-            android:name=".ui.activity.personal.OriginalityCoollectActivity"
+            android:name="com.cardholder.adwlf.ui.activity.personal.OriginalityCoollectActivity"
             android:screenOrientation="portrait" />
         <!--申请代理-->
-
     </application>
 </manifest>

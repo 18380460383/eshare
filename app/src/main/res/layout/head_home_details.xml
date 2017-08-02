@@ -196,7 +196,7 @@
 
     </RadioGroup>
 
-    <com.jiebian.adwlf.view.HistogramView
+    <com.cardholder.adwlf.view.HistogramView
         android:id="@+id/histogramview"
         android:layout_width="match_parent"
         android:layout_height="200dp"

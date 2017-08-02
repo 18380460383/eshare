@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center">
 
-        <com.jiebian.adwlf.view.BackGroundView
+        <com.cardholder.adwlf.view.BackGroundView
             android:id="@+id/iv_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

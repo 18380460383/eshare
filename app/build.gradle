@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
-        applicationId "com.jiebian.adwlf"
+        applicationId "com.cardholder.adwlf"
         minSdkVersion 19
         targetSdkVersion 23
         versionCode 22
@@ -15,7 +15,9 @@ android {
             abiFilters "armeabi", "armeabi-v7a", "x86","mips"
         }
         multiDexEnabled true
-
+        sourceSets.main {
+            jniLibs.srcDirs = ["jniLibs"]    //so指定存放目录,生成so文件后需要手动将其拷贝到该目录
+        }
     }
     dexOptions {
         preDexLibraries = false
@@ -53,54 +55,12 @@ android {
             // dx.additionalParameters += "--main-dex-list=$projectDir/<filename>".toString() // enable the main-dex-list
         }
     }
-    productFlavors {
-        /*cdligon {
-            manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "10"]
-        }
-        xinan {
-            manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "11"]
-        }*/
-         /*appstore {
-              manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "appstore"]
-          }
-         *//*basulongmen{
-              manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "12"]
-          }*//*
-          appstory360{
-              manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "13"]
-          }
-        tencent{
-            manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "14"]
-        }
-        baidu_helper{
-            manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "15"]
-        }
-        helper91{
-            manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "16"]
-        }
-        androidstory{
-            manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "17"]
-        }
-        xiaomi{
-            manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "18"]
-        }
-        weixingongzong{
-             manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "19"]
-         }
-       wandoujia{
-             manifestPlaceholders = [ESHARE_CHANNEL_VALUE: "20"]
-         }*/
-    }
-        // .. android settings ..
-        sourceSets.main {
-            jniLibs.srcDirs = ['jniLibs']  // <-- Set your folder here!
-        }
 }
 
 
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':pulltorefresh')
     compile 'com.android.support:support-v4:23.1.0'
     compile 'com.android.support:appcompat-v7:23.1.0'
@@ -111,8 +71,9 @@ dependencies {
     compile 'com.ogaclejapan.smarttablayout:utils-v4:1.6.0@aar'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     //compile project(':libraryPDF')
-   /* compile project(':OneSDK')*/
+     compile project(':OneSDK')
     compile 'com.meiqia:meiqiasdk:3.2.5@aar'
     compile 'com.squareup.okhttp3:okhttp:3.3.1'
     compile 'com.squareup.picasso:picasso:2.4.0'
+
 }

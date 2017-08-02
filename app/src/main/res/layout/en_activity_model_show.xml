@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp">
 
-        <com.jiebian.adwlf.view.SelectView
+        <com.cardholder.adwlf.view.SelectView
             android:id="@+id/selectView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

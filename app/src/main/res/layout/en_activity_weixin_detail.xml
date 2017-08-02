@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:layout_height="wrap_content">
-                <com.jiebian.adwlf.view.XCRoundRectImageView
+                <com.cardholder.adwlf.view.XCRoundRectImageView
                     android:id="@+id/iv_avatar"
                     android:src="@mipmap/icon_avatar_default"
                     android:layout_width="80dp"

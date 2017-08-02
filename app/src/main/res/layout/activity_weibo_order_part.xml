@@ -151,7 +151,7 @@
                     android:text="微博配图"
                     android:textColor="@color/text_hei" />
 
-                <com.jiebian.adwlf.view.MyGridView
+                <com.cardholder.adwlf.view.MyGridView
                     android:id="@+id/weibo_images_above"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

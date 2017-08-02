@@ -5,7 +5,7 @@
     android:background="@color/write"
     android:orientation="vertical">
 
-        <com.jiebian.adwlf.view.XCRoundRectImageView
+        <com.cardholder.adwlf.view.XCRoundRectImageView
             android:id="@+id/viewpoint_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
