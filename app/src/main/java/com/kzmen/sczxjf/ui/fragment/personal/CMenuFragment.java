@@ -30,6 +30,7 @@ import com.kzmen.sczxjf.net.EnWebUtil;
 import com.kzmen.sczxjf.ui.activity.personal.ActListActivity;
 import com.kzmen.sczxjf.ui.activity.personal.C_Collect;
 import com.kzmen.sczxjf.ui.activity.personal.LoginActivity;
+import com.kzmen.sczxjf.ui.activity.personal.MainTabActivity;
 import com.kzmen.sczxjf.ui.activity.personal.OriginalityCoollectActivity;
 import com.kzmen.sczxjf.ui.activity.personal.RecordActivity;
 import com.kzmen.sczxjf.ui.activity.personal.ShareFrindes;
@@ -70,8 +71,8 @@ public class CMenuFragment extends SuperFragment {
 
     @InjectView(R.id.c_menu_collect_onc)
     RelativeLayout cMenuCollect;
-/*    @InjectView(R.id.c_menu_order_onc)
-    RelativeLayout cMenuOrder;*/
+    /*    @InjectView(R.id.c_menu_order_onc)
+        RelativeLayout cMenuOrder;*/
     @InjectView(R.id.c_menu_friend_onc)
     RelativeLayout cMenuFriend;
     @InjectView(R.id.c_menu_activity_onc)
@@ -88,6 +89,9 @@ public class CMenuFragment extends SuperFragment {
     TextView cMenuAttestationMarkForE;
     @InjectView(R.id.c_menu_attestation_mark_for_m)
     TextView cMenuAttestationMarkForM;
+    @InjectView(R.id.iv_close)
+    ImageView iv_close;
+
     private boolean DOINGGETBALANCE;
     private MenuBack menuBack;
     private View view;
@@ -100,11 +104,11 @@ public class CMenuFragment extends SuperFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = setContentView(inflater, container, R.layout.fragment_menu_c);
+        view = setContentView(inflater, container, R.layout.fragment_menu);
         ButterKnife.inject(this, view);
         setRecriver();
         AppContext instance = AppContext.getInstance();
-        if(!TextUtils.isEmpty(instance.getPEUser().getUid())){
+        if (!TextUtils.isEmpty(instance.getPEUser().getUid())) {
             setUserInfo();
             getBanner();
         }
@@ -113,7 +117,7 @@ public class CMenuFragment extends SuperFragment {
     }
 
     private void setRecriver() {
-        bannerReceiver=new BroadcastReceiver() {
+        bannerReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 getBanner();
@@ -124,20 +128,21 @@ public class CMenuFragment extends SuperFragment {
         getContext().registerReceiver(bannerReceiver, filter);
     }
 
-    @OnClick({R.id.c_menu_user_head_iv,R.id.c_menu_collect_onc,
-            /*R.id.c_menu_order_onc,*/ R.id.c_menu_friend_onc, R.id.c_menu_activity_onc,R.id.c_menu_balance,
-            R.id.c_menu_credits_exchange_onc, R.id.c_menu_setting_onc, R.id.c_menu_feedback_onc,R.id.c_menu_creative_collection_rl})
+    @OnClick({R.id.c_menu_user_head_iv, R.id.c_menu_collect_onc,
+            /*R.id.c_menu_order_onc,*/ R.id.c_menu_friend_onc, R.id.c_menu_activity_onc, R.id.c_menu_balance,
+            R.id.c_menu_credits_exchange_onc, R.id.c_menu_setting_onc, R.id.c_menu_feedback_onc, R.id.c_menu_creative_collection_rl
+            ,R.id.iv_close})
     public void Listener(View view) {
         switch (view.getId()) {
             case R.id.c_menu_user_head_iv:
                 //TODO 点击头像
-                if(!AppContext.getInstance().getPersonageOnLine()){
+                if (!AppContext.getInstance().getPersonageOnLine()) {
                     //TODO 登陆
                     Intent intent = new Intent(getContext(), LoginActivity.class);
-                    startActivityForResult(intent,2);
-                }else {
+                    startActivityForResult(intent, 2);
+                } else {
                     UIManager.showPersonInfoActivity((Activity) getContext());
-                    Log.i("info","跳");
+                    Log.i("info", "跳");
                 }
                 break;
 
@@ -183,9 +188,12 @@ public class CMenuFragment extends SuperFragment {
                 Intent intent3 = new Intent(getContext(), OriginalityCoollectActivity.class);
                 getContext().startActivity(intent3);
                 break;
+            case R.id.iv_close:
+                ((MainTabActivity)getActivity()).closeDraw();
+                break;
 
         }
-        if(menuBack!=null){
+        if (menuBack != null) {
             menuBack.startActivity();
         }
     }
@@ -194,7 +202,7 @@ public class CMenuFragment extends SuperFragment {
     private void getBanner() {
         if (!DOINGGETBALANCE) {
             DOINGGETBALANCE = true;
-            EnWebUtil.getInstance().post(getActivity(), new String[]{"JiebianInfo","findOneJiebianBalance"}, new RequestParams(), new EnWebUtil.AesListener2() {
+            EnWebUtil.getInstance().post(getActivity(), new String[]{"JiebianInfo", "findOneJiebianBalance"}, new RequestParams(), new EnWebUtil.AesListener2() {
                 @Override
                 public void onSuccess(String errorCode, String errorMsg, String data) {
                     DOINGGETBALANCE = false;
@@ -218,19 +226,19 @@ public class CMenuFragment extends SuperFragment {
         }
     }
 
-    public  void setUserInfo() {
+    public void setUserInfo() {
 
         cMenuUserHeadIv.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(getContext(), R.mipmap.image_def)));
         setDatauser();
     }
 
-    public void setDatauser( ) {
+    public void setDatauser() {
         getBanner();
-         User_For_pe peUser = AppContext.getInstance().getPEUser();
-        System.out.println("用户菜单数据"+peUser);
-        if(!TextUtils.isEmpty(peUser.getUsername())){
+        User_For_pe peUser = AppContext.getInstance().getPEUser();
+        System.out.println("用户菜单数据" + peUser);
+        if (!TextUtils.isEmpty(peUser.getUsername())) {
             cMenuUserNameTv.setText(peUser.getUsername());
-        }else if(!TextUtils.isEmpty(peUser.getOn_phone())){
+        } else if (!TextUtils.isEmpty(peUser.getOn_phone())) {
             String userphone = peUser.getOn_phone();
             String s = userphone.substring(0, 3) + "****" + userphone.substring(7, 11);
             cMenuUserNameTv.setText(s);
@@ -268,17 +276,19 @@ public class CMenuFragment extends SuperFragment {
         SpannableStringBuilder str = new SpannableStringBuilder("连续登陆：");
         cMenuUserLandingNumTv.setText(str.append(colorText));
     }
+
     private void setDate() {
         User_For_pe peUser1 = AppContext.getInstance().getPEUser();
         cMenuIntegral.setText(peUser1.getScore());
-        cMenuBalance.setText(peUser1.getBalance()+"");
-         User_For_pe peUser = AppContext.getInstance().getPEUser();
+        cMenuBalance.setText(peUser1.getBalance() + "");
+        User_For_pe peUser = AppContext.getInstance().getPEUser();
     }
-    public void setHeadImage(final Bitmap bitmap){
+
+    public void setHeadImage(final Bitmap bitmap) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(bitmap!=null&&cMenuUserHeadIv!=null){
+                if (bitmap != null && cMenuUserHeadIv != null) {
                     cMenuUserHeadIv.setImageBitmap(BitmapUtils.toRoundBitmap(bitmap));
                 }
             }
@@ -286,7 +296,8 @@ public class CMenuFragment extends SuperFragment {
 
 
     }
-    public interface  MenuBack{
+
+    public interface MenuBack {
         void startActivity();
     }
 
@@ -298,7 +309,7 @@ public class CMenuFragment extends SuperFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode==2&&resultCode==Activity.RESULT_OK&&data.getIntExtra("loginstate",0)==1){
+        if (requestCode == 2 && resultCode == Activity.RESULT_OK && data.getIntExtra("loginstate", 0) == 1) {
             setUserInfo();
             getBanner();
         }

@@ -79,6 +79,7 @@
     <color name="item_textview_gray">#999999</color>
     <!--标题栏黑-->
     <color name="title_hei">#33323A</color>
+    <color name="white_menu">#FFFFFF</color>
     <!--字体黑-->
     <color name="text_hei">#333333</color>
     <color name="screen_default_gray">#F9F9F9</color>

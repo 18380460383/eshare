@@ -61,7 +61,7 @@ import cn.jpush.android.api.JPushInterface;
  */
 public class MainTabActivity extends SuperActivity implements DrawerLayout.DrawerListener {
     private static final int REDPOINT = 3;
-    private static final int LOGIN=4;
+    private static final int LOGIN = 4;
     @InjectView(R.id.back)
     PercentRelativeLayout back;
     @InjectView(R.id.main_headimage)
@@ -106,7 +106,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     /**
      * 企业端首页
      */
-   // private EnterpriseHomeFragment fragmentehome;
+    // private EnterpriseHomeFragment fragmentehome;
     private int msgnum;
     private BroadcastReceiver receiver;
 
@@ -157,12 +157,12 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
                 break;
             case R.id.main_headimage:
                 //TODO 左侧打开菜单
-                if(AppContext.getInstance().getPersonageOnLine()){
+                if (AppContext.getInstance().getPersonageOnLine()) {
                     idDrawerlayout.openDrawer(GravityCompat.START);
-                }else{
-                    Intent intent=new Intent(this,LoginActivity.class);
-                    intent.putExtra("state",8);
-                    startActivityForResult(intent,LOGIN);
+                } else {
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    intent.putExtra("state", 8);
+                    startActivityForResult(intent, LOGIN);
                 }
                 break;
             case R.id.rb_1:
@@ -239,7 +239,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
      * 登录成功
      */
     private void onLoginSuccess(User_For_pe login) {
-        if(!TextUtils.isEmpty(login.getUid())){
+        if (!TextUtils.isEmpty(login.getUid())) {
             getLogoAd();
         }
         //TODO 登陆信息正常后初始化界面
@@ -248,7 +248,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         fragmentchome = new Fragment1();
         fragmentTransaction.replace(R.id.framelayout, fragmentchome);
         fragmentTransaction.commit();*/
-        if(AppContext.getInstance().getPersonageOnLine()){
+        if (AppContext.getInstance().getPersonageOnLine()) {
             setHeadImageAndMenu(login);
         }
     }
@@ -265,7 +265,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
      /*   if(fragmentchome!=null){
             fragmentTransaction.show(fragmentchome);
         }*/
-                fragmentTransaction.commitAllowingStateLoss();
+        fragmentTransaction.commitAllowingStateLoss();
 
         final double v = new ScreenControl().getscreenHigh() / 16 * 1.5 - 60;
         ImageLoader.getInstance().loadImage(login.getImageurl(), new ImageLoadingListener() {
@@ -305,7 +305,6 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
             fragmentehome.initData();
         }*/
     }
-
 
 
     /**
@@ -351,8 +350,8 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         } else if (resultCode == RESULT_OK && requestCode == REDPOINT) {
             int anInt = data.getExtras().getInt(MsgCenterActivity.MSGNUM);
             setMoneyMsgNum(anInt);
-        }else if(resultCode == RESULT_OK && requestCode == LOGIN){
-            if(data.getIntExtra("loginstate",0)==1){
+        } else if (resultCode == RESULT_OK && requestCode == LOGIN) {
+            if (data.getIntExtra("loginstate", 0) == 1) {
                 setHeadImageAndMenu(AppContext.getInstance().getPEUser());
             }
         }
@@ -385,6 +384,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     /**
      * 杨操
      * 设置未读消息红点的值
+     *
      * @param count 广播接受者接收的数据
      */
     public void setMoneyMsgNum(int count) {
@@ -405,6 +405,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     /**
      * 杨操
      * 重写方法实现双击返回键退出应用设置前提先关闭菜单栏
+     *
      * @param keyCode
      * @param event
      * @return
@@ -475,6 +476,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
                     }
                 }
             }
+
             @Override
             public void onFailure() {
 
@@ -540,38 +542,39 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     public boolean isCanExit() {
         return false;
     }
-    private void setAccBroadcastReceiver(){
+
+    private void setAccBroadcastReceiver() {
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
 
-                    ImageLoader.getInstance().loadImage(AppContext.getInstance().getPEUser().getImageurl(), new ImageLoadingListener() {
-                        @Override
-                        public void onLoadingStarted(String s, View view) {
-                            headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.mipmap.image_def)));
-                        }
+                ImageLoader.getInstance().loadImage(AppContext.getInstance().getPEUser().getImageurl(), new ImageLoadingListener() {
+                    @Override
+                    public void onLoadingStarted(String s, View view) {
+                        headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.mipmap.image_def)));
+                    }
 
-                        @Override
-                        public void onLoadingFailed(String s, View view, FailReason failReason) {
-                            headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.mipmap.image_def)));
-                        }
+                    @Override
+                    public void onLoadingFailed(String s, View view, FailReason failReason) {
+                        headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.mipmap.image_def)));
+                    }
 
-                        @Override
-                        public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                            if (bitmap == null) {
-                                //Toast.makeText(MainTabActivity.this, "图片加载失败", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Bitmap bm = BitmapUtils.toRoundBitmap(bitmap);
-                                headImage.setImageBitmap(bm);
-                                fragmentcmenu.setHeadImage(bm);
-                            }
+                    @Override
+                    public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                        if (bitmap == null) {
+                            //Toast.makeText(MainTabActivity.this, "图片加载失败", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Bitmap bm = BitmapUtils.toRoundBitmap(bitmap);
+                            headImage.setImageBitmap(bm);
+                            fragmentcmenu.setHeadImage(bm);
                         }
+                    }
 
-                        @Override
-                        public void onLoadingCancelled(String s, View view) {
-                            headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.mipmap.image_def)));
-                        }
-                    });
+                    @Override
+                    public void onLoadingCancelled(String s, View view) {
+                        headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.mipmap.image_def)));
+                    }
+                });
             }
         };
         IntentFilter filter = new IntentFilter();
@@ -588,10 +591,14 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         filter2.addAction(EnConstants.BROCAST_LOGIN_SUCCESS);
         registerReceiver(loginReceiver, filter2);
     }
-    public void extP(){
+
+    public void extP() {
         headImage.setImageResource(R.mipmap.userhead);
         /*if(fragmentehome!=null){
             fragmentehome.initData();
         }*/
+    }
+    public void closeDraw(){
+        idDrawerlayout.closeDrawer(GravityCompat.START);
     }
 }
