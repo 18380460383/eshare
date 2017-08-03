@@ -24,12 +24,12 @@
 }
 
 #把[您的应用包名] 替换成您自己的包名，如"com.example.R$*"。
--keep public class com.jiebian.adwlf.R$*{
+-keep public class com.cardholder.adwlf.R$*{
     public static final int *;
 }
 
 # 如"com.example.R$*"
--keep public class com.jiebian.adwlf.R$*{
+-keep public class com.cardholder.adwlf.R$*{
     public static final int *;
 }
 -dontoptimize

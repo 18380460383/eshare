@@ -46,7 +46,7 @@
         android:paddingLeft="6dp"
         android:paddingTop="10dp">
 
-        <com.cardholder.adwlf.view.RoundImageView
+        <com.kzmen.sczxjf.view.RoundImageView
             android:id="@+id/fans_head"
             android:layout_width="50dp"
             android:layout_height="50dp"

@@ -5,11 +5,11 @@ android {
     buildToolsVersion "23.0.3"
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
-        applicationId "com.cardholder.adwlf"
+        applicationId "com.kzmen.sczxjf"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 22
-        versionName "2.5"
+        versionCode 1
+        versionName "1.0"
         ndk {
             moduleName "mupdf"
             abiFilters "armeabi", "armeabi-v7a", "x86","mips"
@@ -23,23 +23,23 @@ android {
         preDexLibraries = false
         javaMaxHeapSize "4g"
     }
-    signingConfigs {
+   /* signingConfigs {
         release {
-            storeFile file("jiebian.jks")
-            storePassword "jiebian"
-            keyAlias "jiebian"
-            keyPassword "jiebian"
+            storeFile file("card.jks")
+            storePassword "card123456"
+            keyAlias "card"
+            keyPassword "card123456"
         }
-    }
+    }*/
 
     buildTypes {
         debug {
-            signingConfig signingConfigs.release
+           // signingConfig signingConfigs.release
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+           // signingConfig signingConfigs.release
         }
     }
     afterEvaluate {
@@ -54,6 +54,10 @@ android {
             // optional
             // dx.additionalParameters += "--main-dex-list=$projectDir/<filename>".toString() // enable the main-dex-list
         }
+    }
+    lintOptions{
+        checkReleaseBuilds false
+        abortOnError false
     }
 }
 

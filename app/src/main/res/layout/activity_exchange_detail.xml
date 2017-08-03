@@ -103,7 +103,7 @@
                 android:padding="20dp"
                 android:weightSum="5">
 
-                <com.cardholder.adwlf.view.SquareImageView
+                <com.kzmen.sczxjf.view.SquareImageView
                     android:id="@+id/ex_iv_image"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

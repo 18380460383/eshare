@@ -71,7 +71,7 @@
                     android:visibility="invisible" />
 
             </RadioGroup>
-            <com.cardholder.adwlf.view.MyListView
+            <com.kzmen.sczxjf.view.MyListView
                 android:id="@+id/lv_question"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>

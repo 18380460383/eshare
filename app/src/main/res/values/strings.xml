@@ -1,5 +1,6 @@
 ﻿<resources>
     <string name="app_name">界变</string>
+    <string name="app_namenew">card</string>
     <string name="shareget">分享即得</string>
     <string name="hasdone">已错过</string>
     <string name="doing">进行中</string>
