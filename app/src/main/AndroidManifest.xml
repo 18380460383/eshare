@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-
     package="com.cardholder.adwlf">
+
     <!-- SDCard中创建与删除文件权限 -->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <!-- 向SDCard写入数据权限 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -79,25 +79,23 @@
              android:value="${ESHARE_CHANNEL_VALUE}" />
         -->
         <!-- logo页面 -->
-        <activity android:name=".test.Mp3RecorderActivity"
+        <activity
+            android:name=".test.Mp3RecorderActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".ui.activity.LogoActivity"
             android:screenOrientation="portrait"
-            >
+            android:theme="@style/LogoTheme">
+
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.activity.LogoActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/LogoTheme"
-           >
-           <!-- <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            -->
         </activity>
 
         <!-- 使用说明界面 -->
@@ -123,7 +121,7 @@
             android:name=".ui.activity.personal.MainTabActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
         <!-- 详情界面 -->
         <activity
@@ -206,9 +204,11 @@
         <activity
             android:name=".ui.activity.personal.LoginActivity"
             android:screenOrientation="portrait" />
-       <!-- android:name="com.jiebian.adwlf.view.EshareDialogActivity"
+        <!--
+        android:name="com.jiebian.adwlf.view.EshareDialogActivity"
         android:screenOrientation="portrait"
-        android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />-->
+        android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
+        -->
         <!-- 摇一摇界面 -->
         <activity
             android:name=".ui.activity.personal.YaoActivity"
@@ -384,7 +384,7 @@
 </receiver>
         -->
         <!-- Required . Enable it you can get statistics data with channel -->
-        <!--         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/> -->
+        <!-- <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/> -->
 
 
         <!-- 极光推送APPKEY -->
@@ -647,6 +647,14 @@
             android:screenOrientation="portrait" />
         <!-- 申请代理 -->
 
+        <activity android:name=".test.AnserQuesActivity"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
