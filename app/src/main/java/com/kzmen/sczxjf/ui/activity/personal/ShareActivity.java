@@ -143,7 +143,7 @@ public class ShareActivity extends SuperActivity {
         }
         WXMediaMessage msg = new WXMediaMessage(webpage);
         if(null==shareMsgbean|| TextUtils.isEmpty(shareMsgbean.getWeixin().getTitle())) {
-            msg.title = "创新营销，跨界变革";
+            msg.title = "创新营销，跨卡掌门革";
         }else{
             msg.title =shareMsgbean.getWeixin().getTitle();
             msg.description=shareMsgbean.getWeixin().getDes();

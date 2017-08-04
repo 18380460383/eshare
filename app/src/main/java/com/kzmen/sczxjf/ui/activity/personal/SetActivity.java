@@ -114,14 +114,14 @@ public class SetActivity extends SuperActivity {
                     try {
                         if(data != null) {
                             intent2.putExtra(AboutActivity.EXTRA_URL, data.getString("setting_about"));
-                            intent2.putExtra(AboutActivity.EXTRA_TITLE, "关于界变");
+                            intent2.putExtra(AboutActivity.EXTRA_TITLE, "关于卡掌门");
                         } else {
                             intent2.putExtra(AboutActivity.EXTRA_URL, "");
-                            intent2.putExtra(AboutActivity.EXTRA_TITLE, "关于界变");
+                            intent2.putExtra(AboutActivity.EXTRA_TITLE, "关于卡掌门");
                         }
                     } catch (JSONException e) {
                         intent2.putExtra(AboutActivity.EXTRA_URL, "");
-                        intent2.putExtra(AboutActivity.EXTRA_TITLE, "关于界变");
+                        intent2.putExtra(AboutActivity.EXTRA_TITLE, "关于卡掌门");
                     }
                     startActivity(intent2);
                     break;

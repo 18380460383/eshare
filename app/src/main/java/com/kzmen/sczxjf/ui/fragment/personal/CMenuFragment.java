@@ -30,7 +30,7 @@ import com.kzmen.sczxjf.net.EnWebUtil;
 import com.kzmen.sczxjf.ui.activity.personal.ActListActivity;
 import com.kzmen.sczxjf.ui.activity.personal.C_Collect;
 import com.kzmen.sczxjf.ui.activity.personal.LoginActivity;
-import com.kzmen.sczxjf.ui.activity.personal.MainTabActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.MainTabActivity;
 import com.kzmen.sczxjf.ui.activity.personal.OriginalityCoollectActivity;
 import com.kzmen.sczxjf.ui.activity.personal.RecordActivity;
 import com.kzmen.sczxjf.ui.activity.personal.ShareFrindes;

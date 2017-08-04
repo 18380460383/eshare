@@ -29,4 +29,5 @@
     <dimen name="toolbar_height">60dip</dimen>
 
     <dimen name="preview_height">180dip</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

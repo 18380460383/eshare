@@ -44,12 +44,12 @@
         "source": "D:\\AndroidStudioPro\\eshare\\OneSDK\\res\\layout\\com_taobao_tae_sdk_web_view_menu.xml"
     },
     {
-        "merged": "D:\\AndroidStudioPro\\eshare\\OneSDK\\build\\intermediates\\res\\merged\\debug\\layout\\com_taobao_tae_sdk_web_view_activity.xml",
-        "source": "D:\\AndroidStudioPro\\eshare\\OneSDK\\res\\layout\\com_taobao_tae_sdk_web_view_activity.xml"
-    },
-    {
         "merged": "H:\\AndroidPro\\kzmen\\OneSDK\\build\\intermediates\\res\\merged\\debug\\layout\\com_taobao_tae_sdk_web_view_activity_sendfeedback_newimagewithdelete.xml",
         "source": "H:\\AndroidPro\\kzmen\\OneSDK\\res\\layout\\com_taobao_tae_sdk_web_view_activity_sendfeedback_newimagewithdelete.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioPro\\eshare\\OneSDK\\build\\intermediates\\res\\merged\\debug\\layout\\com_taobao_tae_sdk_web_view_activity.xml",
+        "source": "D:\\AndroidStudioPro\\eshare\\OneSDK\\res\\layout\\com_taobao_tae_sdk_web_view_activity.xml"
     },
     {
         "merged": "H:\\AndroidPro\\kzmen\\OneSDK\\build\\intermediates\\res\\merged\\debug\\layout\\com_taobao_tae_sdk_web_view_title_bar.xml",

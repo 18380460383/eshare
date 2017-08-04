@@ -202,4 +202,8 @@
         <item name="android:minHeight">12dp</item>
         <item name="android:maxHeight">12dp</item>
     </style>
+
+    <style name="BaseAppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="BaseAppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

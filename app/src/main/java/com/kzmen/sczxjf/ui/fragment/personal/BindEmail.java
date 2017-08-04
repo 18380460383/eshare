@@ -136,8 +136,8 @@ public class BindEmail extends SuperFragment {
                             instance.setPEUser(peUser);
                             if (BindEmail.this.getArguments().getInt(TITLETYPE) == 0) {
                                 EmailAndAgency emailAndAgency = new EmailAndAgency();
-                                emailAndAgency.showDialog(getActivity(), "久候主人多时啦！快去界变畅游吧！\n" +
-                                        "注册界变 绑定时代！\n");
+                                emailAndAgency.showDialog(getActivity(), "久候主人多时啦！快去卡掌门畅游吧！\n" +
+                                        "注册卡掌门 绑定时代！\n");
                             } else {
                                 Toast.makeText(getActivity(), jsonObject.optString("msg"), Toast.LENGTH_SHORT).show();
                                 getActivity().finish();

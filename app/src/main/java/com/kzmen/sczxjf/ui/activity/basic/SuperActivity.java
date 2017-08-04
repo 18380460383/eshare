@@ -60,7 +60,7 @@ public abstract class SuperActivity extends FragmentActivity {
                 else{
                     initActivity();
                 }
-        setInnerAct();
+        //setInnerAct();
     }
 
     public void setInnerAct(){

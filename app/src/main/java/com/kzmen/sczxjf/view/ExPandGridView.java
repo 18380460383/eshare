@@ -7,17 +7,17 @@ import android.widget.GridView;
 /**
  * Created by huahao on 2015/9/11.
  */
-public class MyGridView extends GridView {
+public class ExPandGridView extends GridView {
 
-    public MyGridView(Context context) {
+    public ExPandGridView(Context context) {
         super(context);
     }
 
-    public MyGridView(Context context, AttributeSet attrs) {
+    public ExPandGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public MyGridView(Context context, AttributeSet attrs, int defStyle) {
+    public ExPandGridView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

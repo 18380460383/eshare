@@ -189,7 +189,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14dp"
-                        android:text="使用产品代表同意界变" />
+                        android:text="使用产品代表同意卡掌门" />
 
                     <TextView
                         android:id="@+id/login_tv_service"

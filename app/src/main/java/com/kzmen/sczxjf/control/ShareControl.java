@@ -125,7 +125,7 @@ public class ShareControl {
                     paramsToShare.setImageUrl(bigImageurl);
                 }else if(platform.getName().equals(QZone.NAME)||platform.getName().equals(QQ.NAME)){
                     paramsToShare.setImageUrl(Imageurl);
-                    paramsToShare.setSite("界变");
+                    paramsToShare.setSite("卡掌门");
                 }else{
                     paramsToShare.setShareType(Platform.SHARE_WEBPAGE);
                     paramsToShare.setImageData(bitmap);

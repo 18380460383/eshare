@@ -10,7 +10,8 @@
        android:orientation="vertical"
        android:weightSum="16">
 
-       <RelativeLayout style="@style/TitleStyle">
+       <RelativeLayout
+           style="@style/TitleStyle">
            <include
                android:id="@+id/title"
                layout="@layout/e_title" />
