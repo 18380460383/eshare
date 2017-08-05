@@ -11,7 +11,6 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +26,12 @@ import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.UIManager;
 import com.kzmen.sczxjf.bean.user.User_For_pe;
 import com.kzmen.sczxjf.net.EnWebUtil;
+import com.kzmen.sczxjf.ui.activity.kzmessage.MainTabActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.MyIntegralActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.MyPackageAcitivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.PersonMessActivity;
 import com.kzmen.sczxjf.ui.activity.personal.ActListActivity;
 import com.kzmen.sczxjf.ui.activity.personal.C_Collect;
-import com.kzmen.sczxjf.ui.activity.personal.LoginActivity;
-import com.kzmen.sczxjf.ui.activity.personal.MainTabActivity;
 import com.kzmen.sczxjf.ui.activity.personal.OriginalityCoollectActivity;
 import com.kzmen.sczxjf.ui.activity.personal.RecordActivity;
 import com.kzmen.sczxjf.ui.activity.personal.ShareFrindes;
@@ -68,11 +69,8 @@ public class CMenuFragment extends SuperFragment {
     TextView cMenuBalance;
     @InjectView(R.id.c_menu_caifu)
     LinearLayout cMenuCaifu;
-
     @InjectView(R.id.c_menu_collect_onc)
     RelativeLayout cMenuCollect;
-    /*    @InjectView(R.id.c_menu_order_onc)
-        RelativeLayout cMenuOrder;*/
     @InjectView(R.id.c_menu_friend_onc)
     RelativeLayout cMenuFriend;
     @InjectView(R.id.c_menu_activity_onc)
@@ -85,6 +83,10 @@ public class CMenuFragment extends SuperFragment {
     LinearLayout cMenuSetting;
     @InjectView(R.id.c_menu_feedback_onc)
     LinearLayout cMenuFeedback;
+    @InjectView(R.id.ll_package)
+    LinearLayout ll_package;
+    @InjectView(R.id.ll_jifen)
+    LinearLayout ll_jifen;
     @InjectView(R.id.c_menu_attestation_mark_for_e)
     TextView cMenuAttestationMarkForE;
     @InjectView(R.id.c_menu_attestation_mark_for_m)
@@ -110,7 +112,7 @@ public class CMenuFragment extends SuperFragment {
         AppContext instance = AppContext.getInstance();
         if (!TextUtils.isEmpty(instance.getPEUser().getUid())) {
             setUserInfo();
-            getBanner();
+            //getBanner();
         }
 
         return view;
@@ -120,7 +122,7 @@ public class CMenuFragment extends SuperFragment {
         bannerReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                getBanner();
+                //getBanner();
             }
         };
         IntentFilter filter = new IntentFilter();
@@ -131,31 +133,35 @@ public class CMenuFragment extends SuperFragment {
     @OnClick({R.id.c_menu_user_head_iv, R.id.c_menu_collect_onc,
             /*R.id.c_menu_order_onc,*/ R.id.c_menu_friend_onc, R.id.c_menu_activity_onc, R.id.c_menu_balance,
             R.id.c_menu_credits_exchange_onc, R.id.c_menu_setting_onc, R.id.c_menu_feedback_onc, R.id.c_menu_creative_collection_rl
-            ,R.id.iv_close})
+            ,R.id.iv_close,R.id.ll_package,R.id.ll_jifen})
     public void Listener(View view) {
+        Intent intent=null;
         switch (view.getId()) {
             case R.id.c_menu_user_head_iv:
                 //TODO 点击头像
-                if (!AppContext.getInstance().getPersonageOnLine()) {
+               /* if (!AppContext.getInstance().getPersonageOnLine()) {
                     //TODO 登陆
                     Intent intent = new Intent(getContext(), LoginActivity.class);
                     startActivityForResult(intent, 2);
                 } else {
                     UIManager.showPersonInfoActivity((Activity) getContext());
                     Log.i("info", "跳");
-                }
+                }*/
+                intent =new Intent(getContext(), PersonMessActivity.class);
+                startActivity(intent);
                 break;
-
+            case R.id.ll_jifen:
+                intent =new Intent(getContext(), MyIntegralActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ll_package:
+                intent =new Intent(getContext(), MyPackageAcitivity.class);
+                startActivity(intent);
+                break;
             case R.id.c_menu_collect_onc:
                 //TODO 点击收藏
                 getContext().startActivity(new Intent(getContext(), C_Collect.class));
                 break;
-            /*case R.id.c_menu_order_onc:
-                //TODO 点击转发记录
-                Intent intent = new Intent(getContext(), RecordActivity.class);
-                intent.putExtra(RecordActivity.FLAG,0);
-                getContext().startActivity(intent);
-                break;*/
             case R.id.c_menu_friend_onc:
                 //TODO 点击好友
                 getContext().startActivity(new Intent(getContext(), ShareFrindes.class));
@@ -173,9 +179,6 @@ public class CMenuFragment extends SuperFragment {
                 break;
             case R.id.c_menu_feedback_onc:
                 //TODO 点击意见反馈
-                /*FeedbackAgent agent = new FeedbackAgent(getContext());
-                agent.sync();
-                agent.startFeedbackActivity();*/
                 FeedbackAPI.openFeedbackActivity(getActivity());
                 break;
             case R.id.c_menu_balance:
@@ -233,9 +236,8 @@ public class CMenuFragment extends SuperFragment {
     }
 
     public void setDatauser() {
-        getBanner();
+        //getBanner();
         User_For_pe peUser = AppContext.getInstance().getPEUser();
-        System.out.println("用户菜单数据" + peUser);
         if (!TextUtils.isEmpty(peUser.getUsername())) {
             cMenuUserNameTv.setText(peUser.getUsername());
         } else if (!TextUtils.isEmpty(peUser.getOn_phone())) {
@@ -243,35 +245,6 @@ public class CMenuFragment extends SuperFragment {
             String s = userphone.substring(0, 3) + "****" + userphone.substring(7, 11);
             cMenuUserNameTv.setText(s);
         }
-
-     /*   //用户认证状态是否存在(要判断角色数是否大于2，因为角色信息可能从shardperfence取的，会过时)
-        System.out.println("aaaaa"+userInfo.extras);
-        if (AppContext.getInstance().getUserInfo().extras != null && AppContext.getInstance().getUserInfo().extras.size() > 2) {
-            //是否认证了媒体用户
-            if (AppContext.getInstance().getUserInfo().extras.get(2).state != null) {
-                cMenuAttestationMark.setVisibility(View.VISIBLE);
-                //tv_certified.setText(AppContext.getInstance().getUserInfo().extras.get(2).name);
-            } else {
-                cMenuAttestationMark.setVisibility(View.GONE);
-            }
-            //判断是否认证了企业用户
-            if (AppContext.getInstance().getUserInfo().extras.get(0).state != null) {
-                cMenuAttestationMarkForE.setVisibility(View.VISIBLE);
-                cMenuAttestationMark.setVisibility(View.GONE);
-            } else {
-                cMenuAttestationMarkForE.setVisibility(View.GONE);
-            }
-
-            //是否认证了媒体用户
-            if (AppContext.getInstance().getUserInfo().extras.get(1).state != null) {
-                cMenuAttestationMarkForM.setVisibility(View.VISIBLE);
-                cMenuAttestationMark.setVisibility(View.GONE);
-            } else {
-                cMenuAttestationMarkForM.setVisibility(View.GONE);
-            }
-
-
-        }*/
         SpannableStringBuilder colorText = TextViewUtil.getColorText(peUser.getHotnum() + "天", "#ff8307");
         SpannableStringBuilder str = new SpannableStringBuilder("连续登陆：");
         cMenuUserLandingNumTv.setText(str.append(colorText));
@@ -293,8 +266,6 @@ public class CMenuFragment extends SuperFragment {
                 }
             }
         }, 3000);
-
-
     }
 
     public interface MenuBack {

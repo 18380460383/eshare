@@ -20,7 +20,7 @@ import com.kzmen.sczxjf.ebean.User;
 import com.kzmen.sczxjf.multidex.MultiDexApplication;
 import com.kzmen.sczxjf.ui.activity.BaseWebActivity;
 import com.kzmen.sczxjf.ui.activity.personal.DetialActivity;
-import com.kzmen.sczxjf.ui.activity.personal.MainTabActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.MainTabActivity;
 import com.kzmen.sczxjf.ui.activity.personal.YaoActivity;
 import com.kzmen.sczxjf.util.PreferenceUtil;
 import com.kzmen.sczxjf.utils.FileUtils;

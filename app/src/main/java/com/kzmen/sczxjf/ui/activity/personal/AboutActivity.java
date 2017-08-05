@@ -15,8 +15,8 @@ public class AboutActivity extends WebActivity {
 
     @Override
     public void onCreateDataForView() {
-        titlename="关于界变";
-        setTitle(R.id.about_title,"关于界变");
+        titlename="关于卡掌门";
+        setTitle(R.id.about_title,"关于卡掌门");
         setWebViewProgressBar(R.id.about_progressbar);
 
     }

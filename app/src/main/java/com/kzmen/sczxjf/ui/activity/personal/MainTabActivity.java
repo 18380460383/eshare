@@ -31,9 +31,9 @@ import com.kzmen.sczxjf.bean.user.User_For_pe;
 import com.kzmen.sczxjf.control.AdvertisementControl;
 import com.kzmen.sczxjf.control.RedpacketControl;
 import com.kzmen.sczxjf.control.ScreenControl;
-import com.kzmen.sczxjf.control.UpgradeControl;
 import com.kzmen.sczxjf.net.NetworkDownload;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
+import com.kzmen.sczxjf.ui.fragment.kzmessage.KzMessageFragment;
 import com.kzmen.sczxjf.ui.fragment.personal.CMenuFragment;
 import com.kzmen.sczxjf.util.EshareLoger;
 import com.kzmen.sczxjf.utils.AppUtils;
@@ -109,17 +109,17 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     // private EnterpriseHomeFragment fragmentehome;
     private int msgnum;
     private BroadcastReceiver receiver;
-
+    private KzMessageFragment kzMessageFragment;
 
     @Override
     public void onCreateDataForView() {
 
         setAccBroadcastReceiver();
-        AppContext.maintabeactivity = this;
+      //  AppContext.maintabeactivity = this;
         supportFragmentManager = getSupportFragmentManager();
         initDate();
         //TODO 启动版本更新控制器
-        UpgradeControl.getUpgradeControl(this).update();
+        //UpgradeControl.getUpgradeControl(this).update();
         idDrawerlayout.setDrawerListener(this);
         back.setVisibility(View.GONE);
         //TODO 设置一个空监听省去两层 事件拦截防止点击菜单栏照成Fragment控件相应
@@ -128,6 +128,11 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         DrawerLayout.LayoutParams layoutParams = (DrawerLayout.LayoutParams) menu.getLayoutParams();
         layoutParams.width = (int) (i * 0.7);
         menu.setLayoutParams(layoutParams);
+
+        kzMessageFragment=new KzMessageFragment();
+        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.framelayout, kzMessageFragment);
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -145,6 +150,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
        /* if (fragmentchome != null) {
             fragmentchome.activityOnResume();
         }*/
+
     }
 
     @OnClick({R.id.main_headimage, R.id.rb_1, R.id.rb_2, R.id.main_ring, R.id.more_c_news})
@@ -174,16 +180,14 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
                 mainRing.setVisibility(View.VISIBLE);
                 idDrawerlayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                 //TODO 点击个人端按钮设置显示个人端主页
-               /* if (fragmentchome == null||fragmentchome.getView()==null) {
-                    fragmentchome = new Fragment1();
-                    fragmentTransaction.add(R.id.framelayout, fragmentchome);
+                /*if (kzMessageFragment == null||kzMessageFragment.getView()==null) {
+                    kzMessageFragment = new KzMessageFragment();
+                    fragmentTransaction.add(R.id.framelayout, kzMessageFragment);
                 }
-                *//*if (fragmentehome != null) {
-                    fragmentTransaction.hide(fragmentehome);
-                }*//*
-                fragmentTransaction.show(fragmentchome);
-                //TODO　开启广告轮播
-                fragmentchome.setSlide(true);
+                if (kzMessageFragment != null) {
+                    fragmentTransaction.hide(kzMessageFragment);
+                }
+                fragmentTransaction.show(kzMessageFragment);
                 fragmentTransaction.commit();*/
                 break;
             case R.id.rb_2:
@@ -244,10 +248,10 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         }
         //TODO 登陆信息正常后初始化界面
         //TODO 加载菜单
-      /*  FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-        fragmentchome = new Fragment1();
-        fragmentTransaction.replace(R.id.framelayout, fragmentchome);
-        fragmentTransaction.commit();*/
+        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
+        kzMessageFragment = new KzMessageFragment();
+        fragmentTransaction.replace(R.id.framelayout, kzMessageFragment);
+        fragmentTransaction.commit();
         if (AppContext.getInstance().getPersonageOnLine()) {
             setHeadImageAndMenu(login);
         }

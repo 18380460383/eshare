@@ -27,6 +27,7 @@ import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.request.UpdateMsg;
 import com.kzmen.sczxjf.bean.returned.SetInfoReturn;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.PersonMessActivity;
 import com.kzmen.sczxjf.utils.AppUtils;
 import com.kzmen.sczxjf.utils.JsonUtils;
 import com.kzmen.sczxjf.net.NetworkDownload;
@@ -114,19 +115,19 @@ public class SetActivity extends SuperActivity {
                     try {
                         if(data != null) {
                             intent2.putExtra(AboutActivity.EXTRA_URL, data.getString("setting_about"));
-                            intent2.putExtra(AboutActivity.EXTRA_TITLE, "关于界变");
+                            intent2.putExtra(AboutActivity.EXTRA_TITLE, "关于卡掌门");
                         } else {
                             intent2.putExtra(AboutActivity.EXTRA_URL, "");
-                            intent2.putExtra(AboutActivity.EXTRA_TITLE, "关于界变");
+                            intent2.putExtra(AboutActivity.EXTRA_TITLE, "关于卡掌门");
                         }
                     } catch (JSONException e) {
                         intent2.putExtra(AboutActivity.EXTRA_URL, "");
-                        intent2.putExtra(AboutActivity.EXTRA_TITLE, "关于界变");
+                        intent2.putExtra(AboutActivity.EXTRA_TITLE, "关于卡掌门");
                     }
                     startActivity(intent2);
                     break;
                 case R.id.activity_set_ly_account:
-                    Intent intent = new Intent(SetActivity.this, AccountActivity.class);
+                    Intent intent = new Intent(SetActivity.this, PersonMessActivity.class);
                     intent.putExtra(AccountActivity.KEY_ACCOUNT, info_set);
                     startActivity(intent);
                     break;

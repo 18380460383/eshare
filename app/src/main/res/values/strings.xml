@@ -1,5 +1,5 @@
 ﻿<resources>
-    <string name="app_name">界变</string>
+    <string name="app_name">卡掌门</string>
     <string name="app_namenew">card</string>
     <string name="shareget">分享即得</string>
     <string name="hasdone">已错过</string>
@@ -81,7 +81,7 @@
     <string name="set_account">账号信息</string>
     <string name="set_new_message">新消息提醒</string>
     <string name="set_check">检查新版本</string>
-    <string name="set_about">关于界变</string>
+    <string name="set_about">关于卡掌门</string>
     <string name="set_exit">退出当前账号</string>
     <!--账号信息界面文字-->
     <string name="account_id">账号ID</string>
@@ -99,7 +99,7 @@
     <string name="money_friend">我的好友</string>
 
 
-    <!--界变1.1版本大更新全部替换配置 name规范（。xml文件:控件id_vstr;.class使用：class名_功能名_cstr）
+    <!--卡掌门1.1版本大更新全部替换配置 name规范（。xml文件:控件id_vstr;.class使用：class名_功能名_cstr）
     log信息，网络下载提示信息  不使用当前配置-->
 
     <string name="maintabactivity_account_suspended_cstr">个人端</string>
@@ -186,4 +186,16 @@
 
     <string name="one_page_of_count">%1$d of %2$d</string>
     <string name="two_pages_of_count">%1$d-%2$d of %3$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main_tab">MainTabActivity</string>
+    <string name="pickerview_cancel">取消</string>
+    <string name="pickerview_submit">确定</string>
+    <string name="pickerview_year">年</string>
+    <string name="pickerview_month">月</string>
+    <string name="pickerview_day">日</string>
+    <string name="pickerview_hours">时</string>
+    <string name="pickerview_minutes">分</string>
+    <string name="pickerview_seconds">秒</string>
 </resources>

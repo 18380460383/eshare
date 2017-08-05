@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/id_drawerlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="16">
+
+        <RelativeLayout
+            style="@style/TitleStyle"
+            android:background="@color/no3_black">
+
+              <include
+                  android:id="@+id/title"
+                  layout="@layout/e_title" />
+
+            <ImageView
+                android:id="@+id/main_headimage"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/left_right_retract_small"
+                android:scaleType="fitXY"
+                android:src="@mipmap/userhead" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/cornor_both_radius"
+                android:orientation="horizontal"
+                android:paddingBottom="8dp"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="搜索你感兴趣的课程" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_history"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/icon_history" />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/framelayout"
+            style="@style/body_wigth"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/id_drawer"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#E0EEE0"
+        android:orientation="vertical">
+
+    </LinearLayout>
+</android.support.v4.widget.DrawerLayout>
