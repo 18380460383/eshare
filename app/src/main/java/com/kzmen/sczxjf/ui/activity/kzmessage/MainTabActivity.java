@@ -132,7 +132,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
                 }*/
                 break;
             case R.id.iv_history:
-                Intent intent = new Intent(this, PersonMessActivity.class);
+                Intent intent = new Intent(this, com.kzmen.sczxjf.ui.activity.kzmessage.LoginActivity.class);
                 startActivity(intent);
                 break;
         }

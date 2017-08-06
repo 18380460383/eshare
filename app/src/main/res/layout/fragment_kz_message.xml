@@ -51,7 +51,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="10dp"
+           >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -248,7 +249,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -487,5 +489,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:numColumns="2" />
+
+        <LinearLayout
+            android:id="@+id/ll_more_activ"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="更多活动" />
+
+            <TextView
+                android:id="@+id/tv_more_activ"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="4dp"
+                android:background="@drawable/cornor_backgroud_yellow"
+                android:gravity="center"
+                android:text="3"
+                android:textColor="@color/white" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

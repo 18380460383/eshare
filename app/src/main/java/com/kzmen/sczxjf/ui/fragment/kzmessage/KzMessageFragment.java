@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,6 +15,10 @@ import android.widget.TextView;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.adapter.KzActivGridAdapter;
 import com.kzmen.sczxjf.adapter.KzMainColumnAdapter;
+import com.kzmen.sczxjf.test.AnserQuesActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.ActivListActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.AskListActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.CaseListActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.CourseListActivity;
 import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.util.glide.GlideImgManager;
@@ -93,16 +98,21 @@ public class KzMessageFragment extends Fragment {
     LinearLayout llMoreAsk;
     @InjectView(R.id.gv_more_activ)
     ExPandGridView gvMoreActiv;
+    @InjectView(R.id.tv_more_activ)
+    TextView tvMoreActiv;
+    @InjectView(R.id.ll_more_activ)
+    LinearLayout llMoreActiv;
     private View view = null;
     private BannerLayout bl_main_banner;
     private List<String> urlList;
     private GridView gv_column;
-    private List<String>listTst;
-    private List<String>listTstActiv;
+    private List<String> listTst;
+    private List<String> listTstActiv;
     private KzMainColumnAdapter kzMainColumnAdapter;
     private KzActivGridAdapter kzActivGridAdapter;
 
-    private String url="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png";
+    private String url = "https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,8 +142,8 @@ public class KzMessageFragment extends Fragment {
 
     private void initData() {
         urlList = new ArrayList<>();
-        listTst=new ArrayList<>();
-        listTstActiv=new ArrayList<>();
+        listTst = new ArrayList<>();
+        listTstActiv = new ArrayList<>();
         urlList.add(url);
         urlList.add("https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png");
         urlList.add("https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png");
@@ -145,19 +155,43 @@ public class KzMessageFragment extends Fragment {
         listTst.add("测评");
         listTst.add("活动");
         listTst.add("案例");
-        kzMainColumnAdapter=new KzMainColumnAdapter(getActivity(),listTst);
+        kzMainColumnAdapter = new KzMainColumnAdapter(getActivity(), listTst);
         gvColumn.setAdapter(kzMainColumnAdapter);
         listTstActiv.add("测试1");
         listTstActiv.add("测试1");
         listTstActiv.add("测试1");
         listTstActiv.add("测试1");
-        kzActivGridAdapter=new KzActivGridAdapter(getActivity(),listTstActiv);
+        kzActivGridAdapter = new KzActivGridAdapter(getActivity(), listTstActiv);
         gvMoreActiv.setAdapter(kzActivGridAdapter);
+        gvColumn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent=null;
+                switch (position){
+                    case 0:
+                        intent=new Intent(getActivity(),CourseListActivity.class);
+                        break;
+                    case 1:
+                        intent=new Intent(getActivity(),AskListActivity.class);
+                        break;
+                    case 2:
+                        intent=new Intent(getActivity(),AnserQuesActivity.class);
+                        break;
+                    case 3:
+                        intent=new Intent(getActivity(),ActivListActivity.class);
+                        break;
+                    case 4:
+                        intent=new Intent(getActivity(),CaseListActivity.class);
+                        break;
+                }
+                if(intent!=null){
+                    startActivity(intent);
+                }
+            }
+        });
 
-
-
-        GlideImgManager.glideLoader(getActivity(), url, R.mipmap.ic_launcher, R.mipmap.ic_launcher, ivAskHead1,0);
-        GlideImgManager.glideLoader(getActivity(), url, R.mipmap.ic_launcher, R.mipmap.ic_launcher, ivAskHead2,0);
+        GlideImgManager.glideLoader(getActivity(), url, R.mipmap.ic_launcher, R.mipmap.ic_launcher, ivAskHead1, 0);
+        GlideImgManager.glideLoader(getActivity(), url, R.mipmap.ic_launcher, R.mipmap.ic_launcher, ivAskHead2, 0);
     }
 
     @Override
@@ -166,17 +200,24 @@ public class KzMessageFragment extends Fragment {
         ButterKnife.reset(this);
     }
 
-    @OnClick({R.id.ll_more_course, R.id.ll_more_ask})
+    @OnClick({R.id.ll_more_course, R.id.ll_more_ask,R.id.ll_more_activ})
     public void onclick(View view) {
+        Intent intent=null;
         switch (view.getId()) {
             case R.id.ll_more_course:
-                Intent intent = new Intent(getActivity(), CourseListActivity.class);
+                intent= new Intent(getActivity(), CourseListActivity.class);
                 startActivity(intent);
                 EToastUtil.show(getActivity(), "更多课程");
                 break;
             case R.id.ll_more_ask:
                 EToastUtil.show(getActivity(), "更多问答");
                 break;
+            case R.id.ll_more_activ:
+                intent= new Intent(getActivity(), ActivListActivity.class);
+                startActivity(intent);
+                break;
         }
     }
+
+
 }

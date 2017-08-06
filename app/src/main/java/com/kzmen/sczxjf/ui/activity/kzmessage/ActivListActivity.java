@@ -16,8 +16,10 @@ import java.util.List;
 
 import butterknife.InjectView;
 
-public class CourseListActivity extends ListViewActivity {
-
+/**
+ * 活动列表
+ */
+public class ActivListActivity extends ListViewActivity {
     @InjectView(R.id.msg_center_lv)
     PullToRefreshListView mPullRefreshListView;
     private MsgCenterAdapter adapter;
@@ -36,21 +38,21 @@ public class CourseListActivity extends ListViewActivity {
 
     @Override
     public void onCreateDataForView() {
-        setTitle(R.id.kz_tiltle, "课程");
+        setTitle(R.id.kz_tiltle, "活动");
         initData();
+    }
+
+    @Override
+    public void setThisContentView() {
+        setContentView(R.layout.activity_activ_list);
     }
 
     private void initData() {
         data_list = new ArrayList<>();
         page = 1;
-        adapter = new MsgCenterAdapter(CourseListActivity.this, data_list);
+        adapter = new MsgCenterAdapter(ActivListActivity.this, data_list);
         setmPullRefreshListView(mPullRefreshListView, adapter);
         setADD();
-    }
-
-    @Override
-    public void setThisContentView() {
-        setContentView(R.layout.activity_course_list);
     }
 
     /**

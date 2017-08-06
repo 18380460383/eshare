@@ -18,9 +18,10 @@ import com.kzmen.sczxjf.bean.WeixinInfo;
 import com.kzmen.sczxjf.bean.user.User_For_pe;
 import com.kzmen.sczxjf.ebean.User;
 import com.kzmen.sczxjf.multidex.MultiDexApplication;
+import com.kzmen.sczxjf.test.server.PlayService;
 import com.kzmen.sczxjf.ui.activity.BaseWebActivity;
-import com.kzmen.sczxjf.ui.activity.personal.DetialActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.MainTabActivity;
+import com.kzmen.sczxjf.ui.activity.personal.DetialActivity;
 import com.kzmen.sczxjf.ui.activity.personal.YaoActivity;
 import com.kzmen.sczxjf.util.PreferenceUtil;
 import com.kzmen.sczxjf.utils.FileUtils;
@@ -43,7 +44,7 @@ import cn.jpush.android.api.JPushInterface;
  * @version 1.0
  */
 public class AppContext extends MultiDexApplication {
-
+    private PlayService mPlayService;
     private final String SHARED_USER = "eshare_context";
     private static AppContext instance;
     private  Activity oldinstance;
@@ -108,7 +109,13 @@ public class AppContext extends MultiDexApplication {
 
 
     }
+    public static PlayService getPlayService() {
+        return getInstance().mPlayService;
+    }
 
+    public static void setPlayService(PlayService service) {
+        getInstance().mPlayService = service;
+    }
     public SharedPreferences getSp() {
         if(sp==null){
             sp = getSharedPreferences(SHARED_USER,Context.MODE_PRIVATE);

@@ -20,7 +20,7 @@ public class DBService {
     //构造方法
     public DBService() {
         //连接数据库
-        db = SQLiteDatabase.openDatabase("/data/data/com.cardholder.adwlf/databases/question.db", null, SQLiteDatabase.OPEN_READWRITE);
+        db = SQLiteDatabase.openDatabase("/data/data/com.kzmen.sczxjf/databases/question.db", null, SQLiteDatabase.OPEN_READWRITE);
 
     }
 

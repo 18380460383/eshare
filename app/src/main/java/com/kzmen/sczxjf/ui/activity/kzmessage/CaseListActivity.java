@@ -16,41 +16,38 @@ import java.util.List;
 
 import butterknife.InjectView;
 
-public class CourseListActivity extends ListViewActivity {
-
+/**
+ * 案例列表
+ */
+public class CaseListActivity extends ListViewActivity {
     @InjectView(R.id.msg_center_lv)
     PullToRefreshListView mPullRefreshListView;
     private MsgCenterAdapter adapter;
     private List<MsgBean> data_list;
     private int page;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
-    @Override
-    protected boolean isShareActivity() {
-        return true;
-    }
-
     @Override
     public void onCreateDataForView() {
-        setTitle(R.id.kz_tiltle, "课程");
+        setTitle(R.id.kz_tiltle, "案例");
         initData();
     }
-
+    @Override
+    public void setThisContentView() {
+        setContentView(R.layout.activity_case_list);
+    }
     private void initData() {
         data_list = new ArrayList<>();
         page = 1;
-        adapter = new MsgCenterAdapter(CourseListActivity.this, data_list);
+        adapter = new MsgCenterAdapter(CaseListActivity.this, data_list);
         setmPullRefreshListView(mPullRefreshListView, adapter);
         setADD();
     }
-
     @Override
-    public void setThisContentView() {
-        setContentView(R.layout.activity_course_list);
+    protected boolean isShareActivity() {
+        return true;
     }
 
     /**
@@ -99,4 +96,5 @@ public class CourseListActivity extends ListViewActivity {
             }
         });
     }
+
 }

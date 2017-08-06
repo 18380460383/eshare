@@ -31,7 +31,7 @@ public class AnserQuesActivity extends AppCompatActivity {
     //数据库的名称
     private String DB_NAME = "question.db";
     //数据库的地址
-    private String DB_PATH = "/data/data/com.cardholder.adwlf/databases/";
+    private String DB_PATH = "/data/data/com.kzmen.sczxjf/databases/";
     //总的题目数据
     private int count;
     //当前显示的题目

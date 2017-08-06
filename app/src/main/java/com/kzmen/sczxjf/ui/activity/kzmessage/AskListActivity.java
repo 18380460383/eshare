@@ -16,43 +16,39 @@ import java.util.List;
 
 import butterknife.InjectView;
 
-public class CourseListActivity extends ListViewActivity {
-
+/**
+ * 问答列表
+ */
+public class AskListActivity extends ListViewActivity {
     @InjectView(R.id.msg_center_lv)
     PullToRefreshListView mPullRefreshListView;
     private MsgCenterAdapter adapter;
     private List<MsgBean> data_list;
     private int page;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
+    @Override
+    public void onCreateDataForView() {
+        setTitle(R.id.kz_tiltle, "问答");
+        initData();
+    }
+    @Override
+    public void setThisContentView() {
+        setContentView(R.layout.activity_ask_list);
+    }
+    private void initData() {
+        data_list = new ArrayList<>();
+        page = 1;
+        adapter = new MsgCenterAdapter(AskListActivity.this, data_list);
+        setmPullRefreshListView(mPullRefreshListView, adapter);
+        setADD();
+    }
     @Override
     protected boolean isShareActivity() {
         return true;
     }
-
-    @Override
-    public void onCreateDataForView() {
-        setTitle(R.id.kz_tiltle, "课程");
-        initData();
-    }
-
-    private void initData() {
-        data_list = new ArrayList<>();
-        page = 1;
-        adapter = new MsgCenterAdapter(CourseListActivity.this, data_list);
-        setmPullRefreshListView(mPullRefreshListView, adapter);
-        setADD();
-    }
-
-    @Override
-    public void setThisContentView() {
-        setContentView(R.layout.activity_course_list);
-    }
-
     /**
      * 下拉刷新
      *
@@ -99,4 +95,5 @@ public class CourseListActivity extends ListViewActivity {
             }
         });
     }
+
 }
