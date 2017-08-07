@@ -229,9 +229,9 @@ public class MsgCenterActivity extends ListViewActivity implements PullToRefresh
             String nid = bean.nid;
             //如果是资讯，直接跳转
             if(nid != null) {
-                Intent intent = new Intent(MsgCenterActivity.this, InformationForDetails.class);
+              /*  Intent intent = new Intent(MsgCenterActivity.this, InformationForDetails.class);
                 intent.putExtra(InformationForDetails.NID, nid);
-                startActivity(intent);
+                startActivity(intent);*/
             } else {
                 //消息列表为普通的数据
                 String title = bean.title;

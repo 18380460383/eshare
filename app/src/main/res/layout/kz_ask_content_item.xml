@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:background="@color/white"
+    android:padding="15dp">
+
+    <RelativeLayout
+        android:id="@+id/rl_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_ask_user_image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/right" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/iv_ask_user_image"
+            android:text="提问人" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:text="￥2"
+            android:textColor="@color/yellow" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_ask_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_user"
+        android:layout_marginTop="18dp"
+        android:text="提问内容" />
+
+    <TextView
+        android:id="@+id/tv_ask_timeleft"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_ask_content"
+        android:layout_marginTop="8dp"
+        android:text="剩余24小时" />
+    <TextView
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_ask_content"
+        android:id="@+id/tv_ask_answer_count"
+        android:layout_alignParentRight="true"
+        android:text="1人回答"
+        />
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/tv_ask_sign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_ask_timeleft"
+        android:layout_marginTop="8dp"
+        android:text="已有1人回答。" />
+</RelativeLayout>

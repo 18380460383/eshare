@@ -127,16 +127,10 @@
             android:screenOrientation="portrait" />
 
         <!-- 个人信息界面 -->
-        <activity
-            android:name=".ui.activity.personal.UserDetailInfoActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+
 
         <!-- 个人记录界面 -->
-        <activity
-            android:name=".ui.activity.personal.RecordActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait" />
+
 
         <!-- 分享界面 -->
         <activity
@@ -382,9 +376,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="86d1fcac1b94098dd65f2f4a7969fe9b" />
         <!-- 查看分享的好友列表 -->
-        <activity
-            android:name=".ui.activity.personal.ShareFrindes"
-            android:screenOrientation="portrait" />
+
 
         <!-- 企业修改密码界面 -->
         <activity
@@ -486,20 +478,9 @@
 
 
         <!-- 收藏 -->
-        <activity
-            android:name=".ui.activity.personal.C_Collect"
-            android:screenOrientation="portrait" />
         <!-- 辩论观点式资讯详情 -->
-        <activity
-            android:name=".ui.activity.personal.InformationForDetails"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait" />
         <!-- 提现记录界面 -->
         <!-- 搜索更多资讯 -->
-        <activity
-            android:name=".ui.activity.personal.MoreNewsActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
         <!-- PDF阅读界面 -->
 
 
@@ -588,9 +569,7 @@
         </activity>
 
         <!-- 个人端纯网页资讯 -->
-        <activity
-            android:name=".ui.activity.personal.InformationWebviewActivity"
-            android:screenOrientation="portrait" />
+
 
         <!-- 创意征集 -->
         <activity
@@ -624,10 +603,10 @@
         <activity android:name=".ui.activity.kzmessage.AskDetailActivity" />
         <activity android:name=".ui.activity.kzmessage.MyCollectionAcitivity" />
         <activity android:name=".ui.activity.kzmessage.MyAskActivity" />
-        <activity android:name=".test.MP3OnlineActivity">
+        <activity android:name=".test.MP3OnlineActivity"></activity>
 
-        </activity>
-        <service android:name=".test.server.PlayService"/>
+        <service android:name=".test.server.PlayService" />
+
         <activity android:name=".test.Mp3ServerAcitivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -635,6 +614,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.kzmessage.WantAskActivity"></activity>
     </application>
 
 </manifest>

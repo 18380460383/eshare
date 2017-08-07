@@ -10,8 +10,6 @@ import android.os.Bundle;
 
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.bean.request.PublicParameter;
-import com.kzmen.sczxjf.ui.activity.personal.InformationForDetails;
-import com.kzmen.sczxjf.ui.activity.personal.InformationWebviewActivity;
 import com.kzmen.sczxjf.ui.activity.personal.MainTabActivity;
 
 import org.json.JSONException;
@@ -125,11 +123,11 @@ public class EshareBroadcast extends BroadcastReceiver{
                     infWebIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(infWebIntent);
                 }else if(jsonObject.getInt("jumptype")==0){
-                    Intent infIntent = new Intent(context, InformationForDetails.class);
+                    /*Intent infIntent = new Intent(context, InformationForDetails.class);
                     infIntent.putExtra(InformationForDetails.NID,jsonObject.optString("nid"));
                     infIntent.putExtra(InformationForDetails.TITLENAME, "详情");
                     infIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(infIntent);
+                    context.startActivity(infIntent);*/
                 }
 
             }

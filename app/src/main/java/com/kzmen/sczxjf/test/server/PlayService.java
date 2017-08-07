@@ -34,7 +34,7 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
     private static final int STATE_PLAYING = 2;
     private static final int STATE_PAUSE = 3;
 
-    private List<Music> mMusicList;
+    public static List<Music> mMusicList;
     private final IntentFilter mNoisyFilter = new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
     private final NoisyAudioStreamReceiver mNoisyReceiver = new NoisyAudioStreamReceiver();
     private final Handler mHandler = new Handler();

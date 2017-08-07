@@ -27,14 +27,12 @@ import com.kzmen.sczxjf.UIManager;
 import com.kzmen.sczxjf.bean.user.User_For_pe;
 import com.kzmen.sczxjf.net.EnWebUtil;
 import com.kzmen.sczxjf.ui.activity.kzmessage.MainTabActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.MyAskActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.MyCollectionAcitivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.MyIntegralActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.MyPackageAcitivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.PersonMessActivity;
 import com.kzmen.sczxjf.ui.activity.personal.ActListActivity;
-import com.kzmen.sczxjf.ui.activity.personal.C_Collect;
-import com.kzmen.sczxjf.ui.activity.personal.OriginalityCoollectActivity;
-import com.kzmen.sczxjf.ui.activity.personal.RecordActivity;
-import com.kzmen.sczxjf.ui.activity.personal.ShareFrindes;
 import com.kzmen.sczxjf.ui.activity.personal.ShopActivity;
 import com.kzmen.sczxjf.ui.fragment.basic.SuperFragment;
 import com.kzmen.sczxjf.util.TextViewUtil;
@@ -160,11 +158,12 @@ public class CMenuFragment extends SuperFragment {
                 break;
             case R.id.c_menu_collect_onc:
                 //TODO 点击收藏
-                getContext().startActivity(new Intent(getContext(), C_Collect.class));
+                Intent intent3 = new Intent(getContext(), MyCollectionAcitivity.class);
+                getContext().startActivity(intent3);
                 break;
             case R.id.c_menu_friend_onc:
                 //TODO 点击好友
-                getContext().startActivity(new Intent(getContext(), ShareFrindes.class));
+               /* getContext().startActivity(new Intent(getContext(), ShareFrindes.class));*/
                 break;
             case R.id.c_menu_activity_onc:
                 //TODO 点击活动
@@ -183,12 +182,12 @@ public class CMenuFragment extends SuperFragment {
                 break;
             case R.id.c_menu_balance:
                 //TODO 点击转发记录
-                Intent intent2 = new Intent(getContext(), RecordActivity.class);
+              /*  Intent intent2 = new Intent(getContext(), RecordActivity.class);
                 intent2.putExtra(RecordActivity.FLAG, 1);
-                getContext().startActivity(intent2);
+                getContext().startActivity(intent2);*/
                 break;
             case R.id.c_menu_creative_collection_rl:
-                Intent intent3 = new Intent(getContext(), OriginalityCoollectActivity.class);
+                Intent intent3 = new Intent(getContext(), MyAskActivity.class);
                 getContext().startActivity(intent3);
                 break;
             case R.id.iv_close:

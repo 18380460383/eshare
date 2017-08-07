@@ -6,7 +6,6 @@ import android.content.Intent;
 import com.kzmen.sczxjf.ui.activity.personal.FirstGuideActivity;
 import com.kzmen.sczxjf.ui.activity.personal.GuideActivity;
 import com.kzmen.sczxjf.ui.activity.personal.SetActivity;
-import com.kzmen.sczxjf.ui.activity.personal.UserDetailInfoActivity;
 
 /**
  * UI跳转管理
@@ -36,8 +35,8 @@ public class UIManager {
      * 显示个人信息界面
      */
     public static void showPersonInfoActivity(Activity activity) {
-        Intent intent = new Intent(activity, UserDetailInfoActivity.class);
-        activity.startActivity(intent);
+        /*Intent intent = new Intent(activity, UserDetailInfoActivity.class);
+        activity.startActivity(intent);*/
     }
 
 

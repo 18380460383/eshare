@@ -23,13 +23,11 @@ import com.kzmen.sczxjf.Constants;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.YaoBean;
 import com.kzmen.sczxjf.control.CustomProgressDialog;
-
-import com.kzmen.sczxjf.ui.activity.personal.ShopDetailsActivity;
-import com.kzmen.sczxjf.ui.activity.personal.UserDetailInfoActivity;
-import com.kzmen.sczxjf.utils.FileUtils;
 import com.kzmen.sczxjf.net.NetworkDownload;
+import com.kzmen.sczxjf.ui.activity.personal.ShopDetailsActivity;
 import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.util.EshareLoger;
+import com.kzmen.sczxjf.utils.FileUtils;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
@@ -41,7 +39,6 @@ import com.tencent.smtt.sdk.WebViewClient;
 
 import org.apache.http.Header;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -293,7 +290,7 @@ public class BaseWebActivity extends Activity {
 
         @JavascriptInterface
         public void getWeixinFannum(String  jsonstr){
-            try {
+            /*try {
                 String replace = jsonstr.replace("\"{", "{");
                 String replace1 = replace.replace("}\"", "}");
                 String replace2 = replace.replace("\\", "");
@@ -308,7 +305,7 @@ public class BaseWebActivity extends Activity {
                 e.printStackTrace();
             }finally {
 
-            }
+            }*/
 
         }
     }

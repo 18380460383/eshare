@@ -158,8 +158,8 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
         switch (view.getId()) {
             case R.id.more_c_news:
-                Intent intent1 = new Intent(this, MoreNewsActivity.class);
-                startActivity(intent1);
+               /* Intent intent1 = new Intent(this, MoreNewsActivity.class);
+                startActivity(intent1);*/
                 break;
             case R.id.main_headimage:
                 //TODO 左侧打开菜单

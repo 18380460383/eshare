@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "H:\\AndroidPro\\kzmen\\OneSDK\\build\\intermediates\\res\\merged\\debug\\values-w820dp-v13\\values-w820dp-v13.xml",
+        "outputFile": "D:\\AndroidStudioPro\\eshare\\OneSDK\\build\\intermediates\\res\\merged\\debug\\values-w820dp-v13\\values-w820dp-v13.xml",
         "map": [
             {
                 "to": {
@@ -11,13 +11,13 @@
                     "endOffset": 108
                 },
                 "from": {
-                    "file": "H:\\AndroidPro\\kzmen\\OneSDK\\res\\values-w820dp\\tae_sdk_ui_dimens.xml",
+                    "file": "D:\\AndroidStudioPro\\eshare\\OneSDK\\res\\values-w820dp\\tae_sdk_ui_dimens.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
-                        "startOffset": 306,
+                        "startOffset": 302,
                         "endColumn": 57,
-                        "endOffset": 359
+                        "endOffset": 355
                     }
                 }
             }
