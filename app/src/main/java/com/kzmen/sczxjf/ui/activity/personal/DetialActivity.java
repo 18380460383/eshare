@@ -35,15 +35,13 @@ import com.kzmen.sczxjf.bean.WeixinInfo;
 import com.kzmen.sczxjf.bean.returned.DetialReturn;
 import com.kzmen.sczxjf.bean.user.User_For_pe;
 import com.kzmen.sczxjf.net.EnWebUtil;
+import com.kzmen.sczxjf.net.NetworkDownload;
 import com.kzmen.sczxjf.ui.activity.BaseWebActivity;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
-import com.kzmen.sczxjf.utils.AppUtils;
-import com.kzmen.sczxjf.net.NetworkDownload;
-import com.kzmen.sczxjf.ui.fragment.personal.FragmentList;
-import com.kzmen.sczxjf.ui.fragment.personal.FragmentRecordRelay;
 import com.kzmen.sczxjf.util.EshareLoger;
 import com.kzmen.sczxjf.util.StringUtils;
 import com.kzmen.sczxjf.util.TLog;
+import com.kzmen.sczxjf.utils.AppUtils;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qiniu.android.http.ResponseInfo;
@@ -525,9 +523,9 @@ public class DetialActivity extends SuperActivity {
        /* if(fragment instanceof Fragment1){
             ((Fragment1) fragment).removeGeneralize(pid);
         }*/
-        if(fragment instanceof FragmentList){
+      /*  if(fragment instanceof FragmentList){
             ((FragmentList) fragment).removeGeneralize(pid);
-        }
+        }*/
         Map<String, String> map = new HashMap<>();
         map.put("uid", info.getUid());
         map.put("token", info.getToken());
@@ -639,11 +637,11 @@ public class DetialActivity extends SuperActivity {
                 Toast.makeText(DetialActivity.this, "上传图片成功", Toast.LENGTH_SHORT).show();
                 dismissProgressDialog();
                 request();
-                if (null != fragment) {
+               /* if (null != fragment) {
                     if (fragment instanceof FragmentRecordRelay) {
                         ((FragmentRecordRelay) fragment).changeState(pid);
                     }
-                }
+                }*/
             }
 
             @Override

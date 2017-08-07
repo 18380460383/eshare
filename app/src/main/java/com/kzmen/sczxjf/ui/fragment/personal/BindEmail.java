@@ -162,4 +162,9 @@ public class BindEmail extends SuperFragment {
         ButterKnife.reset(this);
     }
 
+    @Override
+    protected void lazyLoad() {
+
+    }
+
 }

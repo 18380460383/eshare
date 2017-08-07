@@ -335,6 +335,11 @@ public class AttEnterpriseFragment extends SuperFragment {
         }
     }
 
+    @Override
+    protected void lazyLoad() {
+
+    }
+
     /**
      * 上传信息到服务器
      *

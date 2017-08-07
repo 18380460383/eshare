@@ -1,9 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.CourseDetailAcitivity">
+    android:background="@color/white">
 
-</android.support.constraint.ConstraintLayout>
+    <com.kzmen.sczxjf.view.MyScrollView
+        android:id="@+id/myScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/id_stickynavlayout_topview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/top_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:background="@drawable/banner2"
+                        android:scaleType="fitXY" />
+
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/scenic_spot_detail_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/test"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:text="@string/test"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#F9F9F9"
+                    android:text="@string/test" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/detail_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/adress_ic"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/adress_ic"
+                        android:text="@string/test" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/adress_ic"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/adress_ic"
+                        android:text="@string/test" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/adress_ic"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/adress_ic"
+                        android:text="@string/test" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/adress_ic"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/adress_ic"
+                        android:text="@string/test" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/adress_ic"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/adress_ic"
+                        android:text="@string/test" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/adress_ic"
+                        android:layout_marginTop="10dp"
+                        android:layout_toRightOf="@+id/adress_ic"
+                        android:text="@string/test" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#F9F9F9" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/biaoqian_1"
+                        android:layout_width="4dp"
+                        android:layout_height="16dp"
+                        android:layout_marginLeft="12dp"
+                        android:background="@color/yellow"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@+id/biaoqian_1"
+                        android:text="门票购买"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/money_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/biaoqian_1"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_toRightOf="@+id/biaoqian_1"
+                        android:text="门票价格:￥400/人"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/item_explain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/money_textview"
+
+                        android:layout_marginTop="10dp"
+                        android:text="购票说明"
+                        android:visibility="gone" />
+
+
+                    <TextView
+                        android:id="@+id/signup_explain_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/money_textview"
+                        android:layout_below="@id/item_explain"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="10dp"
+                        android:text="购票说明"
+                        android:visibility="gone" />
+
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#F9F9F9" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/search02"
+                android:layout_width="match_parent"
+                android:layout_height="40dip"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/fragment_framelayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </FrameLayout>
+        </LinearLayout>
+    </com.kzmen.sczxjf.view.MyScrollView>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/top_lay"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/scenic_spot_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="青海湖"
+            android:textColor="@color/white"
+            android:textSize="17dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

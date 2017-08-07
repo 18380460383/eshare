@@ -2,22 +2,29 @@ package com.kzmen.sczxjf.ui.fragment.basic;
 
 import android.app.Activity;
 import android.content.Context;
-
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 
+import butterknife.ButterKnife;
+
 /**
- * Created by 杨操 on 2016/1/14.
  */
 public abstract class SuperFragment extends Fragment  {
     private  Activity activity;
     private View inflate;
+    /**
+     * 视图是否已经初初始化
+     */
+    protected boolean isInit = false;
+    protected boolean isLoad = false;
+    protected final String TAG = "LazyLoadFragment";
 
     public View getInflate() {
         return inflate;
@@ -40,8 +47,6 @@ public abstract class SuperFragment extends Fragment  {
         }else{
             return  activity;
         }
-
-
     }
 
     public void setActivity(Activity context) {
@@ -55,7 +60,6 @@ public abstract class SuperFragment extends Fragment  {
         ((SuperActivity)activity).showProgressDialog(text);
 
     }
-
     /**
      * 关闭进度条
      */
@@ -64,6 +68,9 @@ public abstract class SuperFragment extends Fragment  {
     }
     protected  View setContentView(LayoutInflater inflater,ViewGroup container,int id){
         inflate = inflater.inflate(id, null);
+        ButterKnife.inject(this,inflate);
+        isInit = true;
+        /**初始化的时候去加载数据**/
         return inflate;
     }
 
@@ -71,4 +78,41 @@ public abstract class SuperFragment extends Fragment  {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+
+    /** Fragment当前状态是否可见 */
+    protected boolean isVisible;
+
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(getUserVisibleHint()) {
+            isVisible = true;
+            onVisible();
+        } else {
+            isVisible = false;
+            onInvisible();
+        }
+    }
+
+
+    /**
+     * 可见
+     */
+    protected void onVisible() {
+        lazyLoad();
+    }
+
+    /**
+     * 不可见
+     */
+    protected void onInvisible() {
+    }
+
+    /**
+     * 延迟加载
+     * 子类必须重写此方法
+     */
+    protected abstract void lazyLoad();
 }
