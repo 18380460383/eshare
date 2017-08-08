@@ -187,8 +187,8 @@ public class CMenuFragment extends SuperFragment {
                 getContext().startActivity(intent2);*/
                 break;
             case R.id.c_menu_creative_collection_rl:
-                Intent intent3 = new Intent(getContext(), MyAskActivity.class);
-                getContext().startActivity(intent3);
+                Intent intentn = new Intent(getContext(), MyAskActivity.class);
+                getContext().startActivity(intentn);
                 break;
             case R.id.iv_close:
                 ((MainTabActivity)getActivity()).closeDraw();
@@ -284,5 +284,10 @@ public class CMenuFragment extends SuperFragment {
             getBanner();
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void lazyLoad() {
+
     }
 }

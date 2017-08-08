@@ -60,7 +60,7 @@ public abstract class SuperActivity extends FragmentActivity {
                 else{
                     initActivity();
                 }
-        //setInnerAct();
+        setInnerAct();
     }
 
     public void setInnerAct(){
@@ -229,11 +229,14 @@ public abstract class SuperActivity extends FragmentActivity {
     }
     /**
     *设置当前界面时企业界面
-     *
      *  默认不能在没登录时使用
     */
     protected boolean isEnterpriseActivity(){
         return false;
     }
-
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+    }
 }

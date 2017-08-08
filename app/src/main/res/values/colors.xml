@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="transparent">#00000000</color>
     <color name="gloomy">#40d8d8d8</color>
     <color name="bg">#E3E8EE</color>
     <color name="title">#d7d7d7</color>

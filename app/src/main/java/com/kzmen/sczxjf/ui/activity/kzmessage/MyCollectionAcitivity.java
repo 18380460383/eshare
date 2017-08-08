@@ -15,9 +15,7 @@ import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
-import com.kzmen.sczxjf.ui.fragment.kzmessage.CollectionAskFragment;
-import com.kzmen.sczxjf.ui.fragment.kzmessage.CollectionCourseFragment;
-import com.kzmen.sczxjf.ui.fragment.kzmessage.CollectionGoodsFragment;
+import com.kzmen.sczxjf.ui.fragment.kzmessage.FragmentCollection;
 
 import butterknife.InjectView;
 
@@ -44,6 +42,11 @@ public class MyCollectionAcitivity extends SuperActivity {
     }
 
     @Override
+    protected boolean isShareActivity() {
+        return true;
+    }
+
+    @Override
     public void onCreateDataForView() {
         setTitle(R.id.kz_tiltle, "我的收藏");
         initView();
@@ -53,10 +56,8 @@ public class MyCollectionAcitivity extends SuperActivity {
         adapter = new MyFragmentAdapter(getSupportFragmentManager());
         adapter.setTitles(titles);
 
-
         infoViewpager.setAdapter(adapter);
         tabLayout.setupWithViewPager(infoViewpager);
-
 
         //设置Tablayout
         //设置TabLayout模式 -该使用Tab数量比较多的情况
@@ -83,35 +84,24 @@ public class MyCollectionAcitivity extends SuperActivity {
 
         @Override
         public Fragment getItem(int position) {
-            /*FragmentCollection collection=new FragmentCollection();
-            Bundle bundle=null;
-            switch (position){
-                case 0:
-                    bundle=new Bundle();
-                    bundle.putString("type","1");
-                    break;
-                case 1:
-                    bundle=new Bundle();
-                    bundle.putString("type","2");
-                    break;
-                case 2:
-                    bundle=new Bundle();
-                    bundle.putString("type","3");
-                    break;
-            }
-            collection.setArguments(bundle);*/
-            Fragment fragment = null;
+
+            Fragment fragment = new FragmentCollection();
+            Bundle bundle = null;
             switch (position) {
                 case 0:
-                    fragment = new CollectionCourseFragment();
+                    bundle = new Bundle();
+                    bundle.putString("type", "1");
                     break;
                 case 1:
-                    fragment = new CollectionAskFragment();
+                    bundle = new Bundle();
+                    bundle.putString("type", "2");
                     break;
                 case 2:
-                    fragment = new CollectionGoodsFragment();
+                    bundle = new Bundle();
+                    bundle.putString("type", "3");
                     break;
             }
+            fragment.setArguments(bundle);
             return fragment;
         }
 

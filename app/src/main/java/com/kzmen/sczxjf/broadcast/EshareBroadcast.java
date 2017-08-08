@@ -117,11 +117,11 @@ public class EshareBroadcast extends BroadcastReceiver{
                     return;
                 }
                 if(jsonObject.getInt("jumptype")==1){
-                    Intent infWebIntent = new Intent(context, InformationWebviewActivity.class);
+                    /*Intent infWebIntent = new Intent(context, InformationWebviewActivity.class);
                     infWebIntent.putExtra("url", jsonObject.optString("jumpurl"));
                     infWebIntent.putExtra(InformationWebviewActivity.NID, jsonObject.optString("nid"));
                     infWebIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(infWebIntent);
+                    context.startActivity(infWebIntent);*/
                 }else if(jsonObject.getInt("jumptype")==0){
                     /*Intent infIntent = new Intent(context, InformationForDetails.class);
                     infIntent.putExtra(InformationForDetails.NID,jsonObject.optString("nid"));

@@ -1,7 +1,6 @@
 package com.kzmen.sczxjf.ui.fragment.basic;
 
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
@@ -35,7 +34,6 @@ public class ListViewFragment extends SuperFragment implements PullToRefreshBase
     private void setPullRefreshListView() {
         {
             mPullRefreshListView.getRefreshableView().setAdapter(adapter);
-            Log.i("tag", "hhhhhhhhhhhhhhhhhhhh");
             mPullRefreshListView.setMode(PullToRefreshBase.Mode.BOTH);
             mPullRefreshListView.getLoadingLayoutProxy().setRefreshingLabel("正在获取数据");
             mPullRefreshListView.getLoadingLayoutProxy().setPullLabel("数据更新");
@@ -115,4 +113,8 @@ public class ListViewFragment extends SuperFragment implements PullToRefreshBase
         });
     }
 
+    @Override
+    protected void lazyLoad() {
+
+    }
 }

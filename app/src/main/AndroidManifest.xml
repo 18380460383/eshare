@@ -86,14 +86,11 @@
             android:name=".ui.activity.LogoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/LogoTheme">
-
-            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            -->
         </activity>
 
         <!-- 使用说明界面 -->
@@ -599,22 +596,33 @@
         <activity android:name=".ui.activity.kzmessage.AskListActivity" />
         <activity android:name=".ui.activity.kzmessage.ActivListActivity" />
         <activity android:name=".ui.activity.kzmessage.CaseListActivity" />
-        <activity android:name=".ui.activity.kzmessage.CourseDetailAcitivity" />
-        <activity android:name=".ui.activity.kzmessage.AskDetailActivity" />
-        <activity android:name=".ui.activity.kzmessage.MyCollectionAcitivity" />
-        <activity android:name=".ui.activity.kzmessage.MyAskActivity" />
+        <activity android:name=".ui.activity.kzmessage.CourseDetailAcitivity" >
+           <!-- <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+        <activity android:name=".ui.activity.kzmessage.AskDetailActivity" >
+
+        </activity>
+        <activity android:name=".ui.activity.kzmessage.MyCollectionAcitivity" >
+
+        </activity>
+        <activity android:name=".ui.activity.kzmessage.MyAskActivity" >
+
+        </activity>
         <activity android:name=".test.MP3OnlineActivity"></activity>
 
         <service android:name=".test.server.PlayService" />
 
         <activity android:name=".test.Mp3ServerAcitivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.activity.kzmessage.WantAskActivity"></activity>
+
+
+
     </application>
 
 </manifest>

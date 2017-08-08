@@ -8,15 +8,13 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.kzmen.sczxjf.AppContext;
-import com.kzmen.sczxjf.Constants;
 import com.kzmen.sczxjf.bean.request.PublicParameter;
 import com.kzmen.sczxjf.ui.activity.personal.MainTabActivity;
-import com.kzmen.sczxjf.utils.DESUtils;
 import com.kzmen.sczxjf.util.EshareLoger;
+import com.kzmen.sczxjf.utils.DESUtils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -417,7 +415,7 @@ public class NetworkDownload {
     }
 
     private static void dealJiFen(JSONObject jsonObject, String url) {
-        if(url.equals(Constants.URL_POST_ADD_NEWS_COMMENT)||url.equals(Constants.URL_POST_LOGIN)){
+       /* if(url.equals(Constants.URL_POST_ADD_NEWS_COMMENT)||url.equals(Constants.URL_POST_LOGIN)){
             JSONObject object = jsonObject.optJSONObject("data");
             try {
                 double add_score = object.optDouble("add_score");
@@ -427,7 +425,7 @@ public class NetworkDownload {
             }catch (Exception e){
 
             }
-        }
+        }*/
     }
 
 
