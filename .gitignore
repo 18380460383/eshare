@@ -6,3 +6,5 @@
 /build
 /captures
 /pulltorefresh/build
+/pulltorefresh/*.iml
+/OneSDK/*.iml
