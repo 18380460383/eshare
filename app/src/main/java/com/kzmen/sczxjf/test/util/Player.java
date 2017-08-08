@@ -64,8 +64,6 @@ public class Player implements OnBufferingUpdateListener, OnCompletionListener,
                 tv_time.setText("播放："+position+"  :"+duration+"    "+pos+"%");
             }
         }
-
-        ;
     };
 
     public void play() {

@@ -20,7 +20,8 @@ import com.kzmen.sczxjf.util.EToastUtil;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * 音乐播放后台服务
@@ -38,7 +39,7 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
     private final IntentFilter mNoisyFilter = new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
     private final NoisyAudioStreamReceiver mNoisyReceiver = new NoisyAudioStreamReceiver();
     private final Handler mHandler = new Handler();
-    private MediaPlayer mPlayer = new MediaPlayer();
+    public MediaPlayer mPlayer = new MediaPlayer();
     private AudioManager mAudioManager;
     private OnPlayerEventListener mListener;
     // 正在播放的歌曲[本地|网络]
@@ -49,25 +50,54 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
     private int mPlayState = STATE_IDLE;
     private int realPost = 0;
 
+    private void startTimer() {
+        if (mTimer == null) {
+            mTimer = new Timer();
+        }
+        mTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (mPlayer == null) {
+                    return;
+                }
+                if (isPlaying()) {
+                    handler.sendEmptyMessage(0); // 发送消息
+                }
+            }
+        }, 0, 1000);
+    }
+
+    private Timer mTimer = new Timer(); // 计时器
+    // 计时器
+    Handler handler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            int position = mPlayer.getCurrentPosition();
+            int duration = mPlayer.getDuration();
+            if (duration > 0) {
+                // 计算进度（获取进度条最大刻度*当前音乐播放位置 / 当前音乐时长）
+                if(getTime!=null){
+                    int pos =100 * position / duration;
+                    int musicTime = position / 1000;
+                    int min=musicTime / 60;
+                    int sec=musicTime % 60;
+                    String  show = (min<10?"0"+min:min)+ ":" + (sec<10?"0"+sec:sec);
+                    int emusicTime = duration / 1000;
+                    int emin=emusicTime / 60;
+                    int esec=emusicTime % 60;
+                    String  eshow = (emin<10?"0"+emin:emin)+ ":" + (esec<10?"0"+esec:esec);
+                    getTime.time(show,eshow,pos);
+                }
+            }
+        }
+    };
+
     @Override
     public void onCreate() {
         super.onCreate();
         mMusicList = new ArrayList<>();
-        Music music = new Music();
-        music.setType(Music.Type.ONLINE);
-        music.setPath("http://192.168.0.102:8000/static/mp3/Fade.mp3");
-        mMusicList.add(music);
-        Music music1 = new Music();
-        music1.setType(Music.Type.ONLINE);
-        music1.setPath("http://192.168.0.102:8000/static/mp3/Faded.mp3");
-        mMusicList.add(music1);
-        Music music2 = new Music();
-        music2.setType(Music.Type.ONLINE);
-        music2.setPath("http://192.168.0.102:8000/static/mp3/Dawn.mp3");
-        mMusicList.add(music2);
-        Log.i(TAG, "onCreate: " + getClass().getSimpleName());
         mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         mPlayer.setOnCompletionListener(this);
+
     }
 
     @Nullable
@@ -98,37 +128,11 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
                     break;
             }
         }
+        startTimer();
         return START_NOT_STICKY;
     }
 
-    /**
-     * 扫描音乐
-     */
-   /* public void updateMusicList(final EventCallback<Void> callback) {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                MusicUtils.scanMusic(PlayService.this, mMusicList);
-                return null;
-            }
 
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                if (!mMusicList.isEmpty()) {
-                    updatePlayingPosition();
-                    mPlayingMusic = mMusicList.get(mPlayingPosition);
-                }
-
-                if (mListener != null) {
-                    mListener.onMusicListUpdate();
-                }
-
-                if (callback != null) {
-                    callback.onEvent(null);
-                }
-            }
-        }.execute();
-    }*/
     @Override
     public void onCompletion(MediaPlayer mp) {
         next();
@@ -146,25 +150,23 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
         if (mMusicList.isEmpty()) {
             return;
         }
-
         if (position < 0) {
             position = mMusicList.size() - 1;
         } else if (position >= mMusicList.size()) {
-            realPost = position;
+            realPost=position;
             position = 0;
         }
-        if (realPost >= mMusicList.size()) {
-            EToastUtil.show(getApplicationContext(), "列表已经播放完毕，点击开始重新播放！");
+        if(realPost>=mMusicList.size()){
+            EToastUtil.show(getApplicationContext(),"播放完毕");
+            realPost=0;
             position = 0;
-            realPost = 0;
             mPlayingPosition = position;
             stop();
-        } else {
-            mPlayingPosition = position;
-            Music music = mMusicList.get(mPlayingPosition);
-            //Preferences.saveCurrentSongId(music.getId());
-            play(music);
+            return;
         }
+        mPlayingPosition = position;
+        Music music = mMusicList.get(mPlayingPosition);
+        play(music);
     }
 
     public void play(Music music) {
@@ -182,6 +184,7 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     private MediaPlayer.OnPreparedListener mPreparedListener = new MediaPlayer.OnPreparedListener() {
@@ -199,6 +202,9 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
             if (mListener != null) {
                 mListener.onBufferingUpdate(percent);
             }
+            if(onPreInter!=null){
+                onPreInter.prePercent(percent);
+            }
         }
     };
 
@@ -212,6 +218,9 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
         } else {
             play(getPlayingPosition());
         }
+    }
+    public void playStart(){
+        play(getPlayingPosition());
     }
 
     private boolean start() {
@@ -245,7 +254,6 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
         if (isIdle()) {
             return;
         }
-
         pause();
         mPlayer.reset();
         mPlayState = STATE_IDLE;
@@ -268,20 +276,7 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
             return;
         }
 
-      /* PlayModeEnum mode = PlayModeEnum.valueOf(Preferences.getPlayMode());
-        switch (mode) {
-            case SHUFFLE:
-                mPlayingPosition = new Random().nextInt(mMusicList.size());
-                play(mPlayingPosition);
-                break;
-            case SINGLE:
-                play(mPlayingPosition);
-                break;
-            case LOOP:
-            default:
-                play(mPlayingPosition + 1);
-                break;
-        }*/
+
         play(mPlayingPosition + 1);
     }
 
@@ -289,21 +284,6 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
         if (mMusicList.isEmpty()) {
             return;
         }
-
-        /*PlayModeEnum mode = PlayModeEnum.valueOf(Preferences.getPlayMode());
-        switch (mode) {
-            case SHUFFLE:
-                mPlayingPosition = new Random().nextInt(mMusicList.size());
-                play(mPlayingPosition);
-                break;
-            case SINGLE:
-                play(mPlayingPosition);
-                break;
-            case LOOP:
-            default:
-                play(mPlayingPosition - 1);
-                break;
-        }*/
         play(mPlayingPosition - 1);
     }
 
@@ -349,26 +329,6 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
      */
     public Music getPlayingMusic() {
         return mPlayingMusic;
-    }
-
-    /**
-     * 删除或下载歌曲后刷新正在播放的本地歌曲的序号
-     */
-    public void updatePlayingPosition() {
-        int position = 0;
-        long id = Preferences.getCurrentSongId();
-        for (int i = 0; i < mMusicList.size(); i++) {
-            if (mMusicList.get(i).getId() == id) {
-                position = i;
-                break;
-            }
-        }
-        mPlayingPosition = position;
-        Preferences.saveCurrentSongId(mMusicList.get(mPlayingPosition).getId());
-    }
-
-    public int getAudioSessionId() {
-        return mPlayer.getAudioSessionId();
     }
 
     private Runnable mPublishRunnable = new Runnable() {
@@ -446,10 +406,29 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
             return PlayService.this;
         }
     }
-    public void setMusicList(List<Music>mMusicList){
+
+    public void setMusicList(List<Music> mMusicList) {
         this.mMusicList.clear();
         this.mMusicList.addAll(mMusicList);
-        realPost=0;
-        mPlayingPosition=0;
+        realPost = 0;
+        mPlayingPosition = 0;
+    }
+
+    private onPreInter onPreInter;
+    public interface onPreInter{
+        void prePercent(int percent);
+    }
+    private getTime getTime;
+
+    public void setOnPreInter(PlayService.onPreInter onPreInter) {
+        this.onPreInter = onPreInter;
+    }
+
+    public void setGetTime(PlayService.getTime getTime) {
+        this.getTime = getTime;
+    }
+
+    public interface getTime{
+        void time(String start,String end,int pos);
     }
 }

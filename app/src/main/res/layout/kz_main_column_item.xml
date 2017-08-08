@@ -9,7 +9,7 @@
         android:id="@+id/iv_type"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:background="@drawable/right" />
+         />
 
     <TextView
         android:layout_marginTop="4dp"

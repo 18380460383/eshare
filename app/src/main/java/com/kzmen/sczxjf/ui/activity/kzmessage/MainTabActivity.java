@@ -1,11 +1,16 @@
 package com.kzmen.sczxjf.ui.activity.kzmessage;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Looper;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -26,6 +31,7 @@ import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.user.User_For_pe;
 import com.kzmen.sczxjf.control.ScreenControl;
 import com.kzmen.sczxjf.net.NetworkDownload;
+import com.kzmen.sczxjf.test.server.PlayService;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.ui.activity.personal.LoginActivity;
 import com.kzmen.sczxjf.ui.activity.personal.MsgCenterActivity;
@@ -50,6 +56,8 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
 
+import static com.kzmen.sczxjf.AppContext.getPlayService;
+
 /**
  * 主页面tab页面
  */
@@ -70,7 +78,8 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     TextView titleName;
     @InjectView(R.id.iv_history)
     ImageView ivHistory;
-
+    private ServiceConnection mPlayServiceConnection;
+    protected Handler mHandler = new Handler(Looper.getMainLooper());
     /**
      * 当前dialog是否显示在界面上
      */
@@ -91,6 +100,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
 
     @Override
     public void onCreateDataForView() {
+        checkService();
         setAccBroadcastReceiver();
         AppContext.maintabeactivity = this;
         supportFragmentManager = getSupportFragmentManager();
@@ -116,7 +126,40 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     protected void onResume() {
         super.onResume();
     }
+    private void checkService() {
+        if (getPlayService() == null) {
+            startService();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    bindService();
+                }
+            }, 1000);
+        }
+    }
 
+    private void startService() {
+        Intent intent = new Intent(this, PlayService.class);
+        startService(intent);
+    }
+
+    private void bindService() {
+        Intent intent = new Intent();
+        intent.setClass(this, PlayService.class);
+        mPlayServiceConnection = new PlayServiceConnection();
+        bindService(intent, mPlayServiceConnection, Context.BIND_AUTO_CREATE);
+    }
+    private class PlayServiceConnection implements ServiceConnection {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            final PlayService playService = ((PlayService.PlayBinder) service).getService();
+            AppContext.setPlayService(playService);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+        }
+    }
     @OnClick({R.id.main_headimage, R.id.iv_history})
     public void onclick(View view) {
         switch (view.getId()) {

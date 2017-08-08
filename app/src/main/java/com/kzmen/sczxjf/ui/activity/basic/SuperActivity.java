@@ -238,5 +238,10 @@ public abstract class SuperActivity extends FragmentActivity {
     public void startActivity(Intent intent) {
         super.startActivity(intent);
         overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+        if(AppContext.getPlayService()!=null){
+            if(AppContext.getPlayService().isPlaying()){
+                AppContext.getPlayService().stop();
+            }
+        }
     }
 }
