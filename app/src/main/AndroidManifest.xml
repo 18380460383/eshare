@@ -86,11 +86,11 @@
             android:name=".ui.activity.LogoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/LogoTheme">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
 
         <!-- 使用说明界面 -->
@@ -597,11 +597,11 @@
         <activity android:name=".ui.activity.kzmessage.ActivListActivity" />
         <activity android:name=".ui.activity.kzmessage.CaseListActivity" />
         <activity android:name=".ui.activity.kzmessage.CourseDetailAcitivity" >
-           <!-- <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
         <activity android:name=".ui.activity.kzmessage.AskDetailActivity" >
 

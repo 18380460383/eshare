@@ -13,8 +13,7 @@
 
         <RelativeLayout
             style="@style/TitleStyle"
-            android:background="@color/no3_black">
-
+            >
               <include
                   android:id="@+id/title"
                   layout="@layout/e_title" />

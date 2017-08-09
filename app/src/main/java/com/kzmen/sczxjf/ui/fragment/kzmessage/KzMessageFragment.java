@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.adapter.KzActivGridAdapter;
@@ -26,7 +27,8 @@ import com.kzmen.sczxjf.ui.activity.kzmessage.AskListActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.CaseListActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.CourseListActivity;
 import com.kzmen.sczxjf.util.EToastUtil;
-import com.kzmen.sczxjf.util.glide.GlideImgManager;
+import com.kzmen.sczxjf.util.glide.GlideCircleTransform;
+import com.kzmen.sczxjf.util.glide.GlideRoundTransform;
 import com.kzmen.sczxjf.view.ExPandGridView;
 import com.kzmen.sczxjf.view.banner.BannerLayout;
 
@@ -200,9 +202,10 @@ public class KzMessageFragment extends Fragment {
                 }
             }
         });
+        Glide.with(getActivity()).load(R.drawable.icon_user1).transform(new GlideRoundTransform(getActivity(), 10)).into(ivUserHead);
+        Glide.with(getActivity()).load(R.drawable.icon_user).transform(new GlideCircleTransform(getActivity())).into(ivAskHead1);
+        Glide.with(getActivity()).load(R.drawable.icon_user).transform(new GlideCircleTransform(getActivity())).into(ivAskHead2);
 
-        GlideImgManager.glideLoader(getActivity(), url, R.mipmap.ic_launcher, R.mipmap.ic_launcher, ivAskHead1, 0);
-        GlideImgManager.glideLoader(getActivity(), url, R.mipmap.ic_launcher, R.mipmap.ic_launcher, ivAskHead2, 0);
     }
 
     @Override
@@ -239,7 +242,7 @@ public class KzMessageFragment extends Fragment {
                 });
                 AppContext.getPlayService().setGetTime(new PlayService.getTime() {
                     @Override
-                    public void time(String start, String end,int pos) {
+                    public void time(String start, String end, int pos) {
                         tvMediaStartTime.setText(start);
                         tvMediaEndTime.setText(end);
                         sb_play.setProgress(pos);
@@ -282,9 +285,11 @@ public class KzMessageFragment extends Fragment {
     private void play() {
         AppContext.getPlayService().playPause();
     }
+
     private void playStart() {
         AppContext.getPlayService().playStart();
     }
+
     class SeekBarChangeEvent implements SeekBar.OnSeekBarChangeListener {
         int progress;
 
@@ -305,6 +310,5 @@ public class KzMessageFragment extends Fragment {
             // seekTo()的参数是相对与影片时间的数字，而不是与seekBar.getMax()相对的数字
             AppContext.getPlayService().mPlayer.seekTo(progress);
         }
-
     }
 }

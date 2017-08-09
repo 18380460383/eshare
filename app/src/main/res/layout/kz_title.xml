@@ -36,17 +36,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="74dp"
-    android:background="@color/title"
-    android:orientation="horizontal"
+    android:layout_height="70dp"
+    android:background="@color/transparent"
+    android:orientation="vertical"
    >
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/transparent"/>
     <android.support.percent.PercentRelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/title">
+        android:background="@color/transparent">
 
         <android.support.percent.PercentRelativeLayout
             android:id="@+id/back"
@@ -60,7 +63,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_centerInParent="true"
-                android:background="@drawable/icon_back_white"
+                android:background="@drawable/icon_back"
                 android:scaleType="center"
                 app:layout_heightPercent="100%"
                 app:layout_widthPercent="30%" />
