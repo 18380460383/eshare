@@ -1,14 +1,18 @@
 package com.kzmen.sczxjf.ui.activity.kzmessage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.AdapterView;
+import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.kzmen.sczxjf.R;
-import com.kzmen.sczxjf.adapter.MsgCenterAdapter;
-import com.kzmen.sczxjf.bean.MsgBean;
+import com.kzmen.sczxjf.commonadapter.CommonAdapter;
+import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.ui.activity.basic.ListViewActivity;
 
 import java.util.ArrayList;
@@ -20,10 +24,9 @@ public class CourseListActivity extends ListViewActivity {
 
     @InjectView(R.id.msg_center_lv)
     PullToRefreshListView mPullRefreshListView;
-    private MsgCenterAdapter adapter;
-    private List<MsgBean> data_list;
     private int page;
-
+    private List<String>listData;
+    private CommonAdapter<String>adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,10 +44,22 @@ public class CourseListActivity extends ListViewActivity {
     }
 
     private void initData() {
-        data_list = new ArrayList<>();
+        listData = new ArrayList<>();
         page = 1;
-        adapter = new MsgCenterAdapter(CourseListActivity.this, data_list);
+        adapter =new CommonAdapter<String>(CourseListActivity.this,R.layout.kz_course_list_item,listData) {
+            @Override
+            protected void convert(ViewHolder viewHolder, String item, int position) {
+                ((TextView)(viewHolder.getView(R.id.tv_title))).setText(listData.get(position));
+            }
+        };
         setmPullRefreshListView(mPullRefreshListView, adapter);
+        mPullRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent=new Intent(CourseListActivity.this,CourseDetailAcitivity.class);
+                startActivity(intent);
+            }
+        });
         setADD();
     }
 
@@ -60,7 +75,8 @@ public class CourseListActivity extends ListViewActivity {
      */
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-        page = 1;
+        page=0;
+        getData(page);
     }
 
     /**
@@ -70,11 +86,8 @@ public class CourseListActivity extends ListViewActivity {
      */
     @Override
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-        getList();
-    }
-
-    public void getList() {
-        mPullRefreshListView.onRefreshComplete();
+        page++;
+        getData(page);
     }
 
     /**
@@ -86,7 +99,6 @@ public class CourseListActivity extends ListViewActivity {
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                System.out.println("tag" + "开始加载");
                 mPullRefreshListView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 h.postDelayed(new Runnable() {
                     @Override
@@ -98,5 +110,23 @@ public class CourseListActivity extends ListViewActivity {
 
             }
         });
+    }
+    private void getData(int page){
+        listData.clear();
+        for (int i = page; i <page+10 ; i++) {
+            listData.add("测试"+i);
+        }
+
+        Handler h=new Handler();
+        h.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(mPullRefreshListView==null){
+                    return;
+                }
+                mPullRefreshListView.onRefreshComplete();
+                adapter.notifyDataSetChanged();
+            }
+        }, 3000);
     }
 }

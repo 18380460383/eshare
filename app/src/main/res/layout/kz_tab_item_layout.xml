@@ -14,12 +14,11 @@
         android:layout_gravity="center_horizontal"
         />
     <TextView
-        android:layout_marginLeft="8dp"
         android:text="Item 01"
-        android:textColor="@color/colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
         />
 </LinearLayout>

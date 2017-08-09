@@ -378,6 +378,9 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     @Override
     protected void onPause() {
         super.onPause();
+        if(AppContext.getPlayService()!=null){
+            AppContext.getPlayService().stop();
+        }
     }
 
     @Override
@@ -451,6 +454,5 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         // TODO: add setContentView(...) invocation
         ButterKnife.inject(this);
     }
-
 
 }

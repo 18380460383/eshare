@@ -3,6 +3,7 @@ package com.kzmen.sczxjf.ui.fragment.kzmessage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,8 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
+import static com.kzmen.sczxjf.R.id.iv_course_play;
+
 /**
  * 卡掌门--掌信端
  */
@@ -64,7 +67,7 @@ public class KzMessageFragment extends Fragment {
     TextView tvMediaStartTime;
     @InjectView(R.id.tv_media_end_time)
     TextView tvMediaEndTime;
-    @InjectView(R.id.iv_course_play)
+    @InjectView(iv_course_play)
     ImageView ivCoursePlay;
     @InjectView(R.id.tv_xiaojiang_title1)
     TextView tvXiaojiangTitle1;
@@ -213,12 +216,13 @@ public class KzMessageFragment extends Fragment {
         super.onDestroyView();
         ButterKnife.reset(this);
     }
-
-    @OnClick({R.id.iv_course_play, R.id.iv_xiaojiang_play1, R.id.iv_xiaojiang_play2, R.id.ll_more_course, R.id.ll_more_ask, R.id.ll_more_activ})
+    private int bufferPercent=0;
+    @OnClick({iv_course_play, R.id.iv_xiaojiang_play1, R.id.iv_xiaojiang_play2, R.id.ll_more_course, R.id.ll_more_ask, R.id.ll_more_activ})
     public void onViewClicked(View view) {
         Intent intent = null;
         switch (view.getId()) {
-            case R.id.iv_course_play:
+            case iv_course_play:
+
                 mMusicList.clear();
                 Music music = new Music();
                 music.setType(Music.Type.ONLINE);
@@ -237,6 +241,8 @@ public class KzMessageFragment extends Fragment {
                 AppContext.getPlayService().setOnPreInter(new PlayService.onPreInter() {
                     @Override
                     public void prePercent(int percent) {
+                        Log.e("test","           ++    "+percent);
+                        bufferPercent=percent;
                         sb_play.setSecondaryProgress(percent);
                     }
                 });
@@ -246,8 +252,14 @@ public class KzMessageFragment extends Fragment {
                         tvMediaStartTime.setText(start);
                         tvMediaEndTime.setText(end);
                         sb_play.setProgress(pos);
+                        sb_play.setSecondaryProgress(bufferPercent);
                     }
                 });
+                if (AppContext.getPlayService().mPlayer.isPlaying()) {
+                    ivCoursePlay.setBackgroundResource(R.drawable.btn_pause);
+                } else {
+                    ivCoursePlay.setBackgroundResource(R.drawable.btn_play);
+                }
                 break;
             case R.id.iv_xiaojiang_play1:
                 mMusicList.clear();
@@ -256,6 +268,8 @@ public class KzMessageFragment extends Fragment {
                 musicp.setPath("http://192.168.0.102:8000/static/mp3/Dawn.mp3");
                 mMusicList.add(musicp);
                 AppContext.getPlayService().setMusicList(mMusicList);
+                AppContext.getPlayService().setOnPreInter(null);
+                AppContext.getPlayService().setGetTime(null);
                 playStart();
                 break;
             case R.id.iv_xiaojiang_play2:
@@ -265,6 +279,8 @@ public class KzMessageFragment extends Fragment {
                 musicp1.setPath("http://192.168.0.102:8000/static/mp3/鬼迷心窍.mp3");
                 mMusicList.add(musicp1);
                 AppContext.getPlayService().setMusicList(mMusicList);
+                AppContext.getPlayService().setOnPreInter(null);
+                AppContext.getPlayService().setGetTime(null);
                 playStart();
                 break;
             case R.id.ll_more_course:
