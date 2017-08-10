@@ -8,11 +8,11 @@ import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
+import com.kzmen.sczxjf.view.CircleImageView;
 import com.kzmen.sczxjf.view.MyListView;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**

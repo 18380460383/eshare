@@ -1,6 +1,7 @@
 package com.kzmen.sczxjf.view;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -82,5 +83,8 @@ public class MyScrollView  extends ScrollView {
          */
         public void onScroll(int scrollY);
     }
-
+    @Override
+    protected int computeScrollDeltaToGetChildRectOnScreen(Rect rect) {
+        return 0;
+    }
 }

@@ -15,10 +15,14 @@ import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.adapter.Kz_CourseDetaiListAdapter;
 import com.kzmen.sczxjf.adapter.Kz_FragmentAdapter;
 import com.kzmen.sczxjf.bean.kzbean.CourseListTstBean;
+import com.kzmen.sczxjf.commonadapter.CommonAdapter;
+import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.dialog.ShareDialog;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.util.EToastUtil;
+import com.kzmen.sczxjf.view.MyListView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,9 +46,12 @@ public class CourseDetailAcitivity extends SuperActivity {
     TabLayout tabLayout;
     @InjectView(R.id.info_viewpager)
     ViewPager infoViewpager;
-    private String[] titles = new String[]{"阶段一", "阶段二", "阶段三","阶段四","阶段五"};
+    @InjectView(R.id.lv_goodask)
+    MyListView lvGoodask;
+    private String[] titles = new String[]{"阶段一", "阶段二", "阶段三", "阶段四", "阶段五"};
     private ShareDialog shareDialog;
     private Kz_FragmentAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,12 +61,12 @@ public class CourseDetailAcitivity extends SuperActivity {
     @Override
     public void onCreateDataForView() {
         setTitle(R.id.kz_tiltle, "课程详情");
-        // initData();
         initView();
+        initData();
     }
 
     private void initView() {
-        adapter = new Kz_FragmentAdapter(getSupportFragmentManager(),CourseDetailAcitivity.this,titles);
+        adapter = new Kz_FragmentAdapter(getSupportFragmentManager(), CourseDetailAcitivity.this, titles);
         adapter.setTitles(titles);
         infoViewpager.setAdapter(adapter);
         tabLayout.setupWithViewPager(infoViewpager);
@@ -75,7 +82,9 @@ public class CourseDetailAcitivity extends SuperActivity {
     }
 
     private List<CourseListTstBean> beanlist;
-   /* private void initData() {
+    private Kz_CourseDetaiListAdapter adapter1;
+    private CommonAdapter<CourseListTstBean>adapter2;
+    private void initData() {
         beanlist=new ArrayList<>();
         for (int i = 0; i <20 ; i++) {
             CourseListTstBean bean=new CourseListTstBean();
@@ -88,10 +97,16 @@ public class CourseDetailAcitivity extends SuperActivity {
             bean.setTime("03:0"+i);
             beanlist.add(bean);
         }
-        adapter=new Kz_CourseDetaiListAdapter(CourseDetailAcitivity.this,beanlist);
-        lvCourse.setAdapter(adapter);
-        setListViewHeightBasedOnChildren(lvCourse);
-    }*/
+        //adapter1=new Kz_CourseDetaiListAdapter(CourseDetailAcitivity.this,beanlist);
+        adapter2=new CommonAdapter<CourseListTstBean>(CourseDetailAcitivity.this,R.layout.kz_good_ask_item,beanlist) {
+            @Override
+            protected void convert(ViewHolder viewHolder, CourseListTstBean item, int position) {
+               viewHolder.setText(R.id.tv_user_name,""+item.getName());
+            }
+        };
+        lvGoodask.setAdapter(adapter2);
+        setListViewHeightBasedOnChildren(lvGoodask);
+    }
 
     @Override
     protected boolean isShareActivity() {
@@ -129,7 +144,7 @@ public class CourseDetailAcitivity extends SuperActivity {
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         //获得adapter
-        Kz_CourseDetaiListAdapter adapter = (Kz_CourseDetaiListAdapter) listView.getAdapter();
+        CommonAdapter<CourseListTstBean> adapter = (CommonAdapter) listView.getAdapter();
         if (adapter == null) {
             return;
         }

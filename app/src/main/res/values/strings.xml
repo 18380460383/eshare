@@ -5,7 +5,8 @@
     <string name="hasdone">已错过</string>
     <string name="doing">进行中</string>
     <string name="ready">即将开抢</string>
-
+    <string name="rationale_ask_again">This app may not work correctly without the requested permissions. Open the app settings screen to modify app permissions.</string>
+    <string name="title_settings_dialog">Permissions Required</string>
     <!-- Money -->
     <string name="balance_account">账户余额</string>
     <string name="missed">已错过</string>

@@ -27,6 +27,7 @@ import com.kzmen.sczxjf.ui.activity.kzmessage.ActivListActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.AskListActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.CaseListActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.CourseListActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.CoursePlayDeatilActivity;
 import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.util.glide.GlideCircleTransform;
 import com.kzmen.sczxjf.util.glide.GlideRoundTransform;
@@ -273,15 +274,8 @@ public class KzMessageFragment extends Fragment {
                 playStart();
                 break;
             case R.id.iv_xiaojiang_play2:
-                mMusicList.clear();
-                Music musicp1 = new Music();
-                musicp1.setType(Music.Type.ONLINE);
-                musicp1.setPath("http://192.168.0.102:8000/static/mp3/鬼迷心窍.mp3");
-                mMusicList.add(musicp1);
-                AppContext.getPlayService().setMusicList(mMusicList);
-                AppContext.getPlayService().setOnPreInter(null);
-                AppContext.getPlayService().setGetTime(null);
-                playStart();
+               intent=new Intent(getActivity(), CoursePlayDeatilActivity.class);
+                startActivity(intent);
                 break;
             case R.id.ll_more_course:
                 intent = new Intent(getActivity(), CourseListActivity.class);

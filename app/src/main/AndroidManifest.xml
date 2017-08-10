@@ -122,7 +122,6 @@
         <activity
             android:name=".ui.activity.personal.DetialActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.activity.personal.ShareActivity"
             android:screenOrientation="portrait" />
@@ -589,33 +588,26 @@
         <activity android:name=".ui.activity.kzmessage.AskListActivity" />
         <activity android:name=".ui.activity.kzmessage.ActivListActivity" />
         <activity android:name=".ui.activity.kzmessage.CaseListActivity" />
-        <activity android:name=".ui.activity.kzmessage.CourseDetailAcitivity" >
-         <!--   <intent-filter>
+        <activity android:name=".ui.activity.kzmessage.CourseDetailAcitivity">
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
-        <activity android:name=".ui.activity.kzmessage.AskDetailActivity" >
-
-        </activity>
-        <activity android:name=".ui.activity.kzmessage.MyCollectionAcitivity" >
-
-        </activity>
-        <activity android:name=".ui.activity.kzmessage.MyAskActivity" >
-
-        </activity>
-        <activity android:name=".test.MP3OnlineActivity"></activity>
+        <activity android:name=".ui.activity.kzmessage.AskDetailActivity"></activity>
+        <activity android:name=".ui.activity.kzmessage.MyCollectionAcitivity"></activity>
+        <activity android:name=".ui.activity.kzmessage.MyAskActivity"></activity>
+        <activity android:name=".test.MP3OnlineActivity" />
 
         <service android:name=".test.server.PlayService" />
 
-        <activity android:name=".test.Mp3ServerAcitivity">
-
-        </activity>
-        <activity android:name=".ui.activity.kzmessage.WantAskActivity"></activity>
-
-
-
+        <activity android:name=".test.Mp3ServerAcitivity"></activity>
+        <activity android:name=".ui.activity.kzmessage.WantAskActivity" />
+        <activity android:name=".ui.activity.kzmessage.CoursePlayDeatilActivity"></activity>
     </application>
 
 </manifest>
