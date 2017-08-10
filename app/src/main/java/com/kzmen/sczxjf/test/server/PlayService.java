@@ -14,6 +14,7 @@ import android.text.format.DateUtils;
 import android.util.Log;
 
 import com.kzmen.sczxjf.AppContext;
+import com.kzmen.sczxjf.cusinterface.PlayMessage;
 import com.kzmen.sczxjf.test.bean.Music;
 import com.kzmen.sczxjf.util.EToastUtil;
 
@@ -49,7 +50,7 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
     private long quitTimerRemain;
     private int mPlayState = STATE_IDLE;
     private int realPost = 0;
-
+    private PlayMessage playMessage;
     private void startTimer() {
         if (mTimer == null) {
             mTimer = new Timer();
@@ -75,7 +76,7 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
             int duration = mPlayer.getDuration();
             if (duration > 0) {
                 // 计算进度（获取进度条最大刻度*当前音乐播放位置 / 当前音乐时长）
-                if(getTime!=null){
+                if(playMessage!=null){
                     int pos =100 * position / duration;
                     int musicTime = position / 1000;
                     int min=musicTime / 60;
@@ -85,7 +86,8 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
                     int emin=emusicTime / 60;
                     int esec=emusicTime % 60;
                     String  eshow = (emin<10?"0"+emin:emin)+ ":" + (esec<10?"0"+esec:esec);
-                    getTime.time(show,eshow,pos);
+                    playMessage.time(show,eshow,pos);
+
                 }
             }
         }
@@ -164,6 +166,7 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
             stop();
             return;
         }
+
         mPlayingPosition = position;
         Music music = mMusicList.get(mPlayingPosition);
         play(music);
@@ -202,8 +205,11 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
             if (mListener != null) {
                 mListener.onBufferingUpdate(percent);
             }
-            if(onPreInter!=null){
-                onPreInter.prePercent(percent);
+            if(playMessage!=null){
+                playMessage.prePercent(percent);
+            }
+            if(playMessage!=null){
+                playMessage.playposition(mPlayingPosition);
             }
         }
     };
@@ -232,6 +238,9 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
             mAudioManager.requestAudioFocus(this, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
             registerReceiver(mNoisyReceiver, mNoisyFilter);
         }
+        if(playMessage!=null){
+            playMessage.state(1);
+        }
         return mPlayer.isPlaying();
     }
 
@@ -239,7 +248,6 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
         if (!isPlaying()) {
             return;
         }
-
         mPlayer.pause();
         mPlayState = STATE_PAUSE;
         mHandler.removeCallbacks(mPublishRunnable);
@@ -247,6 +255,9 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
         unregisterReceiver(mNoisyReceiver);
         if (mListener != null) {
             mListener.onPlayerPause();
+        }
+        if(playMessage!=null){
+            playMessage.state(0);
         }
     }
 
@@ -275,8 +286,6 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
         if (mMusicList.isEmpty()) {
             return;
         }
-
-
         play(mPlayingPosition + 1);
     }
 
@@ -414,21 +423,11 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
         mPlayingPosition = 0;
     }
 
-    private onPreInter onPreInter;
-    public interface onPreInter{
-        void prePercent(int percent);
-    }
-    private getTime getTime;
-
-    public void setOnPreInter(PlayService.onPreInter onPreInter) {
-        this.onPreInter = onPreInter;
+    public PlayMessage getPlayMessage() {
+        return playMessage;
     }
 
-    public void setGetTime(PlayService.getTime getTime) {
-        this.getTime = getTime;
-    }
-
-    public interface getTime{
-        void time(String start,String end,int pos);
+    public void setPlayMessage(PlayMessage playMessage) {
+        this.playMessage = playMessage;
     }
 }

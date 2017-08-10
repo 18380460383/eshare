@@ -41,7 +41,7 @@ import java.util.List;
 public class EasyPermissions {
 
     /**
-     * Callback interface to receive the results of {@code EasyPermissions.requestPermissions()}
+     * Callback cusinterface to receive the results of {@code EasyPermissions.requestPermissions()}
      * calls.
      */
     public interface PermissionCallbacks extends ActivityCompat.OnRequestPermissionsResultCallback {

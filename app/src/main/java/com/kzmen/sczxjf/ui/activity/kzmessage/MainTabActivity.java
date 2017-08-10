@@ -1,7 +1,6 @@
 package com.kzmen.sczxjf.ui.activity.kzmessage;
 
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -9,7 +8,6 @@ import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Looper;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.FragmentManager;
@@ -31,7 +29,6 @@ import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.user.User_For_pe;
 import com.kzmen.sczxjf.control.ScreenControl;
 import com.kzmen.sczxjf.net.NetworkDownload;
-import com.kzmen.sczxjf.test.server.PlayService;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.ui.activity.personal.LoginActivity;
 import com.kzmen.sczxjf.ui.activity.personal.MsgCenterActivity;
@@ -55,8 +52,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
-
-import static com.kzmen.sczxjf.AppContext.getPlayService;
 
 /**
  * 主页面tab页面
@@ -126,7 +121,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     protected void onResume() {
         super.onResume();
     }
-    private void checkService() {
+  /*  private void checkService() {
         if (getPlayService() == null) {
             startService();
             mHandler.postDelayed(new Runnable() {
@@ -159,7 +154,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         @Override
         public void onServiceDisconnected(ComponentName name) {
         }
-    }
+    }*/
     @OnClick({R.id.main_headimage, R.id.iv_history})
     public void onclick(View view) {
         switch (view.getId()) {

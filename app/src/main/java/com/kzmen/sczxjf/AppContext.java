@@ -116,6 +116,16 @@ public class AppContext extends MultiDexApplication {
     public static void setPlayService(PlayService service) {
         getInstance().mPlayService = service;
     }
+    public  void play() {
+        getInstance().mPlayService.playPause();
+    }
+
+    public  void playStart() {
+        getInstance().mPlayService.playStart();
+    }
+    public static void playStartByPos(int position) {
+        getInstance().mPlayService.play(position);
+    }
     public SharedPreferences getSp() {
         if(sp==null){
             sp = getSharedPreferences(SHARED_USER,Context.MODE_PRIVATE);

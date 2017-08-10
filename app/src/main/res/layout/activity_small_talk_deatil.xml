@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gloomy"
+
     android:orientation="vertical">
 
     <com.kzmen.sczxjf.view.MyScrollView
@@ -15,140 +15,171 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/bg"
-            android:orientation="vertical"
-            android:padding="15dp">
+            android:background="@color/white"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="财经" />
-
-            <RelativeLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_media_start_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:text="1:1" />
-
-                <TextView
-                    android:id="@+id/tv_media_end_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginLeft="8dp"
-                    android:text="04:00" />
-
-                <SeekBar
-                    android:id="@+id/sb_play"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_media_start_time"
-                    android:max="100"
-                    android:maxHeight="20px"
-                    android:minHeight="20px"
-                    android:progressDrawable="@drawable/kz_seekbar_define_color_style"
-                    android:thumb="@drawable/kz_seekbar_define_style" />
-
-            </RelativeLayout>
+                android:layout_height="10dp"
+                android:background="@color/bg" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="财经专家"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_media_start_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="" />
+
+                    <TextView
+                        android:id="@+id/tv_media_end_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="8dp"
+                        android:text="" />
+
+                    <SeekBar
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:id="@+id/sb_play"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_media_start_time"
+                        android:max="100"
+                        android:maxHeight="20px"
+                        android:minHeight="20px"
+                        android:progressDrawable="@drawable/kz_seekbar_define_color_style"
+                        android:thumb="@drawable/kz_seekbar_define_style" />
+
+                </RelativeLayout>
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:background="@drawable/btn_play" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center">
 
-                </LinearLayout>
+                        <ImageView
+                            android:id="@+id/iv_play_list"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:background="@drawable/btn_player_playli" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center">
+                    </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:background="@drawable/btn_play" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center">
 
-                </LinearLayout>
+                        <ImageView
+                            android:id="@+id/iv_play_pre"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:background="@drawable/btn_player_prev" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center">
+                    </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:background="@drawable/btn_play" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center">
 
-                </LinearLayout>
+                        <ImageView
+                            android:id="@+id/iv_play_play"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:background="@drawable/btn_player_play" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center">
+                    </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:background="@drawable/btn_play" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center">
 
-                </LinearLayout>
+                        <ImageView
+                            android:id="@+id/iv_play_next"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:background="@drawable/btn_player_next" />
+
+                    </LinearLayout>
 
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center">
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:background="@drawable/btn_play" />
+                        <ImageView
+                            android:id="@+id/iv_play_best"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:background="@drawable/btn_player_best" />
 
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                />
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical">
+                android:layout_height="30dp" />
 
-                <TextView
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg"
+                android:gravity="center"
+                android:paddingTop="40dp">
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="课程互动"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
 
-                <View style="@style/bottom_line_yellow" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="课程互动"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <View style="@style/bottom_line_yellow" />
+                </LinearLayout>
             </LinearLayout>
+
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -163,7 +194,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="精华提问，还会奖励收听收入的50%分成" />
+                android:text="提问有机会获得现金奖励" />
+
             <com.kzmen.sczxjf.view.MyListView
                 android:id="@+id/lv_goodask"
                 android:layout_width="match_parent"
@@ -182,6 +214,6 @@
         android:layout_height="32dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/icon_share" />
 </RelativeLayout>

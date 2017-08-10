@@ -1,11 +1,16 @@
 package com.kzmen.sczxjf.ui.activity.basic;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Looper;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
@@ -18,17 +23,20 @@ import android.widget.TextView;
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.control.CustomProgressDialog;
+import com.kzmen.sczxjf.cusinterface.ServerConnect;
 import com.kzmen.sczxjf.net.NetworkDownload;
+import com.kzmen.sczxjf.test.server.PlayService;
 import com.kzmen.sczxjf.ui.activity.personal.LoginActivity;
 
 import butterknife.ButterKnife;
+
 
 /**
  * 创建者：杨操
  * 时间：2016/4/6
  * 功能描述：超级Activity,本项目所有的Activity的父类
  */
-public abstract class SuperActivity extends FragmentActivity {
+public abstract class SuperActivity extends FragmentActivity implements ServerConnect{
     /**标题栏*/
     public View title;
     /**标题控件*/
@@ -243,5 +251,52 @@ public abstract class SuperActivity extends FragmentActivity {
                 AppContext.getPlayService().stop();
             }
         }
+    }
+
+
+    private ServiceConnection mPlayServiceConnection;
+    protected Handler mHandler = new Handler(Looper.getMainLooper());
+    public void checkService() {
+        if (AppContext.getPlayService() == null) {
+            startService();
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    bindService();
+                }
+            },1000);
+        }else{
+            connectSuccess();
+        }
+    }
+
+    private void startService() {
+        Intent intent = new Intent(this, PlayService.class);
+        startService(intent);
+    }
+
+    private void bindService() {
+        Intent intent = new Intent();
+        intent.setClass(this, PlayService.class);
+        mPlayServiceConnection = new PlayServiceConnection();
+        bindService(intent, mPlayServiceConnection, Context.BIND_AUTO_CREATE);
+    }
+    private class PlayServiceConnection implements ServiceConnection {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            final PlayService playService = ((PlayService.PlayBinder) service).getService();
+            AppContext.setPlayService(playService);
+            connectSuccess();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    }
+
+    @Override
+    public void connectSuccess() {
+
     }
 }
