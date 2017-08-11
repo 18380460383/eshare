@@ -10,8 +10,6 @@ import com.kzmen.sczxjf.Constants;
 import com.kzmen.sczxjf.bean.TokenBean;
 import com.kzmen.sczxjf.control.CustomProgressDialog;
 import com.kzmen.sczxjf.net.NetworkDownload;
-import com.kzmen.sczxjf.ui.activity.personal.DetialActivity;
-import com.kzmen.sczxjf.ui.activity.personal.YaoActivity;
 import com.kzmen.sczxjf.util.EshareLoger;
 import com.kzmen.sczxjf.util.TLog;
 import com.loopj.android.http.RequestParams;
@@ -100,7 +98,7 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                 weixinShare.putExtra(Constants.WEIXIN_SHARE_KEY,Constants.WEIXIN_SHARE_VALUE_SUCCEED);
                 sendBroadcast(weixinShare);
                 TLog.log(" weixin shared result " + baseResp.errCode);
-                DetialActivity act = AppContext.getInstance().detialActivity;
+               /* DetialActivity act = AppContext.getInstance().detialActivity;
                 YaoActivity yaoact = AppContext.getInstance().yaoActivity;
                 if(act != null) {
                     act.afterShare();
@@ -112,7 +110,7 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                 if(AppContext.getInstance().mBaseWebAct != null) {
                     EshareLoger.logI("BaseWeb不为空success");
                     AppContext.getInstance().mBaseWebAct.onShareSuccess();
-                }
+                }*/
 
             } else {
                 weixinShare.setAction(Constants.WEIXIN_SHARE);

@@ -36,7 +36,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/login_account" />
+                    android:background="@drawable/login_account" />
 
                 <EditText
                     android:maxLength="11"
@@ -71,7 +71,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/person_password" />
+                    android:background="@drawable/person_password" />
 
                 <EditText
                     android:id="@+id/login_et_passwd"
@@ -115,7 +115,7 @@
                         android:layout_width="0dp"
                         android:layout_height="45dp"
                         android:layout_weight="2"
-                        android:background="@mipmap/login_btn_register"
+                        android:background="@drawable/login_btn_register"
                         android:gravity="center"
                         android:text="注册"
                         android:textSize="14dp"
@@ -171,7 +171,7 @@
                     android:layout_height="48dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="10dp"
-                    android:background="@mipmap/login_weixin" />
+                    android:background="@drawable/login_weixin" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -227,7 +227,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_above="@+id/interflow_hint"
-                android:src="@mipmap/interflow"/>
+                />
             <TextView
                 android:id="@+id/interflow_hint"
                 android:layout_width="wrap_content"

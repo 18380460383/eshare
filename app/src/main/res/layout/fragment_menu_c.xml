@@ -60,7 +60,7 @@
                         android:layout_height="14dp"
                         android:layout_marginBottom="6dp"
                         android:layout_marginLeft="4dp"
-                        android:background="@mipmap/icon_avatar_inter" />
+                        />
 
                     <TextView
                         android:id="@+id/c_menu_attestation_mark_for_m"
@@ -68,7 +68,7 @@
                         android:layout_height="14dp"
                         android:layout_marginBottom="6dp"
                         android:layout_marginLeft="4dp"
-                        android:background="@mipmap/icon_avatar_media" />
+                        />
                 </LinearLayout>
 
 
@@ -95,7 +95,7 @@
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:src="@mipmap/leftbar_fen" />
+                         />
 
                     <TextView
                         android:id="@+id/c_menu_integral"
@@ -110,7 +110,7 @@
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:layout_marginLeft="32dp"
-                        android:src="@mipmap/leftbar_money" />
+                      />
 
                     <TextView
                         android:id="@+id/c_menu_balance"
@@ -147,7 +147,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/c_menu_collect"
                         android:scaleType="centerInside"
-                        android:src="@mipmap/leftbar_collect" />
+                      />
 
                     <TextView
                         android:id="@+id/c_menu_collect"
@@ -177,7 +177,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/c_menu_friend"
                         android:scaleType="centerInside"
-                        android:src="@mipmap/leftbar_friend" />
+                       />
 
                     <TextView
                         android:id="@+id/c_menu_friend"
@@ -205,7 +205,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/c_menu_activity"
                         android:scaleType="centerInside"
-                        android:src="@mipmap/leftbar_activity" />
+                        />
 
                     <TextView
                         android:id="@+id/c_menu_activity"
@@ -232,7 +232,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/c_menu_credits_exchange"
                         android:scaleType="centerInside"
-                        android:src="@mipmap/leftbar_credits_exchange" />
+                      />
 
                     <TextView
                         android:id="@+id/c_menu_credits_exchange"
@@ -258,7 +258,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/c_menu_creative_collection"
                         android:scaleType="centerInside"
-                        android:src="@mipmap/creative_collection" />
+                       />
 
                     <TextView
                         android:id="@+id/c_menu_creative_collection"
@@ -300,7 +300,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerInside"
-                android:src="@mipmap/leftbar_setting" />
+                />
 
             <TextView
                 android:id="@+id/c_menu_setting"
@@ -325,7 +325,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="centerInside"
-                android:src="@mipmap/leftbar_feedback" />
+                />
 
             <TextView
                 android:id="@+id/c_menu_feedback"

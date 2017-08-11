@@ -90,21 +90,21 @@ public class ShopOrderActivity extends SuperActivity {
         switch (view.getId()){
             case R.id.image_balance:
                 payment="1";
-                imageBalance.setImageResource(R.mipmap.option_ok);
-                imageWeixin.setImageResource(R.mipmap.option);
-                imageAlipay.setImageResource(R.mipmap.option);
+                imageBalance.setImageResource(R.drawable.option_ok);
+                imageWeixin.setImageResource(R.drawable.option);
+                imageAlipay.setImageResource(R.drawable.option);
                 break;
             case R.id.image_weixin:
                 payment="3";
-                imageBalance.setImageResource(R.mipmap.option);
-                imageWeixin.setImageResource(R.mipmap.option_ok);
-                imageAlipay.setImageResource(R.mipmap.option);
+                imageBalance.setImageResource(R.drawable.option);
+                imageWeixin.setImageResource(R.drawable.option_ok);
+                imageAlipay.setImageResource(R.drawable.option);
                 break;
             case R.id.image_alipay:
                 payment="2";
-                imageBalance.setImageResource(R.mipmap.option);
-                imageWeixin.setImageResource(R.mipmap.option);
-                imageAlipay.setImageResource(R.mipmap.option_ok);
+                imageBalance.setImageResource(R.drawable.option);
+                imageWeixin.setImageResource(R.drawable.option);
+                imageAlipay.setImageResource(R.drawable.option_ok);
                 break;
             case R.id.order_ok:
                 if(payment.equals("0")){
@@ -122,9 +122,9 @@ public class ShopOrderActivity extends SuperActivity {
         if(intent!=null){
             Bundle extras = intent.getExtras();
             if(extras!=null){
-                orderForm = (OrderForm) extras.getSerializable(BuyShopSetActivity.ORDER);
+                /*orderForm = (OrderForm) extras.getSerializable(BuyShopSetActivity.ORDER);
                 stringTAG = extras.getString(CLASS_SOURCE);
-                setData(orderForm);
+                setData(orderForm);*/
             }
         }
     }

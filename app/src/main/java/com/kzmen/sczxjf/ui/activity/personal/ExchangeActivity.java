@@ -75,7 +75,7 @@ public class ExchangeActivity extends ListViewActivity implements ExchangeAdapte
         bjLl= (LinearLayout) inflate.findViewById(R.id.bj_ll);
         bjNullIv= (ImageView) inflate.findViewById(R.id.bj_null_iv);
         biTitle= (TextView) inflate.findViewById(R.id.bi_title);
-        AppUtils.setNullListView(mAdapter, bjLl, bjNullIv, R.mipmap.no_g_start, biTitle, "暂无数据", 0);
+        AppUtils.setNullListView(mAdapter, bjLl, bjNullIv, R.drawable.no_g_start, biTitle, "暂无数据", 0);
         lv_data.setEmptyView(inflate);
         mAdapter.setConfirmReceiptBack(this);
         setmPullRefreshListView(lv_data, mAdapter);

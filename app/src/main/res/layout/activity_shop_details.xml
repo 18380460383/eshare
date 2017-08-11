@@ -64,7 +64,7 @@
                     android:layout_height="18dp"
                     android:layout_centerVertical="true"
                         android:scaleType="centerInside"
-                        android:src="@mipmap/h_money"/>
+                        android:src="@drawable/h_money"/>
                     <TextView
                         android:id="@+id/shop_integral"
                         android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="16dp"
                         android:scaleType="centerInside"
-                        android:src="@mipmap/h_feng"/>
+                        android:src="@drawable/h_feng"/>
                     <TextView
                         android:id="@+id/shop_price"
                         android:layout_width="wrap_content"

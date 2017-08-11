@@ -55,7 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/balance_play_png"/>
+                    android:src="@drawable/balance_play_png"/>
                 <TextView
                     android:id="@+id/textview1"
                     android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
                     android:scaleType="centerInside"
-                    android:background="@mipmap/option"/>
+                    android:background="@drawable/option"/>
             </RelativeLayout>
             <TextView
                style="@style/halving_line_e" />
@@ -102,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/wechat"/>
+                    android:src="@drawable/btn_share_wechat"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -132,7 +132,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
                     android:scaleType="center"
-                    android:background="@mipmap/option"/>
+                    android:background="@drawable/option"/>
             </RelativeLayout>
             <TextView
                 style="@style/halving_line_e" />
@@ -145,7 +145,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/alipay"/>
+                    android:src="@drawable/alipay"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -174,7 +174,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
                     android:scaleType="centerInside"
-                    android:background="@mipmap/option"/>
+                    android:background="@drawable/option"/>
             </RelativeLayout>
             <TextView
                 style="@style/halving_line_e" />

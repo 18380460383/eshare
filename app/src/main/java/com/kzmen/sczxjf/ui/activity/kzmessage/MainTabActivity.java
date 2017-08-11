@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -19,7 +18,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kzmen.sczxjf.AppContext;
@@ -59,8 +57,6 @@ import cn.jpush.android.api.JPushInterface;
 public class MainTabActivity extends SuperActivity implements DrawerLayout.DrawerListener {
     private static final int REDPOINT = 3;
     private static final int LOGIN = 4;
-    @InjectView(R.id.back)
-    PercentRelativeLayout back;
     @InjectView(R.id.main_headimage)
     ImageView headImage;
     @InjectView(R.id.framelayout)
@@ -69,8 +65,6 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     DrawerLayout idDrawerlayout;
     @InjectView(R.id.id_drawer)
     LinearLayout menu;
-    @InjectView(R.id.title_name)
-    TextView titleName;
     @InjectView(R.id.iv_history)
     ImageView ivHistory;
     private ServiceConnection mPlayServiceConnection;
@@ -103,7 +97,6 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         //TODO 启动版本更新控制器
         //UpgradeControl.getUpgradeControl(this).update();
         idDrawerlayout.setDrawerListener(this);
-        back.setVisibility(View.GONE);
         //TODO 设置一个空监听省去两层 事件拦截防止点击菜单栏照成Fragment控件相应
         menu.setOnClickListener(null);
         int i = new ScreenControl().getscreenWide();
@@ -218,12 +211,12 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         ImageLoader.getInstance().loadImage(login.getImageurl(), new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String s, View view) {
-                headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.mipmap.image_def)));
+                headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.drawable.image_def)));
             }
 
             @Override
             public void onLoadingFailed(String s, View view, FailReason failReason) {
-                headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.mipmap.image_def)));
+                headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.drawable.image_def)));
             }
 
             @Override
@@ -238,7 +231,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
 
             @Override
             public void onLoadingCancelled(String s, View view) {
-                headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.mipmap.image_def)));
+                headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.drawable.image_def)));
             }
         });
 
@@ -396,12 +389,12 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
                 ImageLoader.getInstance().loadImage(AppContext.getInstance().getPEUser().getImageurl(), new ImageLoadingListener() {
                     @Override
                     public void onLoadingStarted(String s, View view) {
-                        headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.mipmap.image_def)));
+                        headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.drawable.image_def)));
                     }
 
                     @Override
                     public void onLoadingFailed(String s, View view, FailReason failReason) {
-                        headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.mipmap.image_def)));
+                        headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.drawable.image_def)));
                     }
 
                     @Override
@@ -416,7 +409,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
 
                     @Override
                     public void onLoadingCancelled(String s, View view) {
-                        headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.mipmap.image_def)));
+                        headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.drawable.image_def)));
                     }
                 });
             }
@@ -436,7 +429,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     }
 
     public void extP() {
-        headImage.setImageResource(R.mipmap.userhead);
+        headImage.setImageResource(R.drawable.userhead);
     }
 
     public void closeDraw() {

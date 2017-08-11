@@ -54,7 +54,7 @@ public class PageListAdapter extends BaseAdapter {
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.rows = rows;
         bmpManager = new BitmapManager(BitmapFactory.decodeResource(AppContext.getInstance().getResources(),
-                R.mipmap.image_def));
+                R.drawable.image_def));
     }
 
     public void setType(String type) {

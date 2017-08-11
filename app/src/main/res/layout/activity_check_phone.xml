@@ -72,7 +72,6 @@
             android:clickable="true"
             android:layout_height="wrap_content"
             android:textSize="12dp"
-            android:background="@mipmap/auth_code"
             android:gravity="center"
             android:text="获取验证码"/>
 

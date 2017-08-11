@@ -9,7 +9,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_margin="@dimen/left_right_retract_small"
-            android:src="@mipmap/in_opt_cancel"/>
+            android:src="@drawable/in_opt_cancel"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

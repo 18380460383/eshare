@@ -5,18 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="16">
+       >
 
-        <RelativeLayout
-            style="@style/TitleStyle"
-            >
-              <include
-                  android:id="@+id/title"
-                  layout="@layout/e_title" />
+
+        <FrameLayout
+            android:id="@+id/framelayout"
+            style="@style/body_wigth"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/kz_title"/>
+            <!-- <include
+                 android:id="@+id/title"
+                 layout="@layout/e_title" />-->
 
             <ImageView
                 android:id="@+id/main_headimage"
@@ -26,7 +33,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/left_right_retract_small"
                 android:scaleType="fitXY"
-                android:src="@mipmap/userhead" />
+                android:src="@drawable/icon_userhead_home" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -55,12 +62,7 @@
                 android:background="@drawable/icon_history" />
         </RelativeLayout>
 
-        <FrameLayout
-            android:id="@+id/framelayout"
-            style="@style/body_wigth"
-            android:layout_width="match_parent"
-            android:layout_height="0dp" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/id_drawer"
@@ -69,6 +71,5 @@
         android:layout_gravity="start"
         android:background="#E0EEE0"
         android:orientation="vertical">
-
     </LinearLayout>
 </android.support.v4.widget.DrawerLayout>

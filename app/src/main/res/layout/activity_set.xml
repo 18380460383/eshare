@@ -39,7 +39,7 @@
                 <ImageView
                     android:layout_marginRight="20dp"
                     android:layout_centerVertical="true"
-                    android:background="@mipmap/into"
+                    android:background="@drawable/into"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </RelativeLayout>
@@ -133,7 +133,7 @@
                 <ImageView
                     android:layout_marginRight="20dp"
                     android:layout_centerVertical="true"
-                    android:background="@mipmap/into"
+                    android:background="@drawable/indicator_bg_top"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </RelativeLayout>

@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
-        android:src="@mipmap/banner"/>
+       />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/activitys_user_num"
             android:layout_centerVertical="true"
-            android:src="@mipmap/act_user_num"/>
+            android:src="@drawable/act_user_num"/>
     </RelativeLayout>
 
 </LinearLayout>

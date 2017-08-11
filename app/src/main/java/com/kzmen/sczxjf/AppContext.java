@@ -21,7 +21,6 @@ import com.kzmen.sczxjf.multidex.MultiDexApplication;
 import com.kzmen.sczxjf.test.server.PlayService;
 import com.kzmen.sczxjf.ui.activity.BaseWebActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.MainTabActivity;
-import com.kzmen.sczxjf.ui.activity.personal.DetialActivity;
 import com.kzmen.sczxjf.ui.activity.personal.YaoActivity;
 import com.kzmen.sczxjf.util.PreferenceUtil;
 import com.kzmen.sczxjf.utils.FileUtils;
@@ -40,7 +39,7 @@ import cn.jpush.android.api.JPushInterface;
 
 
 /**
- * @author wu
+ * @author peng
  * @version 1.0
  */
 public class AppContext extends MultiDexApplication {
@@ -58,7 +57,6 @@ public class AppContext extends MultiDexApplication {
     public  User user;
     private UserInfo userInfo;
     public MoneyBean moneyBean;
-    public DetialActivity detialActivity;
     public YaoActivity yaoActivity;
     public SharedPreferences sp;
     // 七牛sdk
