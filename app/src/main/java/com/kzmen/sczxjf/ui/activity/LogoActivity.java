@@ -16,7 +16,6 @@ import com.kzmen.sczxjf.bean.Advertisement;
 import com.kzmen.sczxjf.bean.user.User_For_pe;
 import com.kzmen.sczxjf.net.EnWebUtil;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
-import com.kzmen.sczxjf.ui.activity.personal.AdvertActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.MainTabActivity;
 import com.kzmen.sczxjf.util.ELocationlistener;
 import com.kzmen.sczxjf.util.EshareLoger;
@@ -143,8 +142,8 @@ public class LogoActivity extends SuperActivity {
         }
         if (advertisementControl.isHaveAdvertisement()&&aLong!=null&&aLong1!=null&&aLong*1000 <l&& aLong1*1000 >l) {
              System.out.println(sdf.format(new Date(aLong*1000))+"end"+sdf.format(new Date(aLong1*1000)));
-                startActivity(new Intent(this, AdvertActivity.class));
-            finish();
+                //startActivity(new Intent(this, AdvertActivity.class));
+           // finish();
         } else {
             // 判断是否跳过新手引导界面
             if (AppContext.getInstance().isFirst()) {

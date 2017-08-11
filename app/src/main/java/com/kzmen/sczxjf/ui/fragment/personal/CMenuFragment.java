@@ -230,7 +230,7 @@ public class CMenuFragment extends SuperFragment {
 
     public void setUserInfo() {
 
-        cMenuUserHeadIv.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(getContext(), R.mipmap.image_def)));
+        cMenuUserHeadIv.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(getContext(), R.drawable.image_def)));
         setDatauser();
     }
 

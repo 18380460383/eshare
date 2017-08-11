@@ -109,7 +109,7 @@ public class SelectView extends LinearLayout implements View.OnTouchListener {
         TextView textView = new TextView(mContext);
         textView.setText(text);
         ImageView imageView = new ImageView(mContext);
-        imageView.setBackgroundResource(R.mipmap.unfold);
+        imageView.setBackgroundResource(R.drawable.unfold);
 //        Drawable drawable= getResources().getDrawable(R.mipmap.unfold);
 // 这一步必须要做,否则不会显示.
 //        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());

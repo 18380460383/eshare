@@ -33,8 +33,8 @@ public class GuideActivity extends BaseActivity {
     private TextView tv_ignore;
 
     //背景集合
-    private static final int viewBackground[] = {R.mipmap.guide04, R.mipmap.guide05,R.mipmap.guide06,
-             R.mipmap.guide07};
+    private static final int viewBackground[] = {R.drawable.guide04, R.drawable.guide05,R.drawable.guide06,
+             R.drawable.guide07};
 
     private int mViewCount; //view个数
     private int currIndex;

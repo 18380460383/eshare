@@ -25,7 +25,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-            android:src="@mipmap/cancel_play"/>
+            android:src="@drawable/cancel_play"/>
     </RelativeLayout>
     <TextView
         style="@style/halving_line_e"/>

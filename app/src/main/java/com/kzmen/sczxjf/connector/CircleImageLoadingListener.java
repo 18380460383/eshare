@@ -24,12 +24,12 @@ public class CircleImageLoadingListener implements ImageLoadingListener {
     @Override
     public void onLoadingStarted(String s, View view) {
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        imageView.setImageResource(R.mipmap.userhead);
+        imageView.setImageResource(R.drawable.userhead);
     }
 
     @Override
     public void onLoadingFailed(String s, View view, FailReason failReason) {
-        imageView.setImageResource(R.mipmap.userhead);
+        imageView.setImageResource(R.drawable.userhead);
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
     }
 
@@ -47,7 +47,7 @@ public class CircleImageLoadingListener implements ImageLoadingListener {
 
     @Override
     public void onLoadingCancelled(String s, View view) {
-        imageView.setImageResource(R.mipmap.userhead);
+        imageView.setImageResource(R.drawable.userhead);
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
     }
 }

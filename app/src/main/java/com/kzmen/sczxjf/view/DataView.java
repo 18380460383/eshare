@@ -20,7 +20,7 @@ import com.kzmen.sczxjf.R;
  */
 public class DataView extends RelativeLayout{
 
-    private final int DEFAULT_IMAGE = R.mipmap.bj_recordrelay;
+    private final int DEFAULT_IMAGE = R.drawable.bj_recordrelay;
     private final String DEFAULT_TEXT = "暂无数据";
     private Context mContext;
     private TextView tv;

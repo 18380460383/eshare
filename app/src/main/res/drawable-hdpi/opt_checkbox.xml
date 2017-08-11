@@ -1,6 +1,6 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@mipmap/option_ok" android:state_checked="true"/>
-    <item android:drawable="@mipmap/option"/>
+    <item android:drawable="@drawable/option_ok" android:state_checked="true"/>
+    <item android:drawable="@drawable/option"/>
 
 </selector>

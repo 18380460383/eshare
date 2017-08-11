@@ -318,7 +318,7 @@ public class AttMediaFragment extends Fragment {
         ImageLoader.getInstance().loadImage(url_logo, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String s, View view) {
-                iv_logo.setImageResource(R.mipmap.image_def);
+                iv_logo.setImageResource(R.drawable.image_def);
             }
 
             @Override

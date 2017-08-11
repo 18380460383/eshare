@@ -87,7 +87,7 @@
                     android:id="@+id/tv_type" />
                 <ImageView
                     android:layout_marginRight="8dp"
-                    android:background="@mipmap/icon_att_more"
+                    android:background="@drawable/into"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -111,7 +111,7 @@
                         android:layout_marginLeft="15dp"
                         app:layout_widthPercent="50%"
                         android:id="@+id/iv_logo"
-                        android:src="@mipmap/icon_show_add"
+                        android:src="@drawable/icon_show_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </android.support.percent.PercentRelativeLayout>

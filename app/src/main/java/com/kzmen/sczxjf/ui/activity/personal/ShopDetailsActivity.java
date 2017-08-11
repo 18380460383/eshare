@@ -48,6 +48,7 @@ import java.util.Map;
 
 import butterknife.InjectView;
 
+
 /**
  * Created by Administrator on 2016/1/26.
  */
@@ -149,10 +150,10 @@ public class ShopDetailsActivity extends SuperActivity {
                 if ("1".equals(data.getType())) {
                     showHit();
                 } else if ("0".equals(data.getType())) {
-                    Intent intent = new Intent(ShopDetailsActivity.this, BuyShopSetActivity.class);
+                   /* Intent intent = new Intent(ShopDetailsActivity.this, BuyShopSetActivity.class);
                     BuyShopSetActivity.setDetailsData(data);
                     intent.putExtra(SHOPID, shopid);
-                    startActivity(intent);
+                    startActivity(intent);*/
                 }
             }
         });

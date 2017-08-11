@@ -76,7 +76,7 @@
                     android:id="@+id/wechat_friends"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@mipmap/share_weixin" />
+                    android:background="@drawable/btn_share_wechat" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -99,7 +99,7 @@
                     android:id="@+id/wechat_moments"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/frindes" />
+                    android:background="@drawable/btn_share_pyq" />
 
                 <TextView
                     android:layout_width="wrap_content"

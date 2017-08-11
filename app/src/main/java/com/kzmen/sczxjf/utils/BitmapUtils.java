@@ -25,7 +25,7 @@ public class BitmapUtils {
      */
     public static  Bitmap toRoundBitmap(Bitmap bitmap,int wh) {
         if(bitmap==null){
-            bitmap=AppUtils.readBitMap(AppContext.getInstance(), R.mipmap.image_def);
+            bitmap=AppUtils.readBitMap(AppContext.getInstance(), R.drawable.image_def);
         }
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();

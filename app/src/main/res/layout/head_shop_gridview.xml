@@ -37,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="2dp"
-                    android:background="@mipmap/h_feng"/>
+                    android:background="@drawable/h_feng"/>
                 <TextView
                     android:id="@+id/my_integral_num"
                     android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="2dp"
-                android:background="@mipmap/h_money"/>
+                android:background="@drawable/h_money"/>
                 <TextView
                     android:id="@+id/activity_shop_balance"
                     android:layout_width="wrap_content"

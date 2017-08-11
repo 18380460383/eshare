@@ -120,9 +120,6 @@
 
         <!-- 详情界面 -->
         <activity
-            android:name=".ui.activity.personal.DetialActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ui.activity.personal.ShareActivity"
             android:screenOrientation="portrait" />
         <!-- 验证手机号码界面 -->
@@ -135,9 +132,6 @@
             android:screenOrientation="portrait" />
 
         <!-- 认证身份界面 -->
-        <activity
-            android:name=".ui.activity.personal.AttestationActivity"
-            android:screenOrientation="portrait" />
 
         <!-- 认证详情界面 -->
         <activity
@@ -158,9 +152,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.personal.MsgCenterActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activity.personal.BindingWeixinActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.personal.SetActivity"
@@ -398,9 +389,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.personal.AdvertActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ui.activity.personal.SuggestActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -436,10 +424,6 @@
             android:name=".ui.activity.personal.ShopDetailsActivity"
             android:screenOrientation="portrait" />
         <!-- 商品购买确认 -->
-        <activity
-            android:name=".ui.activity.personal.BuyShopSetActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
         <!-- 在线支付 -->
         <activity
             android:name=".ui.activity.personal.ShopOrderActivity"

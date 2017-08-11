@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+    }
     compileSdkVersion 24
     buildToolsVersion "24.0.0"
     useLibrary 'org.apache.http.legacy'
@@ -25,13 +27,12 @@ android {
     }
     /* signingConfigs {
         release {
-            storeFile file("card.jks")
-            storePassword "card123456"
-            keyAlias "card"
-            keyPassword "card123456"
+            storeFile file("kzmen.jks")
+            storePassword "kzmen123456"
+            keyAlias "kzmen"
+            keyPassword "kzmen123456"
         }
     }*/
-
     buildTypes {
         debug {
             // signingConfig signingConfigs.release

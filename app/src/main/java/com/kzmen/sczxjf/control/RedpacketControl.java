@@ -80,7 +80,7 @@ public class RedpacketControl implements View.OnClickListener{
         View inflate = LayoutInflater.from(context).inflate(R.layout.red_packet_layout, null);
         redIc= (ImageView) inflate.findViewById(R.id.red_ic);
 
-        redIc.setImageBitmap(AppUtils.readBitMap(context, R.mipmap.ic_red_packet));
+        redIc.setImageBitmap(AppUtils.readBitMap(context, R.drawable.ic_red_packet));
         goopenTextView= (TextView) inflate.findViewById(R.id.red_packet_go_open);
         goopenTextView.setText(redBean.getNot_open_msg());
         goopenTextView.setOnClickListener(this);
@@ -135,7 +135,7 @@ public class RedpacketControl implements View.OnClickListener{
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                redIc.setImageBitmap(AppUtils.readBitMap(context, R.mipmap.red_packet_open));
+                redIc.setImageBitmap(AppUtils.readBitMap(context, R.drawable.red_packet_open));
                 downtitleTextView.setVisibility(View.GONE);
                 downmsgTextView.setVisibility(View.GONE);
                 goopenTextView.setVisibility(View.GONE);

@@ -81,7 +81,7 @@ public class ShopActivity extends ListViewActivity {
         bjLl = (LinearLayout) inflate.findViewById(R.id.bj_ll);
         bjNullIv = (ImageView) inflate.findViewById(R.id.bj_null_iv);
         biTitle = (TextView) inflate.findViewById(R.id.bi_title);
-        setNullListView(bjLl, bjNullIv, R.mipmap.no_g_start, biTitle, "暂无数据", 0);
+        setNullListView(bjLl, bjNullIv, R.drawable.no_g_start, biTitle, "暂无数据", 0);
         setPullToRefreshListView();
         bannerlist = new ArrayList<>();
         adapter.addHeadView(R.layout.head_shop_gridview, new ShopAdapter.HeadBack() {

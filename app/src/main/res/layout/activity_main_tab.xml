@@ -23,7 +23,7 @@
                    android:layout_centerVertical="true"
                    android:layout_marginLeft="@dimen/left_right_retract_small"
                    android:scaleType="fitXY"
-                   android:src="@mipmap/userhead"
+                   android:src="@drawable/userhead"
                    android:layout_alignParentLeft="true"/>
 
            <RadioGroup
@@ -70,7 +70,7 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:layout_centerInParent="true"
-                   android:src="@mipmap/news" />
+                   />
 
                <TextView
                    android:id="@+id/main_msg_num"
@@ -87,7 +87,7 @@
                android:id="@+id/more_c_news"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:src="@mipmap/icon_search"
+               android:src="@drawable/icon_search"
                android:layout_centerVertical="true"
                android:layout_marginRight="4dp"
                android:layout_toLeftOf="@+id/main_ring"/>

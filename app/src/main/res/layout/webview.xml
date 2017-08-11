@@ -19,7 +19,7 @@
             android:layout_alignParentRight="true"
             android:visibility="gone"
             android:layout_marginRight="@dimen/left_right_retract_small"
-            android:src="@mipmap/inf_menu"/>
+            android:src="@drawable/inf_menu"/>
     </RelativeLayout>
 
     <ProgressBar

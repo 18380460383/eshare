@@ -16,13 +16,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
-import com.kzmen.sczxjf.ui.activity.personal.AdvertActivity;
 import com.kzmen.sczxjf.util.StringUtils;
 
 import butterknife.InjectView;
+
 
 /**
  * @author wu
@@ -122,7 +121,7 @@ public class WebviewActivity extends SuperActivity {
         @Override
         public void onReceivedTitle(WebView view, String title) {
             super.onReceivedTitle(view, title);
-            if(AppContext.getInstance().getOldinstance() instanceof AdvertActivity ||!TextUtils.isEmpty(WebviewActivity.this.title)){
+            /*if(AppContext.getInstance().getOldinstance() instanceof AdvertActivity ||!TextUtils.isEmpty(WebviewActivity.this.title)){
                 titleNameView.setText(WebviewActivity.this.title);
             }else{
                 try{
@@ -130,7 +129,7 @@ public class WebviewActivity extends SuperActivity {
                 }catch (Exception e){
 
                 }
-            }
+            }*/
         }
 
     }

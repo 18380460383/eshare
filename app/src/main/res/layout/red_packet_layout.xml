@@ -9,7 +9,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/ic_red_packet"
+            android:src="@drawable/ic_red_packet"
             />
         <TextView
             android:id="@+id/red_packet_go_open"
@@ -22,7 +22,7 @@
             android:textColor="#ffffff"
             android:textSize="20dp"
             android:text="拆红包"
-            android:background="@mipmap/ic_red_packet_hint"/>
+            android:background="@drawable/ic_red_packet_hint"/>
         <TextView
             android:id="@+id/red_packet_open_title"
             android:layout_width="wrap_content"
@@ -71,5 +71,5 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:scaleType="center"
-        android:src="@mipmap/close_red_packet"/>
+        android:src="@drawable/close_red_packet"/>
 </RelativeLayout>
