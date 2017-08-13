@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kzmen.sczxjf.AppContext;
@@ -32,6 +34,7 @@ import com.kzmen.sczxjf.ui.activity.personal.LoginActivity;
 import com.kzmen.sczxjf.ui.activity.personal.MsgCenterActivity;
 import com.kzmen.sczxjf.ui.fragment.kzmessage.KzMessageFragment;
 import com.kzmen.sczxjf.ui.fragment.personal.CMenuFragment;
+import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.util.EshareLoger;
 import com.kzmen.sczxjf.utils.AppUtils;
 import com.kzmen.sczxjf.utils.BitmapUtils;
@@ -67,6 +70,12 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     LinearLayout menu;
     @InjectView(R.id.iv_history)
     ImageView ivHistory;
+    @InjectView(R.id.back)
+    PercentRelativeLayout back;
+    @InjectView(R.id.title_name)
+    TextView titleName;
+    @InjectView(R.id.kz_tiltle)
+    LinearLayout kzTiltle;
     private ServiceConnection mPlayServiceConnection;
     protected Handler mHandler = new Handler(Looper.getMainLooper());
     /**
@@ -103,6 +112,17 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         DrawerLayout.LayoutParams layoutParams = (DrawerLayout.LayoutParams) menu.getLayoutParams();
         layoutParams.width = (int) (i * 0.7);
         menu.setLayoutParams(layoutParams);
+        if (!setLl_title()) {
+            EToastUtil.show(this, "设置标题错误");
+        }
+        if(!setOnScroll(R.id.sv_main)){
+            EToastUtil.show(this, "设置滑动失败");
+        }
+        back.setVisibility(View.INVISIBLE);
+    }
+
+    public boolean setScroll(int id) {
+        return setOnScroll(id);
     }
 
     @Override
@@ -114,40 +134,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     protected void onResume() {
         super.onResume();
     }
-  /*  private void checkService() {
-        if (getPlayService() == null) {
-            startService();
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    bindService();
-                }
-            }, 1000);
-        }
-    }
 
-    private void startService() {
-        Intent intent = new Intent(this, PlayService.class);
-        startService(intent);
-    }
-
-    private void bindService() {
-        Intent intent = new Intent();
-        intent.setClass(this, PlayService.class);
-        mPlayServiceConnection = new PlayServiceConnection();
-        bindService(intent, mPlayServiceConnection, Context.BIND_AUTO_CREATE);
-    }
-    private class PlayServiceConnection implements ServiceConnection {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            final PlayService playService = ((PlayService.PlayBinder) service).getService();
-            AppContext.setPlayService(playService);
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-        }
-    }*/
     @OnClick({R.id.main_headimage, R.id.iv_history})
     public void onclick(View view) {
         switch (view.getId()) {
@@ -175,7 +162,6 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
      */
     private void initDate() {
         onLoginSuccess(AppContext.getInstance().getPEUser());
-
     }
 
 
@@ -366,7 +352,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     @Override
     protected void onPause() {
         super.onPause();
-        if(AppContext.getPlayService()!=null){
+        if (AppContext.getPlayService() != null) {
             AppContext.getPlayService().stop();
         }
     }

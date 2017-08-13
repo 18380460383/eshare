@@ -28,6 +28,7 @@ import com.kzmen.sczxjf.ui.activity.kzmessage.AskListActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.CaseListActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.CourseListActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.CoursePlayDeatilActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.KnowageAskIndexActivity;
 import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.util.glide.GlideCircleTransform;
 import com.kzmen.sczxjf.util.glide.GlideRoundTransform;
@@ -124,6 +125,7 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
     private List<Music> mMusicList;
 
     private String url = "https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png";
+    private String url1 = "http://192.168.0.102:8000/static/mp3/2.jpg";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -152,18 +154,17 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
         initData();
         sb_play.setOnSeekBarChangeListener(new SeekBarChangeEvent());
     }
-
     private void initData() {
         mMusicList = new ArrayList<>();
         urlList = new ArrayList<>();
         listTst = new ArrayList<>();
         columnItemBeanList = new ArrayList<>();
         listTstActiv = new ArrayList<>();
-        urlList.add(url);
-        urlList.add("https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png");
-        urlList.add("https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png");
-        urlList.add("https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png");
-        urlList.add("https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png");
+        urlList.add(url1);
+        urlList.add(url1);
+        urlList.add(url1);
+        urlList.add(url1);
+        urlList.add(url1);
         blMainBanner.setViewUrls(urlList);
 
         columnItemBeanList.add(new MainColumnItemBean("课程", R.drawable.menu_lesson));
@@ -189,7 +190,7 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
                         intent = new Intent(getActivity(), CourseListActivity.class);
                         break;
                     case 1:
-                        intent = new Intent(getActivity(), AskListActivity.class);
+                        intent = new Intent(getActivity(), KnowageAskIndexActivity.class);
                         break;
                     case 2:
                         intent = new Intent(getActivity(), AnserQuesActivity.class);
@@ -216,7 +217,9 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
-        AppContext.getPlayService().stop();
+        if(AppContext.getPlayService()!=null){
+            AppContext.getPlayService().stop();
+        }
     }
     private int bufferPercent=0;
     @OnClick({iv_course_play, R.id.iv_xiaojiang_play1, R.id.iv_xiaojiang_play2, R.id.ll_more_course, R.id.ll_more_ask, R.id.ll_more_activ})
@@ -289,7 +292,7 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
         tvMediaStartTime.setText(start);
         tvMediaEndTime.setText(end);
         sb_play.setProgress(pos);
-        sb_play.setSecondaryProgress(bufferPercent);
+       // sb_play.setSecondaryProgress(bufferPercent);
     }
 
     @Override

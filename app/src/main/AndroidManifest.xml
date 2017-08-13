@@ -31,6 +31,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <!-- 相机权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
     <!-- Required -->
     <permission
         android:name="com.kzmen.sczxjf.permission.JPUSH_MESSAGE"
@@ -82,10 +84,13 @@
         <activity
             android:name=".test.Mp3RecorderActivity"
             android:screenOrientation="portrait" />
+       <!-- -->
         <activity
             android:name=".ui.activity.LogoActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/LogoTheme">
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/LogoTheme"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -132,6 +137,7 @@
             android:screenOrientation="portrait" />
 
         <!-- 认证身份界面 -->
+
 
         <!-- 认证详情界面 -->
         <activity
@@ -572,26 +578,56 @@
         <activity android:name=".ui.activity.kzmessage.AskListActivity" />
         <activity android:name=".ui.activity.kzmessage.ActivListActivity" />
         <activity android:name=".ui.activity.kzmessage.CaseListActivity" />
-        <activity android:name=".ui.activity.kzmessage.CourseDetailAcitivity">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
+        <activity android:name=".ui.activity.kzmessage.CourseDetailAcitivity"
+            android:label="@string/title_activity_main_tab"
+            android:theme="@style/BaseAppTheme">
         </activity>
-        <activity android:name=".ui.activity.kzmessage.AskDetailActivity"></activity>
-        <activity android:name=".ui.activity.kzmessage.MyCollectionAcitivity"></activity>
-        <activity android:name=".ui.activity.kzmessage.MyAskActivity"></activity>
+
+        <activity android:name=".ui.activity.kzmessage.MyCollectionAcitivity" />
+        <activity android:name=".ui.activity.kzmessage.MyAskActivity" />
         <activity android:name=".test.MP3OnlineActivity" />
 
         <service android:name=".test.server.PlayService" />
 
-        <activity android:name=".test.Mp3ServerAcitivity"></activity>
+        <activity android:name=".test.Mp3ServerAcitivity" />
         <activity android:name=".ui.activity.kzmessage.WantAskActivity" />
-        <activity android:name=".ui.activity.kzmessage.CoursePlayDeatilActivity"></activity>
+        <activity android:name=".ui.activity.kzmessage.CoursePlayDeatilActivity" />
+        <activity android:name=".ui.activity.kzmessage.KnowageAskDetailActivity" />
+        <activity android:name=".ui.activity.kzmessage.KnowageAskIndexActivity" />
+        <activity android:name=".ui.activity.kzmessage.KnowageAskActivity" />
+        <activity android:name=".ui.activity.kzmessage.KnowageAskPreActivity" />
+        <activity android:name=".imagepicker.ui.ImageBaseActivity" />
+        <activity
+            android:name=".imagepicker.ui.ImageGridActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/ImagePickerTheme" />
+        <activity
+            android:name=".imagepicker.ui.ImageCropActivity"
+            android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="false"
+            android:theme="@style/ImagePickerTheme" />
+        <activity
+            android:name=".imagepicker.ui.ImagePreviewActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/ImagePickerThemeFullScreen" />
+
+        <provider
+            android:name=".imagepicker.ImagePickerProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+        <activity android:name=".imagepicker.ui.ImagePreviewDelActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/ImagePickerThemeFullScreen"/>
+        <activity android:name=".easypermissions.AppSettingsDialogHolderActivity"
+            android:exported="false"
+            android:label=""
+            android:theme="@style/EasyPermissions.Transparent"
+            />
     </application>
 
 </manifest>

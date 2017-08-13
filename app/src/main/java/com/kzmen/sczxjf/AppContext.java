@@ -17,6 +17,9 @@ import com.kzmen.sczxjf.bean.UserInfo;
 import com.kzmen.sczxjf.bean.WeixinInfo;
 import com.kzmen.sczxjf.bean.user.User_For_pe;
 import com.kzmen.sczxjf.ebean.User;
+import com.kzmen.sczxjf.imagepicker.ImagePicker;
+import com.kzmen.sczxjf.imagepicker.loader.GlideImageLoader;
+import com.kzmen.sczxjf.imagepicker.view.CropImageView;
 import com.kzmen.sczxjf.multidex.MultiDexApplication;
 import com.kzmen.sczxjf.test.server.PlayService;
 import com.kzmen.sczxjf.ui.activity.BaseWebActivity;
@@ -66,7 +69,6 @@ public class AppContext extends MultiDexApplication {
     public BaseWebActivity mBaseWebAct;
     private User_For_pe peuser;
 
-
     /**
      * 获得当前app运行的AppContext
      */
@@ -83,6 +85,19 @@ public class AppContext extends MultiDexApplication {
             JPushInterface.init(this);
         }catch (Exception e){
         }
+        ImagePicker imagePicker = ImagePicker.getInstance();
+        imagePicker.setImageLoader(new GlideImageLoader());   //设置图片加载器
+        imagePicker.setShowCamera(true);                      //显示拍照按钮
+        imagePicker.setCrop(true);                            //允许裁剪（单选才有效）
+        imagePicker.setSaveRectangle(true);                   //是否按矩形区域保存
+        imagePicker.setSelectLimit(8);              //选中数量限制
+        imagePicker.setMultiMode(true);                      //多选
+        imagePicker.setStyle(CropImageView.Style.RECTANGLE);  //裁剪框的形状
+        imagePicker.setFocusWidth(800);                       //裁剪框的宽度。单位像素（圆形自动取宽高最小值）
+        imagePicker.setFocusHeight(800);                      //裁剪框的高度。单位像素（圆形自动取宽高最小值）
+        imagePicker.setOutPutX(1000);                         //保存文件的宽度。单位像素
+        imagePicker.setOutPutY(1000);                         //保存文件的高度。单位像素
+
         new Runnable() {
             @Override
             public void run() {

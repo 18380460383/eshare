@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
@@ -18,15 +19,21 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.control.CustomProgressDialog;
 import com.kzmen.sczxjf.cusinterface.ServerConnect;
+import com.kzmen.sczxjf.easypermissions.EasyPermissions;
+import com.kzmen.sczxjf.interfaces.ScrollViewOnScroll;
 import com.kzmen.sczxjf.net.NetworkDownload;
 import com.kzmen.sczxjf.test.server.PlayService;
 import com.kzmen.sczxjf.ui.activity.personal.LoginActivity;
+import com.kzmen.sczxjf.view.MyScrollView;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 
@@ -36,42 +43,57 @@ import butterknife.ButterKnife;
  * 时间：2016/4/6
  * 功能描述：超级Activity,本项目所有的Activity的父类
  */
-public abstract class SuperActivity extends FragmentActivity implements ServerConnect{
-    /**标题栏*/
+public abstract class SuperActivity extends FragmentActivity implements ServerConnect, EasyPermissions.PermissionCallbacks, ScrollViewOnScroll {
+    private static final String TAG = "BasicActivity";
+    /**
+     * 标题栏
+     */
     public View title;
-    /**标题控件*/
+    /**
+     * 标题控件
+     */
     public TextView titleNameView;
-    /**网络请求对话框*/
+    /**
+     * 网络请求对话框
+     */
     private CustomProgressDialog progressDialog;
-    /**退出应用广播Action*/
-    public static final String EXIT="com.brocast.exit";
-    /**退出应用广播对象*/
+    /**
+     * 退出应用广播Action
+     */
+    public static final String EXIT = "com.brocast.exit";
+    /**
+     * 退出应用广播对象
+     */
     private BroadcastReceiver exitReceiver;
-    /**判断退出应用广播是否注册*/
-    private boolean isStartExitReceiver =false;
+    /**
+     * 判断退出应用广播是否注册
+     */
+    private boolean isStartExitReceiver = false;
+
+    private MyScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //判断此界面是不是对外直接开放的
-                //如果不是
-                if(!isShareActivity()) {
-                    if (!AppContext.getInstance().getPersonageOnLine()) {
-                        Intent intent = new Intent(this, LoginActivity.class);
-                        this.startActivity(intent);
-                        this.finish();
-                    }else{
-                        initActivity();
-                    }
-                }
-                //如果是
-                else{
-                    initActivity();
-                }
+        //如果不是
+        if (!isShareActivity()) {
+            if (!AppContext.getInstance().getPersonageOnLine()) {
+                Intent intent = new Intent(this, LoginActivity.class);
+                this.startActivity(intent);
+                this.finish();
+            } else {
+                initActivity();
+            }
+        }
+        //如果是
+        else {
+            initActivity();
+        }
         setInnerAct();
     }
 
-    public void setInnerAct(){
+    public void setInnerAct() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window window = getWindow();
                 /*window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
@@ -82,6 +104,7 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
             view.setPadding(0, statusBarHeight, 0, 0);*/
         }
     }
+
     private void initActivity() {
         setThisContentView();
         if (isCanExit()) {
@@ -95,20 +118,23 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
     public abstract void onCreateDataForView();
 
     public abstract void setThisContentView();
+
     @Override
     protected void onStart() {
         super.onStart();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         //MobclickAgent.onResume(this);
         AppContext.getInstance().setOneActivity(this);
     }
+
     @Override
     protected void onPause() {
         super.onPause();
-       // MobclickAgent.onPause(this);
+        // MobclickAgent.onPause(this);
         AppContext.getInstance().setOldinstance(this);
     }
 
@@ -126,9 +152,9 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
     protected void onDestroy() {
         super.onDestroy();
         NetworkDownload.stopRequest(this);
-        if(isStartExitReceiver) {
+        if (isStartExitReceiver) {
             unregisterReceiver(exitReceiver);
-            isStartExitReceiver=false;
+            isStartExitReceiver = false;
         }
     }
 
@@ -137,13 +163,15 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
         super.setContentView(layoutResID);
         ButterKnife.inject(this);
     }
+
     /**
      * 设置界面的标题栏
-     * @param id 标题栏id
+     *
+     * @param id   标题栏id
      * @param name 标题栏名
      */
-    public void setTitle(int id,String name){
-        if(title==null&&id!=0){
+    public void setTitle(int id, String name) {
+        if (title == null && id != 0) {
             title = findViewById(id);
             PercentRelativeLayout viewById = (PercentRelativeLayout) title.findViewById(R.id.back);
             viewById.setOnClickListener(new View.OnClickListener() {
@@ -153,31 +181,34 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
                 }
             });
             titleNameView = (TextView) findViewById(R.id.title_name);
-            if(!TextUtils.isEmpty(name)){
+            if (!TextUtils.isEmpty(name)) {
                 titleNameView.setText(name);
             }
 
         }
     }
+
     /**
      * 设置界面的标题栏
+     *
      * @param id 标题栏id
      */
-    public void setTitle(int id){
-        setTitle(id,"");
+    public void setTitle(int id) {
+        setTitle(id, "");
     }
 
     /**
      * 杨操
      * 显示进度条
+     *
      * @param text 对话框提示字段
      */
     public void showProgressDialog(String text) {
         Log.i("tag", "对话框显示");
-        if(text!=null&&!TextUtils.isEmpty(text.trim())) {
+        if (text != null && !TextUtils.isEmpty(text.trim())) {
             progressDialog.setText(text);
         }
-        if(!progressDialog.isShowing()){
+        if (!progressDialog.isShowing()) {
             progressDialog.show();
         }
 
@@ -197,8 +228,8 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
      * 杨操
      * 设置退出广播
      */
-    private void setExitBroadcastReceiver(){
-        isStartExitReceiver=true;
+    private void setExitBroadcastReceiver() {
+        isStartExitReceiver = true;
         exitReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -218,36 +249,40 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
     public boolean isCanExit() {
         return true;
     }
+
     /**
      * 用户没登录是否可以使用此页面（用于浏览器启动界面时做判断）
      * 默认不能在没登录时使用
-     * */
-    protected boolean isShareActivity(){
+     */
+    protected boolean isShareActivity() {
         return false;
     }
 
     /**
      * 杨操
      * 获取values文件夹的string.xml文件的配置信息
+     *
      * @param stringId 文字ID
      * @return 字符串
      */
-    protected String getStringForeValues(int stringId){
+    protected String getStringForeValues(int stringId) {
         return getResources().getString(stringId);
     }
+
     /**
-    *设置当前界面时企业界面
-     *  默认不能在没登录时使用
-    */
-    protected boolean isEnterpriseActivity(){
+     * 设置当前界面时企业界面
+     * 默认不能在没登录时使用
+     */
+    protected boolean isEnterpriseActivity() {
         return false;
     }
+
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);
-        overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-        if(AppContext.getPlayService()!=null){
-            if(AppContext.getPlayService().isPlaying()){
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        if (AppContext.getPlayService() != null) {
+            if (AppContext.getPlayService().isPlaying()) {
                 AppContext.getPlayService().stop();
             }
         }
@@ -256,6 +291,7 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
 
     private ServiceConnection mPlayServiceConnection;
     protected Handler mHandler = new Handler(Looper.getMainLooper());
+
     public void checkService() {
         if (AppContext.getPlayService() == null) {
             startService();
@@ -264,8 +300,8 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
                 public void run() {
                     bindService();
                 }
-            },1000);
-        }else{
+            }, 1000);
+        } else {
             connectSuccess();
         }
     }
@@ -281,6 +317,7 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
         mPlayServiceConnection = new PlayServiceConnection();
         bindService(intent, mPlayServiceConnection, Context.BIND_AUTO_CREATE);
     }
+
     private class PlayServiceConnection implements ServiceConnection {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -298,5 +335,59 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
     @Override
     public void connectSuccess() {
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // EasyPermissions handles the request result.
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        Log.d(TAG, "onPermissionsGranted:" + requestCode + ":" + perms.size());
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        Log.d(TAG, "onPermissionsDenied:" + requestCode + ":" + perms.size());
+    }
+
+    private LinearLayout ll_title;
+
+    public boolean setOnScroll(int id) {
+        scrollView = (MyScrollView) findViewById(id);
+        if (scrollView == null) {
+            return false;
+        }
+        scrollView.setOnScrollListener(this);
+        return true;
+    }
+
+    public boolean setLl_title() {
+        try {
+            ll_title = (LinearLayout) findViewById(R.id.kz_tiltle);
+        } catch (Exception e) {
+            Log.e("tst",e.toString());
+            return false;
+        }
+        if (ll_title == null) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onScroll(int scrollY) {
+        if (ll_title == null) {
+            return;
+        }
+        if (scrollY > 0) {
+            ll_title.setBackgroundResource(R.color.white);
+        } else {
+            ll_title.setBackgroundResource(R.color.transparent);
+        }
     }
 }

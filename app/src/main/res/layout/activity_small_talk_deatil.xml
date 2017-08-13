@@ -205,7 +205,6 @@
     </com.kzmen.sczxjf.view.MyScrollView>
 
     <include
-        android:id="@+id/kz_tiltle"
         layout="@layout/kz_title" />
 
     <ImageView

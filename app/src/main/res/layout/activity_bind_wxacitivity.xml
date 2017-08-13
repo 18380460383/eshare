@@ -13,7 +13,6 @@
         android:layout_height="48dp">
 
         <include
-            android:id="@+id/kz_tiltle"
             layout="@layout/kz_title_no_back" />
     </RelativeLayout>
 

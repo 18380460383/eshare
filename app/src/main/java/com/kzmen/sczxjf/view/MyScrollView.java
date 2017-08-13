@@ -7,13 +7,15 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
 
+import com.kzmen.sczxjf.interfaces.ScrollViewOnScroll;
+
 /**
  * 创建者：Administrator
  * 时间：2016/9/1
  * 功能描述：监听滑动事件的scrollview
  */
 public class MyScrollView  extends ScrollView {
-    private OnScrollListener onScrollListener;
+    private ScrollViewOnScroll onScrollListener;
     /**
      * 主要是用在用户手指离开MyScrollView，MyScrollView还在继续滑动，我们用来保存Y的距离，然后做比较
      */
@@ -32,7 +34,7 @@ public class MyScrollView  extends ScrollView {
      * 设置滚动接口
      * @param onScrollListener
      */
-    public void setOnScrollListener(OnScrollListener onScrollListener){
+    public void setOnScrollListener(ScrollViewOnScroll onScrollListener){
         this.onScrollListener = onScrollListener;
     }
     /**
@@ -74,15 +76,6 @@ public class MyScrollView  extends ScrollView {
         return super.onTouchEvent(ev);
     }
 
-    /**
-     * 滚动的回调接口
-     */
-    public interface OnScrollListener{
-        /**
-         * 回调方法， 返回MyScrollView滑动的Y方向距离
-         */
-        public void onScroll(int scrollY);
-    }
     @Override
     protected int computeScrollDeltaToGetChildRectOnScreen(Rect rect) {
         return 0;

@@ -1,5 +1,6 @@
 package com.kzmen.sczxjf.ui.activity.kzmessage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.percent.PercentRelativeLayout;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,6 +23,7 @@ import com.kzmen.sczxjf.dialog.ShareDialog;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.view.MyListView;
+import com.kzmen.sczxjf.view.MyScrollView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,6 +51,12 @@ public class CourseDetailAcitivity extends SuperActivity {
     ViewPager infoViewpager;
     @InjectView(R.id.lv_goodask)
     MyListView lvGoodask;
+    @InjectView(R.id.tv_ask)
+    TextView tvAsk;
+    @InjectView(R.id.sv_main)
+    MyScrollView svMain;
+    @InjectView(R.id.kz_tiltle)
+    LinearLayout llTitle;
     private String[] titles = new String[]{"阶段一", "阶段二", "阶段三", "阶段四", "阶段五"};
     private ShareDialog shareDialog;
     private Kz_FragmentAdapter adapter;
@@ -61,6 +70,12 @@ public class CourseDetailAcitivity extends SuperActivity {
     @Override
     public void onCreateDataForView() {
         setTitle(R.id.kz_tiltle, "课程详情");
+        if (!setLl_title()) {
+            EToastUtil.show(this, "设置标题错误");
+        }
+        if(!setOnScroll(R.id.sv_main)){
+            EToastUtil.show(this, "设置滑动失败");
+        }
         initView();
         initData();
     }
@@ -83,25 +98,26 @@ public class CourseDetailAcitivity extends SuperActivity {
 
     private List<CourseListTstBean> beanlist;
     private Kz_CourseDetaiListAdapter adapter1;
-    private CommonAdapter<CourseListTstBean>adapter2;
+    private CommonAdapter<CourseListTstBean> adapter2;
+
     private void initData() {
-        beanlist=new ArrayList<>();
-        for (int i = 0; i <20 ; i++) {
-            CourseListTstBean bean=new CourseListTstBean();
-            if(i%3==0){
+        beanlist = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            CourseListTstBean bean = new CourseListTstBean();
+            if (i % 3 == 0) {
                 bean.setType(0);
-            }else{
+            } else {
                 bean.setType(1);
             }
-            bean.setName("测试"+i);
-            bean.setTime("03:0"+i);
+            bean.setName("测试" + i);
+            bean.setTime("03:0" + i);
             beanlist.add(bean);
         }
         //adapter1=new Kz_CourseDetaiListAdapter(CourseDetailAcitivity.this,beanlist);
-        adapter2=new CommonAdapter<CourseListTstBean>(CourseDetailAcitivity.this,R.layout.kz_good_ask_item,beanlist) {
+        adapter2 = new CommonAdapter<CourseListTstBean>(CourseDetailAcitivity.this, R.layout.kz_good_ask_item, beanlist) {
             @Override
             protected void convert(ViewHolder viewHolder, CourseListTstBean item, int position) {
-               viewHolder.setText(R.id.tv_user_name,""+item.getName());
+                viewHolder.setText(R.id.tv_user_name, "" + item.getName());
             }
         };
         lvGoodask.setAdapter(adapter2);
@@ -118,8 +134,9 @@ public class CourseDetailAcitivity extends SuperActivity {
         setContentView(R.layout.activity_course_detail_acitivity);
     }
 
-    @OnClick(R.id.iv_share)
+    @OnClick({R.id.iv_share, R.id.tv_ask})
     public void onViewClicked(View view) {
+        Intent intent = null;
         switch (view.getId()) {
             case R.id.iv_share:
                 shareDialog = new ShareDialog(this);
@@ -138,6 +155,10 @@ public class CourseDetailAcitivity extends SuperActivity {
                         shareDialog.dismiss();
                     }
                 });
+                break;
+            case R.id.tv_ask:
+                intent = new Intent(CourseDetailAcitivity.this, KnowageAskIndexActivity.class);
+                startActivity(intent);
                 break;
         }
     }

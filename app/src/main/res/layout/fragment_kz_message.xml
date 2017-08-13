@@ -1,11 +1,4 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:scrollbars="none"
-    tools:context="com.kzmen.sczxjf.ui.fragment.kzmessage.KzMessageFragment">
+
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -184,7 +177,9 @@
                             android:maxHeight="20px"
                             android:minHeight="20px"
                             android:progressDrawable="@drawable/kz_seekbar_define_color_style"
-                            android:thumb="@drawable/kz_seekbar_define_style" />
+                            android:thumb="@drawable/kz_seekbar_define_style"
+                            />
+                        <!--android:thumb="@drawable/kz_seekbar_define_style"-->
 
                     </RelativeLayout>
 
@@ -573,4 +568,3 @@
                 android:background="@drawable/icon_arrow_more" />
         </LinearLayout>
     </LinearLayout>
-</ScrollView>

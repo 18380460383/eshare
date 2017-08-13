@@ -25,10 +25,26 @@
                 <corners android:radius="10dip" />
                 <gradient
                     android:angle="270"
-                    android:centerColor="#ffFDCB29"
+                    android:centerColor="@color/red"
                     android:centerY="0.45"
-                    android:endColor="#ffFDCB29"
-                    android:startColor="#ffFDCB29" />
+                    android:endColor="@color/red"
+                    android:startColor="@color/red" />
+            </shape>
+        </clip>
+    </item>
+    <item
+        android:id="@android:id/secondaryProgress"
+        android:paddingBottom="3px"
+        android:paddingTop="3px">
+        <clip>
+            <shape>
+                <corners android:radius="10dip" />
+                <gradient
+                    android:angle="270"
+                    android:centerColor="#FFFCE498"
+                    android:centerY="0.45"
+                    android:endColor="#FFFCE498"
+                    android:startColor="#FFFCE498" />
             </shape>
         </clip>
     </item>
