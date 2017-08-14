@@ -19,7 +19,7 @@
             android:layout_height="32dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/margin_top20"
             android:background="@drawable/icon_share" />
     </RelativeLayout>
 
@@ -65,7 +65,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/margin_top20"
                 android:text="提问内容" />
 
             <com.kzmen.sczxjf.view.ExPandGridView
@@ -120,7 +120,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="@dimen/margin_top20"
                         android:text="信用知识，快速问专家" />
                 </LinearLayout>
 

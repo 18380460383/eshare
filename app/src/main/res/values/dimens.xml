@@ -41,4 +41,14 @@
     <dimen name="pickerview_topbar_title_textsize">18sp</dimen>
     <!-- 选项文字大小 -->
     <dimen name="pickerview_textsize">20sp</dimen>
+
+
+    <dimen name="margin_top8">8dp</dimen>
+    <dimen name="margin_top10">10dp</dimen>
+    <dimen name="margin_top15">15dp</dimen>
+    <dimen name="margin_top20">20dp</dimen>
+    <dimen name="margin_top30">30dp</dimen>
+    <dimen name="margin_top40">40dp</dimen>
+    <dimen name="margin_left15">15dp</dimen>
+
 </resources>

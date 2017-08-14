@@ -36,13 +36,13 @@
             android:numColumns="5" />
 
         <View
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/margin_top20"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#f2f2f2" />
 
         <LinearLayout
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/margin_top30"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -68,7 +68,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="@dimen/margin_top20">
 
                 <LinearLayout
                     android:id="@+id/ll_user_head"
@@ -84,7 +84,7 @@
                        />
 
                     <LinearLayout
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="@dimen/margin_top20"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
@@ -199,7 +199,7 @@
             </RelativeLayout>
 
                 <TextView
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="@dimen/margin_top20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
@@ -263,7 +263,7 @@
                 android:id="@+id/ll_more_course"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="@dimen/margin_top30"
                 android:gravity="right"
                 android:orientation="horizontal">
 
@@ -288,7 +288,7 @@
             android:background="#f2f2f2" />
 
         <LinearLayout
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/margin_top30"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -496,7 +496,7 @@
                     android:id="@+id/ll_more_ask"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="@dimen/margin_top20"
                     android:gravity="right"
                     android:orientation="horizontal">
 
@@ -522,7 +522,7 @@
             android:background="#f2f2f2" />
 
         <LinearLayout
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/margin_top30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -539,7 +539,7 @@
         </LinearLayout>
 
         <com.kzmen.sczxjf.view.ExPandGridView
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/margin_top20"
             android:id="@+id/gv_more_activ"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -550,7 +550,7 @@
             android:id="@+id/ll_more_activ"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/margin_top30"
             android:gravity="right"
             android:orientation="horizontal">
 

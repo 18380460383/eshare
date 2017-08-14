@@ -22,7 +22,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="@dimen/margin_top30"
                     android:paddingRight="15dp">
 
                     <ImageView
@@ -38,7 +38,7 @@
                     android:layout_height="64dp"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="@dimen/margin_top20"
                     android:background="@drawable/cricle_background"
                     android:gravity="center">
 
@@ -82,7 +82,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="@dimen/margin_top20"
                     android:background="#F2F2F2" />
 
                 <LinearLayout

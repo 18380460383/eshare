@@ -127,6 +127,6 @@ public class CourseListActivity extends ListViewActivity {
                 mPullRefreshListView.onRefreshComplete();
                 adapter.notifyDataSetChanged();
             }
-        }, 3000);
+        }, 1000);
     }
 }

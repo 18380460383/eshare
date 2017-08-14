@@ -16,7 +16,7 @@
         android:layout_height="0dp">
         <LinearLayout
             android:id="@+id/employee_mode"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/margin_top30"
             android:orientation="horizontal"
             android:layout_weight="1.5"
             android:background="#ffffff"

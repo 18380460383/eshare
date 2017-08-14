@@ -100,13 +100,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/margin_top20"
                 android:text="讲师简介---可以展开或者折叠" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/margin_top20"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -165,7 +165,7 @@
                 app:tabSelectedTextColor="@color/colorAccent"
                 app:tabTextColor="@color/colorAccent"></android.support.design.widget.TabLayout>
 
-            <android.support.v4.view.ViewPager
+            <com.kzmen.sczxjf.view.ExpandViewPager
                 android:id="@+id/info_viewpager"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -228,6 +228,6 @@
         android:layout_height="32dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/margin_top20"
         android:background="@drawable/icon_share" />
 </RelativeLayout>

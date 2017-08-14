@@ -15,13 +15,14 @@ import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.adapter.Kz_CourseDetaiListAdapter;
-import com.kzmen.sczxjf.adapter.Kz_FragmentAdapter;
+import com.kzmen.sczxjf.adapter.Kz_Course_FragmentAdapter;
 import com.kzmen.sczxjf.bean.kzbean.CourseListTstBean;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.dialog.ShareDialog;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.util.EToastUtil;
+import com.kzmen.sczxjf.view.ExpandViewPager;
 import com.kzmen.sczxjf.view.MyListView;
 import com.kzmen.sczxjf.view.MyScrollView;
 
@@ -48,7 +49,7 @@ public class CourseDetailAcitivity extends SuperActivity {
     @InjectView(R.id.tab_layout)
     TabLayout tabLayout;
     @InjectView(R.id.info_viewpager)
-    ViewPager infoViewpager;
+    ExpandViewPager infoViewpager;
     @InjectView(R.id.lv_goodask)
     MyListView lvGoodask;
     @InjectView(R.id.tv_ask)
@@ -59,7 +60,7 @@ public class CourseDetailAcitivity extends SuperActivity {
     LinearLayout llTitle;
     private String[] titles = new String[]{"阶段一", "阶段二", "阶段三", "阶段四", "阶段五"};
     private ShareDialog shareDialog;
-    private Kz_FragmentAdapter adapter;
+    private Kz_Course_FragmentAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,7 @@ public class CourseDetailAcitivity extends SuperActivity {
         if (!setLl_title()) {
             EToastUtil.show(this, "设置标题错误");
         }
-        if(!setOnScroll(R.id.sv_main)){
+        if (!setOnScroll(R.id.sv_main)) {
             EToastUtil.show(this, "设置滑动失败");
         }
         initView();
@@ -81,7 +82,7 @@ public class CourseDetailAcitivity extends SuperActivity {
     }
 
     private void initView() {
-        adapter = new Kz_FragmentAdapter(getSupportFragmentManager(), CourseDetailAcitivity.this, titles);
+        adapter = new Kz_Course_FragmentAdapter(getSupportFragmentManager(), CourseDetailAcitivity.this, titles);
         adapter.setTitles(titles);
         infoViewpager.setAdapter(adapter);
         tabLayout.setupWithViewPager(infoViewpager);
@@ -94,6 +95,28 @@ public class CourseDetailAcitivity extends SuperActivity {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             tab.setCustomView(adapter.getTabView(i));
         }
+
+        final int currentSelectedPosition = infoViewpager.getCurrentItem();
+        infoViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                View view = infoViewpager.getChildAt(currentSelectedPosition);
+                int height = view.getMeasuredHeight();
+                ViewGroup.LayoutParams layoutParams = (LinearLayout.LayoutParams) infoViewpager.getLayoutParams();
+                layoutParams.height = height;
+                infoViewpager.setLayoutParams(layoutParams);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private List<CourseListTstBean> beanlist;
@@ -113,7 +136,6 @@ public class CourseDetailAcitivity extends SuperActivity {
             bean.setTime("03:0" + i);
             beanlist.add(bean);
         }
-        //adapter1=new Kz_CourseDetaiListAdapter(CourseDetailAcitivity.this,beanlist);
         adapter2 = new CommonAdapter<CourseListTstBean>(CourseDetailAcitivity.this, R.layout.kz_good_ask_item, beanlist) {
             @Override
             protected void convert(ViewHolder viewHolder, CourseListTstBean item, int position) {

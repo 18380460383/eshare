@@ -29,7 +29,7 @@
         android:id="@+id/share_gridView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/margin_top20"
         android:gravity="center"
         android:horizontalSpacing="20dp"
         android:numColumns="3"
@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="@dimen/margin_top20">
 
         <TextView
 

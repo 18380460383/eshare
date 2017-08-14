@@ -19,7 +19,7 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp" />
+                    android:layout_marginTop="@dimen/margin_top20" />
 
                 <TextView
                     android:id="@+id/c_menu_user_name_tv"

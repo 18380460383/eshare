@@ -54,7 +54,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/margin_top20"
                 android:orientation="vertical"
                 android:padding="15dp">
 
@@ -92,7 +92,7 @@
                 style="@style/accuntsetting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="@dimen/margin_top30"
                 android:orientation="horizontal">
 
                 <TextView
@@ -256,7 +256,7 @@
                 style="@style/accuntsetting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="@dimen/margin_top30"
                 android:orientation="horizontal">
 
                 <TextView
@@ -385,7 +385,7 @@
                 style="@style/accuntsetting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="@dimen/margin_top30"
                 android:orientation="horizontal">
 
                 <TextView

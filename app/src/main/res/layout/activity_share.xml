@@ -48,7 +48,7 @@
                 android:id="@+id/hint_share"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/margin_top20"
                 android:text="长按可保存二维码"
                 android:textSize="16dp"
                 android:textColor="@color/orange"
