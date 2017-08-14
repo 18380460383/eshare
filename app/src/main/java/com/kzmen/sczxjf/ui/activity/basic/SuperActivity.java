@@ -389,7 +389,7 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
         }
         if (scrollY > 0) {
             ll_title.setBackgroundResource(R.color.white);
-            Utils.setStatusBar(this,true,false);
+            Utils.setStatusBar(this,true,true);
         } else {
             ll_title.setBackgroundResource(R.color.transparent);
             Utils.setStatusBar(this,false,false);

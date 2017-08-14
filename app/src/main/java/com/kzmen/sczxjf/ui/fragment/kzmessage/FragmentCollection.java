@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
-import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -19,9 +18,11 @@ import com.kzmen.sczxjf.bean.MsgBean;
 import com.kzmen.sczxjf.control.CustomProgressDialog;
 import com.kzmen.sczxjf.ui.fragment.basic.SuperFragment;
 import com.kzmen.sczxjf.util.EToastUtil;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -30,8 +31,6 @@ import butterknife.InjectView;
  * A simple {@link Fragment} subclass.
  */
 public class FragmentCollection extends SuperFragment  implements PullToRefreshBase.OnRefreshListener2,Serializable {
-    @InjectView(R.id.tv_test)
-    TextView tvTest;
     @InjectView(R.id.fragment_listview)
     PullToRefreshListView mlistview;
     private String type = "";
@@ -60,7 +59,6 @@ public class FragmentCollection extends SuperFragment  implements PullToRefreshB
             type = bundle.getString("type");
         } else {
         }
-        tvTest.setText(""+type);
     }
 
     @Override
@@ -82,8 +80,6 @@ public class FragmentCollection extends SuperFragment  implements PullToRefreshB
         data_list = new ArrayList<>();
         page = 1;
         adapter = new MsgCenterAdapter(getActivity(), data_list);
-        dialog = new CustomProgressDialog(getContext());
-        dialog.setText("正在加载");
         mlistview.setMode(PullToRefreshListView.Mode.BOTH);
         mlistview.setOnRefreshListener(this);
         mlistview.getRefreshableView().setOnScrollListener(new AbsListView.OnScrollListener() {

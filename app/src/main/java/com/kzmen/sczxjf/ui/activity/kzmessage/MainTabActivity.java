@@ -119,6 +119,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
             EToastUtil.show(this, "设置滑动失败");
         }
         back.setVisibility(View.INVISIBLE);
+        getCachTst();
     }
 
     public boolean setScroll(int id) {
@@ -429,4 +430,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         ButterKnife.inject(this);
     }
 
+    public void getCachTst() {
+
+    }
 }

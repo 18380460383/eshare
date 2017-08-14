@@ -18,7 +18,7 @@ public class RulesAcitivity extends SuperActivity {
 
     @Override
     public void onCreateDataForView() {
-
+        setTitle(R.id.kz_tiltle,"规则");
     }
 
     @Override

@@ -77,4 +77,6 @@ dependencies {
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
+   // compile files('libs/okhttputils-2_6_2.jar')
+   // compile 'com.lzy.net:okhttputils:+'  //版本号使用 + 可以自动引用最新版
 }

@@ -2,13 +2,13 @@ package com.kzmen.sczxjf.ui.activity.kzmessage;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -17,12 +17,9 @@ import butterknife.OnClick;
 /**
  * 我的钱包
  */
-public class MyPackageAcitivity extends AppCompatActivity {
+public class MyPackageAcitivity extends SuperActivity {
 
-    @InjectView(R.id.iv_back)
-    ImageView ivBack;
-    @InjectView(R.id.iv_setting)
-    ImageView ivSetting;
+
     @InjectView(R.id.tv_money)
     TextView tvMoney;
     @InjectView(R.id.tv_get_money)
@@ -43,6 +40,16 @@ public class MyPackageAcitivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
+    public void onCreateDataForView() {
+        setTitle(R.id.kz_tiltle,"我的钱包");
+    }
+
+    @Override
+    public void setThisContentView() {
         setContentView(R.layout.activity_my_package_acitivity);
         ButterKnife.inject(this);
     }

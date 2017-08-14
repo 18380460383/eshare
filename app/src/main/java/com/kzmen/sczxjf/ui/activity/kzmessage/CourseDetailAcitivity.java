@@ -5,12 +5,15 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
@@ -20,6 +23,7 @@ import com.kzmen.sczxjf.bean.kzbean.CourseListTstBean;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.dialog.ShareDialog;
+import com.kzmen.sczxjf.popuwidow.Kz_CourseAskPopu;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.view.ExpandViewPager;
@@ -179,12 +183,32 @@ public class CourseDetailAcitivity extends SuperActivity {
                 });
                 break;
             case R.id.tv_ask:
-                intent = new Intent(CourseDetailAcitivity.this, KnowageAskIndexActivity.class);
-                startActivity(intent);
+              /*  intent = new Intent(CourseDetailAcitivity.this, KnowageAskIndexActivity.class);
+                startActivity(intent);*/
+                showPopFormBottom(view);
                 break;
         }
     }
+    private Kz_CourseAskPopu playPop;
+    WindowManager.LayoutParams params;
+    public void showPopFormBottom(View view) {
+        playPop= new Kz_CourseAskPopu(this);
+//        设置Popupwindow显示位置（从底部弹出）
+        playPop.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+        params = getWindow().getAttributes();
+        //当弹出Popupwindow时，背景变半透明
+        params.alpha = 0.7f;
+        getWindow().setAttributes(params);
+        playPop.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                params = getWindow().getAttributes();
+                params.alpha = 1f;
+                getWindow().setAttributes(params);
+            }
+        });
 
+    }
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         //获得adapter
         CommonAdapter<CourseListTstBean> adapter = (CommonAdapter) listView.getAdapter();

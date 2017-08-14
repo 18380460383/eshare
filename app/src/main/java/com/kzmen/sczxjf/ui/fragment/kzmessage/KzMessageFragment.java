@@ -18,6 +18,7 @@ import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.adapter.KzActivGridAdapter;
 import com.kzmen.sczxjf.adapter.KzMainColumnAdapter;
+import com.kzmen.sczxjf.adapter.MainBaseAdapter;
 import com.kzmen.sczxjf.bean.kzbean.MainColumnItemBean;
 import com.kzmen.sczxjf.consta.PlayState;
 import com.kzmen.sczxjf.cusinterface.PlayMessage;
@@ -33,6 +34,7 @@ import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.util.glide.GlideCircleTransform;
 import com.kzmen.sczxjf.util.glide.GlideRoundTransform;
 import com.kzmen.sczxjf.view.ExPandGridView;
+import com.kzmen.sczxjf.view.MyListView;
 import com.kzmen.sczxjf.view.banner.BannerLayout;
 
 import java.util.ArrayList;
@@ -42,13 +44,13 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-import static com.kzmen.sczxjf.R.id.iv_course_play;
 
 /**
  * 卡掌门--掌信端
  */
 public class KzMessageFragment extends Fragment implements PlayMessage {
 
+    MyListView lv_main;
     @InjectView(R.id.bl_main_banner)
     BannerLayout blMainBanner;
     @InjectView(R.id.gv_column)
@@ -69,8 +71,7 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
     TextView tvMediaStartTime;
     @InjectView(R.id.tv_media_end_time)
     TextView tvMediaEndTime;
-    @InjectView(iv_course_play)
-    ImageView ivCoursePlay;
+
     @InjectView(R.id.tv_xiaojiang_title1)
     TextView tvXiaojiangTitle1;
     @InjectView(R.id.iv_xiaojiang_play1)
@@ -113,6 +114,38 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
     LinearLayout llMoreActiv;
     @InjectView(R.id.sb_play)
     SeekBar sb_play;
+    @InjectView(R.id.iv_course_play)
+    ImageView ivCoursePlay;
+    @InjectView(R.id.iv_user_head2)
+    ImageView ivUserHead2;
+    @InjectView(R.id.tv_user_identity2)
+    TextView tvUserIdentity2;
+    @InjectView(R.id.tv_user_name2)
+    TextView tvUserName2;
+    @InjectView(R.id.ll_user_head2)
+    LinearLayout llUserHead2;
+    @InjectView(R.id.tv_course_ex2)
+    TextView tvCourseEx2;
+    @InjectView(R.id.tv_title2)
+    TextView tvTitle2;
+    @InjectView(R.id.tv_media_start_time2)
+    TextView tvMediaStartTime2;
+    @InjectView(R.id.tv_media_end_time1)
+    TextView tvMediaEndTime1;
+    @InjectView(R.id.sb_play1)
+    SeekBar sbPlay1;
+    @InjectView(R.id.iv_course_play2)
+    ImageView ivCoursePlay2;
+    @InjectView(R.id.tv_xiaojiang_title3)
+    TextView tvXiaojiangTitle3;
+    @InjectView(R.id.iv_xiaojiang_play3)
+    ImageView ivXiaojiangPlay3;
+    @InjectView(R.id.tv_xiaojiang_title4)
+    TextView tvXiaojiangTitle4;
+    @InjectView(R.id.iv_xiaojiang_play4)
+    ImageView ivXiaojiangPlay4;
+    @InjectView(R.id.ll_more_course2)
+    LinearLayout llMoreCourse2;
     private View view = null;
     private BannerLayout bl_main_banner;
     private List<String> urlList;
@@ -139,21 +172,27 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_kz_message, container, false);
         }
+        initView(view);
         ButterKnife.inject(this, view);
-        initView();
         return view;
     }
 
-    private void initView() {
+    private void initView(View vew) {
+        lv_main = (MyListView) vew.findViewById(R.id.lv_main);
+        View headview = LayoutInflater.from(getActivity()).inflate(R.layout.kz_main_fragment_head, null, false);
+        ButterKnife.inject(this, headview);
         blMainBanner.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 EToastUtil.show(getActivity(), "" + position);
             }
         });
+        lv_main.setAdapter(new MainBaseAdapter(getActivity()));
+        lv_main.addHeaderView(headview);
         initData();
         sb_play.setOnSeekBarChangeListener(new SeekBarChangeEvent());
     }
+
     private void initData() {
         mMusicList = new ArrayList<>();
         urlList = new ArrayList<>();
@@ -217,33 +256,19 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
-        if(AppContext.getPlayService()!=null){
+        if (AppContext.getPlayService() != null) {
             AppContext.getPlayService().stop();
         }
     }
-    private int bufferPercent=0;
-    @OnClick({iv_course_play, R.id.iv_xiaojiang_play1, R.id.iv_xiaojiang_play2, R.id.ll_more_course, R.id.ll_more_ask, R.id.ll_more_activ})
+
+    private int bufferPercent = 0;
+
+    @OnClick({R.id.iv_course_play, R.id.iv_xiaojiang_play1, R.id.iv_xiaojiang_play2, R.id.ll_more_course, R.id.ll_more_ask, R.id.ll_more_activ, R.id.iv_course_play2, R.id.ll_more_course2})
     public void onViewClicked(View view) {
         Intent intent = null;
         switch (view.getId()) {
-            case iv_course_play:
-                mMusicList.clear();
-                Music music = new Music();
-                music.setType(Music.Type.ONLINE);
-                music.setPath("http://192.168.0.102:8000/static/mp3/Dawn.mp3");
-                mMusicList.add(music);
-                Music music1 = new Music();
-                music1.setType(Music.Type.ONLINE);
-                music1.setPath("http://192.168.0.102:8000/static/mp3/Fade.mp3");
-                mMusicList.add(music1);
-                Music music2 = new Music();
-                music2.setType(Music.Type.ONLINE);
-                music2.setPath("http://192.168.0.102:8000/static/mp3/鬼迷心窍.mp3");
-                mMusicList.add(music2);
-                AppContext.getPlayService().setMusicList(mMusicList);
-                AppContext.getPlayService().setPlayMessage(this);
+            case R.id.iv_course_play:
                 playPause();
-
                 break;
             case R.id.iv_xiaojiang_play1:
                 mMusicList.clear();
@@ -255,7 +280,7 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
                 playStart();
                 break;
             case R.id.iv_xiaojiang_play2:
-               intent=new Intent(getActivity(), CoursePlayDeatilActivity.class);
+                intent = new Intent(getActivity(), CoursePlayDeatilActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_more_course:
@@ -270,20 +295,47 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
                 intent = new Intent(getActivity(), ActivListActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.iv_course_play2:
+                playPause();
+                break;
+            case R.id.ll_more_course2:
+                intent = new Intent(getActivity(), ActivListActivity.class);
+                startActivity(intent);
+                break;
         }
     }
-    private void playPause(){
+    private void setMusilList(){
+        mMusicList.clear();
+        Music music = new Music();
+        music.setType(Music.Type.ONLINE);
+        music.setPath("http://192.168.0.102:8000/static/mp3/Dawn.mp3");
+        mMusicList.add(music);
+        Music music1 = new Music();
+        music1.setType(Music.Type.ONLINE);
+        music1.setPath("http://192.168.0.102:8000/static/mp3/Fade.mp3");
+        mMusicList.add(music1);
+        Music music2 = new Music();
+        music2.setType(Music.Type.ONLINE);
+        music2.setPath("http://192.168.0.102:8000/static/mp3/鬼迷心窍.mp3");
+        mMusicList.add(music2);
+        AppContext.getPlayService().setMusicList(mMusicList);
+        AppContext.getPlayService().setPlayMessage(this);
+    }
+    private void playPause() {
         AppContext.getPlayService().playPause();
     }
-    private void playStart(){
+
+    private void playStart() {
         AppContext.getPlayService().playStart();
     }
-    private void playPostion(int position){
+
+    private void playPostion(int position) {
         AppContext.getPlayService().play(position);
     }
+
     @Override
     public void prePercent(int percent) {
-        bufferPercent=percent;
+        bufferPercent = percent;
         sb_play.setSecondaryProgress(percent);
     }
 
@@ -292,7 +344,7 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
         tvMediaStartTime.setText(start);
         tvMediaEndTime.setText(end);
         sb_play.setProgress(pos);
-       // sb_play.setSecondaryProgress(bufferPercent);
+        // sb_play.setSecondaryProgress(bufferPercent);
     }
 
     @Override
@@ -302,7 +354,7 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
 
     @Override
     public void state(int state) {
-        switch (state){
+        switch (state) {
             case PlayState.PLAY_PLAYING:
                 Glide.with(this).load(R.drawable.btn_player_pause).into(ivCoursePlay);
                 break;
@@ -311,7 +363,6 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
                 break;
         }
     }
-
 
     class SeekBarChangeEvent implements SeekBar.OnSeekBarChangeListener {
         int progress;
