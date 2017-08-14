@@ -69,6 +69,16 @@ public class AppContext extends MultiDexApplication {
     public BaseWebActivity mBaseWebAct;
     private User_For_pe peuser;
 
+    private int netState=0; // 0 不可用  1.wifi可用  2.wifi不可用  3.移动网可用 4.移动网不可用
+
+    public int getNetState() {
+        return netState;
+    }
+
+    public void setNetState(int netState) {
+        this.netState = netState;
+    }
+
     /**
      * 获得当前app运行的AppContext
      */

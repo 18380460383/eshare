@@ -84,13 +84,12 @@
         <activity
             android:name=".test.Mp3RecorderActivity"
             android:screenOrientation="portrait" />
-       <!-- -->
+        <!-- -->
         <activity
             android:name=".ui.activity.LogoActivity"
-            android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@style/LogoTheme"
-            >
+            android:screenOrientation="portrait"
+            android:theme="@style/LogoTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -578,10 +577,10 @@
         <activity android:name=".ui.activity.kzmessage.AskListActivity" />
         <activity android:name=".ui.activity.kzmessage.ActivListActivity" />
         <activity android:name=".ui.activity.kzmessage.CaseListActivity" />
-        <activity android:name=".ui.activity.kzmessage.CourseDetailAcitivity"
+        <activity
+            android:name=".ui.activity.kzmessage.CourseDetailAcitivity"
             android:label="@string/title_activity_main_tab"
-            android:theme="@style/BaseAppTheme">
-        </activity>
+            android:theme="@style/BaseAppTheme"></activity>
 
         <activity android:name=".ui.activity.kzmessage.MyCollectionAcitivity" />
         <activity android:name=".ui.activity.kzmessage.MyAskActivity" />
@@ -620,14 +619,24 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-        <activity android:name=".imagepicker.ui.ImagePreviewDelActivity"
+
+        <activity
+            android:name=".imagepicker.ui.ImagePreviewDelActivity"
             android:configChanges="orientation|screenSize"
-            android:theme="@style/ImagePickerThemeFullScreen"/>
-        <activity android:name=".easypermissions.AppSettingsDialogHolderActivity"
+            android:theme="@style/ImagePickerThemeFullScreen" />
+        <activity
+            android:name=".easypermissions.AppSettingsDialogHolderActivity"
             android:exported="false"
             android:label=""
-            android:theme="@style/EasyPermissions.Transparent"
-            />
+            android:theme="@style/EasyPermissions.Transparent" />
+
+        <receiver android:name=".connector.NetworkConnectChangedReceiver">
+            <intent-filter>
+                <action android:name="android.NET.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.Net.wifi.WIFI_STATE_CHANGED" />
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

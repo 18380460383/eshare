@@ -31,6 +31,8 @@ import com.kzmen.sczxjf.interfaces.ScrollViewOnScroll;
 import com.kzmen.sczxjf.net.NetworkDownload;
 import com.kzmen.sczxjf.test.server.PlayService;
 import com.kzmen.sczxjf.ui.activity.personal.LoginActivity;
+import com.kzmen.sczxjf.util.EToastUtil;
+import com.kzmen.sczxjf.util.Utils;
 import com.kzmen.sczxjf.view.MyScrollView;
 
 import java.util.List;
@@ -89,8 +91,9 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
         //如果是
         else {
             initActivity();
-        }
-        setInnerAct();
+       }
+       // setInnerAct();
+        Utils.setStatusBar(this,false,false);
     }
 
     public void setInnerAct() {
@@ -386,8 +389,17 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
         }
         if (scrollY > 0) {
             ll_title.setBackgroundResource(R.color.white);
+            Utils.setStatusBar(this,true,false);
         } else {
             ll_title.setBackgroundResource(R.color.transparent);
+            Utils.setStatusBar(this,false,false);
         }
+    }
+    private boolean isConnect(){
+        if(AppContext.getInstance().getNetState()==1 || AppContext.getInstance().getNetState()==3){
+            return true;
+        }
+        EToastUtil.show(this,"当前无网络链接！");
+        return false;
     }
 }

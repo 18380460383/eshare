@@ -5,7 +5,7 @@
     <string name="hasdone">已错过</string>
     <string name="doing">进行中</string>
     <string name="ready">即将开抢</string>
-    <string name="rationale_ask_again">This app may not work correctly without the requested permissions. Open the app settings screen to modify app permissions.</string>
+    <string name="rationale_ask_again">当前app缺少以下权限可能导致无法工作，请开启以下权限。</string>
     <string name="title_settings_dialog">Permissions Required</string>
     <!-- Money -->
     <string name="balance_account">账户余额</string>
@@ -199,7 +199,7 @@
     <string name="pickerview_hours">时</string>
     <string name="pickerview_minutes">分</string>
     <string name="pickerview_seconds">秒</string>
-    <string name="test">啊u喝茶咯不会via把表表\n看v咯你把卡吧可耐\n为你考虑啊女看来好吧\n哦是v哈v年后v啊看吧喊我哈\noavhanv爱好我八卦v啊亲</string>
+    <string name="test">啊u喝茶咯不会via把表表\n看v咯你把卡v啊亲</string>
     <string name="all_images">全部图片</string>
     <string name="folder_image_count">共%1$d张</string>
     <string name="preview_image_count">%1$s/%2$s</string>
@@ -210,5 +210,5 @@
     <string name="photo_crop">图片裁剪</string>
     <string name="origin">原图</string>
     <string name="origin_size">原图(%1$s)</string>
-    <string name="rationale_camera">This app needs access to your camera so you can take pictures.</string>
+    <string name="rationale_camera">该功能需要打开相机权限。</string>
 </resources>
