@@ -7,23 +7,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="AppTheme" parent="@style/BaseAppTheme"/>
-    <style name="me_image" >
-        <item name="android:layout_width">24dp</item>
-        <item name="android:layout_height">24dp</item>
-    </style>
 
 
     <style name="LogoTheme" parent="AppTheme">
         <item name="android:windowBackground">@mipmap/welcome</item>
-    </style>
-
-    <style name="new_generalize">
-        <item name="android:textSize">14dp</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginRight">5dp</item>
-        <item name="android:layout_centerVertical">true</item>
     </style>
 
     <style name="into_image_style">
@@ -39,14 +26,6 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:textSize">14dp</item>
-    </style>
-
-    <style name="financial_information_head_style">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:textSize">12dp</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:gravity">center</item>
     </style>
 
     <style name="halving_line">
@@ -84,13 +63,6 @@
         <item name="android:layout_gravity">center_vertical</item>
     </style>
 
-    <style name="new_C_RL">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingTop">15dp</item>
-        <item name="android:paddingBottom">15dp</item>
-    </style>
-
     <style name="line_thin">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">2px</item>
@@ -123,32 +95,6 @@
         <item name="android:layout_weight">14.5</item>
     </style>
     <!--1.1-->
-    <style name="enterprise_place_an_order_need_edittext">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/drawable_edittext</item>
-        <item name="android:paddingTop">@dimen/enterprise_place_an_order_need_edittext_top_button
-        </item>
-        <item name="android:paddingBottom">
-            @dimen/enterprise_place_an_order_need_edittext_top_button
-        </item>
-        <item name="android:paddingLeft">12dp</item>
-        <item name="android:paddingRight">12dp</item>
-        <item name="android:textSize">13dp</item>
-        <item name="android:layout_marginLeft">12dp</item>
-        <item name="android:layout_marginRight">12dp</item>
-    </style>
-
-    <style name="enterprise_place_an_order_need_textview">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">14dp</item>
-        <item name="android:layout_marginLeft">12dp</item>
-        <item name="android:layout_marginRight">12dp</item>
-        <item name="android:layout_marginBottom">10dp</item>
-        <item name="android:textColor">@color/item_textview_gray</item>
-        <item name="android:layout_marginTop">10dp</item>
-    </style>
 
     <style name="selectorDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
@@ -168,34 +114,6 @@
     <style name="AppReaderTheme" parent="@android:style/Theme.NoTitleBar">
         <!--  <item name="android:windowBackground">@drawable/tiled_background</item> -->
         <item name="android:windowBackground">@android:color/darker_gray</item>
-    </style>
-
-    <style name="En_TextView">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/text_hei</item>
-        <item name="android:textSize">17sp</item>
-        <item name="android:layout_margin">12dp</item>
-    </style>
-
-    <style name="En_EditText">
-        <item name="android:singleLine">true</item>
-        <item name="android:padding">8dp</item>
-        <item name="android:background">@drawable/shape_e_et_gray</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:layout_marginLeft">12dp</item>
-        <item name="android:layout_marginRight">12dp</item>
-    </style>
-
-    <style name="En_ET_Register">
-        <item name="android:singleLine">true</item>
-        <item name="android:drawablePadding">14dp</item>
-        <item name="android:paddingLeft">12dp</item>
-        <item name="android:textColor">@android:color/background_dark</item>
-        <item name="android:background">@drawable/shape_e_et_login</item>
-        <item name="android:layout_margin">8dp</item>
     </style>
 
     <style name="rating" parent="@android:style/Widget.RatingBar">
@@ -288,12 +206,6 @@
         <item name="android:button">@drawable/selector_item_checked</item>
     </style>
 
-    <style name="popupwindow_anim_style">
-        <!-- 指定显示的动画xml -->
-        <item name="android:windowEnterAnimation">@anim/show_from_bottom</item>
-        <!-- 指定消失的动画xml -->
-        <item name="android:windowExitAnimation">@anim/hide_to_bottom</item>
-    </style>
     <!-- Base application theme. -->
 
     <style name="main_menu_animstyle">

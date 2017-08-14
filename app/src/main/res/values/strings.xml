@@ -1,45 +1,13 @@
 ﻿<resources>
     <string name="app_name">卡掌门</string>
-    <string name="app_namenew">card</string>
     <string name="shareget">分享即得</string>
-    <string name="hasdone">已错过</string>
-    <string name="doing">进行中</string>
-    <string name="ready">即将开抢</string>
     <string name="rationale_ask_again">当前app缺少以下权限可能导致无法工作，请开启以下权限。</string>
     <string name="title_settings_dialog">Permissions Required</string>
     <!-- Money -->
-    <string name="balance_account">账户余额</string>
-    <string name="missed">已错过</string>
-    <string name="earned">已赚取</string>
-    <string name="yetwithdraw">待审核</string>
-    <string name="extra">转账中</string>
-    <string name="earnings_yesterday">我的积分</string>
-    <string name="personal_info">个人信息</string>
-    <string name="personal_info_perfect">认证信息有更多推送</string>
-    <string name="withdraw">提现</string>
-    <string name="bindAccount">立即提取现金到账</string>
-    <string name="top_n">榜单</string>
-    <string name="hard_work">查看自己的分享排名</string>
-    <string name="record_personal">个人纪录</string>
-    <string name="record_recordedInfo">转发和提现记录</string>
-    <string name="share_app">邀请好友</string>
-    <string name="my_is_e">我要推广</string>
 
     <!-- 提现页面-->
-    <string name="balance_available">可提余额</string>
-    <string name="binding">马上绑定支付宝</string>
-    <string name="binding_w">微信提现</string>
-    <string name="money_withdraw">提现金额</string>
-    <string name="money_withdraw_hint">请输入整数金额</string>
-    <string name="explain">一日最多提现三次.每次提现不超过200</string>
-    <string name="affirm">确认</string>
-    <string name="change_binded">修改</string>
 
     <!-- 绑定支付宝页面 -->
-    <string name="alipay_name">姓名</string>
-    <string name="alipay_name_hint">支付宝账号的真实姓名</string>
-    <string name="alipay_account">支付宝账号</string>
-    <string name="alipay_account_hint">支付宝账号</string>
 
     <!-- 分享应用页面 -->
     <string name="wechat_friends">微信好友</string>
@@ -47,34 +15,10 @@
     <string name="wechat_favorites">微信收藏</string>
 
     <!-- 个人纪录页面 -->
-    <string name="transpond_price">转发收入</string>
-    <string name="transpond_time">转发时间</string>
 
     <!-- 个人信息页面 -->
-    <string name="title_save">保存</string>
-    <string name="personal_sex">性别</string>
-    <string name="personal_age">年龄</string>
-    <string name="personal_province">地址</string>
-    <string name="personal_city">城市</string>
-    <string name="personal_area">区域</string>
-    <string name="personal_industry">行业</string>
-    <string name="personal_profession">职业</string>
-    <string name="personal_school">学校</string>
-    <string name="personal_fans">粉丝数</string>
-    <string name="personal_interest">兴趣</string>
-    <string name="personal_attestation">身份认证</string>
-    <string name="personal_quoted_price">转发报价</string>
-    <string name="personal_quoted_email">邮箱地址</string>
-    <string name="return_main">返回</string>
 
     <!-- 榜单详情页面 -->
-    <string name="topn_rank">排名</string>
-    <string name="topn_name">昵称</string>
-    <string name="topn_money">收入</string>
-    <string name="topn_count">转发量</string>
-    <string name="record_relay">转发记录</string>
-    <string name="record_earn">收入记录</string>
-    <string name="record_money">提现明细</string>
     <!--验证手机-->
     <string name="withdraw_hint">如果提现失败，我们将电话联系您！</string>
 
@@ -93,103 +37,35 @@
     <string name="account_count">转发量</string>
     <string name="account_rate">转发率</string>
     <!--财富界面-->
-    <string name="money_info">个人信息</string>
-    <string name="money_draw">提现</string>
-    <string name="money_topN">榜单</string>
-    <string name="money_record">个人记录</string>
-    <string name="money_friend">我的好友</string>
 
 
     <!--卡掌门1.1版本大更新全部替换配置 name规范（。xml文件:控件id_vstr;.class使用：class名_功能名_cstr）
     log信息，网络下载提示信息  不使用当前配置-->
 
-    <string name="maintabactivity_account_suspended_cstr">个人端</string>
-    <string name="maintabactivity_c_meun_name_cstr">个人端</string>
-    <string name="maintabactivity_e_meun_name_cstr">企业端</string>
     <!--fragment_enterprise_home.xml-->
-    <string name="e_home_recharge_text_vstr">充值</string>
-    <string name="e_home_service_text_vstr">联系媒介经理</string>
-    <string name="e_home_order_text_vstr">订单</string>
-    <string name="e_home_shopping_cart_text_vstr">购物车</string>
-    <string name="e_home_media_text_vstr">找媒体</string>
-    <string name="e_home_digv_text_vstr">找大V</string>
-    <string name="e_home_red_man_text_vstr">找红人</string>
-    <string name="e_home_friend_circle_text_vstr">朋友圈</string>
-    <string name="e_home_writer_text_vstr">找写手</string>
-    <string name="e_home_reporter_text_vstr">找记者</string>
-    <string name="e_home_media_hint_text_vstr">找媒体说明</string>
-    <string name="e_home_digv_hint_text_vstr">找大V说明</string>
-    <string name="e_home_red_man_hint_text_vstr">找红人说明</string>
-    <string name="e_home_friend_circle_hint_text_vstr">朋友圈说明</string>
-    <string name="e_home_writer_hint_text_vstr">找写手说明</string>
-    <string name="e_home_reporter_hint_text_vstr">找记者说明</string>
     <!--fragment_menu_c.xml-->
-    <string name="c_menu_withdraw_deposit_vstr">提现&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
     <string name="c_menu_collect_vstr">我的收藏</string>
-    <string name="c_menu_withdraw_spoor_vstr">我的足迹</string>
-    <string name="c_menu_withdraw_order_vstr">转发记录</string>
     <string name="c_menu_withdraw_friend_vstr">我的好友</string>
-    <string name="c_menu_withdraw_attestation_vstr">个人认证</string>
     <string name="c_menu_withdraw_activity_vstr">活动&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
     <string name="c_menu_withdraw_credits_exchange_vstr">积分兑换</string>
     <string name="c_menu_setting_vstr">设置</string>
     <string name="c_menu_feedback_vstr">意见反馈</string>
     <!--C_Collect.class-->
-    <string name="c_collect_title_cstr">我的收藏</string>
     <!--activity_withdra.xml-->
-    <string name="withdraw_look_record_vstr">查看提现记录</string>
     <!--WithdrawActivity.class-->
-    <string name="withdrawactivity_title_cstr">提现</string>
     <!--UserSpoor.class-->
-    <string name="userspoor_title_cstr">我的足迹</string>
     <!--AttestationActivity.class-->
-    <string name="attestationactivity_title_cstr">个人认证</string>
     <!--ActListActivity.class-->
     <string name="actListactivity_title_cstr">活动</string>
     <!--ShopActivity.class-->
     <string name="shopactivity_title_cstr">积分兑换</string>
     <!--activity_c_home_details.xml-->
-    <string name="c_hone_details_see_more_vstr">查看正文</string>
-    <string name="c_hone_details_see_pdf_vstr">查看附件</string>
-    <string name="c_home_details_standpoint_txt_vstr">支持观点</string>
-    <string name="c_home_details_standpoint_hint_txt_vstr">点击下列任意选项即可对话题进行投票</string>
     <!--activity_shop.xml-->
     <string name="activity_shop_record_vstr">兑换记录</string>
     <!--企业端-->
-    <string name="et_jiebian">请添加链接地址，如 "www.jiebiannews.com" </string>
 
-
-    <string name="cancel">取消</string>
-    <string name="search_backwards">反向搜索</string>
-    <string name="search_forwards">搜索了</string>
-    <string name="search_document">搜索文档</string>
-    <string name="enter_password">输入密码</string>
-    <string name="text_not_found">未找到文本</string>
-    <string name="searching_">搜索中&#8230;</string>
-    <string name="no_further_occurrences_found">没有进一步的发现</string>
-    <string name="search">搜索</string>
-    <string name="print">打印</string>
-    <string name="dismiss">Dismiss</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="print_failed">打印失败</string>
-    <string name="document_has_changes_save_them_">文件有变化，保存它？</string>
-    <string name="cannot_open_document">无法打开文件</string>
-    <string name="cannot_open_document_Reason">Cannot open document: %1$s</string>
-    <string name="cannot_open_file_Path">不能打开文件: %1$s</string>
-    <string name="cannot_open_buffer">无法打开的缓冲区</string>
-    <string name="fill_out_text_field">填写文本字段</string>
-    <string name="okay">可以</string>
-    <string name="choose_value">选择价值</string>
-    <string name="not_supported">不支持</string>
-    <string name="more">更多</string>
-    <string name="format_currently_not_supported">格式不支持</string>
-
-    <string name="one_page_of_count">%1$d of %2$d</string>
-    <string name="two_pages_of_count">%1$d-%2$d of %3$d</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main_tab">MainTabActivity</string>
     <string name="pickerview_cancel">取消</string>
     <string name="pickerview_submit">确定</string>
@@ -199,10 +75,8 @@
     <string name="pickerview_hours">时</string>
     <string name="pickerview_minutes">分</string>
     <string name="pickerview_seconds">秒</string>
-    <string name="test">啊u喝茶咯不会via把表表\n看v咯你把卡v啊亲</string>
     <string name="all_images">全部图片</string>
     <string name="folder_image_count">共%1$d张</string>
-    <string name="preview_image_count">%1$s/%2$s</string>
     <string name="select_limit">最多选择%1$s张图片</string>
     <string name="complete">完成</string>
     <string name="select_complete">完成(%1$s/%2$s)</string>

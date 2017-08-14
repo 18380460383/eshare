@@ -5,7 +5,6 @@
     android:weightSum="16"
     android:layout_height="match_parent">
     <include
-        android:id="@+id/detailsource_title"
         layout="@layout/title_three"
         style="@style/TitleStyle" />
     <FrameLayout

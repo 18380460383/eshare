@@ -6,7 +6,6 @@ import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
-import com.kzmen.sczxjf.view.CircleImageView;
 import com.kzmen.sczxjf.view.MyListView;
 
 import butterknife.InjectView;
@@ -21,14 +20,6 @@ public class KnowageAskDetailActivity extends SuperActivity {
     PercentRelativeLayout back;
     @InjectView(R.id.title_name)
     TextView titleName;
-    @InjectView(R.id.iv_ask_user_image)
-    CircleImageView ivAskUserImage;
-    @InjectView(R.id.tv_ask_content)
-    TextView tvAskContent;
-    @InjectView(R.id.tv_ask_timeleft)
-    TextView tvAskTimeleft;
-    @InjectView(R.id.tv_ask_sign)
-    TextView tvAskSign;
     @InjectView(R.id.lv_aks)
     MyListView lvAks;
 

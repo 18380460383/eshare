@@ -81,7 +81,6 @@
         android:orientation="horizontal">
 
         <com.kzmen.sczxjf.view.CircleImageView
-            android:id="@+id/iv_user_teach_head"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_gravity="center"
@@ -94,7 +93,6 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/ll_answer_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/cornor_background_no_radius"

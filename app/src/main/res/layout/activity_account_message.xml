@@ -20,7 +20,6 @@
             android:text="账号ID" />
 
         <TextView
-            android:id="@+id/tv_account_id"
             style="@style/account_seting_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,7 +40,6 @@
             android:text="真实姓名" />
 
         <TextView
-            android:id="@+id/tv_real_name"
             style="@style/account_seting_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,7 +60,6 @@
             android:text="绑定手机" />
 
         <TextView
-            android:id="@+id/tv_bind_phone"
             style="@style/account_seting_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,7 +68,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_get_money"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top30"
@@ -94,7 +90,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_save_money"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -107,7 +102,6 @@
             android:text="累计收益" />
 
         <TextView
-            android:id="@+id/tv_save_money"
             style="@style/account_seting_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
