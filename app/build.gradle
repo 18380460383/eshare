@@ -79,4 +79,11 @@ dependencies {
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
    // compile files('libs/okhttputils-2_6_2.jar')
    // compile 'com.lzy.net:okhttputils:+'  //版本号使用 + 可以自动引用最新版
+    /*compile 'io.reactivex:rxjava:1.1.0'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
+    compile 'com.orhanobut:hawk:2.0.0-Alpha'*/
+   // compile 'com.github.ybq:Android-SpinKit:1.1.0'
 }
