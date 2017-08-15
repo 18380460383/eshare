@@ -6,14 +6,17 @@ import android.os.Handler;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.ui.activity.basic.ListViewActivity;
+import com.kzmen.sczxjf.util.glide.GlideRoundTransform;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +52,8 @@ public class CourseListActivity extends ListViewActivity {
         adapter =new CommonAdapter<String>(CourseListActivity.this,R.layout.kz_course_list_item,listData) {
             @Override
             protected void convert(ViewHolder viewHolder, String item, int position) {
-                ((TextView)(viewHolder.getView(R.id.tv_title))).setText(listData.get(position));
+                ((TextView)(viewHolder.getView(R.id.tv_title))).setText(listData.get(position)+getString(R.string.tst));
+                Glide.with(CourseListActivity.this).load(R.drawable.icon_user1).transform(new GlideRoundTransform(CourseListActivity.this, 10)).into((ImageView) viewHolder.getView(R.id.iv_user_img));
             }
         };
         setmPullRefreshListView(mPullRefreshListView, adapter);

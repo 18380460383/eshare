@@ -16,7 +16,7 @@
            />
     </RelativeLayout>
 
-
+    <include layout="@layout/kz_course_list_head"/>
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/msg_center_lv"
         android:layout_width="match_parent"
