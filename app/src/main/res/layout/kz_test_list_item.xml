@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="标题"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2331人参与测评" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:visibility="invisible" />
+
+        <LinearLayout
+            android:visibility="gone"
+            android:gravity="center"
+            android:id="@+id/ll_right_join"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/btn_player_play" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已参加,查看结果" />
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="16dp"
+                android:layout_height="24dp"
+                android:background="@drawable/icon_arrow_more" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/cornor_radius_black"
+            android:id="@+id/ll_no_join"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="测一下" />
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="16dp"
+                android:layout_height="24dp"
+                android:background="@drawable/icon_arrow_more" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

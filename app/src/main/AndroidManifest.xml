@@ -84,7 +84,7 @@
         <activity
             android:name=".test.Mp3RecorderActivity"
             android:screenOrientation="portrait" />
-        <!-- -->
+        <!--  -->
         <activity
             android:name=".ui.activity.LogoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -580,8 +580,7 @@
         <activity
             android:name=".ui.activity.kzmessage.CourseDetailAcitivity"
             android:label="@string/title_activity_main_tab"
-            android:theme="@style/BaseAppTheme"></activity>
-
+            android:theme="@style/BaseAppTheme" />
         <activity android:name=".ui.activity.kzmessage.MyCollectionAcitivity" />
         <activity android:name=".ui.activity.kzmessage.MyAskActivity" />
         <activity android:name=".test.MP3OnlineActivity" />
@@ -637,6 +636,10 @@
                 <action android:name="android.net.wifi.STATE_CHANGE" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".ui.activity.kzmessage.TestListActivity" />
+        <activity android:name=".ui.activity.kzmessage.TestDetailActivity" />
+        <activity android:name=".ui.activity.kzmessage.TestResultActivity"></activity>
     </application>
 
 </manifest>
