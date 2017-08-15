@@ -21,11 +21,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.control.CustomProgressDialog;
 import com.kzmen.sczxjf.cusinterface.ServerConnect;
+import com.kzmen.sczxjf.easypermissions.AppSettingsDialog;
 import com.kzmen.sczxjf.easypermissions.EasyPermissions;
 import com.kzmen.sczxjf.interfaces.ScrollViewOnScroll;
 import com.kzmen.sczxjf.net.NetworkDownload;
@@ -47,6 +49,7 @@ import butterknife.ButterKnife;
  */
 public abstract class SuperActivity extends FragmentActivity implements ServerConnect, EasyPermissions.PermissionCallbacks, ScrollViewOnScroll {
     private static final String TAG = "BasicActivity";
+    private static final int RP_CAMERA_AND_STORAGE = 1;
     /**
      * 标题栏
      */
@@ -83,7 +86,7 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
             if (!AppContext.getInstance().getPersonageOnLine()) {
                 Intent intent = new Intent(this, LoginActivity.class);
                 this.startActivity(intent);
-                this.finish();
+             this.finish();
             } else {
                 initActivity();
             }
@@ -245,7 +248,6 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
     }
 
     /**
-     * 杨操
      * 判断是否支持群发广播退出界面的功能
      * 默认支持
      */
@@ -262,7 +264,6 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
     }
 
     /**
-     * 杨操
      * 获取values文件夹的string.xml文件的配置信息
      *
      * @param stringId 文字ID
@@ -343,19 +344,44 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        // EasyPermissions handles the request result.
+        //结果转发给EasyPermissions来处理
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
+    /**
+     * 权限同意的回调
+     * @param requestCode
+     * @param perms
+     */
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
-        Log.d(TAG, "onPermissionsGranted:" + requestCode + ":" + perms.size());
+        Log.e("tag", "授权了:" + requestCode + ":" + perms.size());
+        if(requestCode == RP_CAMERA_AND_STORAGE){
+            Toast.makeText(this,"用户已经同意些权限了,该干嘛干嘛吧",Toast.LENGTH_SHORT).show();
+        }
     }
 
+    /**
+     * 权限被拒绝的回调
+     * @param requestCode
+     * @param perms 代表拒绝的权限
+     */
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
-        Log.d(TAG, "onPermissionsDenied:" + requestCode + ":" + perms.size());
+        Log.e("tag", "拒绝了:" + requestCode + ":" + perms.size());
+        if(requestCode == RP_CAMERA_AND_STORAGE){
+            Toast.makeText(this,"用户拒绝了某些权限了",Toast.LENGTH_SHORT).show();
+            //检查是否有永久的权限列表中至少有一个权限是永久的被拒绝(用户点击“永不再问”)。
+            if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+                new AppSettingsDialog.Builder(this, "为了您能正常使用，请开启权限！")
+                        .setTitle("提示")
+                        .setPositiveButton("去设置")
+                        .setNegativeButton("取消", null)
+                        .setRequestCode(RP_CAMERA_AND_STORAGE)
+                        .build()
+                        .show();
+            }
+        }
     }
 
     private LinearLayout ll_title;
