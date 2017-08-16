@@ -22,7 +22,6 @@ import com.kzmen.sczxjf.adapter.MainBaseAdapter;
 import com.kzmen.sczxjf.bean.kzbean.MainColumnItemBean;
 import com.kzmen.sczxjf.consta.PlayState;
 import com.kzmen.sczxjf.cusinterface.PlayMessage;
-import com.kzmen.sczxjf.test.AnserQuesActivity;
 import com.kzmen.sczxjf.test.bean.Music;
 import com.kzmen.sczxjf.ui.activity.kzmessage.ActivListActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.AskListActivity;
@@ -30,6 +29,7 @@ import com.kzmen.sczxjf.ui.activity.kzmessage.CaseListActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.CourseListActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.CoursePlayDeatilActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.KnowageAskIndexActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.TestListActivity;
 import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.util.glide.GlideCircleTransform;
 import com.kzmen.sczxjf.util.glide.GlideRoundTransform;
@@ -232,7 +232,7 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
                         intent = new Intent(getActivity(), KnowageAskIndexActivity.class);
                         break;
                     case 2:
-                        intent = new Intent(getActivity(), AnserQuesActivity.class);
+                        intent = new Intent(getActivity(), TestListActivity.class);
                         break;
                     case 3:
                         intent = new Intent(getActivity(), ActivListActivity.class);
@@ -268,6 +268,7 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
         Intent intent = null;
         switch (view.getId()) {
             case R.id.iv_course_play:
+                setMusilList();
                 playPause();
                 break;
             case R.id.iv_xiaojiang_play1:
@@ -296,6 +297,7 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
                 startActivity(intent);
                 break;
             case R.id.iv_course_play2:
+                setMusilList();
                 playPause();
                 break;
             case R.id.ll_more_course2:

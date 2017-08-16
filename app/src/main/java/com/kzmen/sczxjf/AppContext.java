@@ -91,8 +91,8 @@ public class AppContext extends MultiDexApplication {
         super.onCreate();
         instance = this;
         try {
-            JPushInterface.setDebugMode(true);
-            JPushInterface.init(this);
+            JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
+            JPushInterface.init(this);     		// 初始化 JPush
         }catch (Exception e){
         }
         ImagePicker imagePicker = ImagePicker.getInstance();
