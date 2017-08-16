@@ -160,6 +160,13 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
             @Override
             protected void convert(ViewHolder viewHolder, CourseListTstBean item, int position) {
                 viewHolder.setText(R.id.tv_user_name, "" + item.getName());
+                if(position%3==0){
+                    viewHolder.getView(R.id.ll_txt).setVisibility(View.VISIBLE);
+                    viewHolder.getView(R.id.ll_media).setVisibility(View.GONE);
+                }else{
+                    viewHolder.getView(R.id.ll_txt).setVisibility(View.GONE);
+                    viewHolder.getView(R.id.ll_media).setVisibility(View.VISIBLE);
+                }
             }
         };
         lvGoodask.setAdapter(adapter2);

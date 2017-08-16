@@ -6,17 +6,18 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.widget.Toast;
+
 import com.kzmen.sczxjf.R;
+import com.mob.MobSDK;
 
 import java.util.HashMap;
+
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
-import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
-import cn.sharesdk.tencent.qzone.QZone;
 
 
 /**
@@ -33,7 +34,7 @@ public class ShareControl {
     private  Handler handler=new Handler();
     public ShareControl(Context con){
         context=con;
-        ShareSDK.initSDK(context);
+        MobSDK.init(context);
         oks = new  OnekeyShare();
     }
 
@@ -123,7 +124,7 @@ public class ShareControl {
                 if(platform.getName().equals(SinaWeibo.NAME)) {
                     paramsToShare.setText(paramsToShare.getText() + url);
                     paramsToShare.setImageUrl(bigImageurl);
-                }else if(platform.getName().equals(QZone.NAME)||platform.getName().equals(QQ.NAME)){
+                }else if(platform.getName().equals(QQ.NAME)){
                     paramsToShare.setImageUrl(Imageurl);
                     paramsToShare.setSite("卡掌门");
                 }else{

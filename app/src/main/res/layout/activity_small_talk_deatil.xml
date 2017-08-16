@@ -198,6 +198,8 @@
 
             <com.kzmen.sczxjf.view.MyListView
                 android:id="@+id/lv_goodask"
+                android:divider="@color/title"
+                android:dividerHeight="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></com.kzmen.sczxjf.view.MyListView>
         </LinearLayout>

@@ -67,15 +67,6 @@
         android:label="@string/app_name"
         android:theme="@style/BaseAppTheme">
 
-        <!-- 友盟APPKEY -->
-        <!--
-         <meta-data
-             android:name="UMENG_APPKEY"
-             android:value="5643118867e58e4d35000918" />
-         <meta-data
-             android:name="UMENG_CHANNEL"
-             android:value="${ESHARE_CHANNEL_VALUE}" />
-        -->
         <!-- logo页面 -->
         <activity
             android:name=".test.Mp3RecorderActivity"
@@ -131,9 +122,6 @@
             android:name=".ui.activity.WebviewActivity"
             android:screenOrientation="portrait" />
 
-        <!-- 认证身份界面 -->
-
-
         <!-- 认证详情界面 -->
         <activity
             android:name=".ui.activity.personal.AttestationDetailActivity"
@@ -160,11 +148,7 @@
         <activity
             android:name=".ui.activity.personal.LoginActivity"
             android:screenOrientation="portrait" />
-        <!--
-        android:name="com.cardholder.adwlf.view.EshareDialogActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
-        -->
+
         <!-- 摇一摇界面 -->
         <activity
             android:name=".ui.activity.personal.YaoActivity"
@@ -212,34 +196,6 @@
             android:exported="false"
             android:screenOrientation="behind" />
 
-
-
-        <!--
-         &lt;!&ndash; User defined. For test only 用户自定义的广播接收器&ndash;&gt;
-         -<receiver android:name="com.example.jpushdemo.MyReceiver" android:exported="false" android:enabled="true"> -<intent-filter> <action android:name="cn.jpush.android.intent.REGISTRATION"/>
-        -->
-        <!-- Required 用户注册SDK的intent -->
-        <!--
-<action android:name="cn.jpush.android.intent.UNREGISTRATION"/>
-        <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/>
-        &lt;!&ndash;Required 用户接收SDK消息的intent&ndash;&gt;
-        <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED"/>
-        &lt;!&ndash;Required 用户接收SDK通知栏信息的intent&ndash;&gt;
-        <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/>
-        &lt;!&ndash;Required 用户打开自定义通知栏的intent&ndash;&gt;
-        <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK"/>
-        &lt;!&ndash;Optional 用户接受Rich Push Javascript 回调函数的intent&ndash;&gt;
-        <action android:name="cn.jpush.android.intent.CONNECTION"/>
-        &lt;!&ndash; 接收网络变化 连接/断开 since 1.6.3 &ndash;&gt;
-        <category android:name="${applicationId}"/>
-    </intent-filter>
-</receiver>
-        -->
-        <!-- Required . Enable it you can get statistics data with channel -->
-        <!-- <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/> -->
-
-
-
         <!-- </>值来自开发者平台取得的AppKey -->
         <service
             android:name="com.baidu.location.f"
@@ -249,7 +205,6 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="86d1fcac1b94098dd65f2f4a7969fe9b" />
-        <!-- 查看分享的好友列表 -->
 
 
         <!-- 企业修改密码界面 -->
@@ -261,27 +216,7 @@
         <activity
             android:name=".ui.activity.personal.PersonageRegister"
             android:screenOrientation="portrait" />
-        <activity
-            android:name="com.mob.tools.MobUIShell"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize">
-            <intent-filter>
-                <data android:scheme="tencent100371282" />
 
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-            <!-- 调用新浪原生SDK，需要注册的回调activity -->
-            <intent-filter>
-                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".ui.activity.personal.SuggestActivity"
             android:screenOrientation="portrait" />
@@ -291,28 +226,7 @@
         <activity
             android:name=".ui.activity.personal.ShopActivity"
             android:screenOrientation="portrait" />
-        <!--
-        <activity
-            android:name="kdx.kdy.kdz.LL"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.Light.NoTitleBar" >
-        </activity>
-        <service
-            android:name="kdx.kdy.kdz.II"
-            android:exported="false" >
-        </service>
-        <service
-            android:name="kdx.kdy.kdz.TT"
-            android:exported="false" >
-        </service>
-        <receiver
-            android:name="kdx.kdy.kdz.JJ" >
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
-        -->
+
         <!-- 商品详情 -->
         <activity
             android:name=".ui.activity.personal.ShopDetailsActivity"
@@ -322,104 +236,6 @@
         <activity
             android:name=".ui.activity.personal.ShopOrderActivity"
             android:screenOrientation="portrait" />
-        <!-- 添加管理收货地址 -->
-        <!--
-                <activity
-                android:name="com.cardholder.adwlf.ui.activity.enterprise.AddShopAdrress"
-                android:screenOrientation="portrait" />
-        -->
-
-
-        <!-- 选择多图 -->
-        <!--
-            <activity
-            android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
-            android:configChanges="orientation|screenSize" />
-        -->
-
-
-        <!--
-             ATTENTION: This was auto-generated to add Google Play services to your project for
-             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
-        -->
-
-
-        <!-- 收藏 -->
-        <!-- 辩论观点式资讯详情 -->
-        <!-- 提现记录界面 -->
-        <!-- 搜索更多资讯 -->
-        <!-- PDF阅读界面 -->
-
-
-        <!--
-        <activity
-            android:name="com.artifex.mupdflib.MuPDFActivity"
-            android:label="查看"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="com.artifex.mupdflib.PrintDialogActivity"
-            android:label="印刷"></activity>
-        <activity
-            android:name="com.artifex.mupdflib.PDFPreviewGridActivity"
-            android:label="preview label"></activity>
-        -->
-
-
-        <!-- 企业端界面_start -->
-
-
-        <!-- 企业登录界面 -->
-        <!--
-        <activity
-            android:name=".ui.activity.eactivity.EnLoginActivity"
-            android:screenOrientation="portrait" />
-
-        &lt;!&ndash;企业注册界面&ndash;&gt;
-        <activity
-            android:name=".ui.activity.eactivity.EnRegisterActivity"
-            android:screenOrientation="portrait" />
-        -->
-
-
-        <!-- 企业端忘记密码 -->
-        <!--
-             <activity
-             android:name=".ui.activity.eactivity.EnForgetActivity"
-             android:screenOrientation="portrait" />
-        -->
-
-
-        <!-- 微信下单要求界面 -->
-        <!--
-            <activity
-            android:name=".ui.activity.eactivity.EnRequireWeiXinActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
-        -->
-
-
-        <!-- 企业订单支付界面 -->
-        <!--
-            <activity
-            android:name=".ui.activity.eactivity.EnPayment"
-            android:screenOrientation="portrait" />
-        -->
-        <!-- 企业订单管理界面 -->
-        <!--
-            <activity
-            android:name=".ui.activity.eactivity.EnOrderManagementActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        -->
-
-
-        <!-- 企业邀请好友界面 -->
-        <!--
-            <activity
-            android:name=".ui.activity.eactivity.InviteFriendsActivity"
-            android:screenOrientation="portrait" />
-        -->
-
 
         <!-- 网页跳转处理界面 -->
         <activity
@@ -434,8 +250,6 @@
                 <data android:scheme="jiebian" />
             </intent-filter>
         </activity>
-
-        <!-- 个人端纯网页资讯 -->
 
 
         <!-- 创意征集 -->
@@ -531,22 +345,21 @@
         <activity android:name=".ui.activity.kzmessage.TestResultActivity"></activity>
 
 
-
         <!-- Rich push 核心功能 since 2.0.6-->
         <activity
             android:name="cn.jpush.android.ui.PopWinActivity"
-            android:theme="@style/MyDialogStyle"
-            android:exported="false">
-        </activity>
+            android:exported="false"
+            android:theme="@style/MyDialogStyle"></activity>
 
         <!-- Required SDK核心功能-->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="cn.jpush.android.ui.PushActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="com.kzmen.sczxjf" />
             </intent-filter>
@@ -556,8 +369,8 @@
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <service
             android:name="cn.jpush.android.service.PushService"
-            android:process=":mult"
-            android:exported="false">
+            android:exported="false"
+            android:process=":mult">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.REGISTER" />
                 <action android:name="cn.jpush.android.intent.REPORT" />
@@ -602,12 +415,47 @@
         </receiver>
 
         <!-- Required SDK核心功能-->
-        <receiver android:name="cn.jpush.android.service.AlarmReceiver" android:exported="false"/>
-
+        <receiver
+            android:name="cn.jpush.android.service.AlarmReceiver"
+            android:exported="false" />
         <!-- User defined.  For test only  用户自定义的广播接收器-->
         <!-- Required  . Enable it you can get statistics data with channel -->
-        <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
-        <meta-data android:name="JPUSH_APPKEY" android:value="9a3c69aec4f080f42bce9e9c" /> <!--  </>值来自开发者平台取得的AppKey-->
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" />
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="9a3c69aec4f080f42bce9e9c" /> <!--  </>值来自开发者平台取得的AppKey-->
+
+
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <data android:scheme="tencent100371282" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="Mob-AppKey"
+            android:value="20362219410d0" />
+        <meta-data
+            android:name="Mob-AppSecret"
+            android:value="5c94eb8beebc265d4001586d4d65704b" />
     </application>
 
 </manifest>

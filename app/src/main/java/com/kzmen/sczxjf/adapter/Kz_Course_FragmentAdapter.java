@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
@@ -71,12 +72,14 @@ public class Kz_Course_FragmentAdapter extends FragmentStatePagerAdapter {
         TextView tv = (TextView) view.findViewById(R.id.textView);
         tv.setText(titles[position]);
         ImageView img = (ImageView) view.findViewById(R.id.imageView);
+        LinearLayout ll_main= (LinearLayout) view.findViewById(R.id.ll_main);
         if(position>=3){
             img.setVisibility(View.VISIBLE);
+            ll_main.setBackgroundResource(R.color.title);
         }else{
             img.setVisibility(View.GONE);
+            ll_main.setBackgroundResource(R.color.white);
         }
-
         return view;
     }
 

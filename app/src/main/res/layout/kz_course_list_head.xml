@@ -3,29 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
+    android:background="@color/bg"
     android:orientation="vertical">
-
     <LinearLayout
-        android:layout_marginBottom="@dimen/margin_top30"
-        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:background="@color/white"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@drawable/cornor_both_radius"
-        android:orientation="horizontal"
-        android:paddingBottom="8dp"
-        android:paddingLeft="32dp"
-        android:paddingRight="32dp"
-        android:paddingTop="8dp">
-
-        <EditText
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_marginBottom="@dimen/margin_top30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint="搜索你感兴趣的课程"
-            android:textSize="14dp" />
+            android:layout_centerInParent="true"
+            android:background="@drawable/cornor_radius_large_black"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:paddingTop="8dp">
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="搜索你感兴趣的课程"
+                android:textSize="14dp" />
+        </LinearLayout>
     </LinearLayout>
 
+
     <LinearLayout
+        android:layout_marginTop="@dimen/margin_top30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
