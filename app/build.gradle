@@ -86,12 +86,5 @@ dependencies {
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.chrisbanes.photoview:library:1.2.4'
-    compile files('libs/MobTools-2017.0801.1522.jar')
-    compile files('libs/MobCommons-2017.0801.1522.jar')
-    compile files('libs/ShareSDK-Core-3.0.1.jar')
-    compile files('libs/ShareSDK-QQ-3.0.1.jar')
-    compile files('libs/ShareSDK-SinaWeibo-3.0.1.jar')
-    compile files('libs/ShareSDK-Wechat-3.0.1.jar')
-    compile files('libs/ShareSDK-Wechat-Core-3.0.1.jar')
-    compile files('libs/ShareSDK-Wechat-Moments-3.0.1.jar')
+    compile 'com.lzy.net:okhttputils:+'
 }
