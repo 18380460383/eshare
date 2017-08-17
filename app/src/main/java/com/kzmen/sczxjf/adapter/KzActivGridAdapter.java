@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.kzmen.sczxjf.R;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public class KzActivGridAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
-        viewHolder.iv_image.setBackgroundResource(R.drawable.right);
+        Glide.with(mContext).load("http://cocopeng.com/img/bg-01.jpg").into(viewHolder.iv_image);
         return view;
     }
 

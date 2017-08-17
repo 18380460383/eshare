@@ -45,11 +45,11 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 
+
 /**
  * 卡掌门--掌信端
  */
 public class KzMessageFragment extends Fragment implements PlayMessage {
-
     MyListView lv_main;
     @InjectView(R.id.bl_main_banner)
     BannerLayout blMainBanner;
@@ -157,8 +157,9 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
     private KzActivGridAdapter kzActivGridAdapter;
     private List<Music> mMusicList;
 
-    private String url = "https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png";
-    private String url1 = "http://192.168.0.102:8000/static/mp3/2.jpg";
+    private String url = "http://cocopeng.com/img/bg-01.jpg";
+    private String url1 = "http://cocopeng.com/img/bg-01.jpg";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -173,12 +174,12 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
             view = inflater.inflate(R.layout.fragment_kz_message, container, false);
         }
         initView(view);
-        ButterKnife.inject(this, view);
+        //ButterKnife.inject(this, view);
+       // lazyLoad();
         return view;
     }
 
     private void initView(View vew) {
-        lv_main = (MyListView) vew.findViewById(R.id.lv_main);
         View headview = LayoutInflater.from(getActivity()).inflate(R.layout.kz_main_fragment_head, null, false);
         ButterKnife.inject(this, headview);
         blMainBanner.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
@@ -187,10 +188,14 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
                 EToastUtil.show(getActivity(), "" + position);
             }
         });
+        lv_main = (MyListView) vew.findViewById(R.id.lv_main);
         lv_main.setAdapter(new MainBaseAdapter(getActivity()));
         lv_main.addHeaderView(headview);
+
         initData();
         sb_play.setOnSeekBarChangeListener(new SeekBarChangeEvent());
+
+
     }
 
     private void initData() {
@@ -275,7 +280,7 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
                 mMusicList.clear();
                 Music musicp = new Music();
                 musicp.setType(Music.Type.ONLINE);
-                musicp.setPath("http://192.168.0.102:8000/static/mp3/Dawn.mp3");
+                musicp.setPath("http://cocopeng.com/mp3/贫民百万歌星伴奏.mp3");
                 mMusicList.add(musicp);
                 AppContext.getPlayService().setMusicList(mMusicList);
                 playStart();
@@ -310,16 +315,20 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
         mMusicList.clear();
         Music music = new Music();
         music.setType(Music.Type.ONLINE);
-        music.setPath("http://192.168.0.102:8000/static/mp3/Dawn.mp3");
+        music.setPath("http://cocopeng.com/mp3/贫民百万歌星伴奏.mp3");
         mMusicList.add(music);
         Music music1 = new Music();
         music1.setType(Music.Type.ONLINE);
-        music1.setPath("http://192.168.0.102:8000/static/mp3/Fade.mp3");
+        music1.setPath("http://cocopeng.com/mp3/fade.mp3");
         mMusicList.add(music1);
         Music music2 = new Music();
         music2.setType(Music.Type.ONLINE);
-        music2.setPath("http://192.168.0.102:8000/static/mp3/鬼迷心窍.mp3");
+        music2.setPath("http://cocopeng.com/mp3/平凡之路.mp3");
         mMusicList.add(music2);
+        Music music3 = new Music();
+        music3.setType(Music.Type.ONLINE);
+        music3.setPath("http://cocopeng.com/mp3/星语心愿.mp3");
+        mMusicList.add(music3);
         AppContext.getPlayService().setMusicList(mMusicList);
         AppContext.getPlayService().setPlayMessage(this);
     }
@@ -365,6 +374,8 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
                 break;
         }
     }
+
+
 
     class SeekBarChangeEvent implements SeekBar.OnSeekBarChangeListener {
         int progress;

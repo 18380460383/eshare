@@ -20,5 +20,9 @@
 
     <dimen name="margin_top20">20dp</dimen>
     <dimen name="margin_top30">30dp</dimen>
+    <dimen name="common_measure_30dp">30dp</dimen>
+    <dimen name="common_measure_60dp">60dp</dimen>
+    <dimen name="common_measure_5dp">5dp</dimen>
+    <dimen name="font_22px">22px</dimen>
 
 </resources>

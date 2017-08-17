@@ -11,6 +11,7 @@
     android:paddingRight="10dp"
     tools:context="com.kzmen.sczxjf.ui.fragment.kzmessage.KzMessageFragment">
     <!--app:defaultImage="@drawable/loading_2"-->
+
     <com.kzmen.sczxjf.view.MyListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

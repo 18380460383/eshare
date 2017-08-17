@@ -109,15 +109,15 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
     private void initPlayList() {
         Music music = new Music();
         music.setType(Music.Type.ONLINE);
-        music.setPath("http://192.168.0.102:8000/static/mp3/Dawn.mp3");
+        music.setPath("http://cocopeng.com/mp3/贫民百万歌星伴奏.mp3");
         listPlay.add(music);
         Music music1 = new Music();
         music1.setType(Music.Type.ONLINE);
-        music1.setPath("http://192.168.0.102:8000/static/mp3/Fade.mp3");
+        music1.setPath("http://cocopeng.com/mp3/fade.mp3");
         listPlay.add(music1);
         Music music2 = new Music();
         music2.setType(Music.Type.ONLINE);
-        music2.setPath("http://192.168.0.102:8000/static/mp3/鬼迷心窍.mp3");
+        music2.setPath("http://cocopeng.com/mp3/星语心愿.mp3");
         listPlay.add(music2);
         AppContext.getPlayService().setMusicList(listPlay);
         AppContext.getPlayService().setPlayMessage(this);
