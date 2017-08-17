@@ -27,6 +27,8 @@ import com.kzmen.sczxjf.ui.activity.kzmessage.MainTabActivity;
 import com.kzmen.sczxjf.ui.activity.personal.YaoActivity;
 import com.kzmen.sczxjf.util.PreferenceUtil;
 import com.kzmen.sczxjf.utils.FileUtils;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.model.HttpHeaders;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -129,7 +131,22 @@ public class AppContext extends MultiDexApplication {
                 }
             }
         }.run();
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("token", "commonHeaderValue1");    //所有的 header 都 不支持 中文
+        headers.put("sign", "commonHeaderValue2");
 
+        //必须调用初始化
+        OkHttpUtils.init(this);
+        //以下都不是必须的，根据需要自行选择
+        OkHttpUtils.getInstance()//
+                .debug("OkHttpUtils")                                              //是否打开调试
+                .setConnectTimeout(OkHttpUtils.DEFAULT_MILLISECONDS)               //全局的连接超时时间
+                .setReadTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS)                  //全局的读取超时时间
+                .setWriteTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS)                 //全局的写入超时时间
+                //.setCookieStore(new MemoryCookieStore())                           //cookie使用内存缓存（app退出后，cookie消失）
+                //.setCookieStore(new PersistentCookieStore())                       //cookie持久化存储，如果cookie不过期，则一直有效
+                .addCommonHeaders(headers)                                         //设置全局公共头
+                ;
 
     }
     public static PlayService getPlayService() {

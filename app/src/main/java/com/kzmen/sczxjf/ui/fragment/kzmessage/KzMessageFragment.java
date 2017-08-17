@@ -3,6 +3,7 @@ package com.kzmen.sczxjf.ui.fragment.kzmessage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,11 @@ import com.kzmen.sczxjf.adapter.MainBaseAdapter;
 import com.kzmen.sczxjf.bean.kzbean.MainColumnItemBean;
 import com.kzmen.sczxjf.consta.PlayState;
 import com.kzmen.sczxjf.cusinterface.PlayMessage;
+import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
+import com.kzmen.sczxjf.net.DataFactory;
+import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.test.bean.Music;
+import com.kzmen.sczxjf.test.bean.TstBean;
 import com.kzmen.sczxjf.ui.activity.kzmessage.ActivListActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.AskListActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.CaseListActivity;
@@ -43,7 +48,6 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-
 
 
 /**
@@ -194,8 +198,6 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
 
         initData();
         sb_play.setOnSeekBarChangeListener(new SeekBarChangeEvent());
-
-
     }
 
     private void initData() {
@@ -254,7 +256,19 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
         Glide.with(getActivity()).load(R.drawable.icon_user1).transform(new GlideRoundTransform(getActivity(), 10)).into(ivUserHead);
         Glide.with(getActivity()).load(R.drawable.icon_user).transform(new GlideCircleTransform(getActivity())).into(ivAskHead1);
         Glide.with(getActivity()).load(R.drawable.icon_user).transform(new GlideCircleTransform(getActivity())).into(ivAskHead2);
+        OkhttpUtilManager.get(getActivity(), "get/", "mainfragment", new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type,String data) {
+                Log.e("onSuccess",type+"      "+data);
+                List<TstBean> listBean= DataFactory.jsonToArrayList(data,TstBean.class);
+                Log.e("onSuccess",""+listBean.size()+"    "+listBean.toString());
+            }
 
+            @Override
+            public void onError(int code, String msg) {
+                Log.e("onError",msg);
+            }
+        });
     }
 
     @Override
