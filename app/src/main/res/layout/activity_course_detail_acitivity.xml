@@ -97,30 +97,37 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="@dimen/margin_top20"
-                android:text="讲师简介---可以展开或者折叠" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_top20"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <com.kzmen.sczxjf.view.ExpandableTextView
+                    android:id="@+id/expand_text_view"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="展开简介" />
+                    app:animDuration="200"
+                    app:maxCollapsedLines="4">
 
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:background="@drawable/icon_arrow_down" />
-            </LinearLayout>
+                    <TextView
+                        android:id="@id/expandable_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:textColor="#666666"
+                        android:text="@string/tst"
+                        android:textSize="16sp" />
+
+                    <ImageButton
+                        android:id="@id/expand_collapse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|bottom"
+                        android:background="@android:color/transparent"
+                        android:padding="16dp" />
+                    <TextView
+                        android:id="@id/ex_message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|bottom"
+                        android:text="展开简介" />
+                </com.kzmen.sczxjf.view.ExpandableTextView>
 
             <View
                 android:layout_width="match_parent"

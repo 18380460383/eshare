@@ -64,4 +64,11 @@
         <attr name="loadingText" format="string"/>
         <attr name="loadingTextAppearance" format="reference"/>
     </declare-styleable>
+    <declare-styleable name="ExpandableTextView">
+        <attr name="maxCollapsedLines" format="integer"/>
+        <attr name="animDuration" format="integer"/>
+        <attr name="animAlphaStart" format="float"/>
+        <attr name="expandDrawable" format="reference"/>
+        <attr name="collapseDrawable" format="reference"/>
+    </declare-styleable>
 </resources>

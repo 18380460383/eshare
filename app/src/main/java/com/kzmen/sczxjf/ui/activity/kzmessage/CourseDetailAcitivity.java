@@ -29,6 +29,7 @@ import com.kzmen.sczxjf.popuwidow.Kz_CourseAskPopu;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.view.ExpandViewPager;
+import com.kzmen.sczxjf.view.ExpandableTextView;
 import com.kzmen.sczxjf.view.MyListView;
 import com.kzmen.sczxjf.view.MyScrollView;
 
@@ -130,6 +131,8 @@ public class CourseDetailAcitivity extends SuperActivity {
         setOnloading(R.id.ll_content);
         mLayout.onLoading();
         mHandler.sendEmptyMessageDelayed(1,5*1000);
+        ExpandableTextView expTv1 = (ExpandableTextView) findViewById(R.id.expand_text_view);
+        expTv1.setText(getString(R.string.tst));
     }
     private Handler mHandler = new Handler(){
         @Override
