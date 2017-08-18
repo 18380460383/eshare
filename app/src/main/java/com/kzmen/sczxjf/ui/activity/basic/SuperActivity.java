@@ -31,6 +31,8 @@ import com.kzmen.sczxjf.easypermissions.AppSettingsDialog;
 import com.kzmen.sczxjf.easypermissions.EasyPermissions;
 import com.kzmen.sczxjf.interfaces.ScrollViewOnScroll;
 import com.kzmen.sczxjf.net.NetworkDownload;
+import com.kzmen.sczxjf.smartlayout.widgit.CustomLoadingLayout;
+import com.kzmen.sczxjf.smartlayout.widgit.SmartLoadingLayout;
 import com.kzmen.sczxjf.test.server.PlayService;
 import com.kzmen.sczxjf.ui.activity.personal.LoginActivity;
 import com.kzmen.sczxjf.util.EToastUtil;
@@ -161,6 +163,9 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
         if (isStartExitReceiver) {
             unregisterReceiver(exitReceiver);
             isStartExitReceiver = false;
+        }
+        if(mPlayServiceConnection!=null){
+            unbindService(mPlayServiceConnection);
         }
     }
 
@@ -427,5 +432,13 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
         }
         EToastUtil.show(this,"当前无网络链接！");
         return false;
+    }
+    protected CustomLoadingLayout mLayout; //SmartLoadingLayout对象
+    protected void setOnloading(int contentID){
+        mLayout = SmartLoadingLayout.createCustomLayout(this);
+        mLayout.setLoadingView(R.id.my_loading_page);
+        mLayout.setContentView(contentID);
+        mLayout.setEmptyView(R.id.my_empty_page);
+        mLayout.setErrorView(R.id.my_error_page);
     }
 }

@@ -13,6 +13,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/ll_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
@@ -170,15 +171,18 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/title" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/tv_ask"
                     android:layout_width="match_parent"
@@ -199,13 +203,13 @@
             </LinearLayout>
 
             <LinearLayout
-                android:paddingTop="50dp"
-                android:background="@color/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
-                android:orientation="vertical">
+                android:background="@color/title"
+                android:orientation="vertical"
+                android:paddingTop="50dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -226,15 +230,15 @@
                 <com.kzmen.sczxjf.view.MyListView
                     android:id="@+id/lv_goodask"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:divider="@color/title"
-                    android:dividerHeight="8dp"
-                    android:layout_height="wrap_content"></com.kzmen.sczxjf.view.MyListView>
+                    android:dividerHeight="8dp"></com.kzmen.sczxjf.view.MyListView>
             </LinearLayout>
         </LinearLayout>
+
     </com.kzmen.sczxjf.view.MyScrollView>
 
-    <include
-        layout="@layout/kz_title" />
+    <include layout="@layout/kz_title" />
 
     <ImageView
         android:id="@+id/iv_share"
@@ -244,4 +248,16 @@
         android:layout_marginRight="15dp"
         android:layout_marginTop="@dimen/margin_top20"
         android:background="@drawable/icon_share" />
+
+    <include
+        android:id="@+id/my_empty_page"
+        layout="@layout/smartloadinglayout_view_on_empty" />
+
+    <include
+        android:id="@+id/my_error_page"
+        layout="@layout/smartloadinglayout_view_on_error" />
+
+    <include
+        android:id="@+id/my_loading_page"
+        layout="@layout/smartloadinglayout_view_on_loading" />
 </RelativeLayout>

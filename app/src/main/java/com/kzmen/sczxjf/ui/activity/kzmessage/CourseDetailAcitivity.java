@@ -2,6 +2,8 @@ package com.kzmen.sczxjf.ui.activity.kzmessage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.view.ViewPager;
@@ -65,11 +67,10 @@ public class CourseDetailAcitivity extends SuperActivity {
     private String[] titles = new String[]{"阶段一", "阶段二", "阶段三", "阶段四", "阶段五"};
     private ShareDialog shareDialog;
     private Kz_Course_FragmentAdapter adapter;
-
+   // private CustomLoadingLayout mLayout; //SmartLoadingLayout对象
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -82,10 +83,15 @@ public class CourseDetailAcitivity extends SuperActivity {
             EToastUtil.show(this, "设置滑动失败");
         }
         initView();
-        initData();
+
     }
 
     private void initView() {
+       /* mLayout = SmartLoadingLayout.createCustomLayout(this);
+        mLayout.setLoadingView(R.id.my_loading_page);
+        mLayout.setContentView(R.id.ll_content);
+        mLayout.setEmptyView(R.id.my_empty_page);
+        mLayout.setErrorView(R.id.my_error_page);*/
         adapter = new Kz_Course_FragmentAdapter(getSupportFragmentManager(), CourseDetailAcitivity.this, titles);
         adapter.setTitles(titles);
         infoViewpager.setAdapter(adapter);
@@ -121,8 +127,30 @@ public class CourseDetailAcitivity extends SuperActivity {
 
             }
         });
+        setOnloading(R.id.ll_content);
+        mLayout.onLoading();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // 这里是模拟下载数据的耗时过程
+                // 数据下载完毕后,通知handler
+                try {
+                    Thread.sleep(2*1000);
+                    mHandler.sendEmptyMessage(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
-
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            // 数据下载完成，转换状态，显示内容视图
+            initData();
+            mLayout.onDone();
+        }
+    };
     private List<CourseListTstBean> beanlist;
     private Kz_CourseDetaiListAdapter adapter1;
     private CommonAdapter<CourseListTstBean> adapter2;

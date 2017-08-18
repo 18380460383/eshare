@@ -8,7 +8,7 @@ import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
+import android.os.Message;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -77,7 +77,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     @InjectView(R.id.kz_tiltle)
     LinearLayout kzTiltle;
     private ServiceConnection mPlayServiceConnection;
-    protected Handler mHandler = new Handler(Looper.getMainLooper());
+   // protected Handler mHandler = new Handler(Looper.getMainLooper());
     /**
      * 当前dialog是否显示在界面上
      */
@@ -120,8 +120,30 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         }
         back.setVisibility(View.INVISIBLE);
         getCachTst();
-    }
+        setOnloading(R.id.ll_content);
+        mLayout.onLoading();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // 这里是模拟下载数据的耗时过程
+                // 数据下载完毕后,通知handler
+                try {
+                    Thread.sleep(2*1000);
+                    mHandler.sendEmptyMessage(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
+    }
+    public Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            // 数据下载完成，转换状态，显示内容视图
+            mLayout.onDone();
+        }
+    };
     public boolean setScroll(int id) {
         return setOnScroll(id);
     }

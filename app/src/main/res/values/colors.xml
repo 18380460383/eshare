@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="uiPrimaryColor">#8a8a8a</color>
     <color name="bg_color_009bff">#009bff</color>
     <color name="bg_color_fafafa">#fafafa</color>
     <color name="bg_color_999999">#999999</color>
@@ -85,4 +86,13 @@
     <!--查看已选显示总金额的文字背景-->
 
     <color name="white">#FFFFFF</color>
+
+    <color name="triangle">#aa72d572</color>
+    <color name="circle">#aa738ffe</color>
+    <color name="rect">#aae84e40</color>
+    <color name="view_bg">#00000000</color>
+    <color name="shadow">#25808080</color>
+    <color name="dialog_bg">#f5f5f5</color>
+
+
 </resources>

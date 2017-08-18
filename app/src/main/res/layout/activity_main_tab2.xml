@@ -9,18 +9,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <RelativeLayout
-            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white">
 
             <include layout="@layout/kz_title" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
-                android:paddingBottom="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingBottom="10dp">
+
                 <ImageView
                     android:id="@+id/main_headimage"
                     android:layout_width="36dp"
@@ -29,13 +31,13 @@
                     android:layout_marginLeft="@dimen/left_right_retract_small"
                     android:scaleType="fitXY"
                     android:src="@drawable/icon_user" />
+
                 <ImageView
-                    android:layout_marginLeft="-8dp"
-                    android:layout_toRightOf="@+id/main_headimage"
-                    android:layout_alignParentBottom="true"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    />
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="-8dp"
+                    android:layout_toRightOf="@+id/main_headimage" />
             </RelativeLayout>
 
             <LinearLayout
@@ -58,11 +60,11 @@
                     android:paddingTop="8dp">
 
                     <EditText
-                        android:textSize="14dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:hint="搜索你感兴趣的课程" />
+                        android:hint="搜索你感兴趣的课程"
+                        android:textSize="14dp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -79,24 +81,51 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginRight="10dp"
-                    />
+                    android:layout_marginRight="10dp" />
             </LinearLayout>
         </RelativeLayout>
+
         <com.kzmen.sczxjf.view.MyScrollView
             android:id="@+id/sv_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:scrollbars="none"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true">
+            android:orientation="vertical"
+            android:scrollbars="none">
 
-            <FrameLayout
-                android:id="@+id/framelayout"
-                style="@style/body_wigth"
+            <LinearLayout
+
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:id="@+id/framelayout"
+                        style="@style/body_wigth"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <include
+                    android:id="@+id/my_empty_page"
+                    layout="@layout/smartloadinglayout_view_on_empty" />
+
+                <include
+                    android:id="@+id/my_error_page"
+                    layout="@layout/smartloadinglayout_view_on_error" />
+
+                <include
+                    android:id="@+id/my_loading_page"
+                    layout="@layout/smartloadinglayout_view_on_loading" />
+            </LinearLayout>
+
         </com.kzmen.sczxjf.view.MyScrollView>
 
     </LinearLayout>
@@ -108,4 +137,5 @@
         android:layout_gravity="start"
         android:background="#E0EEE0"
         android:orientation="vertical"></LinearLayout>
+
 </android.support.v4.widget.DrawerLayout>

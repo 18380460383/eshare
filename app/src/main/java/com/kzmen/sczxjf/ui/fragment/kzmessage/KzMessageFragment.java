@@ -19,13 +19,13 @@ import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.adapter.KzActivGridAdapter;
 import com.kzmen.sczxjf.adapter.KzMainColumnAdapter;
-import com.kzmen.sczxjf.adapter.MainBaseAdapter;
 import com.kzmen.sczxjf.bean.kzbean.MainColumnItemBean;
 import com.kzmen.sczxjf.consta.PlayState;
 import com.kzmen.sczxjf.cusinterface.PlayMessage;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.DataFactory;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
+import com.kzmen.sczxjf.smartlayout.widgit.CustomLoadingLayout;
 import com.kzmen.sczxjf.test.bean.Music;
 import com.kzmen.sczxjf.test.bean.TstBean;
 import com.kzmen.sczxjf.ui.activity.kzmessage.ActivListActivity;
@@ -39,7 +39,6 @@ import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.util.glide.GlideCircleTransform;
 import com.kzmen.sczxjf.util.glide.GlideRoundTransform;
 import com.kzmen.sczxjf.view.ExPandGridView;
-import com.kzmen.sczxjf.view.MyListView;
 import com.kzmen.sczxjf.view.banner.BannerLayout;
 
 import java.util.ArrayList;
@@ -54,7 +53,6 @@ import butterknife.OnClick;
  * 卡掌门--掌信端
  */
 public class KzMessageFragment extends Fragment implements PlayMessage {
-    MyListView lv_main;
     @InjectView(R.id.bl_main_banner)
     BannerLayout blMainBanner;
     @InjectView(R.id.gv_column)
@@ -75,7 +73,10 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
     TextView tvMediaStartTime;
     @InjectView(R.id.tv_media_end_time)
     TextView tvMediaEndTime;
-
+    @InjectView(R.id.sb_play)
+    SeekBar sb_play;
+    @InjectView(R.id.iv_course_play)
+    ImageView ivCoursePlay;
     @InjectView(R.id.tv_xiaojiang_title1)
     TextView tvXiaojiangTitle1;
     @InjectView(R.id.iv_xiaojiang_play1)
@@ -86,40 +87,6 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
     ImageView ivXiaojiangPlay2;
     @InjectView(R.id.ll_more_course)
     LinearLayout llMoreCourse;
-    @InjectView(R.id.tv_ask_title1)
-    TextView tvAskTitle1;
-    @InjectView(R.id.iv_ask_head2)
-    ImageView ivAskHead2;
-    @InjectView(R.id.tv_ask_listen_state2)
-    TextView tvAskListenState2;
-    @InjectView(R.id.tv_ask_listen_type1)
-    TextView tvAskListenType1;
-    @InjectView(R.id.tv_ask_listen_name1)
-    TextView tvAskListenName1;
-    @InjectView(R.id.tv_ask_listen_count1)
-    TextView tvAskListenCount1;
-    @InjectView(R.id.tv_ask_title2)
-    TextView tvAskTitle2;
-    @InjectView(R.id.iv_ask_head1)
-    ImageView ivAskHead1;
-    @InjectView(R.id.tv_ask_listen_state1)
-    TextView tvAskListenState1;
-    @InjectView(R.id.tv_ask_listen_type2)
-    TextView tvAskListenType2;
-    @InjectView(R.id.tv_ask_listen_name2)
-    TextView tvAskListenName2;
-    @InjectView(R.id.tv_ask_listen_count2)
-    TextView tvAskListenCount2;
-    @InjectView(R.id.ll_more_ask)
-    LinearLayout llMoreAsk;
-    @InjectView(R.id.gv_more_activ)
-    ExPandGridView gvMoreActiv;
-    @InjectView(R.id.ll_more_activ)
-    LinearLayout llMoreActiv;
-    @InjectView(R.id.sb_play)
-    SeekBar sb_play;
-    @InjectView(R.id.iv_course_play)
-    ImageView ivCoursePlay;
     @InjectView(R.id.iv_user_head2)
     ImageView ivUserHead2;
     @InjectView(R.id.tv_user_identity2)
@@ -150,6 +117,39 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
     ImageView ivXiaojiangPlay4;
     @InjectView(R.id.ll_more_course2)
     LinearLayout llMoreCourse2;
+    @InjectView(R.id.tv_ask_title1)
+    TextView tvAskTitle1;
+    @InjectView(R.id.iv_ask_head2)
+    ImageView ivAskHead2;
+    @InjectView(R.id.tv_ask_listen_state2)
+    TextView tvAskListenState2;
+    @InjectView(R.id.tv_ask_listen_type1)
+    TextView tvAskListenType1;
+    @InjectView(R.id.tv_ask_listen_name1)
+    TextView tvAskListenName1;
+    @InjectView(R.id.tv_ask_listen_count1)
+    TextView tvAskListenCount1;
+    @InjectView(R.id.tv_ask_title2)
+    TextView tvAskTitle2;
+    @InjectView(R.id.iv_ask_head1)
+    ImageView ivAskHead1;
+    @InjectView(R.id.tv_ask_listen_state1)
+    TextView tvAskListenState1;
+    @InjectView(R.id.tv_ask_listen_type2)
+    TextView tvAskListenType2;
+    @InjectView(R.id.tv_ask_listen_name2)
+    TextView tvAskListenName2;
+    @InjectView(R.id.tv_ask_listen_count2)
+    TextView tvAskListenCount2;
+    @InjectView(R.id.ll_more_ask)
+    LinearLayout llMoreAsk;
+    @InjectView(R.id.gv_more_activ)
+    ExPandGridView gvMoreActiv;
+    @InjectView(R.id.ll_more_activ)
+    LinearLayout llMoreActiv;
+
+    // MyListView lv_main;
+
     private View view = null;
     private BannerLayout bl_main_banner;
     private List<String> urlList;
@@ -164,6 +164,7 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
     private String url = "http://cocopeng.com/img/bg-01.jpg";
     private String url1 = "http://cocopeng.com/img/bg-01.jpg";
 
+    protected CustomLoadingLayout mLayout; //SmartLoadingLayout对象
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -177,27 +178,25 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_kz_message, container, false);
         }
+        // lazyLoad();
+        ButterKnife.inject(this, view);
         initView(view);
-        //ButterKnife.inject(this, view);
-       // lazyLoad();
         return view;
     }
-
     private void initView(View vew) {
-        View headview = LayoutInflater.from(getActivity()).inflate(R.layout.kz_main_fragment_head, null, false);
-        ButterKnife.inject(this, headview);
+        //View headview = LayoutInflater.from(getActivity()).inflate(R.layout.kz_main_fragment_head, null, false);
+        // ButterKnife.inject(this, headview);
         blMainBanner.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 EToastUtil.show(getActivity(), "" + position);
             }
         });
-        lv_main = (MyListView) vew.findViewById(R.id.lv_main);
+      /*  lv_main = (MyListView) vew.findViewById(R.id.lv_main);
         lv_main.setAdapter(new MainBaseAdapter(getActivity()));
-        lv_main.addHeaderView(headview);
-
-        initData();
+        lv_main.addHeaderView(headview);*/
         sb_play.setOnSeekBarChangeListener(new SeekBarChangeEvent());
+        initData();
     }
 
     private void initData() {
@@ -258,15 +257,15 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
         Glide.with(getActivity()).load(R.drawable.icon_user).transform(new GlideCircleTransform(getActivity())).into(ivAskHead2);
         OkhttpUtilManager.get(getActivity(), "get/", "mainfragment", new OkhttpUtilResult() {
             @Override
-            public void onSuccess(int type,String data) {
-                Log.e("onSuccess",type+"      "+data);
-                List<TstBean> listBean= DataFactory.jsonToArrayList(data,TstBean.class);
-                Log.e("onSuccess",""+listBean.size()+"    "+listBean.toString());
+            public void onSuccess(int type, String data) {
+                Log.e("onSuccess", type + "      " + data);
+                List<TstBean> listBean = DataFactory.jsonToArrayList(data, TstBean.class);
+                Log.e("onSuccess", "" + listBean.size() + "    " + listBean.toString());
             }
 
             @Override
             public void onError(int code, String msg) {
-                Log.e("onError",msg);
+                Log.e("onError", msg);
             }
         });
     }
@@ -325,7 +324,8 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
                 break;
         }
     }
-    private void setMusilList(){
+
+    private void setMusilList() {
         mMusicList.clear();
         Music music = new Music();
         music.setType(Music.Type.ONLINE);
@@ -346,6 +346,7 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
         AppContext.getPlayService().setMusicList(mMusicList);
         AppContext.getPlayService().setPlayMessage(this);
     }
+
     private void playPause() {
         AppContext.getPlayService().playPause();
     }
@@ -388,7 +389,6 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
                 break;
         }
     }
-
 
 
     class SeekBarChangeEvent implements SeekBar.OnSeekBarChangeListener {

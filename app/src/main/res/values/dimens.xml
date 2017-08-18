@@ -24,5 +24,11 @@
     <dimen name="common_measure_60dp">60dp</dimen>
     <dimen name="common_measure_5dp">5dp</dimen>
     <dimen name="font_22px">22px</dimen>
-
+    <dimen name="smartloadinglayout_vertical_margin_top">20dp</dimen>
+    <dimen name="smartloadinglayout_text_size">16sp</dimen>
+    <dimen name="smartloadinglayout_dots_text_size">40sp</dimen>>
+    <dimen name="smartloadinglayout_btn_radius">15dp</dimen>
+    <dimen name="smartloadinglayout_error_btn_margin">12dp</dimen>
+    <dimen name="smartloadinglayout_error_btn_height">40dp</dimen>
+    <dimen name="smartloadinglayout_error_btn_width">130dp</dimen>
 </resources>
