@@ -98,7 +98,7 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
             initActivity();
        }
        // setInnerAct();
-        Utils.setStatusBar(this,false,false);
+      //  Utils.setStatusBar(this,false,false);
     }
 
     public void setInnerAct() {
