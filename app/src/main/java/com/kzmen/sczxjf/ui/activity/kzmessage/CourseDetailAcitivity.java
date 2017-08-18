@@ -129,19 +129,7 @@ public class CourseDetailAcitivity extends SuperActivity {
         });
         setOnloading(R.id.ll_content);
         mLayout.onLoading();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // 这里是模拟下载数据的耗时过程
-                // 数据下载完毕后,通知handler
-                try {
-                    Thread.sleep(2*1000);
-                    mHandler.sendEmptyMessage(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+        mHandler.sendEmptyMessageDelayed(1,5*1000);
     }
     private Handler mHandler = new Handler(){
         @Override

@@ -122,7 +122,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         getCachTst();
         setOnloading(R.id.ll_content);
         mLayout.onLoading();
-        new Thread(new Runnable() {
+       /* new Thread(new Runnable() {
             @Override
             public void run() {
                 // 这里是模拟下载数据的耗时过程
@@ -134,7 +134,8 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
                     e.printStackTrace();
                 }
             }
-        }).start();
+        }).start();*/
+        mHandler.sendEmptyMessageDelayed(1,5*1000);
 
     }
     public Handler mHandler = new Handler(){
