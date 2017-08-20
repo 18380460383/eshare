@@ -7,8 +7,8 @@ import android.view.ViewTreeObserver;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.kzmen.sczxjf.R;
-import com.kzmen.sczxjf.adapter.MsgCenterAdapter;
-import com.kzmen.sczxjf.bean.MsgBean;
+import com.kzmen.sczxjf.commonadapter.CommonAdapter;
+import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.ui.activity.basic.ListViewActivity;
 
 import java.util.ArrayList;
@@ -22,8 +22,8 @@ import butterknife.InjectView;
 public class ActivListActivity extends ListViewActivity {
     @InjectView(R.id.msg_center_lv)
     PullToRefreshListView mPullRefreshListView;
-    private MsgCenterAdapter adapter;
-    private List<MsgBean> data_list;
+    private CommonAdapter<String> adapter;
+    private List<String> data_list;
     private int page;
 
     @Override
@@ -50,7 +50,12 @@ public class ActivListActivity extends ListViewActivity {
     private void initData() {
         data_list = new ArrayList<>();
         page = 1;
-        adapter = new MsgCenterAdapter(ActivListActivity.this, data_list);
+        adapter=new CommonAdapter<String>(this,R.layout.kz_activi_list_item,data_list) {
+            @Override
+            protected void convert(ViewHolder viewHolder, String item, int position) {
+                viewHolder.setText(R.id.tv_title,item);
+            }
+        };
         setmPullRefreshListView(mPullRefreshListView, adapter);
         setADD();
     }
@@ -63,6 +68,7 @@ public class ActivListActivity extends ListViewActivity {
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
         page = 1;
+        getList();
     }
 
     /**
@@ -72,10 +78,15 @@ public class ActivListActivity extends ListViewActivity {
      */
     @Override
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+        page++;
         getList();
     }
 
     public void getList() {
+        for (int i = page; i <10+page ; i++) {
+            data_list.add("测试"+i);
+        }
+        adapter.notifyDataSetChanged();
         mPullRefreshListView.onRefreshComplete();
     }
 

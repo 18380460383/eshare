@@ -15,11 +15,11 @@
            />
     </RelativeLayout>
 
-
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/msg_center_lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:dividerHeight="0.5dp" />
+        android:dividerHeight="15dp"
+        />
 
 </LinearLayout>

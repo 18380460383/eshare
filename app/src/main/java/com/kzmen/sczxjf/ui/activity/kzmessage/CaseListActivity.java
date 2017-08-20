@@ -1,14 +1,17 @@
 package com.kzmen.sczxjf.ui.activity.kzmessage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.AdapterView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.kzmen.sczxjf.R;
-import com.kzmen.sczxjf.adapter.MsgCenterAdapter;
-import com.kzmen.sczxjf.bean.MsgBean;
+import com.kzmen.sczxjf.commonadapter.CommonAdapter;
+import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.ui.activity.basic.ListViewActivity;
 
 import java.util.ArrayList;
@@ -22,29 +25,45 @@ import butterknife.InjectView;
 public class CaseListActivity extends ListViewActivity {
     @InjectView(R.id.msg_center_lv)
     PullToRefreshListView mPullRefreshListView;
-    private MsgCenterAdapter adapter;
-    private List<MsgBean> data_list;
-    private int page;
+    private CommonAdapter<String> adapter;
+    private List<String> data_list;
+    private int page = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     @Override
     public void onCreateDataForView() {
         setTitle(R.id.kz_tiltle, "案例");
         initData();
     }
+
     @Override
     public void setThisContentView() {
         setContentView(R.layout.activity_case_list);
     }
+
     private void initData() {
-        data_list = new ArrayList<>();
         page = 1;
-        adapter = new MsgCenterAdapter(CaseListActivity.this, data_list);
+        data_list = new ArrayList<>();
+        adapter = new CommonAdapter<String>(this, R.layout.kz_case_list_item, data_list) {
+            @Override
+            protected void convert(ViewHolder viewHolder, String item, int position) {
+                viewHolder.setText(R.id.tv_title, item);
+            }
+        };
         setmPullRefreshListView(mPullRefreshListView, adapter);
+        mPullRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                startActivity(new Intent(CaseListActivity.this,CaseDetailActivity.class));
+            }
+        });
         setADD();
     }
+
     @Override
     protected boolean isShareActivity() {
         return true;
@@ -57,6 +76,7 @@ public class CaseListActivity extends ListViewActivity {
      */
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+        getList();
         page = 1;
     }
 
@@ -71,6 +91,10 @@ public class CaseListActivity extends ListViewActivity {
     }
 
     public void getList() {
+        for (int i = page; i < 10 + page; i++) {
+            data_list.add("习近平：标题测试" + i);
+        }
+        adapter.notifyDataSetChanged();
         mPullRefreshListView.onRefreshComplete();
     }
 
@@ -91,7 +115,7 @@ public class CaseListActivity extends ListViewActivity {
                         mPullRefreshListView.onRefreshComplete();
                         mPullRefreshListView.setRefreshing(true);
                     }
-                }, 1000);
+                }, 500);
 
             }
         });
