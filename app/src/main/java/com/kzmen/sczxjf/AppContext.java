@@ -134,12 +134,10 @@ public class AppContext extends MultiDexApplication {
         HttpHeaders headers = new HttpHeaders();
         headers.put("token", "commonHeaderValue1");    //所有的 header 都 不支持 中文
         headers.put("sign", "commonHeaderValue2");
-
         //必须调用初始化
         OkHttpUtils.init(this);
         //以下都不是必须的，根据需要自行选择
         OkHttpUtils.getInstance()//
-                .debug("OkHttpUtils")                                              //是否打开调试
                 .setConnectTimeout(10*1000)               //全局的连接超时时间
                 .setReadTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS)                  //全局的读取超时时间
                 .setWriteTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS)                 //全局的写入超时时间

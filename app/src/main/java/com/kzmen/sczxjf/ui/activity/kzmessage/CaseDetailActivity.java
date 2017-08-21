@@ -30,6 +30,7 @@ public class CaseDetailActivity extends AppCompatActivity {
      */
     public TextView titleNameView;
     protected CustomLoadingLayout mLayout; //SmartLoadingLayout对象
+    private JCVideoPlayerStandard myJCVideoPlayerStandard;
     protected void setOnloading(int contentID){
         mLayout = SmartLoadingLayout.createCustomLayout(this);
         mLayout.setLoadingView(R.id.my_loading_page);
@@ -45,7 +46,7 @@ public class CaseDetailActivity extends AppCompatActivity {
         setOnloading(R.id.ll_content);
         mLayout.onLoading();
         mHandler.sendEmptyMessageDelayed(1,5*1000);
-        //initView();
+        initView();
     }
     /**
      * 设置界面的标题栏
@@ -73,15 +74,32 @@ public class CaseDetailActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             mLayout.onDone();
-            initView();
+            //initView();
         }
     };
 
     private void initView(){
-        JCVideoPlayerStandard player = (JCVideoPlayerStandard) findViewById(R.id.player_list_video);
-        boolean setUp = player.setUp("http://gslb.miaopai.com/stream/ed5HCfnhovu3tyIQAiv60Q__.mp4", JCVideoPlayer.SCREEN_LAYOUT_LIST, "");
-        if (setUp) {
-            Glide.with(this).load("http://a4.att.hudong.com/05/71/01300000057455120185716259013.jpg").into(player.thumbImageView);
-        }
+        myJCVideoPlayerStandard = (JCVideoPlayerStandard) findViewById(R.id.player_list_video);
+        myJCVideoPlayerStandard.setUp("http://gslb.miaopai.com/stream/ed5HCfnhovu3tyIQAiv60Q__.mp4"
+                , JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "测试");
+        Glide.with(this)
+                .load("http://img4.jiecaojingxuan.com/2016/11/23/1bb2ebbe-140d-4e2e-abd2-9e7e564f71ac.png@!640_360")
+                .into(myJCVideoPlayerStandard.thumbImageView);
+       // JCVideoPlayer.setJcUserAction(new MyUserActionStandard());
     }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JCVideoPlayer.releaseAllVideos();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (JCVideoPlayer.backPress()) {
+            return;
+        }
+        super.onBackPressed();
+    }
+
+
 }

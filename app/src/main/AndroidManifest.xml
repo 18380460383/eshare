@@ -466,10 +466,10 @@
             android:value="5c94eb8beebc265d4001586d4d65704b" />
 
         <activity android:name=".ui.activity.kzmessage.FriendOfmineAcitivty"
-            android:configChanges="orientation"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.kzmessage.CaseDetailActivity"
-            android:configChanges="orientation"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.kzmessage.IntegralListActivity"
             android:configChanges="orientation"
