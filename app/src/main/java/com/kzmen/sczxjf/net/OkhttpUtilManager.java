@@ -22,6 +22,7 @@ public class OkhttpUtilManager {
     private Context mContext;
     private OkhttpUtilManager manager;
     public static void  get(Context mContext, String url, String cachKey, final OkhttpUtilResult result){
+
         OkHttpUtils.get(URL+url)
                 .tag(mContext)
                 .cacheKey(cachKey)

@@ -14,6 +14,7 @@
         android:textSize="@dimen/smartloadinglayout_text_size" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/btn_error"
         android:layout_width="@dimen/smartloadinglayout_error_btn_width"
         android:layout_height="@dimen/smartloadinglayout_error_btn_height"

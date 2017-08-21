@@ -157,10 +157,13 @@ public class DefaultLoadingLayout extends SmartLoadingLayout {
     }
 
     public void setErrorButtonListener(View.OnClickListener listener) {
-        if (btnErrorHandle == null)
+       /* if (btnErrorHandle == null)
             btnErrorHandle = (Button) mErrorView.findViewById(R.id.btn_error);
 
-        btnErrorHandle.setOnClickListener(listener);
+        btnErrorHandle.setOnClickListener(listener);*/
+        if (tvErrorDescription == null)
+            tvErrorDescription = (TextView) mErrorView.findViewById(R.id.tv_error_message);
+        tvErrorDescription.setOnClickListener(listener);
     }
 
 
