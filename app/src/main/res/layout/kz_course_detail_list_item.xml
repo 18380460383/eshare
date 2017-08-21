@@ -6,6 +6,7 @@
     android:padding="15dp">
 
     <View
+        android:visibility="gone"
         android:id="@+id/v_cricle_point"
         android:layout_width="16dp"
         android:layout_height="16dp"
@@ -18,7 +19,7 @@
         android:layout_height="24dp"
         android:layout_gravity="center"
         android:layout_marginLeft="10dp"
-        android:background="@drawable/icon_voice_ex" />
+        android:src="@drawable/kz_play_anim_yellow" />
 
     <RelativeLayout
         android:layout_width="0dp"
@@ -34,7 +35,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="1111"
+            android:text=""
             android:textStyle="bold" />
 
         <TextView
@@ -44,7 +45,7 @@
             android:layout_marginLeft="20dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="title"
+            android:text=""
              />
     </RelativeLayout>
 

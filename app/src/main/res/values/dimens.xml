@@ -16,6 +16,7 @@
     <dimen name="pickerview_textsize">20sp</dimen>
 
 
+    <dimen name="margin_top10">10dp</dimen>
     <dimen name="margin_top20">20dp</dimen>
     <dimen name="margin_top30">30dp</dimen>
     <dimen name="common_measure_30dp">30dp</dimen>

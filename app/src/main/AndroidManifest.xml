@@ -74,11 +74,11 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/LogoTheme">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
 
         <!-- 使用说明界面 -->
@@ -105,7 +105,9 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden" >
+
+        </activity>
         <activity
             android:name=".test.CityPickerActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -265,7 +267,13 @@
         <activity
             android:name=".ui.activity.kzmessage.MainTabActivity"
             android:label="@string/title_activity_main_tab"
-            android:theme="@style/BaseAppTheme" />
+            android:theme="@style/BaseAppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.activity.kzmessage.CourseListActivity"
             android:screenOrientation="portrait"
@@ -465,15 +473,19 @@
             android:name="Mob-AppSecret"
             android:value="5c94eb8beebc265d4001586d4d65704b" />
 
-        <activity android:name=".ui.activity.kzmessage.FriendOfmineAcitivty"
+        <activity
+            android:name=".ui.activity.kzmessage.FriendOfmineAcitivty"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.kzmessage.CaseDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.kzmessage.CaseDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.kzmessage.IntegralListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.kzmessage.IntegralListActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.kzmessage.CourseSearchActivity"></activity>
     </application>
 
 </manifest>

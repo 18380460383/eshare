@@ -64,7 +64,7 @@ public class Kz_MainCourseAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.sbPlay.setTag(pos);
+        viewHolder.sbPlay.setTag(position);
         viewHolder.sbPlay.setOnSeekBarChangeListener(new SeekBarChangeEvent());
         viewHolder.tvTitle.setText(listData.get(position));
         Glide.with(mContext).load(R.drawable.icon_user).into(viewHolder.ivUserHead);
@@ -142,7 +142,15 @@ public class Kz_MainCourseAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-     class ViewHolder {
+    public void setPlayPosition(int playPosition) {
+        this.playPosition = playPosition;
+    }
+
+    public int getPlayPosition() {
+        return playPosition;
+    }
+
+    class ViewHolder {
         @InjectView(R.id.iv_user_head)
         ImageView ivUserHead;
         @InjectView(R.id.tv_user_identity)

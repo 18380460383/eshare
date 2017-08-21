@@ -20,6 +20,7 @@ import com.kzmen.sczxjf.adapter.Kz_MainAskAdapter;
 import com.kzmen.sczxjf.adapter.Kz_MainCourseAdapter;
 import com.kzmen.sczxjf.bean.kzbean.MainColumnItemBean;
 import com.kzmen.sczxjf.cusinterface.PlayMessage;
+import com.kzmen.sczxjf.interfaces.MainAskListClick;
 import com.kzmen.sczxjf.interfaces.MainCourseListClick;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.DataFactory;
@@ -78,8 +79,10 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
     private List<Music> mMusicList;
 
     private String url = "http://cocopeng.com/img/bg-01.jpg";
-    private String url1 = "http://cocopeng.com/img/bg-01.jpg";
-
+    private String url2 = "http://cocopeng.com/img/bg-01.jpg";
+    private String url1 = "http://192.168.0.101:8000/static/mp3/2.jpg";
+    private String baseUrl1="www.cocopeng.com/";
+    private String baseUrl2="http://192.168.0.101:8000/static/mp3/";
     protected CustomLoadingLayout mLayout; //SmartLoadingLayout对象
 
     private Kz_MainCourseAdapter kz_mainCourseAdapter;
@@ -88,6 +91,7 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
     private Kz_MainAskAdapter kz_mainAskAdapter;
     private List<String> listAsk;
 
+    private boolean isCourseClick=false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,18 +111,12 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
     }
 
     private void initView(View vew) {
-        //View headview = LayoutInflater.from(getActivity()).inflate(R.layout.kz_main_fragment_head, null, false);
-        // ButterKnife.inject(this, headview);
         blMainBanner.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 EToastUtil.show(getActivity(), "" + position);
             }
         });
-      /*  lv_main = (MyListView) vew.findViewById(R.id.lv_main);
-        lv_main.setAdapter(new MainBaseAdapter(getActivity()));
-        lv_main.addHeaderView(headview);*/
-        //sb_play.setOnSeekBarChangeListener(new SeekBarChangeEvent());
         initData();
     }
 
@@ -195,8 +193,13 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
         kz_mainCourseAdapter = new Kz_MainCourseAdapter(getActivity(), listCourse, new MainCourseListClick() {
             @Override
             public void onPlay(int position) {
+                isCourseClick=true;
                 setMusilList();
-                playStart();
+                if(position==kz_mainCourseAdapter.getPlayPosition()){
+                    playPause();
+                }else{
+                    playStart();
+                }
             }
 
             @Override
@@ -215,21 +218,20 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
         listAsk.add("问答测试1");
         listAsk.add("问答测试2");
         listAsk.add("问答测试3");
-        kz_mainAskAdapter=new Kz_MainAskAdapter(getActivity(),listAsk);
+        kz_mainAskAdapter=new Kz_MainAskAdapter(getActivity(), listAsk, new MainAskListClick() {
+            @Override
+            public void onPosClick(int position) {
+                isCourseClick=false;
+                setMusic();
+                if(position==kz_mainAskAdapter.getPlayPosition()){
+                    playPause();
+                }else{
+                    playStart();
+                }
+            }
+        });
         lvAsk.setAdapter(kz_mainAskAdapter);
     }
-/*  setMusilList();
-    playPause();*/
-
-
-   /* mMusicList.clear();
-    Music musicp = new Music();
-    musicp.setType(Music.Type.ONLINE);
-    musicp.setPath("http://cocopeng.com/mp3/贫民百万歌星伴奏.mp3");
-    mMusicList.add(musicp);
-    AppContext.getPlayService().setMusicList(mMusicList);
-    playStart();*/
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -241,24 +243,32 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
 
     private int bufferPercent = 0;
 
-
+    private void setMusic(){
+        mMusicList.clear();
+        Music musicp = new Music();
+        musicp.setType(Music.Type.ONLINE);
+        musicp.setPath(baseUrl2+"贫民百万歌星伴奏.mp3");
+        mMusicList.add(musicp);
+        AppContext.getPlayService().setMusicList(mMusicList);
+        AppContext.getPlayService().setPlayMessage(this);
+    }
     private void setMusilList() {
         mMusicList.clear();
         Music music = new Music();
         music.setType(Music.Type.ONLINE);
-        music.setPath("http://cocopeng.com/mp3/贫民百万歌星伴奏.mp3");
+        music.setPath(baseUrl2+"贫民百万歌星伴奏.mp3");
         mMusicList.add(music);
         Music music1 = new Music();
         music1.setType(Music.Type.ONLINE);
-        music1.setPath("http://cocopeng.com/mp3/fade.mp3");
+        music1.setPath(baseUrl2+"fade.mp3");
         mMusicList.add(music1);
         Music music2 = new Music();
         music2.setType(Music.Type.ONLINE);
-        music2.setPath("http://cocopeng.com/mp3/平凡之路.mp3");
+        music2.setPath(baseUrl2+"平凡之路.mp3");
         mMusicList.add(music2);
         Music music3 = new Music();
         music3.setType(Music.Type.ONLINE);
-        music3.setPath("http://cocopeng.com/mp3/星语心愿.mp3");
+        music3.setPath(baseUrl2+"星语心愿.mp3");
         mMusicList.add(music3);
         AppContext.getPlayService().setMusicList(mMusicList);
         AppContext.getPlayService().setPlayMessage(this);
@@ -278,19 +288,14 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
 
     @Override
     public void prePercent(int percent) {
-        /*bufferPercent = percent;
-        sb_play.setSecondaryProgress(percent);*/
-        if (kz_mainCourseAdapter != null) {
+        if (kz_mainCourseAdapter != null && isCourseClick) {
             kz_mainCourseAdapter.prePercent(percent);
         }
     }
 
     @Override
     public void time(String start, String end, int pos) {
-       /* tvMediaStartTime.setText(start);
-        tvMediaEndTime.setText(end);
-        sb_play.setProgress(pos);*/
-        if (kz_mainCourseAdapter != null) {
+        if (kz_mainCourseAdapter != null && isCourseClick) {
             kz_mainCourseAdapter.time(start, end, pos);
         }
     }
@@ -302,16 +307,14 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
 
     @Override
     public void state(int state) {
-       /* switch (state) {
-            case PlayState.PLAY_PLAYING:
-                Glide.with(this).load(R.drawable.btn_player_pause).into(ivCoursePlay);
-                break;
-            case PlayState.PLAY_PAUSE:
-                Glide.with(this).load(R.drawable.btn_player_play).into(ivCoursePlay);
-                break;
-        }*/
-        if (kz_mainCourseAdapter != null) {
+        if (kz_mainCourseAdapter != null && isCourseClick) {
             kz_mainCourseAdapter.state(state);
+            kz_mainAskAdapter.setPlayPosition(-1);
+            kz_mainAskAdapter.state(-1);
+        }else if(kz_mainAskAdapter!=null){
+            kz_mainAskAdapter.state(state);
+            kz_mainCourseAdapter.setPlayPosition(-1);
+            kz_mainCourseAdapter.state(-1);
         }
     }
 

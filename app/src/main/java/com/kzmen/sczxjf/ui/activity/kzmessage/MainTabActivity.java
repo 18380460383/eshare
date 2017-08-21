@@ -76,6 +76,10 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     TextView titleName;
     @InjectView(R.id.kz_tiltle)
     LinearLayout kzTiltle;
+    @InjectView(R.id.ll_msg)
+    LinearLayout ll_msg;
+    @InjectView(R.id.ll_search)
+    LinearLayout ll_search;
     private ServiceConnection mPlayServiceConnection;
    // protected Handler mHandler = new Handler(Looper.getMainLooper());
     /**
@@ -146,8 +150,9 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         super.onResume();
     }
 
-    @OnClick({R.id.main_headimage, R.id.iv_history})
+    @OnClick({R.id.main_headimage, R.id.iv_history,R.id.ll_msg,R.id.ll_search})
     public void onclick(View view) {
+        Intent intent=null;
         switch (view.getId()) {
             case R.id.main_headimage:
                 //TODO 左侧打开菜单
@@ -161,7 +166,15 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
                 }*/
                 break;
             case R.id.iv_history:
-                Intent intent = new Intent(this, com.kzmen.sczxjf.ui.activity.kzmessage.LoginActivity.class);
+                 intent = new Intent(this, com.kzmen.sczxjf.ui.activity.kzmessage.LoginActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ll_msg:
+                intent= new Intent(this, CourseSearchActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.ll_search:
+                intent= new Intent(this, CourseSearchActivity.class);
                 startActivity(intent);
                 break;
         }
