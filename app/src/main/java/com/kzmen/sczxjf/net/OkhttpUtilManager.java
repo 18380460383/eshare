@@ -10,6 +10,8 @@ import com.lzy.okhttputils.callback.StringCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Map;
+
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -21,10 +23,10 @@ public class OkhttpUtilManager {
     public static String URL="http://192.168.0.102:8000/";
     private Context mContext;
     private OkhttpUtilManager manager;
-    public static void  get(Context mContext, String url, String cachKey, final OkhttpUtilResult result){
-
+    public static void  get(Context mContext, String url, String cachKey, Map<String,String> param, final OkhttpUtilResult result){
         OkHttpUtils.get(URL+url)
                 .tag(mContext)
+                .params(param)
                 .cacheKey(cachKey)
                 .cacheMode(CacheMode.REQUEST_FAILED_READ_CACHE)
                 .execute(new StringCallback() {
@@ -77,7 +79,7 @@ public class OkhttpUtilManager {
                     @Override
                     public void onCacheError(Call call, Exception e) {
                         super.onCacheError(call, e);
-                        result.onError(101,e.toString());
+                        //result.onError(101,e.toString());
                     }
                 });
     }

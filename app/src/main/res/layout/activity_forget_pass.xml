@@ -37,6 +37,8 @@
 
 
             <EditText
+                android:layout_marginLeft="8dp"
+                android:inputType="number"
                 android:id="@+id/et_phone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -64,6 +66,7 @@
 
 
             <EditText
+                android:layout_marginLeft="8dp"
                 android:id="@+id/ev_yz"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

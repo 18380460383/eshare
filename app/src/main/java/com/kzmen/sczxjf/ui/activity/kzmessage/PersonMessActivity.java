@@ -82,7 +82,7 @@ public class PersonMessActivity extends SuperActivity {
 
     @Override
     public void onCreateDataForView() {
-        setTitle(R.id.kz_tiltle,"我的信息");
+        setTitle(R.id.kz_tiltle,"个人信息");
         initData();
     }
 

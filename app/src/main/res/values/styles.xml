@@ -127,7 +127,7 @@
     <style name="BaseAppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <style name="accuntsetting">
         <item name="android:paddingTop"
-            >10dp</item>
+            >15dp</item>
         <item name="android:paddingLeft">12dp</item>
         <item name="android:paddingRight">15dp</item>
         <item name="android:paddingBottom">4dp</item>
@@ -136,6 +136,7 @@
        <item name="android:layout_marginLeft">8dp</item>
     </style>
     <style name="account_seperte">
+        <item name="android:visibility">gone</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/seprate</item>

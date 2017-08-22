@@ -68,6 +68,7 @@ public class LoginActivity extends SuperActivity {
                 break;
             case R.id.tv_login:
                 startActivity(new Intent(LoginActivity.this,MainTabActivity.class));
+                finish();
                 break;
             case R.id.ll_login_weix:
                 break;

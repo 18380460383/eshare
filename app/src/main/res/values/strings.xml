@@ -46,10 +46,10 @@
     <!--fragment_menu_c.xml-->
     <string name="c_menu_collect_vstr">我的收藏</string>
     <string name="c_menu_withdraw_friend_vstr">我的好友</string>
-    <string name="c_menu_withdraw_activity_vstr">活动&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</string>
-    <string name="c_menu_withdraw_credits_exchange_vstr">积分兑换</string>
+    <string name="c_menu_withdraw_activity_vstr">我的活动</string>
+    <string name="c_menu_withdraw_credits_exchange_vstr">积分商城</string>
     <string name="c_menu_setting_vstr">设置</string>
-    <string name="c_menu_feedback_vstr">意见反馈</string>
+    <string name="c_menu_feedback_vstr">帮助</string>
     <!--C_Collect.class-->
     <!--activity_withdra.xml-->
     <!--WithdrawActivity.class-->

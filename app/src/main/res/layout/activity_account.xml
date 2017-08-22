@@ -14,8 +14,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <include
-            layout="@layout/kz_title" />
+
+        <include layout="@layout/kz_title" />
     </RelativeLayout>
 
     <ScrollView
@@ -53,14 +53,24 @@
                     android:text="用户名"
                     android:textSize="16dp" />
 
-                <ImageView
-                    android:id="@+id/iv_user_head"
+                <LinearLayout
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/cornor_background_large" />
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="@dimen/margin_top20"
+                    android:background="@drawable/cricle_background"
+                    android:gravity="center">
 
+                    <ImageView
+                        android:id="@+id/iv_user_head"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/icon_user"
+                        android:layout_centerHorizontal="true" />
+                </LinearLayout>
 
             </RelativeLayout>
 
@@ -217,12 +227,13 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="挖矿" />
+
                 <ImageView
-                    android:visibility="invisible"
                     style="@style/iamge_more"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:background="@drawable/icon_more" />
+                    android:background="@drawable/icon_more"
+                    android:visibility="invisible" />
 
             </LinearLayout>
 
@@ -291,14 +302,17 @@
 
             </LinearLayout>
 
-            <View style="@style/account_seperte" />
+            <View
+                style="@style/account_seperte"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/ll_qq"
                 style="@style/accuntsetting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/account_seting_text"
@@ -330,9 +344,11 @@
                 style="@style/accuntsetting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
+                    android:id="@+id/textView2"
                     style="@style/account_seting_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -363,7 +379,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_top30"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     style="@style/account_seting_text"
@@ -386,7 +403,9 @@
                     android:background="@drawable/icon_more" />
             </LinearLayout>
 
-            <View style="@style/account_seperte" />
+            <View
+                style="@style/account_seperte"
+                android:visibility="gone" />
 
         </LinearLayout>
     </ScrollView>

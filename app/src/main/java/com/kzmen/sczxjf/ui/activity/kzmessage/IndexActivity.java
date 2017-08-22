@@ -21,8 +21,7 @@ public class IndexActivity extends AppCompatActivity {
     TextView tvRegister;
     @InjectView(R.id.ll_login_weix)
     LinearLayout llLoginWeix;
-    @InjectView(R.id.activity_index)
-    LinearLayout activityIndex;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

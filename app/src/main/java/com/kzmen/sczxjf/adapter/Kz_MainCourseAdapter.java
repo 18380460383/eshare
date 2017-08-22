@@ -67,7 +67,7 @@ public class Kz_MainCourseAdapter extends BaseAdapter {
         viewHolder.sbPlay.setTag(position);
         viewHolder.sbPlay.setOnSeekBarChangeListener(new SeekBarChangeEvent());
         viewHolder.tvTitle.setText(listData.get(position));
-        Glide.with(mContext).load(R.drawable.icon_user).into(viewHolder.ivUserHead);
+        Glide.with(mContext).load(R.drawable.icon_user1).into(viewHolder.ivUserHead);
         viewHolder.llXiaojiang1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

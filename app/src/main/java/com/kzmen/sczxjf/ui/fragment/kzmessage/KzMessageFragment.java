@@ -188,7 +188,7 @@ public class KzMessageFragment extends Fragment implements PlayMessage, SwipeRef
                 }
             }
         });
-        OkhttpUtilManager.get(getActivity(), "get/", "mainfragment", new OkhttpUtilResult() {
+        OkhttpUtilManager.get(getActivity(), "get/", "mainfragment", null,new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
                 Log.e("onSuccess", type + "      " + data);
