@@ -53,7 +53,7 @@ public class CourseListActivity extends ListViewActivity {
             @Override
             protected void convert(ViewHolder viewHolder, String item, int position) {
                 ((TextView)(viewHolder.getView(R.id.tv_title))).setText(listData.get(position)+getString(R.string.tst));
-                Glide.with(CourseListActivity.this).load(R.drawable.icon_user1).transform(new GlideRoundTransform(CourseListActivity.this, 10)).into((ImageView) viewHolder.getView(R.id.iv_user_img));
+                Glide.with(CourseListActivity.this).load(R.drawable.icon_user1).transform(new GlideRoundTransform(CourseListActivity.this, 3)).into((ImageView) viewHolder.getView(R.id.iv_user_img));
             }
         };
         setmPullRefreshListView(mPullRefreshListView, adapter);

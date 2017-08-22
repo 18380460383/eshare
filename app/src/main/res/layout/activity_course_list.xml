@@ -8,7 +8,7 @@
     android:background="@color/bg"
     tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.CourseListActivity">
 
-    <RelativeLayout
+   <!-- <RelativeLayout
         android:visibility="gone"
         android:background="@color/white"
         android:layout_width="match_parent"
@@ -22,7 +22,14 @@
             android:background="@color/white"/>
     <include
         layout="@layout/kz_course_list_head"
-        />
+        />-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/kz_title"
+            />
+    </RelativeLayout>
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/msg_center_lv"
         android:layout_width="match_parent"

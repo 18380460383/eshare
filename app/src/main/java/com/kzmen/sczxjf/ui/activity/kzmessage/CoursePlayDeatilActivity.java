@@ -34,8 +34,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 
-
-public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessage{
+public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessage {
 
     @InjectView(R.id.tv_media_start_time)
     TextView tvMediaStartTime;
@@ -64,8 +63,12 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
 
     private List<Music> listPlay;
     private Kz_PlayListPopu playPop;
-    private int bufferPercent=0;
-    private int playPos=0;
+    private int bufferPercent = 0;
+    private int playPos = 0;
+
+    private String baseUrl1 = "www.cocopeng.com/";
+    private String baseUrl2 = "http://192.168.0.101:8000/static/mp3/";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,8 +85,10 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
     private void initView() {
         sbPlay.setOnSeekBarChangeListener(new SeekBarChangeEvent());
     }
+
     class SeekBarChangeEvent implements SeekBar.OnSeekBarChangeListener {
         int progress;
+
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress,
                                       boolean fromUser) {
@@ -106,19 +111,25 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
     public void connectSuccess() {
         initPlayList();
     }
+
     private void initPlayList() {
+        listPlay.clear();
         Music music = new Music();
         music.setType(Music.Type.ONLINE);
-        music.setPath("http://cocopeng.com/mp3/贫民百万歌星伴奏.mp3");
+        music.setPath(baseUrl2 + "贫民百万歌星伴奏.mp3");
         listPlay.add(music);
         Music music1 = new Music();
         music1.setType(Music.Type.ONLINE);
-        music1.setPath("http://cocopeng.com/mp3/fade.mp3");
+        music1.setPath(baseUrl2 + "fade.mp3");
         listPlay.add(music1);
         Music music2 = new Music();
         music2.setType(Music.Type.ONLINE);
-        music2.setPath("http://cocopeng.com/mp3/星语心愿.mp3");
+        music2.setPath(baseUrl2 + "平凡之路.mp3");
         listPlay.add(music2);
+        Music music3 = new Music();
+        music3.setType(Music.Type.ONLINE);
+        music3.setPath(baseUrl2 + "星语心愿.mp3");
+        listPlay.add(music3);
         AppContext.getPlayService().setMusicList(listPlay);
         AppContext.getPlayService().setPlayMessage(this);
     }
@@ -160,10 +171,10 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
             @Override
             protected void convert(ViewHolder viewHolder, CourseListTstBean item, int position) {
                 viewHolder.setText(R.id.tv_user_name, "" + item.getName());
-                if(position%3==0){
+                if (position % 3 == 0) {
                     viewHolder.getView(R.id.ll_txt).setVisibility(View.VISIBLE);
                     viewHolder.getView(R.id.ll_media).setVisibility(View.GONE);
-                }else{
+                } else {
                     viewHolder.getView(R.id.ll_txt).setVisibility(View.GONE);
                     viewHolder.getView(R.id.ll_media).setVisibility(View.VISIBLE);
                 }
@@ -198,7 +209,9 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
 
 
     public void showPopFormBottom(View view) {
-        playPop= new Kz_PlayListPopu(this,listPlay);
+        if(playPop==null){
+            playPop = new Kz_PlayListPopu(this, listPlay);
+        }
 //        设置Popupwindow显示位置（从底部弹出）
         playPop.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
         params = getWindow().getAttributes();
@@ -222,16 +235,16 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
         playPop.setPlayPos(playPos);
     }
 
-    @OnClick({R.id.iv_share,R.id.iv_play_list, R.id.iv_play_pre, R.id.iv_play_play, R.id.iv_play_next, R.id.iv_play_best})
+    @OnClick({R.id.iv_share, R.id.iv_play_list, R.id.iv_play_pre, R.id.iv_play_play, R.id.iv_play_next, R.id.iv_play_best})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_play_list:
                 showPopFormBottom(view);
                 break;
             case R.id.iv_play_pre:
-                if(playPos<1){
-                    EToastUtil.show(CoursePlayDeatilActivity.this,"当前是第一首");
-                }else{
+                if (playPos < 1) {
+                    EToastUtil.show(CoursePlayDeatilActivity.this, "当前是第一首");
+                } else {
                     playPos--;
                     playPostion(playPos);
                 }
@@ -241,9 +254,9 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
 
                 break;
             case R.id.iv_play_next:
-                if(playPos>=listPlay.size()-1){
-                    EToastUtil.show(CoursePlayDeatilActivity.this,"当前是最后一首");
-                }else{
+                if (playPos >= listPlay.size() - 1) {
+                    EToastUtil.show(CoursePlayDeatilActivity.this, "当前是最后一首");
+                } else {
                     playPos++;
                     playPostion(playPos);
                 }
@@ -254,18 +267,22 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
                 break;
         }
     }
-    private void playPause(){
+
+    private void playPause() {
         AppContext.getPlayService().playPause();
     }
-    private void playStart(){
+
+    private void playStart() {
         AppContext.getPlayService().playStart();
     }
-    private void playPostion(int position){
+
+    private void playPostion(int position) {
         AppContext.getPlayService().play(position);
     }
+
     @Override
     public void prePercent(int percent) {
-        bufferPercent=percent;
+        bufferPercent = percent;
         sbPlay.setSecondaryProgress(percent);
     }
 
@@ -276,30 +293,35 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
         sbPlay.setProgress(pos);
         sbPlay.setSecondaryProgress(bufferPercent);
     }
+
     @Override
     public void playposition(int position) {
-        playPos=position;
-        if(playPos==0){
+        playPos = position;
+        if (playPos == 0) {
             Glide.with(this).load(R.drawable.btn_player_prev_unclick).into(ivPlayPre);
-        }else if(playPos>=listPlay.size()-1){
+        } else if (playPos >= listPlay.size() - 1) {
             Glide.with(this).load(R.drawable.btn_player_next_unclick).into(ivPlayNext);
-        }else{
+        } else {
             Glide.with(this).load(R.drawable.btn_player_prev).into(ivPlayPre);
             Glide.with(this).load(R.drawable.btn_player_next).into(ivPlayNext);
         }
     }
+
     @Override
     public void state(int state) {
-        if(isDestroyed()){
+        if (isDestroyed()) {
             return;
         }
-        switch (state){
+        switch (state) {
             case PlayState.PLAY_PLAYING:
                 Glide.with(this).load(R.drawable.btn_player_pause).into(ivPlayPlay);
                 break;
             case PlayState.PLAY_PAUSE:
                 Glide.with(this).load(R.drawable.btn_player_play).into(ivPlayPlay);
                 break;
+        }
+        if(playPop!=null){
+            playPop.setState(state);
         }
     }
 }

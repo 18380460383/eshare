@@ -36,23 +36,30 @@
                     android:layout_below="@+id/tv_ask_title1" />
 
                 <LinearLayout
+                    android:id="@+id/ll_listen"
                     android:layout_width="120dp"
                     android:layout_height="32dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="8dp"
-                    android:background="@drawable/bg_yellow"
+                    android:background="@drawable/bg_play_orange"
                     android:orientation="horizontal"
                     android:paddingBottom="8dp"
                     android:paddingLeft="4dp"
                     android:paddingRight="16dp"
                     android:paddingTop="8dp">
+                    <ImageView
+                        android:id="@+id/iv_anim"
+                        android:layout_marginLeft="8dp"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/kz_play_anim"/>
 
                     <TextView
                         android:id="@+id/tv_ask_listen_state2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="10dp"
                         android:text="限时免费听"
                         android:textColor="@color/white" />
                 </LinearLayout>
@@ -94,8 +101,4 @@
 
         </LinearLayout>
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/title" />
 </LinearLayout>

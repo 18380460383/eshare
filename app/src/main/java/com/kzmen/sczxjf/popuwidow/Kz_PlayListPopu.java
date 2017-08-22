@@ -1,10 +1,12 @@
 package com.kzmen.sczxjf.popuwidow;
 
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
+import com.kzmen.sczxjf.consta.PlayState;
 import com.kzmen.sczxjf.cusinterface.PlayPopuInterface;
 import com.kzmen.sczxjf.test.bean.Music;
 import com.kzmen.sczxjf.view.MyListView;
@@ -31,13 +34,22 @@ public class Kz_PlayListPopu extends PopupWindow {
     private CommonAdapter<Music> adapter;
     private PlayPopuInterface popuInterface;
     private int playPos = -1;
-
+    private int state=-1;
+    private AnimationDrawable animationDrawable;
     public PlayPopuInterface getPopuInterface() {
         return popuInterface;
     }
 
     public void setPopuInterface(PlayPopuInterface popuInterface) {
         this.popuInterface = popuInterface;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 
     public int getPlayPos() {
@@ -64,8 +76,18 @@ public class Kz_PlayListPopu extends PopupWindow {
             @Override
             protected void convert(ViewHolder viewHolder, Music item, int position) {
                 viewHolder.setText(R.id.tv_title, item.getPath());
+                animationDrawable = (AnimationDrawable) ((ImageView)viewHolder.getView(R.id.iv_play_state))
+                        .getDrawable();
                 if (position == playPos) {
                     viewHolder.getView(R.id.iv_play_state).setVisibility(View.VISIBLE);
+                   switch (state){
+                       case PlayState.PLAY_PLAYING:
+                           animationDrawable.start();
+                           break;
+                       case PlayState.PLAY_PAUSE:
+                           animationDrawable.stop();
+                           break;
+                   }
                 } else {
                     viewHolder.getView(R.id.iv_play_state).setVisibility(View.INVISIBLE);
                 }
@@ -77,8 +99,10 @@ public class Kz_PlayListPopu extends PopupWindow {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (popuInterface != null) {
                     popuInterface.onItemClic(position, listData.get(position));
+                    playPos=position;
+                    adapter.notifyDataSetChanged();
                 }
-                dismiss();
+                //dismiss();
             }
         });
         // 设置外部可点击

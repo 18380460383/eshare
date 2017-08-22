@@ -8,12 +8,12 @@
     tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.CourseListActivity">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-        <include layout="@layout/kz_title"
-           />
-    </RelativeLayout>
+    <include layout="@layout/kz_title"
+        />
+</RelativeLayout>
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/msg_center_lv"

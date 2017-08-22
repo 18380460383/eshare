@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -93,7 +94,7 @@ public class LoadingView extends FrameLayout {
 
         mIndicationIm = (ImageView) view.findViewById(R.id.indication);
         mLoadTextView = (TextView) view.findViewById(R.id.promptTV);
-
+        mLoadTextView.setTextColor(Color.argb(255,0,0,0));
         if (mTextAppearance != -1) {
             mLoadTextView.setTextAppearance(getContext(), mTextAppearance);
         }
@@ -114,11 +115,11 @@ public class LoadingView extends FrameLayout {
     public void setLoadingText(CharSequence loadingText) {
 
 
-        if (TextUtils.isEmpty(loadingText)) {
+        /*if (TextUtils.isEmpty(loadingText)) {
             mLoadTextView.setVisibility(GONE);
         } else {
             mLoadTextView.setVisibility(VISIBLE);
-        }
+        }*/
 
         mLoadTextView.setText(loadingText);
     }

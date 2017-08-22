@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="@string/loading_description"
             android:textSize="@dimen/smartloadinglayout_text_size"
-            android:textColor="#808080"/>
+            android:textColor="#000000"/>
 
       <!--  <com.kzmen.sczxjf.smartlayout.widgit.DotsTextView
             android:id="@+id/dots"
