@@ -2,7 +2,9 @@ package com.kzmen.sczxjf.ui.fragment.kzmessage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +52,7 @@ import butterknife.OnClick;
 /**
  * 卡掌门--掌信端
  */
-public class KzMessageFragment extends Fragment implements PlayMessage {
+public class KzMessageFragment extends Fragment implements PlayMessage, SwipeRefreshLayout.OnRefreshListener {
     @InjectView(R.id.bl_main_banner)
     BannerLayout blMainBanner;
     @InjectView(R.id.gv_column)
@@ -67,6 +69,7 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
     LinearLayout llContent;
     @InjectView(R.id.lv_ask)
     MyListView lvAsk;
+    private SwipeRefreshLayout mSwipeLayout;
     private View view = null;
     private BannerLayout bl_main_banner;
     private List<String> urlList;
@@ -81,8 +84,8 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
     private String url = "http://cocopeng.com/img/bg-01.jpg";
     private String url2 = "http://cocopeng.com/img/bg-01.jpg";
     private String url1 = "http://192.168.0.101:8000/static/mp3/2.jpg";
-    private String baseUrl1="www.cocopeng.com/";
-    private String baseUrl2="http://192.168.0.101:8000/static/mp3/";
+    private String baseUrl1 = "www.cocopeng.com/";
+    private String baseUrl2 = "http://192.168.0.101:8000/static/mp3/";
     protected CustomLoadingLayout mLayout; //SmartLoadingLayout对象
 
     private Kz_MainCourseAdapter kz_mainCourseAdapter;
@@ -91,7 +94,15 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
     private Kz_MainAskAdapter kz_mainAskAdapter;
     private List<String> listAsk;
 
-    private boolean isCourseClick=false;
+    private boolean isCourseClick = false;
+
+
+    private Handler mHandler = new Handler() {
+        public void handleMessage(android.os.Message msg) {
+            mSwipeLayout.setRefreshing(false);
+        }
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +122,10 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
     }
 
     private void initView(View vew) {
+        mSwipeLayout = (SwipeRefreshLayout) vew.findViewById(R.id.sp_main);
+        mSwipeLayout.setOnRefreshListener(this);
+        mSwipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
+                android.R.color.holo_orange_light, android.R.color.holo_red_light);
         blMainBanner.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -193,11 +208,11 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
         kz_mainCourseAdapter = new Kz_MainCourseAdapter(getActivity(), listCourse, new MainCourseListClick() {
             @Override
             public void onPlay(int position) {
-                isCourseClick=true;
+                isCourseClick = true;
                 setMusilList();
-                if(position==kz_mainCourseAdapter.getPlayPosition()){
+                if (position == kz_mainCourseAdapter.getPlayPosition()) {
                     playPause();
-                }else{
+                } else {
                     playStart();
                 }
             }
@@ -214,24 +229,25 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
         });
         lvCourse.setAdapter(kz_mainCourseAdapter);
 
-        listAsk=new ArrayList<>();
+        listAsk = new ArrayList<>();
         listAsk.add("问答测试1");
         listAsk.add("问答测试2");
         listAsk.add("问答测试3");
-        kz_mainAskAdapter=new Kz_MainAskAdapter(getActivity(), listAsk, new MainAskListClick() {
+        kz_mainAskAdapter = new Kz_MainAskAdapter(getActivity(), listAsk, new MainAskListClick() {
             @Override
             public void onPosClick(int position) {
-                isCourseClick=false;
+                isCourseClick = false;
                 setMusic();
-                if(position==kz_mainAskAdapter.getPlayPosition()){
+                if (position == kz_mainAskAdapter.getPlayPosition()) {
                     playPause();
-                }else{
+                } else {
                     playStart();
                 }
             }
         });
         lvAsk.setAdapter(kz_mainAskAdapter);
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -243,32 +259,33 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
 
     private int bufferPercent = 0;
 
-    private void setMusic(){
+    private void setMusic() {
         mMusicList.clear();
         Music musicp = new Music();
         musicp.setType(Music.Type.ONLINE);
-        musicp.setPath(baseUrl2+"贫民百万歌星伴奏.mp3");
+        musicp.setPath(baseUrl2 + "贫民百万歌星伴奏.mp3");
         mMusicList.add(musicp);
         AppContext.getPlayService().setMusicList(mMusicList);
         AppContext.getPlayService().setPlayMessage(this);
     }
+
     private void setMusilList() {
         mMusicList.clear();
         Music music = new Music();
         music.setType(Music.Type.ONLINE);
-        music.setPath(baseUrl2+"贫民百万歌星伴奏.mp3");
+        music.setPath(baseUrl2 + "贫民百万歌星伴奏.mp3");
         mMusicList.add(music);
         Music music1 = new Music();
         music1.setType(Music.Type.ONLINE);
-        music1.setPath(baseUrl2+"fade.mp3");
+        music1.setPath(baseUrl2 + "fade.mp3");
         mMusicList.add(music1);
         Music music2 = new Music();
         music2.setType(Music.Type.ONLINE);
-        music2.setPath(baseUrl2+"平凡之路.mp3");
+        music2.setPath(baseUrl2 + "平凡之路.mp3");
         mMusicList.add(music2);
         Music music3 = new Music();
         music3.setType(Music.Type.ONLINE);
-        music3.setPath(baseUrl2+"星语心愿.mp3");
+        music3.setPath(baseUrl2 + "星语心愿.mp3");
         mMusicList.add(music3);
         AppContext.getPlayService().setMusicList(mMusicList);
         AppContext.getPlayService().setPlayMessage(this);
@@ -311,7 +328,7 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
             kz_mainCourseAdapter.state(state);
             kz_mainAskAdapter.setPlayPosition(-1);
             kz_mainAskAdapter.state(-1);
-        }else if(kz_mainAskAdapter!=null){
+        } else if (kz_mainAskAdapter != null) {
             kz_mainAskAdapter.state(state);
             kz_mainCourseAdapter.setPlayPosition(-1);
             kz_mainCourseAdapter.state(-1);
@@ -331,6 +348,11 @@ public class KzMessageFragment extends Fragment implements PlayMessage {
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        mHandler.sendEmptyMessageDelayed(1, 3000);
     }
 
 

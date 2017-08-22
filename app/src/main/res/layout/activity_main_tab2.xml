@@ -89,14 +89,14 @@
             </LinearLayout>
         </RelativeLayout>
 
-        <com.kzmen.sczxjf.view.MyScrollView
+       <!-- <com.kzmen.sczxjf.view.MyScrollView
             android:id="@+id/sv_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:orientation="vertical"
-            android:scrollbars="none">
+            android:scrollbars="none">-->
 
             <LinearLayout
                 android:id="@+id/ll_content"
@@ -111,7 +111,7 @@
                     android:layout_height="match_parent" />
             </LinearLayout>
 
-        </com.kzmen.sczxjf.view.MyScrollView>
+      <!--  </com.kzmen.sczxjf.view.MyScrollView>-->
 
     </LinearLayout>
 

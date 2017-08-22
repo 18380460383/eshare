@@ -74,11 +74,14 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/LogoTheme">
-            <!--<intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
 
         <!-- 使用说明界面 -->
@@ -105,9 +108,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" >
-
-        </activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".test.CityPickerActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -267,13 +268,7 @@
         <activity
             android:name=".ui.activity.kzmessage.MainTabActivity"
             android:label="@string/title_activity_main_tab"
-            android:theme="@style/BaseAppTheme" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/BaseAppTheme" />
         <activity
             android:name=".ui.activity.kzmessage.CourseListActivity"
             android:screenOrientation="portrait"
@@ -485,7 +480,22 @@
             android:name=".ui.activity.kzmessage.IntegralListActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.kzmessage.CourseSearchActivity"></activity>
+        <activity
+            android:name=".ui.activity.kzmessage.CourseSearchActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.kzmessage.IndexActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.kzmessage.ForgetPassActivity" />
+        <activity android:name=".ui.activity.kzmessage.ResetPassActivity"></activity>
     </application>
 
 </manifest>

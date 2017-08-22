@@ -6,6 +6,8 @@ import android.os.CountDownTimer;
 import android.support.percent.PercentRelativeLayout;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
@@ -31,6 +33,12 @@ public class RegisterActivity extends SuperActivity {
     EditText etYq;
     @InjectView(R.id.tv_register)
     TextView tvRegister;
+    @InjectView(R.id.kz_tiltle)
+    LinearLayout kzTiltle;
+    @InjectView(R.id.et_pass)
+    EditText etPass;
+    @InjectView(R.id.iv_show)
+    ImageView ivShow;
     private int timeCount = 60 * 1000;
     private CountDownTimer timer = new CountDownTimer(timeCount, 1000) {
 

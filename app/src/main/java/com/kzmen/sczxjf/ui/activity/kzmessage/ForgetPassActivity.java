@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.percent.PercentRelativeLayout;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,9 +14,7 @@ import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-
-public class LoginActivity extends SuperActivity {
-
+public class ForgetPassActivity extends SuperActivity {
 
     @InjectView(R.id.back)
     PercentRelativeLayout back;
@@ -27,33 +24,26 @@ public class LoginActivity extends SuperActivity {
     LinearLayout kzTiltle;
     @InjectView(R.id.et_phone)
     EditText etPhone;
-    @InjectView(R.id.et_pass)
-    EditText etPass;
-    @InjectView(R.id.iv_show)
-    ImageView ivShow;
-    @InjectView(R.id.tv_login)
-    TextView tvLogin;
-    @InjectView(R.id.tv_forgetpass)
-    TextView tv_forgetpass;
-    @InjectView(R.id.activity_index)
-    LinearLayout activityIndex;
-    @InjectView(R.id.ll_login_weix)
-    LinearLayout llLoginWeix;
+    @InjectView(R.id.ev_yz)
+    EditText evYz;
+    @InjectView(R.id.tv_yz)
+    TextView tvYz;
+    @InjectView(R.id.tv_next)
+    TextView tvNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public void onCreateDataForView() {
-        setTitle(R.id.kz_tiltle, "登录");
+        setTitle(R.id.kz_tiltle, "找回密码");
     }
 
     @Override
     public void setThisContentView() {
-        setContentView(R.layout.activity_login2);
+        setContentView(R.layout.activity_forget_pass);
     }
 
     @Override
@@ -61,18 +51,13 @@ public class LoginActivity extends SuperActivity {
         return true;
     }
 
-    @OnClick({R.id.iv_show, R.id.tv_login, R.id.ll_login_weix,R.id.tv_forgetpass})
+    @OnClick({R.id.tv_yz, R.id.tv_next})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_show:
+            case R.id.tv_yz:
                 break;
-            case R.id.tv_login:
-                startActivity(new Intent(LoginActivity.this,MainTabActivity.class));
-                break;
-            case R.id.ll_login_weix:
-                break;
-            case R.id.tv_forgetpass:
-                startActivity(new Intent(LoginActivity.this,ForgetPassActivity.class));
+            case R.id.tv_next:
+                startActivity(new Intent(ForgetPassActivity.this,ResetPassActivity.class));
                 break;
         }
     }

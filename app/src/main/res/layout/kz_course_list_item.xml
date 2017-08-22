@@ -35,7 +35,7 @@
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_top30"
+                android:layout_marginTop="@dimen/margin_top20"
                 android:ellipsize="end"
                 android:maxLines="3"
                 android:text="标题" />

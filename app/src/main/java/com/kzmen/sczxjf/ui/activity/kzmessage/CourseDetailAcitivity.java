@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,6 @@ import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.view.ExpandViewPager;
 import com.kzmen.sczxjf.view.ExpandableTextView;
 import com.kzmen.sczxjf.view.MyListView;
-import com.kzmen.sczxjf.view.MyScrollView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,7 +62,7 @@ public class CourseDetailAcitivity extends SuperActivity {
     @InjectView(R.id.tv_ask)
     TextView tvAsk;
     @InjectView(R.id.sv_main)
-    MyScrollView svMain;
+    NestedScrollView svMain;
     @InjectView(R.id.kz_tiltle)
     LinearLayout llTitle;
     private String[] titles = new String[]{"阶段一", "阶段二", "阶段三", "阶段四", "阶段五"};
@@ -77,12 +77,12 @@ public class CourseDetailAcitivity extends SuperActivity {
     @Override
     public void onCreateDataForView() {
         setTitle(R.id.kz_tiltle, "课程详情");
-        if (!setLl_title()) {
+        /*if (!setLl_title()) {
             EToastUtil.show(this, "设置标题错误");
         }
         if (!setOnScroll(R.id.sv_main)) {
             EToastUtil.show(this, "设置滑动失败");
-        }
+        }*/
         initView();
 
     }
@@ -97,14 +97,14 @@ public class CourseDetailAcitivity extends SuperActivity {
         adapter.setTitles(titles);
         infoViewpager.setAdapter(adapter);
         tabLayout.setupWithViewPager(infoViewpager);
-
         //设置Tablayout
         //设置TabLayout模式 -该使用Tab数量比较多的情况
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
         //设置自定义Tab--加入图标的demo
         for (int i = 0; i < titles.length; i++) {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             tab.setCustomView(adapter.getTabView(i));
+            //tab.getCustomView().setBackgroundColor(Color.argb(255,255,0,0));
         }
 
         final int currentSelectedPosition = infoViewpager.getCurrentItem();

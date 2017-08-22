@@ -34,7 +34,6 @@ import com.kzmen.sczxjf.net.NetworkDownload;
 import com.kzmen.sczxjf.smartlayout.widgit.CustomLoadingLayout;
 import com.kzmen.sczxjf.smartlayout.widgit.SmartLoadingLayout;
 import com.kzmen.sczxjf.test.server.PlayService;
-import com.kzmen.sczxjf.ui.activity.personal.LoginActivity;
 import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.util.Utils;
 import com.kzmen.sczxjf.view.MyScrollView;
@@ -86,7 +85,7 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
         //如果不是
         if (!isShareActivity()) {
             if (!AppContext.getInstance().getPersonageOnLine()) {
-                Intent intent = new Intent(this, LoginActivity.class);
+                Intent intent = new Intent(this, com.kzmen.sczxjf.ui.activity.kzmessage.LoginActivity.class);
                 this.startActivity(intent);
              this.finish();
             } else {

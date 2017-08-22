@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E3E8EE"
     android:orientation="vertical"
     tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.LoginActivity">
 
@@ -14,18 +13,17 @@
 
         <include
             android:id="@+id/kz_tiltle"
-            layout="@layout/kz_title_no_back" />
+            layout="@layout/kz_title" />
     </RelativeLayout>
 
     <LinearLayout
+        android:layout_marginTop="100dp"
+        android:id="@+id/activity_index"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:layout_margin="30dp"
-        android:background="@color/white"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="@dimen/margin_top30"
+      >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,29 +35,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="手机号：" />
+                android:text="手机号"
+                android:textColor="@color/seprate"
+                android:textStyle="bold" />
 
-            <LinearLayout
+
+            <EditText
+                android:id="@+id/et_phone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/cornor_background_no_radius"
-                android:orientation="horizontal"
-                android:paddingBottom="8dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="4dp"
-                android:paddingTop="8dp">
-
-                <EditText
-                    android:id="@+id/et_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="请输入..."
-                    android:textSize="14dp" />
-            </LinearLayout>
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint=""
+                android:textSize="14dp" />
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/seprate" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,60 +65,109 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="验证码：" />
+                android:text="设置密码"
+                android:textColor="@color/seprate"
+                android:textStyle="bold" />
 
-            <LinearLayout
+
+            <EditText
+                android:id="@+id/et_pass"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/cornor_background_no_radius"
-                android:orientation="horizontal"
-                android:paddingBottom="8dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="4dp"
-                android:paddingTop="8dp">
+                android:background="@null"
+                android:hint=""
+                android:textSize="14dp" />
 
-                <EditText
-                    android:id="@+id/et_yz"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:hint="请输入..."
-                    android:textSize="14dp" />
 
-            </LinearLayout>
-
-            <TextView
-                android:gravity="center"
-                android:id="@+id/tv_yz"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/iv_show"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="8dp"
-                android:background="@drawable/cornor_background_no_radius"
-                android:padding="8dp"
-                android:text="获取验证码" />
+                android:background="@drawable/btn_play"
+                android:gravity="center"
+                android:padding="8dp" />
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/seprate" />
         <TextView
             android:id="@+id/tv_login"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
             android:layout_marginTop="@dimen/margin_top30"
-            android:background="@drawable/cornor_backgroud_blue"
+            android:background="@drawable/kz_bg_yellow_line"
             android:gravity="center"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp"
-            android:text="登 录"
-            android:textColor="@color/white" />
+            style="@style/login_text"
+            android:text="登录" />
 
         <TextView
-            android:id="@+id/tv_registe"
+            android:id="@+id/tv_forgetpass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="忘记密码？"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:padding="15dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top30"
-            android:gravity="right"
-            android:text="没有注册？那就注册吧！" />
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1.5dp"
+                android:layout_weight="1"
+                android:background="@color/seprate" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="或者，您可以" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1.5dp"
+                android:layout_weight="1"
+                android:background="@color/seprate" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_login_weix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/icon_weixin64" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="微信快速登录" />
+        </LinearLayout>
+
     </LinearLayout>
 </RelativeLayout>

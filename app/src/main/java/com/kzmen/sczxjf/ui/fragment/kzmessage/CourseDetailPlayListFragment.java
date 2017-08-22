@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.kzbean.CourseListTstBean;
@@ -22,7 +23,7 @@ import java.util.List;
 
 public class CourseDetailPlayListFragment extends SuperFragment {
     MyListView lvPlayList;
-
+    private LinearLayout ll_main;
     @Override
     protected void lazyLoad() {
 
@@ -48,11 +49,19 @@ public class CourseDetailPlayListFragment extends SuperFragment {
 
     private void initView(final View view) {
         lvPlayList = (MyListView) view.findViewById(R.id.lv_play_list);
+        ll_main= (LinearLayout) view.findViewById(R.id.ll_main);
         Bundle bundle = getArguments();
         if (bundle != null) {
             tabPos = bundle.getInt("tabPos");
         } else {
-
+        }
+        if(tabPos==0){
+            return;
+        }
+        if(tabPos<3){
+            ll_main.setBackgroundResource(R.color.white);
+        }else{
+            ll_main.setBackgroundResource(R.color.gloomy);
         }
     }
 

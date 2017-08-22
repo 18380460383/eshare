@@ -31,7 +31,6 @@ public class Kz_Course_FragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
         Fragment fragment = new CourseDetailPlayListFragment();
         Bundle bundle = null;
         bundle = new Bundle();
@@ -75,7 +74,7 @@ public class Kz_Course_FragmentAdapter extends FragmentStatePagerAdapter {
         LinearLayout ll_main= (LinearLayout) view.findViewById(R.id.ll_main);
         if(position>=3){
             img.setVisibility(View.VISIBLE);
-            ll_main.setBackgroundResource(R.color.title);
+           ll_main.setBackgroundResource(R.color.title);
         }else{
             img.setVisibility(View.GONE);
             ll_main.setBackgroundResource(R.color.white);

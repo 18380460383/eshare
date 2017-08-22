@@ -46,8 +46,7 @@
 
         </LinearLayout>
 
-        <View
-            style="@style/bottom_line_gloom" />
+        <View style="@style/bottom_line_gloom" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,76 +84,12 @@
                 android:text="发送验证码" />
         </LinearLayout>
 
-        <View
-            style="@style/bottom_line_gloom" />
+        <View style="@style/bottom_line_gloom" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_top30"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="设置密码"
-                android:textColor="@color/seprate"
-                android:textStyle="bold" />
-
-
-            <EditText
-                android:id="@+id/et_pass"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@null"
-                android:hint=""
-                android:textSize="14dp" />
-
-
-            <ImageView
-                android:id="@+id/iv_show"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="8dp"
-                android:background="@drawable/btn_play"
-                android:gravity="center"
-                android:padding="8dp" />
-        </LinearLayout>
-
-        <View
-            style="@style/bottom_line_gloom"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_top30"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="邀请码："
-                android:textColor="@color/seprate"
-                android:textStyle="normal" />
-
-            <EditText
-                android:id="@+id/et_yq"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:textSize="14dp" />
-
-        </LinearLayout>
-
-        <View
-            style="@style/bottom_line_gloom" />
 
         <TextView
-            android:id="@+id/tv_register"
+            android:id="@+id/tv_next"
+            style="@style/login_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -162,8 +97,7 @@
             android:layout_marginTop="@dimen/margin_top30"
             android:background="@drawable/kz_bg_yellow_line"
             android:gravity="center"
-            style="@style/login_text"
-            android:text="注册" />
+            android:text="下一步" />
     </LinearLayout>
 
 </LinearLayout>

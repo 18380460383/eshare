@@ -34,7 +34,6 @@ import com.kzmen.sczxjf.ui.activity.personal.LoginActivity;
 import com.kzmen.sczxjf.ui.activity.personal.MsgCenterActivity;
 import com.kzmen.sczxjf.ui.fragment.kzmessage.KzMessageFragment;
 import com.kzmen.sczxjf.ui.fragment.personal.CMenuFragment;
-import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.util.EshareLoger;
 import com.kzmen.sczxjf.utils.AppUtils;
 import com.kzmen.sczxjf.utils.BitmapUtils;
@@ -116,18 +115,17 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         DrawerLayout.LayoutParams layoutParams = (DrawerLayout.LayoutParams) menu.getLayoutParams();
         layoutParams.width = (int) (i * 0.7);
         menu.setLayoutParams(layoutParams);
-        if (!setLl_title()) {
+       /* if (!setLl_title()) {
             EToastUtil.show(this, "设置标题错误");
         }
         if(!setOnScroll(R.id.sv_main)){
             EToastUtil.show(this, "设置滑动失败");
-        }
+        }*/
         back.setVisibility(View.INVISIBLE);
         getCachTst();
         setOnloading(R.id.ll_content);
         mLayout.onLoading();
         mHandler.sendEmptyMessageDelayed(1,5*1000);
-
     }
     public Handler mHandler = new Handler(){
         @Override

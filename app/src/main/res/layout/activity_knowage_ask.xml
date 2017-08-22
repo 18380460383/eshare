@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sl_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -15,7 +22,7 @@
             layout="@layout/kz_title" />
     </RelativeLayout>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -53,10 +60,10 @@
                 </LinearLayout>
                 <TextView
                     android:id="@+id/tv_ask_xy"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="@dimen/margin_top20"
+                    android:paddingRight="@dimen/margin_top20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="提问"
@@ -92,10 +99,10 @@
                 </LinearLayout>
                 <TextView
                     android:id="@+id/tv_ask_yx"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="@dimen/margin_top20"
+                    android:paddingRight="@dimen/margin_top20"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="提问"
@@ -132,5 +139,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp" />
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
