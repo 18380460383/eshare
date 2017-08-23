@@ -1,4 +1,4 @@
-package com.kzmen.sczxjf.ui.activity.kzmessage;
+package com.kzmen.sczxjf.ui.activity.menu;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -20,9 +20,10 @@ import com.kzmen.sczxjf.ui.fragment.kzmessage.FragmentCollection;
 import butterknife.InjectView;
 
 /**
- * 我的问答
+ * 我的收藏
  */
-public class MyAskActivity extends SuperActivity {
+public class MyCollectionAcitivity extends SuperActivity {
+
     @InjectView(R.id.back)
     PercentRelativeLayout back;
     @InjectView(R.id.title_name)
@@ -31,12 +32,13 @@ public class MyAskActivity extends SuperActivity {
     TabLayout tabLayout;
     @InjectView(R.id.info_viewpager)
     ViewPager infoViewpager;
-    private String[] titles = new String[]{"提问", "回答", "偷听","课程"};
+    private String[] titles = new String[]{"课程收藏", "问答收藏", "商品收藏"};
     private MyFragmentAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -50,11 +52,6 @@ public class MyAskActivity extends SuperActivity {
         initView();
     }
 
-    @Override
-    public void setThisContentView() {
-        setContentView(R.layout.activity_my_ask);
-    }
-
     private void initView() {
         adapter = new MyFragmentAdapter(getSupportFragmentManager());
         adapter.setTitles(titles);
@@ -66,10 +63,15 @@ public class MyAskActivity extends SuperActivity {
         //设置TabLayout模式 -该使用Tab数量比较多的情况
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
         //设置自定义Tab--加入图标的demo
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             tab.setCustomView(adapter.getTabView(i));
         }
+    }
+
+    @Override
+    public void setThisContentView() {
+        setContentView(R.layout.activity_my_collection_acitivity);
     }
 
     public class MyFragmentAdapter extends FragmentStatePagerAdapter {
@@ -98,10 +100,6 @@ public class MyAskActivity extends SuperActivity {
                     bundle = new Bundle();
                     bundle.putString("type", "3");
                     break;
-                case 3:
-                    bundle = new Bundle();
-                    bundle.putString("type", "4");
-                    break;
             }
             fragment.setArguments(bundle);
             return fragment;
@@ -109,7 +107,7 @@ public class MyAskActivity extends SuperActivity {
 
         @Override
         public int getCount() {
-            return 4;
+            return 3;
         }
 
         @Override
@@ -142,7 +140,7 @@ public class MyAskActivity extends SuperActivity {
          * @return
          */
         public View getTabView(int position) {
-            mInflater = LayoutInflater.from(MyAskActivity.this);
+            mInflater = LayoutInflater.from(MyCollectionAcitivity.this);
             View view = mInflater.inflate(R.layout.kz_tab_item_layout, null);
             TextView tv = (TextView) view.findViewById(R.id.textView);
             tv.setText(titles[position]);

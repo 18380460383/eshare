@@ -282,9 +282,9 @@
             android:name=".ui.activity.kzmessage.UpdateNickNameAcitivy"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ui.activity.kzmessage.MyIntegralActivity" />
+        <activity android:name=".ui.activity.menu.MyIntegralActivity" />
         <activity android:name=".ui.activity.kzmessage.IntegralRuleAcitivity" />
-        <activity android:name=".ui.activity.kzmessage.MyPackageAcitivity" />
+        <activity android:name=".ui.activity.menu.MyPackageAcitivity" />
         <activity android:name=".ui.activity.kzmessage.GetBalanceActivity" />
         <activity android:name=".ui.activity.kzmessage.RulesAcitivity" />
         <activity android:name=".ui.activity.kzmessage.AskListActivity" />
@@ -294,8 +294,8 @@
             android:name=".ui.activity.kzmessage.CourseDetailAcitivity"
             android:label="@string/title_activity_main_tab"
             android:theme="@style/BaseAppTheme" />
-        <activity android:name=".ui.activity.kzmessage.MyCollectionAcitivity" />
-        <activity android:name=".ui.activity.kzmessage.MyAskActivity" />
+        <activity android:name=".ui.activity.menu.MyCollectionAcitivity" />
+        <activity android:name=".ui.activity.menu.MyAskActivity" />
         <activity android:name=".test.MP3OnlineActivity" />
 
         <service android:name=".test.server.PlayService" />
@@ -469,7 +469,7 @@
             android:value="5c94eb8beebc265d4001586d4d65704b" />
 
         <activity
-            android:name=".ui.activity.kzmessage.FriendOfmineAcitivty"
+            android:name=".ui.activity.menu.FriendOfmineAcitivty"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
@@ -495,7 +495,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.kzmessage.ForgetPassActivity" />
-        <activity android:name=".ui.activity.kzmessage.ResetPassActivity"></activity>
+        <activity android:name=".ui.activity.kzmessage.ResetPassActivity" />
+        <activity android:name=".ui.activity.menu.ShopOfIntegralActivity" />
+        <activity android:name=".ui.activity.menu.SpecialPowerActivity"></activity>
     </application>
 
 </manifest>

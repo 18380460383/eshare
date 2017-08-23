@@ -1,4 +1,4 @@
-package com.kzmen.sczxjf.ui.activity.kzmessage;
+package com.kzmen.sczxjf.ui.activity.menu;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.GetBalanceActivity;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;

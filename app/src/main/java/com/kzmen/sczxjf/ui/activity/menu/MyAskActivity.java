@@ -1,4 +1,4 @@
-package com.kzmen.sczxjf.ui.activity.kzmessage;
+package com.kzmen.sczxjf.ui.activity.menu;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -20,10 +20,9 @@ import com.kzmen.sczxjf.ui.fragment.kzmessage.FragmentCollection;
 import butterknife.InjectView;
 
 /**
- * 我的收藏
+ * 我的问答
  */
-public class MyCollectionAcitivity extends SuperActivity {
-
+public class MyAskActivity extends SuperActivity {
     @InjectView(R.id.back)
     PercentRelativeLayout back;
     @InjectView(R.id.title_name)
@@ -32,13 +31,12 @@ public class MyCollectionAcitivity extends SuperActivity {
     TabLayout tabLayout;
     @InjectView(R.id.info_viewpager)
     ViewPager infoViewpager;
-    private String[] titles = new String[]{"课程收藏", "问答收藏", "商品收藏"};
+    private String[] titles = new String[]{"课程提问", "回答提问", "我的偷听"};
     private MyFragmentAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -52,6 +50,11 @@ public class MyCollectionAcitivity extends SuperActivity {
         initView();
     }
 
+    @Override
+    public void setThisContentView() {
+        setContentView(R.layout.activity_my_ask);
+    }
+
     private void initView() {
         adapter = new MyFragmentAdapter(getSupportFragmentManager());
         adapter.setTitles(titles);
@@ -63,15 +66,10 @@ public class MyCollectionAcitivity extends SuperActivity {
         //设置TabLayout模式 -该使用Tab数量比较多的情况
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
         //设置自定义Tab--加入图标的demo
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < titles.length; i++) {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             tab.setCustomView(adapter.getTabView(i));
         }
-    }
-
-    @Override
-    public void setThisContentView() {
-        setContentView(R.layout.activity_my_collection_acitivity);
     }
 
     public class MyFragmentAdapter extends FragmentStatePagerAdapter {
@@ -140,11 +138,17 @@ public class MyCollectionAcitivity extends SuperActivity {
          * @return
          */
         public View getTabView(int position) {
-            mInflater = LayoutInflater.from(MyCollectionAcitivity.this);
-            View view = mInflater.inflate(R.layout.kz_tab_item_layout, null);
+            mInflater = LayoutInflater.from(MyAskActivity.this);
+            View view = mInflater.inflate(R.layout.kz_tab_item_layout_sign, null);
             TextView tv = (TextView) view.findViewById(R.id.textView);
+            TextView tv_sign = (TextView) view.findViewById(R.id.tv_sign);
             tv.setText(titles[position]);
             ImageView img = (ImageView) view.findViewById(R.id.imageView);
+            if(position>=2){
+                tv_sign.setVisibility(View.GONE);
+            }else{
+                tv_sign.setVisibility(View.VISIBLE);
+            }
             return view;
         }
 

@@ -28,11 +28,13 @@ import com.kzmen.sczxjf.bean.user.User_For_pe;
 import com.kzmen.sczxjf.net.EnWebUtil;
 import com.kzmen.sczxjf.test.CityPickerActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.MainTabActivity;
-import com.kzmen.sczxjf.ui.activity.kzmessage.MyAskActivity;
-import com.kzmen.sczxjf.ui.activity.kzmessage.MyCollectionAcitivity;
-import com.kzmen.sczxjf.ui.activity.kzmessage.MyIntegralActivity;
-import com.kzmen.sczxjf.ui.activity.kzmessage.MyPackageAcitivity;
+import com.kzmen.sczxjf.ui.activity.menu.MyAskActivity;
+import com.kzmen.sczxjf.ui.activity.menu.MyCollectionAcitivity;
+import com.kzmen.sczxjf.ui.activity.menu.MyIntegralActivity;
+import com.kzmen.sczxjf.ui.activity.menu.MyPackageAcitivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.PersonMessActivity;
+import com.kzmen.sczxjf.ui.activity.menu.ShopOfIntegralActivity;
+import com.kzmen.sczxjf.ui.activity.menu.SpecialPowerActivity;
 import com.kzmen.sczxjf.ui.activity.personal.ActListActivity;
 import com.kzmen.sczxjf.ui.activity.personal.ShopActivity;
 import com.kzmen.sczxjf.ui.fragment.basic.SuperFragment;
@@ -168,10 +170,10 @@ public class CMenuFragment extends SuperFragment {
                 break;
             case R.id.c_menu_activity_onc:
                 //TODO 点击活动
-                getContext().startActivity(new Intent(getContext(), ActListActivity.class));
+                getContext().startActivity(new Intent(getContext(), SpecialPowerActivity.class));
                 break;
             case R.id.c_menu_credits_exchange_onc:
-                getContext().startActivity(new Intent(getContext(), ShopActivity.class));
+                getContext().startActivity(new Intent(getContext(), ShopOfIntegralActivity.class));
                 break;
             case R.id.c_menu_setting_onc:
                 //TODO 点击设置

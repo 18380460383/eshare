@@ -1,4 +1,4 @@
-package com.kzmen.sczxjf.ui.activity.kzmessage;
+package com.kzmen.sczxjf.ui.activity.menu;
 
 import android.os.Bundle;
 
