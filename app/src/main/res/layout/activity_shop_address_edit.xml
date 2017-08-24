@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.RulesAcitivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/kz_title" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <LinearLayout
+            android:id="@+id/ll_edit_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_top10"
+            android:paddingTop="@dimen/margin_top10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="收货人" />
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="收货人" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="@dimen/margin_top10"
+                android:background="@drawable/icon_arrow_more" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_edit_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_top10"
+            android:paddingTop="@dimen/margin_top10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="手机" />
+
+            <TextView
+                android:id="@+id/tv_user_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="收货人" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="@dimen/margin_top10"
+                android:background="@drawable/icon_arrow_more" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_edit_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_top10"
+            android:paddingTop="@dimen/margin_top10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="地址" />
+
+            <TextView
+                android:id="@+id/tv_user_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="地址" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="@dimen/margin_top10"
+                android:background="@drawable/icon_arrow_more" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_edit_street"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_top10"
+            android:paddingTop="@dimen/margin_top10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="街道" />
+
+            <TextView
+                android:id="@+id/tv_user_street"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="街道" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="@dimen/margin_top10"
+                android:background="@drawable/icon_arrow_more" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_edit_ybian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_top10"
+            android:paddingTop="@dimen/margin_top10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="邮编" />
+
+            <TextView
+                android:id="@+id/tv_user_ybian"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="636150" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="@dimen/margin_top10"
+                android:background="@drawable/icon_arrow_more" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

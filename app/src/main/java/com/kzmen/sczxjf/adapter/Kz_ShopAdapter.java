@@ -14,9 +14,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.ShopBean;
-import com.kzmen.sczxjf.connector.BackgroundImageLoadingListenerForWaterfall;
 import com.kzmen.sczxjf.control.ImageLoaderOptionsControl;
-import com.kzmen.sczxjf.ui.activity.personal.ShopDetailsActivity;
+import com.kzmen.sczxjf.ui.activity.menu.ShopDetailActivity;
 import com.kzmen.sczxjf.view.PointListView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -108,8 +107,8 @@ public class Kz_ShopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(context, ShopDetailsActivity.class);
-                        intent.putExtra(ShopDetailsActivity.SHOPID, shopBean.getId());
+                        Intent intent = new Intent(context, ShopDetailActivity.class);
+                        //intent.putExtra(ShopDetailsActivity.SHOPID, shopBean.getId());
                         context.startActivity(intent);
                     }
                 });
