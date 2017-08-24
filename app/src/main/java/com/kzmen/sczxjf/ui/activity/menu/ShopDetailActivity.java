@@ -12,6 +12,7 @@ import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.view.banner.BannerLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.InjectView;
@@ -48,8 +49,7 @@ public class ShopDetailActivity extends SuperActivity {
     private void initView() {
         setOnloading(R.id.ll_content);
         mLayout.onLoading();
-        mHandler.sendEmptyMessageDelayed(1, 5 * 1000);
-
+        mHandler.sendEmptyMessageDelayed(1, 2 * 1000);
     }
 
     private Handler mHandler = new Handler() {
@@ -62,6 +62,7 @@ public class ShopDetailActivity extends SuperActivity {
     };
 
     private void initData() {
+        urlList=new ArrayList<>();
         urlList.add(url1);
         urlList.add(url1);
         urlList.add(url1);
@@ -81,6 +82,7 @@ public class ShopDetailActivity extends SuperActivity {
             case R.id.iv_like:
                 break;
             case R.id.tv_buy:
+                mLayout.onDone();
                 startActivity(new Intent(ShopDetailActivity.this, ShopOrderComfirActivity.class));
                 finish();
                 break;

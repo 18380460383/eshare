@@ -199,7 +199,7 @@ public class KzMessageFragment extends Fragment implements PlayMessage, SwipeRef
             @Override
             public void onError(int code, String msg) {
                 Log.e("onError", msg);
-                EToastUtil.show(getActivity(), "" + msg);
+                //EToastUtil.show(getActivity(), "" + msg);
             }
         });
         listCourse = new ArrayList<>();

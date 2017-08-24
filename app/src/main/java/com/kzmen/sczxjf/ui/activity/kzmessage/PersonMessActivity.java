@@ -124,8 +124,8 @@ public class PersonMessActivity extends SuperActivity {
                         //返回的分别是三个级别的选中位置
                         String tx = sexList.get(options1);
                         EToastUtil.show(PersonMessActivity.this, tx);
-                    }
-                })
+                           }
+                          })
                         .setTitleText("性别选择")
                         .setContentTextSize(20)//设置滚轮文字大小
                         .setDividerColor(Color.GREEN)//设置分割线的颜色

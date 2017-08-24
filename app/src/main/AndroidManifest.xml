@@ -487,14 +487,6 @@
         <activity
             android:name=".ui.activity.kzmessage.IndexActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.kzmessage.ForgetPassActivity" />
-        <activity android:name=".ui.activity.kzmessage.ResetPassActivity" />
-        <activity android:name=".ui.activity.menu.ShopOfIntegralActivity" />
-        <activity android:name=".ui.activity.menu.SpecialPowerActivity" />
-        <activity
-            android:name=".ui.activity.menu.IntegralMsgActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -502,10 +494,47 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.menu.ShopDetailActivity" />
-        <activity android:name=".ui.activity.menu.ShopOrderComfirActivity" />
-        <activity android:name=".ui.activity.menu.ShopAddAddressActivity" />
-        <activity android:name=".ui.activity.menu.ShopAddressEditActivity"></activity>
+        <activity android:name=".ui.activity.kzmessage.ForgetPassActivity" />
+        <activity android:name=".ui.activity.kzmessage.ResetPassActivity" />
+        <activity android:name=".ui.activity.menu.ShopOfIntegralActivity" />
+        <activity android:name=".ui.activity.menu.SpecialPowerActivity" />
+        <activity
+            android:name=".ui.activity.menu.IntegralMsgActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.activity.menu.ShopDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.menu.ShopOrderComfirActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.menu.ShopAddAddressActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.menu.ShopAddressEditActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.menu.ShopAreaActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.menu.ShopPhoneEditAcitivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.menu.ShopNameEditActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.menu.ShopCountryDetailActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.menu.FriendInvateActivity"></activity>
     </application>
 
 </manifest>
