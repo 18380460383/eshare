@@ -1,2 +1,2 @@
-include ':app', ':jcvideoplayer-lib'
+include ':app', ':jcvideoplayer-lib', ':RxTools-library'
 include ':pulltorefresh'
