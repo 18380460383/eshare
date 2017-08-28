@@ -199,9 +199,10 @@ public class OkhttpUtilManager {
                     }
                 });
     }
-    public static void  postNoCacah(Context mContext, String url,  final OkhttpUtilResult result){
+    public static void  postNoCacah(Context mContext, String url, Map<String,String> param,  final OkhttpUtilResult result){
         OkHttpUtils.post(URL+url)
                 .tag(mContext)
+                .params(param)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {

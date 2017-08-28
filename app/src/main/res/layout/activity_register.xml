@@ -69,7 +69,6 @@
 
 
             <EditText
-                android:inputType="textPassword"
                 android:layout_marginLeft="8dp"
                 android:id="@+id/ev_yz"
                 android:layout_width="0dp"
