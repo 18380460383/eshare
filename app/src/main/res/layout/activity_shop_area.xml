@@ -12,6 +12,14 @@
         android:layout_height="wrap_content">
 
         <include layout="@layout/kz_title" />
+        <TextView
+            android:id="@+id/tv_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保存"
+            android:layout_marginRight="@dimen/margin_top10"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -21,7 +29,7 @@
         android:padding="15dp">
 
         <LinearLayout
-            android:id="@+id/ll_edit_user"
+            android:id="@+id/ll_edit_provice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -32,104 +40,61 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="省份" />
+
+            <TextView
+                android:id="@+id/tv_provice"
+                style="@style/area_text_value"
                 android:text="收货人" />
+
+            <ImageView style="@style/area_text_more" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_edit_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_top10"
+            android:paddingTop="@dimen/margin_top10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="城市" />
+
+            <TextView
+                android:id="@+id/tv_city"
+                style="@style/area_text_value"
+                android:text="收货人" />
+
+            <ImageView
+                style="@style/area_text_more" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/margin_top10"
+            android:paddingTop="@dimen/margin_top10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="区/县" />
 
             <TextView
                 android:id="@+id/tv_user_name"
                 style="@style/area_text_value"
-                android:text="收货人" />
+                android:text="武侯区" />
 
-            <ImageView style="@style/area_text_more" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/ll_edit_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/margin_top10"
-            android:paddingTop="@dimen/margin_top10">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="手机" />
-
-            <TextView
-                android:id="@+id/tv_user_phone"
-                style="@style/area_text_value"
-                android:text="收货人" />
-
-            <ImageView style="@style/area_text_more" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_edit_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/margin_top10"
-            android:paddingTop="@dimen/margin_top10">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="地址" />
-
-            <TextView
-                android:id="@+id/tv_user_address"
-                style="@style/area_text_value"
-                android:text="地址" />
-
-            <ImageView style="@style/area_text_more" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_edit_street"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/margin_top10"
-            android:paddingTop="@dimen/margin_top10">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="街道" />
-
-            <TextView
-                android:id="@+id/tv_user_street"
-                style="@style/area_text_value"
-                android:text="街道" />
-
-            <ImageView style="@style/area_text_more" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_edit_ybian"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/margin_top10"
-            android:paddingTop="@dimen/margin_top10">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="邮编" />
-
-            <TextView
-                android:id="@+id/tv_user_ybian"
-                style="@style/area_text_value"
-                android:text="636150" />
-
-            <ImageView style="@style/area_text_more" />
+            <ImageView
+                style="@style/area_text_more"
+                />
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

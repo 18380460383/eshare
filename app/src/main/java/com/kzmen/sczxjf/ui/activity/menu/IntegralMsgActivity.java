@@ -47,7 +47,7 @@ public class IntegralMsgActivity extends ListViewActivity {
 
     @Override
     public void onCreateDataForView() {
-        setTitle(R.id.kz_tiltle, "活动");
+        setTitle(R.id.kz_tiltle, "兑换记录");
         initData();
     }
 

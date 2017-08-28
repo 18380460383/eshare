@@ -28,6 +28,7 @@ import com.kzmen.sczxjf.bean.user.User_For_pe;
 import com.kzmen.sczxjf.net.EnWebUtil;
 import com.kzmen.sczxjf.test.CityPickerActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.MainTabActivity;
+import com.kzmen.sczxjf.ui.activity.menu.FriendOfmineAcitivty;
 import com.kzmen.sczxjf.ui.activity.menu.MyAskActivity;
 import com.kzmen.sczxjf.ui.activity.menu.MyCollectionAcitivity;
 import com.kzmen.sczxjf.ui.activity.menu.MyIntegralActivity;
@@ -166,7 +167,7 @@ public class CMenuFragment extends SuperFragment {
                 break;
             case R.id.c_menu_friend_onc:
                 //TODO 点击好友
-                getContext().startActivity(new Intent(getContext(), CityPickerActivity.class));
+                getContext().startActivity(new Intent(getContext(), FriendOfmineAcitivty.class));
                 break;
             case R.id.c_menu_activity_onc:
                 //TODO 点击活动

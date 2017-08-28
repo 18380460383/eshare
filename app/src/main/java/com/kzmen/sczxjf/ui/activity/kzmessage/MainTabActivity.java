@@ -125,13 +125,22 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         getCachTst();
         setOnloading(R.id.ll_content);
         mLayout.onLoading();
-        mHandler.sendEmptyMessageDelayed(1,5*1000);
     }
     public Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             // 数据下载完成，转换状态，显示内容视图
-            mLayout.onDone();
+            switch (msg.what){
+                case 0:
+                    mLayout.onError();
+                    break;
+                case 1:
+                    mLayout.onDone();
+                    break;
+                default:
+                    mLayout.onEmpty();
+                    break;
+            }
         }
     };
     public boolean setScroll(int id) {

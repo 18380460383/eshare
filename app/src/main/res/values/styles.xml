@@ -282,4 +282,20 @@
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:background">@color/seprate</item>
     </style>
+    <style name="area_text_name">
+
+    </style>
+    <style name="area_text_value">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">right</item>
+    </style>
+
+    <style name="area_text_more">
+        <item name="android:layout_width">16dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_marginLeft">@dimen/margin_top10</item>
+        <item name="android:background">@drawable/icon_arrow_more</item>
+    </style>
 </resources>

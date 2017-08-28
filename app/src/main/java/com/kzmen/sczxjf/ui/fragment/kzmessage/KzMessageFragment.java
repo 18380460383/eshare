@@ -35,7 +35,9 @@ import com.kzmen.sczxjf.ui.activity.kzmessage.CaseListActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.CourseListActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.CoursePlayDeatilActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.KnowageAskIndexActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.MainTabActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.TestListActivity;
+import com.kzmen.sczxjf.ui.fragment.basic.SuperFragment;
 import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.view.ExPandGridView;
 import com.kzmen.sczxjf.view.MyListView;
@@ -52,7 +54,7 @@ import butterknife.OnClick;
 /**
  * 卡掌门--掌信端
  */
-public class KzMessageFragment extends Fragment implements PlayMessage, SwipeRefreshLayout.OnRefreshListener {
+public class KzMessageFragment extends SuperFragment implements PlayMessage, SwipeRefreshLayout.OnRefreshListener {
     @InjectView(R.id.bl_main_banner)
     BannerLayout blMainBanner;
     @InjectView(R.id.gv_column)
@@ -115,12 +117,21 @@ public class KzMessageFragment extends Fragment implements PlayMessage, SwipeRef
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_kz_message, container, false);
         }
-        // lazyLoad();
+
         ButterKnife.inject(this, view);
         initView(view);
+        isPrepared=true;
+        lazyLoad();
         return view;
     }
 
+    @Override
+    protected void lazyLoad() {
+        if (!isPrepared || !isVisible ) {
+            return;
+        }
+       // initData();
+    }
     private void initView(View vew) {
         mSwipeLayout = (SwipeRefreshLayout) vew.findViewById(R.id.sp_main);
         mSwipeLayout.setOnRefreshListener(this);
@@ -194,12 +205,20 @@ public class KzMessageFragment extends Fragment implements PlayMessage, SwipeRef
                 Log.e("onSuccess", type + "      " + data);
                 List<TstBean> listBean = DataFactory.jsonToArrayList(data, TstBean.class);
                 Log.e("onSuccess", "" + listBean.size() + "    " + listBean.toString());
+                if(getActivity()==null){
+                    return;
+                }
+                ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(1);
             }
 
             @Override
             public void onError(int code, String msg) {
                 Log.e("onError", msg);
-                EToastUtil.show(getActivity(), "" + msg);
+                if(getActivity()==null){
+                    return;
+                }
+                ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(0);
+                //EToastUtil.show(getActivity(), "" + msg);
             }
         });
         listCourse = new ArrayList<>();
@@ -354,6 +373,7 @@ public class KzMessageFragment extends Fragment implements PlayMessage, SwipeRef
     public void onRefresh() {
         mHandler.sendEmptyMessageDelayed(1, 3000);
     }
+
 
 
     class SeekBarChangeEvent implements SeekBar.OnSeekBarChangeListener {

@@ -72,6 +72,11 @@ public class AppContext extends MultiDexApplication {
     private User_For_pe peuser;
 
     private int netState=0; // 0 不可用  1.wifi可用  2.wifi不可用  3.移动网可用 4.移动网不可用
+    public static String sign="";
+    public static String token="";
+    public static String app_bate="";
+    public static String from="1";
+
 
     public int getNetState() {
         return netState;
@@ -132,15 +137,17 @@ public class AppContext extends MultiDexApplication {
             }
         }.run();
         HttpHeaders headers = new HttpHeaders();
-        headers.put("token", "commonHeaderValue1");    //所有的 header 都 不支持 中文
-        headers.put("sign", "commonHeaderValue2");
+        headers.put("sign", sign);    //所有的 header 都 不支持 中文
+        headers.put("token", token);
+        headers.put("app_bate", app_bate);
+        headers.put("from", from);
         //必须调用初始化
         OkHttpUtils.init(this);
         //以下都不是必须的，根据需要自行选择
         OkHttpUtils.getInstance()//
-                .setConnectTimeout(10*1000)               //全局的连接超时时间
-                .setReadTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS)                  //全局的读取超时时间
-                .setWriteTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS)                 //全局的写入超时时间
+                .setConnectTimeout(6*1000)               //全局的连接超时时间
+                .setReadTimeOut(6*1000)                  //全局的读取超时时间
+                .setWriteTimeOut(6*1000)                 //全局的写入超时时间
                 //.setCookieStore(new MemoryCookieStore())                           //cookie使用内存缓存（app退出后，cookie消失）
                 //.setCookieStore(new PersistentCookieStore())                       //cookie持久化存储，如果cookie不过期，则一直有效
                 .addCommonHeaders(headers)                                         //设置全局公共头
