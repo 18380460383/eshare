@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="VcsDirectoryMappings">
-<<<<<<< HEAD
-    <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/RxTools-library" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/app" vcs="svn" />
     <mapping directory="$PROJECT_DIR$/jcvideoplayer-lib" vcs="svn" />
-=======
-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
->>>>>>> 76834093088cde2baccbfff669a25afdf970177d
+    <mapping directory="$PROJECT_DIR$/pulltorefresh" vcs="svn" />
   </component>
 </project>

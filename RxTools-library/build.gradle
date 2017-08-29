@@ -38,12 +38,8 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:24.2.1'
 
     compile 'com.android.support:support-annotations:24.2.1'
-
-<<<<<<< HEAD
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-=======
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
->>>>>>> 76834093088cde2baccbfff669a25afdf970177d
+   // compile 'com.android.support.constraint:constraint-layout:1.0.2'
     //流式布局
     compile 'com.google.android:flexbox:0.2.7'
     //动画向下版本兼容 nineold包
@@ -57,7 +53,7 @@ dependencies {
     //Log日志格式美化包
     compile 'com.orhanobut:logger:2.1.1'
     //微信登录，支付，分享包
-    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.3.4'
+    //compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.3.4'
     //支付宝 支付包
     compile files('src/main/libs/alipaySdk-20170309.jar')
     //二维码解析

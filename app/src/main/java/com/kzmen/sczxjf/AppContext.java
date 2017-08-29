@@ -118,8 +118,6 @@ public class AppContext extends MultiDexApplication {
         new Runnable() {
             @Override
             public void run() {
-                // put your logic here!
-                // use the mContext instead of this here
                 try {
                     user = new User();
                     sp = getSharedPreferences(SHARED_USER, Context.MODE_PRIVATE);

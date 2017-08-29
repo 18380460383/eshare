@@ -2,6 +2,7 @@ package com.kzmen.sczxjf.wxapi;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -70,16 +71,13 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
 
     @Override
     public void onResp(BaseResp baseResp) {
-        TLog.log("code " + baseResp.errCode);
+        Log.e("weixin",""+baseResp.errCode);
         if(baseResp.getType() == ConstantsAPI.COMMAND_SENDAUTH) {
-
             // 认证登录
             if(baseResp.errCode == BaseResp.ErrCode.ERR_OK) {
-
                 // 认证成功
                 TLog.log(" id " + ((SendAuth.Resp) baseResp).code
                         + ((SendAuth.Resp) baseResp).country + ((SendAuth.Resp) baseResp).lang);
-
                 AppContext.getInstance().weixinCode = ((SendAuth.Resp)baseResp).code;
                 getToken(AppContext.getInstance().weixinCode);
 
@@ -97,22 +95,9 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                 weixinShare.setAction(Constants.WEIXIN_SHARE);
                 weixinShare.putExtra(Constants.WEIXIN_SHARE_KEY,Constants.WEIXIN_SHARE_VALUE_SUCCEED);
                 sendBroadcast(weixinShare);
-                TLog.log(" weixin shared result " + baseResp.errCode);
-               /* DetialActivity act = AppContext.getInstance().detialActivity;
-                YaoActivity yaoact = AppContext.getInstance().yaoActivity;
-                if(act != null) {
-                    act.afterShare();
-                }
-                if(yaoact != null) {
-                    yaoact.onShareSuccess();
-                    yaoact.dismissProgressDialog();
-                }
-                if(AppContext.getInstance().mBaseWebAct != null) {
-                    EshareLoger.logI("BaseWeb不为空success");
-                    AppContext.getInstance().mBaseWebAct.onShareSuccess();
-                }*/
-
+                Log.e("weixin",""+baseResp.errCode);
             } else {
+                Log.e("weixin","wrong:"+baseResp.errCode);
                 weixinShare.setAction(Constants.WEIXIN_SHARE);
                 weixinShare.putExtra(Constants.WEIXIN_SHARE_KEY,Constants.WEIXIN_SHARE_VALUE_FAILURE);
                 sendBroadcast(weixinShare);
@@ -125,13 +110,9 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                     EshareLoger.logI("BaseWeb不为空fail");
                     AppContext.getInstance().mBaseWebAct.onShareCancel();
                 }
-
             }
-
             this.finish();
         }
-
-
     }
 
 

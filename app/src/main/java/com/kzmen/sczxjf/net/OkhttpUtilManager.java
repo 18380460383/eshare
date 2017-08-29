@@ -20,7 +20,8 @@ import okhttp3.Response;
  */
 
 public class OkhttpUtilManager {
-    public static String URL="http://192.168.0.101:8000/";
+    public static String URL1="http://192.168.0.101:8000/";
+    public static String URL="http://192.168.0.101:8000/api.php/public/";
     private Context mContext;
     private OkhttpUtilManager manager;
     public static void  get(Context mContext, String url, String cachKey, Map<String,String> param, final OkhttpUtilResult result){

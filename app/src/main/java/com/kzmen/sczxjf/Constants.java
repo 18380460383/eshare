@@ -6,8 +6,8 @@ package com.kzmen.sczxjf;
  */
 public class Constants {
     //APP_ID 替换为你的应用从官方网站申请到的合法appId
-    public static final String APP_ID = "wx698e4bb32e5fa678";
-    public static final String SECRET = "e6e3a3742d32a18f511583b122726a5f";
+    public static final String APP_ID = "wx112c75273c9eed63";
+    public static final String SECRET = "09c77bd7c17708b5c4a6cb4ddbc48284";
 
     public static final String DES_KEY = "ooCZc5DIoVpUrsJ7JKiJFKb5OZmLw2Ob";
 
