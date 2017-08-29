@@ -12,10 +12,14 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
+import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
+import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.ListViewActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.InjectView;
 
@@ -93,13 +97,33 @@ public class IntegralMsgActivity extends ListViewActivity {
     }
 
     public void getList() {
-        for (int i = page; i < 10 + page; i++) {
+       /* for (int i = page; i < 10 + page; i++) {
             data_list.add("测试" + i);
         }
-        data_list.clear();
-        mPullRefreshListView.setEmptyView(llMain);
-        adapter.notifyDataSetChanged();
-        mPullRefreshListView.onRefreshComplete();
+        data_list.clear();*/
+        Map<String, String> params = new HashMap<>();
+        params.put("limit", "" + 10);
+        params.put("page", "" + page);
+        OkhttpUtilManager.postNoCacah(this, "Goods/UserOrderList", params, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                if (mPullRefreshListView == null) {
+                    return;
+                }
+                adapter.notifyDataSetChanged();
+                mPullRefreshListView.onRefreshComplete();
+            }
+
+            @Override
+            public void onError(int code, String msg) {
+                if (mPullRefreshListView == null) {
+                    return;
+                }
+                mPullRefreshListView.setEmptyView(llMain);
+                mPullRefreshListView.onRefreshComplete();
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     /**

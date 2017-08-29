@@ -3,7 +3,6 @@ package com.kzmen.sczxjf.ui.fragment.kzmessage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -217,7 +216,7 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
                 if(getActivity()==null){
                     return;
                 }
-                ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(0);
+                ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(1);
                 //EToastUtil.show(getActivity(), "" + msg);
             }
         });

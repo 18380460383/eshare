@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -15,11 +16,15 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
+import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
+import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.ListViewActivity;
 import com.kzmen.sczxjf.util.glide.GlideRoundTransform;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.InjectView;
 
@@ -27,6 +32,8 @@ public class CourseListActivity extends ListViewActivity {
 
     @InjectView(R.id.msg_center_lv)
     PullToRefreshListView mPullRefreshListView;
+    @InjectView(R.id.ll_main)
+    LinearLayout llMain;
     private int page;
     private List<String>listData;
     private CommonAdapter<String>adapter;
@@ -117,7 +124,7 @@ public class CourseListActivity extends ListViewActivity {
     }
     private void getData(int page){
         listData.clear();
-        for (int i = page; i <page+10 ; i++) {
+        /*for (int i = page; i <page+10 ; i++) {
             listData.add("测试"+i);
         }
 
@@ -131,6 +138,29 @@ public class CourseListActivity extends ListViewActivity {
                 mPullRefreshListView.onRefreshComplete();
                 adapter.notifyDataSetChanged();
             }
-        }, 1000);
+        }, 1000);*/
+        Map<String, String> params = new HashMap<>();
+        params.put("limit", "" + 10);
+        params.put("page", "" + page);
+        OkhttpUtilManager.postNoCacah(this, "Newscase/getNewscaseList", params, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                if (mPullRefreshListView == null) {
+                    return;
+                }
+                adapter.notifyDataSetChanged();
+                mPullRefreshListView.onRefreshComplete();
+            }
+
+            @Override
+            public void onError(int code, String msg) {
+                if (mPullRefreshListView == null) {
+                    return;
+                }
+                mPullRefreshListView.setEmptyView(llMain);
+                mPullRefreshListView.onRefreshComplete();
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 }

@@ -48,7 +48,7 @@ public class RegisterActivity extends SuperActivity {
     EditText etPass;
     @InjectView(R.id.iv_show)
     ImageView ivShow;
-    private String yzGet="3214";
+    private String yzGet = "3214";
     private String phone;
     private String yz;
     private String password;
@@ -85,8 +85,8 @@ public class RegisterActivity extends SuperActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length()==11){
-                    if(!RxRegUtils.isMobile(s.toString())){
+                if (s.length() == 11) {
+                    if (!RxRegUtils.isMobile(s.toString())) {
                         RxToast.normal("手机号码格式不正确");
                     }
                 }
@@ -117,53 +117,54 @@ public class RegisterActivity extends SuperActivity {
                 timer.start();
                 break;
             case R.id.tv_register:
-                if(isAllRight()){
-                    Map<String,String>params=new HashMap<>();
-                    params.put("phone",phone);
-                    params.put("code",yz);
-                    params.put("pwd",password);
-                    params.put("invite_code",yq);
+                if (isAllRight()) {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("phone", phone);
+                    params.put("code", yz);
+                    params.put("pwd", password);
+                    params.put("invite_code", yq);
                     OkhttpUtilManager.postNoCacah(RegisterActivity.this, "register", params, new OkhttpUtilResult() {
                         @Override
                         public void onSuccess(int type, String data) {
-
+                            //注册成功
                         }
 
                         @Override
                         public void onError(int code, String msg) {
-
+                            RxToast.normal(msg);
                         }
                     });
                 }
-               // intent = new Intent(RegisterActivity.this, BindWXAcitivity.class);
+                // intent = new Intent(RegisterActivity.this, BindWXAcitivity.class);
                 break;
         }
         if (intent != null) {
             startActivity(intent);
         }
     }
-    private boolean isAllRight(){
-        phone=etPhone.getText().toString();
-        yz=evYz.getText().toString();
-        password=etPass.getText().toString();
-        yq=etYq.getText().toString();
-        if(!RxRegUtils.isMobile(phone)){
+
+    private boolean isAllRight() {
+        phone = etPhone.getText().toString();
+        yz = evYz.getText().toString();
+        password = etPass.getText().toString();
+        yq = etYq.getText().toString();
+        if (!RxRegUtils.isMobile(phone)) {
             RxToast.normal("手机号码格式不正确");
             return false;
         }
-        if(yz!=yzGet){
+        if (yz != yzGet) {
             RxToast.normal("验证码不正确");
             return false;
         }
-        if(password.length()<6 || password.length()>16){
+        if (password.length() < 6 || password.length() > 16) {
             RxToast.normal("密码长度不正确");
             return false;
         }
-        if(yq==null || yq.length()==0){
+        if (yq == null || yq.length() == 0) {
             RxToast.normal("邀请码不能为空");
             return false;
         }
 
-        return  true;
+        return true;
     }
 }

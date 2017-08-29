@@ -30,10 +30,14 @@
         <include layout="@layout/kz_title"
             />
     </RelativeLayout>
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/msg_center_lv"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:dividerHeight="10dp"
-        android:divider="@color/bg"/>
+        android:layout_height="match_parent">
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/msg_center_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="0.5dp" />
+        <include layout="@layout/kz_empty_view"/>
+    </RelativeLayout>
 </LinearLayout>

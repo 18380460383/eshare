@@ -94,7 +94,8 @@ public class LoginActivity extends SuperActivity {
             case R.id.iv_show:
                 break;
             case R.id.tv_login:
-                onLogin();
+                startActivity(new Intent(LoginActivity.this, MainTabActivity.class));
+                //onLogin();
                 break;
             case R.id.ll_login_weix:
                 showProgressDialog("跳转微信登录中");
