@@ -34,6 +34,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.qiniu.android.storage.Configuration;
 import com.qiniu.android.storage.UploadManager;
+import com.vondear.rxtools.RxUtils;
 
 import java.io.File;
 import java.util.Date;
@@ -97,6 +98,7 @@ public class AppContext extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        RxUtils.init(this);
         try {
             JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
             JPushInterface.init(this);     		// 初始化 JPush

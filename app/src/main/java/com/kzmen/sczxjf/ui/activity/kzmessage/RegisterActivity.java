@@ -16,8 +16,13 @@ import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
+import com.kzmen.sczxjf.utils.TextUtil;
+import com.vondear.rxtools.RxConstUtils;
+import com.vondear.rxtools.RxDataUtils;
 import com.vondear.rxtools.RxRegUtils;
+import com.vondear.rxtools.RxUtils;
 import com.vondear.rxtools.view.RxToast;
+import com.vondear.rxtools.view.dialog.RxDialogSure;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,11 +49,13 @@ public class RegisterActivity extends SuperActivity {
     TextView tvRegister;
     @InjectView(R.id.kz_tiltle)
     LinearLayout kzTiltle;
+    @InjectView(R.id.ll_xieyi)
+    LinearLayout ll_xieyi;
     @InjectView(R.id.et_pass)
     EditText etPass;
     @InjectView(R.id.iv_show)
     ImageView ivShow;
-    private String yzGet = "3214";
+    private String yzGet = "";
     private String phone;
     private String yz;
     private String password;
@@ -109,12 +116,15 @@ public class RegisterActivity extends SuperActivity {
         return true;
     }
 
-    @OnClick({R.id.tv_yz, R.id.tv_register})
+    @OnClick({R.id.tv_yz, R.id.tv_register,R.id.ll_xieyi})
     public void onViewClicked(View view) {
         Intent intent = null;
         switch (view.getId()) {
             case R.id.tv_yz:
-                timer.start();
+                if(isPhoneRigth()){
+                    timer.start();
+                    getYz();
+                }
                 break;
             case R.id.tv_register:
                 if (isAllRight()) {
@@ -123,7 +133,7 @@ public class RegisterActivity extends SuperActivity {
                     params.put("code", yz);
                     params.put("pwd", password);
                     params.put("invite_code", yq);
-                    OkhttpUtilManager.postNoCacah(RegisterActivity.this, "register", params, new OkhttpUtilResult() {
+                    OkhttpUtilManager.postNoCacah(RegisterActivity.this, "public/register", params, new OkhttpUtilResult() {
                         @Override
                         public void onSuccess(int type, String data) {
                             //注册成功
@@ -137,12 +147,47 @@ public class RegisterActivity extends SuperActivity {
                 }
                 // intent = new Intent(RegisterActivity.this, BindWXAcitivity.class);
                 break;
+            case R.id.ll_xieyi:
+                RxDialogSure dialogSure=new RxDialogSure(RegisterActivity.this);
+                dialogSure.setTitle("用户协议");
+                dialogSure.show();
+                break;
         }
         if (intent != null) {
             startActivity(intent);
         }
     }
-
+    private boolean isPhoneRigth(){
+        phone=etPhone.getText().toString();
+        if(TextUtil.isEmpty(phone)){
+            return false;
+        }
+        return RxRegUtils.isTel(phone);
+    }
+    private void getYz(){
+        Map<String, String> params = new HashMap<>();
+        params.put("phone", phone);
+        params.put("type", "1");
+        OkhttpUtilManager.postNoCacah(this, "", params, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                if(timer!=null){
+                    timer.cancel();
+                }
+                yzGet=data;
+                tvYz.setText("获取验证码");
+            }
+            @Override
+            public void onError(int code, String msg) {
+                RxToast.normal(msg);
+                yzGet="-11111";
+                if(timer!=null){
+                    timer.cancel();
+                }
+                tvYz.setText("获取验证码");
+            }
+        });
+    }
     private boolean isAllRight() {
         phone = etPhone.getText().toString();
         yz = evYz.getText().toString();

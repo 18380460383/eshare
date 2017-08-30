@@ -9,8 +9,14 @@ import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.kzbean.ShopOrderAddressBean;
+import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
+import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.util.EToastUtil;
+import com.vondear.rxtools.view.RxToast;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -62,12 +68,29 @@ public class ShopOrderComfirActivity extends SuperActivity {
                 startActivityForResult(new Intent(ShopOrderComfirActivity.this, ShopAddressEditActivity.class), 1000);
                 break;
             case R.id.ll_address:
+                startActivityForResult(new Intent(ShopOrderComfirActivity.this, ShopAddAddressActivity.class), 2000);
                 break;
             case R.id.tv_confire:
+                commitOrder();
                 break;
         }
     }
+    private void commitOrder(){
+        Map<String,String> params=new HashMap<>();
+        params.put("gid",  "");
+        params.put("num",   "10");
+        params.put("aid",   "10");
+        OkhttpUtilManager.postNoCacah(this, "Goods/UserAddOrder", params, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
 
+            }
+            @Override
+            public void onError(int code, String msg) {
+                RxToast.normal(msg);
+            }
+        });
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (data == null) {
@@ -77,6 +100,9 @@ public class ShopOrderComfirActivity extends SuperActivity {
         // 根据上面发送过去的请求吗来区别
         switch (requestCode) {
             case 1000:
+                EToastUtil.show(ShopOrderComfirActivity.this, "niccc" + msg.toString());
+                break;
+            case 2000:
                 EToastUtil.show(ShopOrderComfirActivity.this, "niccc" + msg.toString());
                 break;
         }

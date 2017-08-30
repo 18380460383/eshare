@@ -22,7 +22,9 @@ import com.kzmen.sczxjf.adapter.ShopAdapter;
 import com.kzmen.sczxjf.adapter.ShopBannerAdapter;
 import com.kzmen.sczxjf.bean.AdBean;
 import com.kzmen.sczxjf.bean.ShopBean;
+import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.NetworkDownload;
+import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.ListViewActivity;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.ui.activity.personal.ExchangeActivity;
@@ -36,7 +38,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -61,12 +65,10 @@ public class ShopOfIntegralActivity extends ListViewActivity implements View.OnC
     private ShopBannerAdapter shopBannerAdapter;
     private int page = 1;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
 
     /**
      * 当手指触控ViewPager 计时器滑动失效
@@ -79,14 +81,11 @@ public class ShopOfIntegralActivity extends ListViewActivity implements View.OnC
         setContentView(R.layout.activity_shop_of_integral);
         list = new ArrayList<>();
         adapter = new Kz_ShopAdapter(this, list);
-
     }
 
     @Override
     public void onCreateDataForView() {
         setTitle(R.id.kz_tiltle, getResources().getString(R.string.shopactivity_title_cstr));
-
-
         inflate = LayoutInflater.from(this).inflate(R.layout.listview_null_bj, null);
         bjLl = (LinearLayout) inflate.findViewById(R.id.bj_ll);
         bjNullIv = (ImageView) inflate.findViewById(R.id.bj_null_iv);
@@ -113,22 +112,17 @@ public class ShopOfIntegralActivity extends ListViewActivity implements View.OnC
 
 
     private void getGoods() {
-        RequestParams params = new RequestParams();
-        params.add("page", page + "");
-        NetworkDownload.jsonGetForCode1(this, Constants.URL_GET_GOODS, params, new NetworkDownload.NetworkDownloadCallBackJson() {
+        Map<String,String> params=new HashMap<>();
+        params.put("page", page + "");
+        params.put("limit",   "10");
+        OkhttpUtilManager.postNoCacah(this, "Goods/index", params, new OkhttpUtilResult() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) throws JSONException {
+            public void onSuccess(int type, String data) {
                 dismissProgressDialog();
-                List<ShopBean> data = JsonUtils.getBeanList(jsonObject.optJSONArray("data"), ShopBean.class);
-                if (data != null && data.size() > 0) {
-                    page++;
-                    list.addAll(data);
-                }
                 refre();
             }
-
             @Override
-            public void onFailure() {
+            public void onError(int code, String msg) {
                 dismissProgressDialog();
                 refre();
             }

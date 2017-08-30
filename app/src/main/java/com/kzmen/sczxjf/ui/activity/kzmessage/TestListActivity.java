@@ -15,10 +15,14 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
+import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
+import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.ListViewActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.InjectView;
 
@@ -31,7 +35,9 @@ public class TestListActivity extends ListViewActivity {
     LinearLayout kzTiltle;
     @InjectView(R.id.lv_test_list)
     PullToRefreshListView lvTestList;
-    private int page = 0;
+    @InjectView(R.id.ll_main)
+    LinearLayout llMain;
+    private int page = 1;
     private CommonAdapter<String> adapter;
     private List<String> data_list;
     @Override
@@ -106,21 +112,33 @@ public class TestListActivity extends ListViewActivity {
     }
 
     public void getList() {
-        data_list.clear();
+       /* data_list.clear();
         for (int i = page; i <10 ; i++) {
             data_list.add("测试"+i);
-        }
-        Handler h=new Handler();
-        h.postDelayed(new Runnable() {
+        }*/
+        Map<String, String> params = new HashMap<>();
+        params.put("limit", "" + 10);
+        params.put("page", "" + page);
+        OkhttpUtilManager.postNoCacah(this, "Evaluation/getEvaluationList", params, new OkhttpUtilResult() {
             @Override
-            public void run() {
-                if(lvTestList==null){
+            public void onSuccess(int type, String data) {
+                if (lvTestList == null) {
                     return;
                 }
+                adapter.notifyDataSetChanged();
+                lvTestList.onRefreshComplete();
+            }
+
+            @Override
+            public void onError(int code, String msg) {
+                if (lvTestList == null) {
+                    return;
+                }
+                lvTestList.setEmptyView(llMain);
                 lvTestList.onRefreshComplete();
                 adapter.notifyDataSetChanged();
             }
-        }, 1000);
+        });
     }
 
     /**

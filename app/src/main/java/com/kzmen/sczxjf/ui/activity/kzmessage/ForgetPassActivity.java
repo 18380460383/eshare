@@ -14,6 +14,8 @@ import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.utils.TextUtil;
+import com.vondear.rxtools.RxRegUtils;
+import com.vondear.rxtools.RxUtils;
 import com.vondear.rxtools.view.RxToast;
 
 import java.util.HashMap;
@@ -81,8 +83,11 @@ public class ForgetPassActivity extends SuperActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_yz:
-                timer.start();
-                getYz();
+                yzen=evYz.getText().toString();
+                if(isPhoneRigth()){
+                    timer.start();
+                    getYz();
+                }
                 break;
             case R.id.tv_next:
                 if (isAllRight()) {
@@ -92,7 +97,13 @@ public class ForgetPassActivity extends SuperActivity {
                 break;
         }
     }
-
+    private boolean isPhoneRigth(){
+        phone=etPhone.getText().toString();
+        if(TextUtil.isEmpty(phone)){
+            return false;
+        }
+        return RxRegUtils.isTel(phone);
+    }
     public boolean isAllRight() {
         if (TextUtil.isEmpty(phone)) {
             RxToast.normal("电话号码不能为空");
@@ -122,13 +133,18 @@ public class ForgetPassActivity extends SuperActivity {
             @Override
             public void onSuccess(int type, String data) {
                 if (timer != null) {
-                    timer.onFinish();
+                    timer.cancel();
                 }
                 tvYz.setText("获取验证码");
+                yzenGet=data;
             }
 
             @Override
             public void onError(int code, String msg) {
+                if (timer != null) {
+                    timer.cancel();
+                }
+                yzenGet="-111111";
                 tvYz.setText("获取验证码");
             }
         });

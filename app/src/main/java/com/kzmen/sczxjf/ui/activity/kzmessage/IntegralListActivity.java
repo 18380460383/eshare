@@ -12,10 +12,14 @@ import android.widget.TextView;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
+import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
+import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.InjectView;
 
@@ -48,21 +52,41 @@ public class IntegralListActivity extends SuperActivity {
         setTitle(R.id.kz_tiltle, "积分排行");
         setOnloading(R.id.ll_content);
         mLayout.onLoading();
-        mHandler.sendEmptyMessageDelayed(1,2*1000);
+        initView();
+        initData();
     }
+
+    private void initData() {
+        data_list=new ArrayList<>();
+        OkhttpUtilManager.postNoCacah(this, "Evaluation/scoreRank", null, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                mHandler.sendEmptyMessage(1);
+            }
+            @Override
+            public void onError(int code, String msg) {
+                mHandler.sendEmptyMessage(0);
+            }
+        });
+    }
+
     public Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            mLayout.onDone();
-            initView();
+            switch (msg.what){
+                case 0:
+                    mLayout.onDone();
+                    break;
+                case 1:
+                    mLayout.onError();
+                    break;
+            }
+
         }
     };
 
     private void initView() {
-        data_list=new ArrayList<>();
-        for (int i = 1; i <=50 ; i++) {
-            data_list.add("测试姓名："+i);
-        }
+
         adapter=new CommonAdapter<String>(this,R.layout.kz_integral_list_item,data_list) {
             @Override
             protected void convert(ViewHolder viewHolder, String item, int position) {
