@@ -9,11 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
+import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.view.banner.BannerLayout;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -49,6 +53,7 @@ public class ShopDetailActivity extends SuperActivity {
     private void initView() {
         setOnloading(R.id.ll_content);
         mLayout.onLoading();
+        initData();
         mHandler.sendEmptyMessageDelayed(1, 2 * 1000);
     }
 
@@ -56,19 +61,38 @@ public class ShopDetailActivity extends SuperActivity {
         @Override
         public void handleMessage(Message msg) {
             // 数据下载完成，转换状态，显示内容视图
-            initData();
+            switch (msg.what){
+                case 0:
+                    mLayout.onError();
+                    break;
+                case 1:
+                    mLayout.onDone();
+                    break;
+            }
             mLayout.onDone();
         }
     };
 
     private void initData() {
-        urlList=new ArrayList<>();
+        /*urlList=new ArrayList<>();
         urlList.add(url1);
         urlList.add(url1);
         urlList.add(url1);
         urlList.add(url1);
         urlList.add(url1);
-        blMainBanner.setViewUrls(urlList);
+        blMainBanner.setViewUrls(urlList);*/
+        Map<String,String> params=new HashMap<>();
+        params.put("id",   "");
+        OkhttpUtilManager.postNoCacah(this, "Goods/goodsShow", params, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                mHandler.sendEmptyMessage(1);
+            }
+            @Override
+            public void onError(int code, String msg) {
+                mHandler.sendEmptyMessage(0);
+            }
+        });
     }
 
     @Override

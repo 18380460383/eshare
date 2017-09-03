@@ -8,7 +8,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,6 +19,8 @@ import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.utils.TextUtil;
+import com.kzmen.sczxjf.view.DJEditText;
+import com.kzmen.sczxjf.view.PasswordToggleEditText;
 import com.vondear.rxtools.RxRegUtils;
 import com.vondear.rxtools.view.RxToast;
 import com.vondear.rxtools.view.dialog.RxDialogSure;
@@ -36,24 +37,25 @@ import butterknife.OnClick;
 
 public class RegisterActivity extends SuperActivity {
 
+
     @InjectView(R.id.back)
     PercentRelativeLayout back;
     @InjectView(R.id.title_name)
     TextView titleName;
-    @InjectView(R.id.et_phone)
-    EditText etPhone;
-    @InjectView(R.id.ev_yz)
-    EditText evYz;
-    @InjectView(R.id.tv_yz)
-    TextView tvYz;
-    @InjectView(R.id.et_yq)
-    EditText etYq;
-    @InjectView(R.id.tv_register)
-    TextView tvRegister;
     @InjectView(R.id.kz_tiltle)
     LinearLayout kzTiltle;
+    @InjectView(R.id.et_phone)
+    DJEditText etPhone;
+    @InjectView(R.id.ev_yz)
+    DJEditText evYz;
+    @InjectView(R.id.tv_yz)
+    TextView tvYz;
     @InjectView(R.id.et_pass)
-    EditText etPass;
+    PasswordToggleEditText etPass;
+    @InjectView(R.id.et_yq)
+    DJEditText etYq;
+    @InjectView(R.id.tv_register)
+    TextView tvRegister;
     @InjectView(R.id.ll_xieyi)
     LinearLayout llXieyi;
     private String yzGet = "";
@@ -113,14 +115,15 @@ public class RegisterActivity extends SuperActivity {
         return true;
     }
 
-    @OnClick({R.id.tv_yz, R.id.tv_register,R.id.ll_xieyi})
+    @OnClick({R.id.tv_yz, R.id.tv_register, R.id.ll_xieyi})
     public void onViewClicked(View view) {
         Intent intent = null;
         switch (view.getId()) {
             case R.id.tv_yz:
-                phone = etPhone.getText().toString();
-
-                getYz();
+                if (isPhoneRigth()) {
+                    timer.start();
+                    getYz();
+                }
                 break;
             case R.id.tv_register:
                 if (isAllRight()) {
@@ -129,6 +132,7 @@ public class RegisterActivity extends SuperActivity {
                     params.put("data[code]", yz);
                     params.put("data[pwd]", password);
                     params.put("data[invite_code]", yq);
+
                     OkhttpUtilManager.postNoCacah(RegisterActivity.this, "public/register", params, new OkhttpUtilResult() {
                         @Override
                         public void onSuccess(int type, String data) {
@@ -157,7 +161,7 @@ public class RegisterActivity extends SuperActivity {
                 // intent = new Intent(RegisterActivity.this, BindWXAcitivity.class);
                 break;
             case R.id.ll_xieyi:
-                RxDialogSure dialogSure=new RxDialogSure(RegisterActivity.this);
+                RxDialogSure dialogSure = new RxDialogSure(RegisterActivity.this);
                 dialogSure.setTitle("用户协议");
                 dialogSure.show();
                 break;
@@ -204,9 +208,16 @@ public class RegisterActivity extends SuperActivity {
                 Log.e("tst", msg);
                 yzGet = "-9999";
                 tvYz.setEnabled(true);
-                tvYz.setText("获取验证码");
             }
         });
+    }
+
+    private boolean isPhoneRigth() {
+        phone = etPhone.getText().toString();
+        if (TextUtil.isEmpty(phone)) {
+            return false;
+        }
+        return RxRegUtils.isTel(phone);
     }
 
     private boolean isAllRight() {

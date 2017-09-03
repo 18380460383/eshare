@@ -47,6 +47,7 @@ public class TestListActivity extends ListViewActivity {
     private int page = 0;
     private CommonAdapter<TestListItemBean> adapter;
     private List<TestListItemBean> data_list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,31 +58,31 @@ public class TestListActivity extends ListViewActivity {
         setTitle(R.id.kz_tiltle, "测评");
         data_list = new ArrayList<>();
         page = 1;
-         adapter = new CommonAdapter<TestListItemBean>(this,R.layout.kz_test_list_item, data_list) {
-           @Override
-           protected void convert(ViewHolder viewHolder, TestListItemBean item, int position) {
-               viewHolder.setText(R.id.tv_title,item.getTitle())
-                        .setText(R.id.tv_count,"参与人数"+item.getViews())
-                        .glideImage(R.id.iv_image,item.getImage());
-               if(item.getIscepin().equals("0")){
-                   viewHolder.getView(R.id.ll_right_join).setVisibility(View.GONE);
-                   viewHolder.getView(R.id.ll_no_join).setVisibility(View.VISIBLE);
-               }else{
-                   viewHolder.getView(R.id.ll_right_join).setVisibility(View.VISIBLE);
-                   viewHolder.getView(R.id.ll_no_join).setVisibility(View.GONE);
-               }
-           }
-       };
+        adapter = new CommonAdapter<TestListItemBean>(this, R.layout.kz_test_list_item, data_list) {
+            @Override
+            protected void convert(ViewHolder viewHolder, TestListItemBean item, int position) {
+                viewHolder.setText(R.id.tv_title, item.getTitle())
+                        .setText(R.id.tv_count, "参与人数" + item.getViews())
+                        .glideImage(R.id.iv_image, item.getImage());
+                if (item.getIscepin().equals("0")) {
+                    viewHolder.getView(R.id.ll_right_join).setVisibility(View.GONE);
+                    viewHolder.getView(R.id.ll_no_join).setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder.getView(R.id.ll_right_join).setVisibility(View.VISIBLE);
+                    viewHolder.getView(R.id.ll_no_join).setVisibility(View.GONE);
+                }
+            }
+        };
         setmPullRefreshListView(lvTestList, adapter);
         setADD();
         lvTestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=null;
-                if(position%3!=0){
-                    intent=new Intent(TestListActivity.this,TestResultActivity.class);
-                }else{
-                    intent=new Intent(TestListActivity.this,TestDetailActivity.class);
+                Intent intent = null;
+                if (position % 3 != 0) {
+                    intent = new Intent(TestListActivity.this, TestResultActivity.class);
+                } else {
+                    intent = new Intent(TestListActivity.this, TestDetailActivity.class);
                 }
                 startActivity(intent);
             }
@@ -105,7 +106,7 @@ public class TestListActivity extends ListViewActivity {
      */
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-        page ++;
+        page++;
         getList();
     }
 
@@ -116,7 +117,7 @@ public class TestListActivity extends ListViewActivity {
      */
     @Override
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-        page=0;
+        page = 0;
         getList();
     }
 
@@ -134,13 +135,14 @@ public class TestListActivity extends ListViewActivity {
                 if (lvTestList == null) {
                     return;
                 }
-                Log.e("tst",data);
-                JSONObject object= null;
+                Log.e("tst", data);
+                JSONObject object = null;
                 try {
                     object = new JSONObject(data);
-                    Gson gson=new Gson();
-                    data_list=gson.fromJson(object.getString("data"), new TypeToken<List<TestListItemBean>>(){}.getType());
-                    if(data_list.size()==0){
+                    Gson gson = new Gson();
+                    data_list = gson.fromJson(object.getString("data"), new TypeToken<List<TestListItemBean>>() {
+                    }.getType());
+                    if (data_list.size() == 0) {
                         lvTestList.setEmptyView(llMain);
                     }
                 } catch (JSONException e) {
@@ -155,13 +157,10 @@ public class TestListActivity extends ListViewActivity {
                 if (lvTestList == null) {
                     return;
                 }
-                Log.e("tst",msg);
-                lvTestList.setEmptyView(llMain);
-                lvTestList.onRefreshComplete();
-                adapter.notifyDataSetChanged();
+                Log.e("tst", msg);
+
             }
         });
-
     }
 
     /**

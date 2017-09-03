@@ -42,9 +42,9 @@
                     android:padding="15dp">
 
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:background="@drawable/icon_play" />
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:background="@drawable/icon_add" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -58,7 +58,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    >
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -69,7 +70,7 @@
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:background="@drawable/icon_play" />
+                            android:background="@drawable/icon_address" />
                     </LinearLayout>
 
                     <RelativeLayout

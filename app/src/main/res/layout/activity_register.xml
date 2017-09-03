@@ -108,6 +108,7 @@
 
 
             <com.kzmen.sczxjf.view.PasswordToggleEditText
+
                 android:id="@+id/et_pass"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -139,6 +140,7 @@
                 android:textStyle="normal" />
 
             <com.kzmen.sczxjf.view.DJEditText
+
                 android:id="@+id/et_yq"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

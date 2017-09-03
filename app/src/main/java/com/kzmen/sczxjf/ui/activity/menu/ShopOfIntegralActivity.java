@@ -20,6 +20,7 @@ import com.kzmen.sczxjf.adapter.ShopAdapter;
 import com.kzmen.sczxjf.bean.kzbean.JiFenShopListItemBean;
 import com.kzmen.sczxjf.bean.kzbean.UserBean;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
+
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.ListViewActivity;
 import com.kzmen.sczxjf.utils.JsonUtils;
@@ -53,11 +54,11 @@ public class ShopOfIntegralActivity extends ListViewActivity implements View.OnC
     private int page = 1;
     private UserBean bean;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
 
     /**
      * 当手指触控ViewPager 计时器滑动失效
@@ -111,6 +112,7 @@ public class ShopOfIntegralActivity extends ListViewActivity implements View.OnC
         Map<String, String> params = new HashMap<>();
         params.put("data[limit]", "" + 10);
         params.put("data[page]", "" + page);
+
         OkhttpUtilManager.postNoCacah(this, "Goods/index", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -131,9 +133,9 @@ public class ShopOfIntegralActivity extends ListViewActivity implements View.OnC
             }
             @Override
             public void onErrorWrong(int code, String msg) {
-                dismissProgressDialog();
                 refre();
             }
+
         });
 
     }

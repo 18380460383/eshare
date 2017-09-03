@@ -25,4 +25,5 @@
             android:dividerHeight="0.5dp" />
         <include layout="@layout/kz_empty_view"/>
     </RelativeLayout>
+
 </LinearLayout>
