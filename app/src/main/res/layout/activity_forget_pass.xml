@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.LoginActivity">
 
     <RelativeLayout
@@ -16,7 +17,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:padding="@dimen/margin_top30">
 
@@ -36,7 +38,7 @@
                 android:textStyle="bold" />
 
 
-            <EditText
+            <com.kzmen.sczxjf.view.DJEditText
                 android:layout_marginLeft="8dp"
                 android:inputType="number"
                 android:id="@+id/et_phone"
@@ -65,7 +67,7 @@
                 android:textStyle="bold" />
 
 
-            <EditText
+            <com.kzmen.sczxjf.view.DJEditText
                 android:layout_marginLeft="8dp"
                 android:id="@+id/ev_yz"
                 android:layout_width="0dp"
@@ -102,5 +104,23 @@
             android:gravity="center"
             android:text="下一步" />
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_xieyi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="15dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册表明您同意" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="卡掌门用户协议"
+            android:textStyle="bold" />
+    </LinearLayout>
 </LinearLayout>

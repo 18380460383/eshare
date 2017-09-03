@@ -6,5 +6,5 @@ package com.kzmen.sczxjf.interfaces;
 
 public interface OkhttpUtilResult {
     void onSuccess(int type,String data);
-    void onError(int code,String msg);
+    void onErrorWrong(int code, String msg);
 }

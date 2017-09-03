@@ -34,7 +34,7 @@ import com.kzmen.sczxjf.net.NetworkDownload;
 import com.kzmen.sczxjf.smartlayout.widgit.CustomLoadingLayout;
 import com.kzmen.sczxjf.smartlayout.widgit.SmartLoadingLayout;
 import com.kzmen.sczxjf.test.server.PlayService;
-import com.kzmen.sczxjf.ui.activity.personal.LoginActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.LoginActivity;
 import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.util.Utils;
 import com.kzmen.sczxjf.view.MyScrollView;

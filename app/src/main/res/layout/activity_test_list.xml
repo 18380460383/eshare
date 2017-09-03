@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.CourseListActivity">
 
     <RelativeLayout
@@ -14,17 +15,14 @@
             layout="@layout/kz_title" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <com.handmark.pulltorefresh.library.PullToRefreshListView
             android:id="@+id/lv_test_list"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:dividerHeight="0.5dp" />
-
-    </LinearLayout>
+        <include layout="@layout/kz_empty_view"/>
+    </RelativeLayout>
 </LinearLayout>

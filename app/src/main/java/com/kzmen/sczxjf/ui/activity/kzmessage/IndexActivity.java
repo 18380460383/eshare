@@ -45,7 +45,8 @@ public class IndexActivity extends SuperActivity {
     LinearLayout llLoginWeix;
 
     private BroadcastReceiver receiver;
-    private boolean isStartShareReceiver=false;
+    private boolean isStartShareReceiver = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,15 +73,19 @@ public class IndexActivity extends SuperActivity {
         Intent intent = null;
         switch (view.getId()) {
             case R.id.tv_login:
-                intent = new Intent(IndexActivity.this, LoginActivity.class);
+                //if (AppContext.getInstance().getPersonageOnLine()) {
+                    intent = new Intent(IndexActivity.this, LoginActivity.class);
+               /* } else {
+                    intent = new Intent(IndexActivity.this, MainTabActivity.class);
+                }*/
                 break;
             case R.id.tv_register:
                 intent = new Intent(IndexActivity.this, RegisterActivity.class);
                 break;
             case R.id.ll_login_weix:
-             /*   showProgressDialog("跳转微信登录中");
-                getToken();*/
-                showShare();
+                showProgressDialog("跳转微信登录中");
+                getToken();
+                //showShare();
                 // intent = new Intent(IndexActivity.this, MainTabActivity.class);
                 break;
         }
@@ -89,6 +94,7 @@ public class IndexActivity extends SuperActivity {
             finish();
         }
     }
+
     public static void showShare() {
         OnekeyShare oks = new OnekeyShare();
         oks.setImageUrl("http://f1.sharesdk.cn/imgs/2014/02/26/owWpLZo_638x960.jpg");
@@ -106,13 +112,14 @@ public class IndexActivity extends SuperActivity {
         SendAuth.Req req = new SendAuth.Req();
         req.scope = "snsapi_userinfo";
         req.state = "none";
-        if(!api.sendReq(req)){
-            Toast.makeText(this,"请确定是否安装微信",Toast.LENGTH_LONG).show();
+        if (!api.sendReq(req)) {
+            Toast.makeText(this, "请确定是否安装微信", Toast.LENGTH_LONG).show();
             dismissProgressDialog();
         }
     }
-    private void setAccBroadcastReceiver(){
-        isStartShareReceiver=true;
+
+    private void setAccBroadcastReceiver() {
+        isStartShareReceiver = true;
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -127,9 +134,10 @@ public class IndexActivity extends SuperActivity {
         filter.addAction(Constants.WEIXIN_ACCREDIT);
         registerReceiver(receiver, filter);
     }
+
     private void loginForWeixin(Intent data) throws JSONException {
-        String json  = data.getExtras().getString(Constants.WEIXIN_ACCREDIT_KEY);
-        System.out.println("用户数据"+json);
+        String json = data.getExtras().getString(Constants.WEIXIN_ACCREDIT_KEY);
+        System.out.println("用户数据" + json);
         final WeixinInfo info = WeixinInfo.parseJson(new JSONObject(json));
         if (info != null) {
             showProgressDialog("登陆中");
@@ -147,27 +155,29 @@ public class IndexActivity extends SuperActivity {
             EnWebUtil.getInstance().post(this, new String[]{"OwnAccount", "loginAppByWeixin"}, requestParams1, new EnWebUtil.AesListener2() {
                 @Override
                 public void onSuccess(String errorCode, String errorMsg, String data) {
-                    if("0".equals(errorCode)){
+                    if ("0".equals(errorCode)) {
                         try {
                             User_For_pe bean = JsonUtils.getBean(new JSONObject(data), User_For_pe.class);
-                            TLog.error("用户数据"+data);
+                            TLog.error("用户数据" + data);
                             onLoginSuccess(bean);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    }else{
-                        Toast.makeText(IndexActivity.this,errorMsg,Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(IndexActivity.this, errorMsg, Toast.LENGTH_SHORT).show();
                     }
                     dismissProgressDialog();
                 }
+
                 @Override
                 public void onFail(String result) {
-                    Toast.makeText(IndexActivity.this,"微信登陆失败",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(IndexActivity.this, "微信登陆失败", Toast.LENGTH_SHORT).show();
                     dismissProgressDialog();
                 }
             });
         }
     }
+
     private void onLoginSuccess(User_For_pe data) {
         AppContext.getInstance().setPEUser(data);
         AppContext.getInstance().setPersonageOnLine(true);
@@ -176,9 +186,7 @@ public class IndexActivity extends SuperActivity {
         Intent intent = new Intent();
         intent.putExtra("loginstate", 1);
         setResult(RESULT_OK, intent);
-        if(AppContext.maintabeactivity!=null){
-            AppContext.maintabeactivity.setHeadImageAndMenu(data);
-        }
+
         finish();
     }
 }

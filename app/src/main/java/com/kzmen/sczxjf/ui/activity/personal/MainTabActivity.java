@@ -289,7 +289,6 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
                 } else {
                     Bitmap bm = BitmapUtils.toRoundBitmap(bitmap);
                     headImage.setImageBitmap(bm);
-                    fragmentcmenu.setHeadImage(bm);
                 }
             }
 
@@ -496,9 +495,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
 
     @Override
     public void onDrawerOpened(View drawerView) {
-        if (AppContext.getInstance().getPersonageOnLine() && fragmentcmenu != null) {
-            fragmentcmenu.setDatauser();
-        }
+
     }
 
     @Override
@@ -570,7 +567,6 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
                         } else {
                             Bitmap bm = BitmapUtils.toRoundBitmap(bitmap);
                             headImage.setImageBitmap(bm);
-                            fragmentcmenu.setHeadImage(bm);
                         }
                     }
 

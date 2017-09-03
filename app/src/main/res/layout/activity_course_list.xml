@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/bg"
+    android:background="@color/white"
     tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.CourseListActivity">
 
    <!-- <RelativeLayout
@@ -37,7 +37,9 @@
             android:id="@+id/msg_center_lv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:dividerHeight="0.5dp" />
+            android:dividerHeight="10dp"
+            android:divider="@color/title"
+           />
         <include layout="@layout/kz_empty_view"/>
     </RelativeLayout>
 </LinearLayout>

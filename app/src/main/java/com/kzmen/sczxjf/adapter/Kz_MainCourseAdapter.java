@@ -107,14 +107,14 @@ public class Kz_MainCourseAdapter extends BaseAdapter {
             viewHolder.sbPlay.setProgress(pos);
             switch (state) {
                 case PlayState.PLAY_PLAYING:
-                    Glide.with(mContext).load(R.drawable.btn_player_pause).into(viewHolder.ivCoursePlay);
+                    viewHolder.ivCoursePlay.setBackgroundResource(R.drawable.btn_player_pause);
                     break;
                 case PlayState.PLAY_PAUSE:
-                    Glide.with(mContext).load(R.drawable.btn_player_play).into(viewHolder.ivCoursePlay);
+                    viewHolder.ivCoursePlay.setBackgroundResource(R.drawable.btn_player_play);
                     break;
             }
         }else{
-            Glide.with(mContext).load(R.drawable.btn_player_play).into(viewHolder.ivCoursePlay);
+            viewHolder.ivCoursePlay.setBackgroundResource(R.drawable.btn_player_play);
         }
         return convertView;
     }

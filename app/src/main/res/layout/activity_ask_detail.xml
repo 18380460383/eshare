@@ -9,17 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <include layout="@layout/kz_title" />
-
-        <ImageView
-            android:id="@+id/iv_share"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="@dimen/margin_top20"
-            android:background="@drawable/icon_share" />
+        <include layout="@layout/kz_title_with_share" />
     </RelativeLayout>
 
     <ScrollView

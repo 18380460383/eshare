@@ -2,17 +2,24 @@ package com.kzmen.sczxjf.ui.activity.kzmessage;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.bean.kzbean.ActivityListItemBean;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.ListViewActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,8 +36,8 @@ public class ActivListActivity extends ListViewActivity {
     PullToRefreshListView mPullRefreshListView;
     @InjectView(R.id.ll_main)
     LinearLayout llMain;
-    private CommonAdapter<String> adapter;
-    private List<String> data_list;
+    private CommonAdapter<ActivityListItemBean> adapter;
+    private List<ActivityListItemBean> data_list;
     private int page;
 
     @Override
@@ -57,10 +64,13 @@ public class ActivListActivity extends ListViewActivity {
     private void initData() {
         data_list = new ArrayList<>();
         page = 1;
-        adapter=new CommonAdapter<String>(this,R.layout.kz_activi_list_item,data_list) {
+        adapter = new CommonAdapter<ActivityListItemBean>(this, R.layout.kz_activi_list_item, data_list) {
             @Override
-            protected void convert(ViewHolder viewHolder, String item, int position) {
-                viewHolder.setText(R.id.tv_title,item);
+            protected void convert(ViewHolder viewHolder, ActivityListItemBean item, int position) {
+                viewHolder.setText(R.id.tv_title, item.getTitle())
+                        .setText(R.id.tv_state, item.getJiezhisj())
+                        .setText(R.id.tv_count, item.getHits())
+                        .glideImage(R.id.tv_image, item.getImageurl());
             }
         };
         setmPullRefreshListView(mPullRefreshListView, adapter);
@@ -94,20 +104,33 @@ public class ActivListActivity extends ListViewActivity {
             data_list.add("测试"+i);
         }*/
         Map<String, String> params = new HashMap<>();
-        params.put("limit", "" + 10);
-        params.put("page", "" + page);
+        params.put("data[limit]", "" + 10);
+        params.put("data[page]", "" + page);
         OkhttpUtilManager.postNoCacah(this, "Activity/getActivityList", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
-                if (mPullRefreshListView == null) {
-                    return;
+                Log.e("tst", data);
+                JSONObject object = null;
+                try {
+                    object = new JSONObject(data);
+                    Gson gson = new Gson();
+                    List<ActivityListItemBean> datalist = gson.fromJson(object.getString("data"), new TypeToken<List<ActivityListItemBean>>() {
+                    }.getType());
+                    if (datalist.size() == 0) {
+                        mPullRefreshListView.setEmptyView(llMain);
+                    } else {
+                        data_list.addAll(datalist);
+                    }
+                } catch (JSONException e) {
+                    mPullRefreshListView.setEmptyView(llMain);
+                    e.printStackTrace();
                 }
-                adapter.notifyDataSetChanged();
                 mPullRefreshListView.onRefreshComplete();
+                adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onError(int code, String msg) {
+            public void onErrorWrong(int code, String msg) {
                 if (mPullRefreshListView == null) {
                     return;
                 }

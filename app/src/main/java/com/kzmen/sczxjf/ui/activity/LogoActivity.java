@@ -5,32 +5,33 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 
-
+import com.google.gson.Gson;
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.AppManager;
 import com.kzmen.sczxjf.Constants;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.UIManager;
-import com.kzmen.sczxjf.bean.Advertisement;
+import com.kzmen.sczxjf.bean.kzbean.UserBean;
 import com.kzmen.sczxjf.bean.user.User_For_pe;
+import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.EnWebUtil;
+import com.kzmen.sczxjf.net.NetworkDownload;
+import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.IndexActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.MainTabActivity;
 import com.kzmen.sczxjf.util.ELocationlistener;
 import com.kzmen.sczxjf.util.EshareLoger;
 import com.kzmen.sczxjf.utils.AppUtils;
 import com.kzmen.sczxjf.utils.JsonUtils;
-import com.kzmen.sczxjf.net.NetworkDownload;
-import com.kzmen.sczxjf.control.AdvertisementControl;
 import com.loopj.android.http.RequestParams;
 
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -76,11 +77,9 @@ public class LogoActivity extends SuperActivity {
     @Override
     public void onCreateDataForView() {
          AppContext instance = AppContext.getInstance();
-        if(TextUtils.isEmpty(instance.getPEUser().getUid())){
+        if(TextUtils.isEmpty(instance.getUserLogin().getUid())){
            instance.setPersonageOnLine(false);
-
         }
-
     }
 
     @Override
@@ -124,16 +123,29 @@ public class LogoActivity extends SuperActivity {
      * 跳转到...
      */
     private void redirectTo() {
-        if(AppContext.getInstance().getPersonageOnLine()){
-            OnLinelogin();
+        if (AppContext.getInstance().isFirst()) {
+            // 第一次登录
+            UIManager.showFirstGuideActivity(this);
+            AppContext.getInstance().setFirst();
+            finish();
         }
-        AdvertisementControl advertisementControl = AdvertisementControl.getAdvertisementControl();
+        else{
+            if(AppContext.getInstance().getPersonageOnLine()){
+               // updataToken();
+                OnLinelogin();
+            }else{
+                startActivity(new Intent(LogoActivity.this, IndexActivity.class));
+                finish();
+               //OnLinelogin();
+            }
+           /* startActivity(new Intent(this, MainTabActivity.class));
+            finish();*/
+        }
+        /*AdvertisementControl advertisementControl = AdvertisementControl.getAdvertisementControl();
         Advertisement advertisement = advertisementControl.getAdvertisement();
         long l = System.currentTimeMillis();
         Long aLong = null;
         Long aLong1=null;
-
-
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if(!TextUtils.isEmpty(advertisement.getStartdate())&&!TextUtils.isEmpty(advertisement.getEnddate())){
              aLong = Long.valueOf(advertisement.getStartdate());
@@ -143,20 +155,35 @@ public class LogoActivity extends SuperActivity {
              System.out.println(sdf.format(new Date(aLong*1000))+"end"+sdf.format(new Date(aLong1*1000)));
                 //startActivity(new Intent(this, AdvertActivity.class));
            // finish();
-        } else {
+        } else {*/
             // 判断是否跳过新手引导界面
-            if (AppContext.getInstance().isFirst()) {
-                // 第一次登录
-                UIManager.showFirstGuideActivity(this);
-                AppContext.getInstance().setFirst();
-                finish();
-            }
-           else{
-                startActivity(new Intent(this, MainTabActivity.class));
-                finish();
-            }
-        }
 
+    }
+    private void updataToken(){
+        OkhttpUtilManager.postNoCacah(this, "Public/autoLogin", null, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                try {
+                    Log.e("tst",data);
+                    JSONObject object = new JSONObject(data);
+                    JSONObject ob1=new JSONObject(object.getString("data"));
+                    String token=ob1.getString("token");
+                    AppContext.getInstance().token=token;
+                    AppContext.getInstance().getUserLogin().setToken(token);
+                    startActivity(new Intent(LogoActivity.this, MainTabActivity.class));
+                    finish();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    OnLinelogin();
+                }
+            }
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                Log.e("tst",msg);
+                OnLinelogin();
+            }
+        });
     }
     private void OnLinelogin() {
         AppContext instance = AppContext.getInstance();
@@ -167,26 +194,44 @@ public class LogoActivity extends SuperActivity {
                 e.printStackTrace();
             }
         } else {
-            RequestParams params = new RequestParams();
-            params.put("on_phone",instance.getPEUser().getOn_phone());
-            params.put("on_pwd", instance.getCpassword());
-            EnWebUtil.getInstance().post(null, new String[]{"OwnAccount", "loginApp"}, params, new EnWebUtil.AesListener2() {
+            if(instance.getCpassword()==null){
+                startActivity(new Intent(LogoActivity.this, IndexActivity.class));
+                finish();
+                return;
+            }
+            Map<String, String> params = new HashMap<>();
+            params.put("data[phone]", instance.getUserLogin().getPhone());
+            params.put("data[pwd]", instance.getCpassword());
+            OkhttpUtilManager.postNoCacah(this, "public/login", params, new OkhttpUtilResult() {
                 @Override
-                public void onSuccess(String errorCode, String errorMsg, String data) {
-                    if ("0".equals(errorCode)) {
-                        try {
-                            User_For_pe bean = JsonUtils.getBean(new JSONObject(data), User_For_pe.class);
-                            AppContext.getInstance().setPEUser(bean);
-                            AppContext.getInstance().setPersonageOnLine(true);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                public void onSuccess(int type, String data) {
+                    try {
+                        JSONObject object = new JSONObject(data);
+                        Gson gson = new Gson();
+                        UserBean bean = gson.fromJson(object.getString("data"), UserBean.class);
+                        Log.e("tst", bean.toString());
+                        AppContext.getInstance().setUserLogin(bean);
+                        AppContext.getInstance().setPersonageOnLine(true);
+                        startActivity(new Intent(LogoActivity.this, MainTabActivity.class));
+                        finish();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        startActivity(new Intent(LogoActivity.this, IndexActivity.class));
+                        finish();
                     }
-
+                    dismissProgressDialog();
                 }
 
                 @Override
-                public void onFail(String result) {
+                public void onErrorWrong(int code, String msg) {
+                    dismissProgressDialog();
+                    startActivity(new Intent(LogoActivity.this, IndexActivity.class));
+                    finish();
+                   /* if(code==99){
+                        RxToast.normal("登陆失败");
+                    }else{
+                        RxToast.normal(msg);
+                    }*/
                 }
             });
         }

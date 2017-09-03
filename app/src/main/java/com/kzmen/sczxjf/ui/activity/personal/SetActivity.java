@@ -153,7 +153,6 @@ public class SetActivity extends SuperActivity {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this).setTitle("提示").setMessage("是否退出当前个人账号").setNeutralButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
                 AppContext instance = AppContext.getInstance();
                 instance.setPersonageOnLine(false);
                 finish();

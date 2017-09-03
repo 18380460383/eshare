@@ -38,10 +38,11 @@
                 android:text="积分" />
 
             <TextView
+                android:id="@+id/tv_jifen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="4396"
+                android:text=""
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -73,10 +74,11 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tv_package"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="4396"
+                    android:text=""
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -92,7 +94,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:background="@drawable/icon_play" />
+                android:background="@drawable/icon_address" />
 
             <TextView
                 android:layout_width="wrap_content"

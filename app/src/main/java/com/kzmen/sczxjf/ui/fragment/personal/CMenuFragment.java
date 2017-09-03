@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,32 +20,25 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
+import com.bumptech.glide.Glide;
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.Constants;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.UIManager;
-import com.kzmen.sczxjf.bean.user.User_For_pe;
-import com.kzmen.sczxjf.net.EnWebUtil;
-import com.kzmen.sczxjf.test.CityPickerActivity;
+import com.kzmen.sczxjf.bean.kzbean.UserBean;
 import com.kzmen.sczxjf.ui.activity.kzmessage.MainTabActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.PersonMessActivity;
 import com.kzmen.sczxjf.ui.activity.menu.FriendOfmineAcitivty;
 import com.kzmen.sczxjf.ui.activity.menu.MyAskActivity;
 import com.kzmen.sczxjf.ui.activity.menu.MyCollectionAcitivity;
 import com.kzmen.sczxjf.ui.activity.menu.MyIntegralActivity;
 import com.kzmen.sczxjf.ui.activity.menu.MyPackageAcitivity;
-import com.kzmen.sczxjf.ui.activity.kzmessage.PersonMessActivity;
 import com.kzmen.sczxjf.ui.activity.menu.ShopOfIntegralActivity;
 import com.kzmen.sczxjf.ui.activity.menu.SpecialPowerActivity;
-import com.kzmen.sczxjf.ui.activity.personal.ActListActivity;
-import com.kzmen.sczxjf.ui.activity.personal.ShopActivity;
 import com.kzmen.sczxjf.ui.fragment.basic.SuperFragment;
 import com.kzmen.sczxjf.util.TextViewUtil;
 import com.kzmen.sczxjf.utils.AppUtils;
 import com.kzmen.sczxjf.utils.BitmapUtils;
-import com.loopj.android.http.RequestParams;
-
-import org.json.JSONObject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -95,6 +89,10 @@ public class CMenuFragment extends SuperFragment {
     TextView cMenuAttestationMarkForM;
     @InjectView(R.id.iv_close)
     ImageView iv_close;
+    @InjectView(R.id.tv_jifen)
+    TextView tvJifen;
+    @InjectView(R.id.tv_package)
+    TextView tvPackage;
 
     private boolean DOINGGETBALANCE;
     private MenuBack menuBack;
@@ -112,9 +110,10 @@ public class CMenuFragment extends SuperFragment {
         ButterKnife.inject(this, view);
         setRecriver();
         AppContext instance = AppContext.getInstance();
-        if (!TextUtils.isEmpty(instance.getPEUser().getUid())) {
+        if (!TextUtils.isEmpty(instance.getUserLogin().getUid())) {
             setUserInfo();
             //getBanner();
+            setDatauser();
         }
 
         return view;
@@ -135,9 +134,9 @@ public class CMenuFragment extends SuperFragment {
     @OnClick({R.id.c_menu_user_head_iv, R.id.c_menu_collect_onc,
             /*R.id.c_menu_order_onc,*/ R.id.c_menu_friend_onc, R.id.c_menu_activity_onc, R.id.c_menu_balance,
             R.id.c_menu_credits_exchange_onc, R.id.c_menu_setting_onc, R.id.c_menu_feedback_onc, R.id.c_menu_creative_collection_rl
-            ,R.id.iv_close,R.id.ll_package,R.id.ll_jifen})
+            , R.id.iv_close, R.id.ll_package, R.id.ll_jifen})
     public void Listener(View view) {
-        Intent intent=null;
+        Intent intent = null;
         switch (view.getId()) {
             case R.id.c_menu_user_head_iv:
                 //TODO 点击头像
@@ -149,15 +148,15 @@ public class CMenuFragment extends SuperFragment {
                     UIManager.showPersonInfoActivity((Activity) getContext());
                     Log.i("info", "跳");
                 }*/
-                intent =new Intent(getContext(), PersonMessActivity.class);
+                intent = new Intent(getContext(), PersonMessActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_jifen:
-                intent =new Intent(getContext(), MyIntegralActivity.class);
+                intent = new Intent(getContext(), MyIntegralActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_package:
-                intent =new Intent(getContext(), MyPackageAcitivity.class);
+                intent = new Intent(getContext(), MyPackageAcitivity.class);
                 startActivity(intent);
                 break;
             case R.id.c_menu_collect_onc:
@@ -182,7 +181,7 @@ public class CMenuFragment extends SuperFragment {
                 break;
             case R.id.c_menu_feedback_onc:
                 //TODO 点击意见反馈
-                FeedbackAPI.openFeedbackActivity(getActivity());
+               // FeedbackAPI.openFeedbackActivity(getActivity());
                 break;
             case R.id.c_menu_balance:
                 //TODO 点击转发记录
@@ -195,7 +194,7 @@ public class CMenuFragment extends SuperFragment {
                 getContext().startActivity(intentn);
                 break;
             case R.id.iv_close:
-                ((MainTabActivity)getActivity()).closeDraw();
+                ((MainTabActivity) getActivity()).closeDraw();
                 break;
 
         }
@@ -205,7 +204,7 @@ public class CMenuFragment extends SuperFragment {
     }
 
 
-    private void getBanner() {
+   /* private void getBanner() {
         if (!DOINGGETBALANCE) {
             DOINGGETBALANCE = true;
             EnWebUtil.getInstance().post(getActivity(), new String[]{"JiebianInfo", "findOneJiebianBalance"}, new RequestParams(), new EnWebUtil.AesListener2() {
@@ -231,33 +230,36 @@ public class CMenuFragment extends SuperFragment {
             });
         }
     }
-
+*/
     public void setUserInfo() {
-
         cMenuUserHeadIv.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(getContext(), R.drawable.image_def)));
         setDatauser();
     }
 
+    private UserBean peUser;
+
     public void setDatauser() {
         //getBanner();
-        User_For_pe peUser = AppContext.getInstance().getPEUser();
+        peUser = AppContext.getInstance().getUserLogin();
+        Log.e("tstmenu",peUser.toString());
         if (!TextUtils.isEmpty(peUser.getUsername())) {
             cMenuUserNameTv.setText(peUser.getUsername());
-        } else if (!TextUtils.isEmpty(peUser.getOn_phone())) {
-            String userphone = peUser.getOn_phone();
+        } else if (!TextUtils.isEmpty(peUser.getPhone())) {
+            String userphone = peUser.getPhone();
             String s = userphone.substring(0, 3) + "****" + userphone.substring(7, 11);
             cMenuUserNameTv.setText(s);
         }
         SpannableStringBuilder colorText = TextViewUtil.getColorText(peUser.getHotnum() + "天", "#ff8307");
         SpannableStringBuilder str = new SpannableStringBuilder("连续登陆：");
         cMenuUserLandingNumTv.setText(str.append(colorText));
+        setDate();
+        Glide.with(getActivity()).load(peUser.getAvatar()).into(cMenuUserHeadIv);
+        tvJifen.setText(peUser.getScore());
+        tvPackage.setText(peUser.getBalance() + "");
     }
 
     private void setDate() {
-        User_For_pe peUser1 = AppContext.getInstance().getPEUser();
-        cMenuIntegral.setText(peUser1.getScore());
-        cMenuBalance.setText(peUser1.getBalance() + "");
-        User_For_pe peUser = AppContext.getInstance().getPEUser();
+       // UserBean peUser1 = AppContext.getInstance().getUserLogin();
     }
 
     public void setHeadImage(final Bitmap bitmap) {
@@ -265,10 +267,16 @@ public class CMenuFragment extends SuperFragment {
             @Override
             public void run() {
                 if (bitmap != null && cMenuUserHeadIv != null) {
-                    cMenuUserHeadIv.setImageBitmap(BitmapUtils.toRoundBitmap(bitmap));
+                  //  cMenuUserHeadIv.setImageBitmap(BitmapUtils.toRoundBitmap(bitmap));
                 }
             }
         }, 3000);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.reset(this);
     }
 
     public interface MenuBack {
@@ -285,7 +293,7 @@ public class CMenuFragment extends SuperFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 2 && resultCode == Activity.RESULT_OK && data.getIntExtra("loginstate", 0) == 1) {
             setUserInfo();
-            getBanner();
+            //getBanner();
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

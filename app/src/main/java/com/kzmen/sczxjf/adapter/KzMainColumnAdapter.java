@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.kzmen.sczxjf.R;
-import com.kzmen.sczxjf.bean.kzbean.MainColumnItemBean;
+import com.kzmen.sczxjf.bean.kzbean.HomepageMenuBean;
 
 import java.util.List;
 
@@ -19,10 +19,10 @@ import java.util.List;
  */
 
 public class KzMainColumnAdapter extends BaseAdapter {
-    private List<MainColumnItemBean> listData;
+    private List<HomepageMenuBean> listData;
     private Context mContext;
 
-    public KzMainColumnAdapter(Context mContext, List<MainColumnItemBean> listData) {
+    public KzMainColumnAdapter(Context mContext, List<HomepageMenuBean> listData) {
         this.mContext = mContext;
         this.listData = listData;
     }
@@ -55,7 +55,8 @@ public class KzMainColumnAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
         viewHolder.tv_tiltle.setText(listData.get(i).getName());
-        Glide.with(mContext).load(listData.get(i).getId()).into(viewHolder.iv_type);
+        Glide.with(mContext).load(listData.get(i).getIcon())
+                .placeholder(R.drawable.icon_image_normal).into(viewHolder.iv_type);
         return view;
     }
 

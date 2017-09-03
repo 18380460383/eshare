@@ -4,21 +4,32 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.percent.PercentRelativeLayout;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.bean.kzbean.TestListItemBean;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
+import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
+import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.ListViewActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.InjectView;
 
@@ -31,9 +42,11 @@ public class TestListActivity extends ListViewActivity {
     LinearLayout kzTiltle;
     @InjectView(R.id.lv_test_list)
     PullToRefreshListView lvTestList;
+    @InjectView(R.id.ll_main)
+    LinearLayout llMain;
     private int page = 0;
-    private CommonAdapter<String> adapter;
-    private List<String> data_list;
+    private CommonAdapter<TestListItemBean> adapter;
+    private List<TestListItemBean> data_list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,11 +57,13 @@ public class TestListActivity extends ListViewActivity {
         setTitle(R.id.kz_tiltle, "测评");
         data_list = new ArrayList<>();
         page = 1;
-         adapter = new CommonAdapter<String>(this,R.layout.kz_test_list_item, data_list) {
+         adapter = new CommonAdapter<TestListItemBean>(this,R.layout.kz_test_list_item, data_list) {
            @Override
-           protected void convert(ViewHolder viewHolder, String item, int position) {
-               viewHolder.setText(R.id.tv_title,item);
-               if(position%3!=0){
+           protected void convert(ViewHolder viewHolder, TestListItemBean item, int position) {
+               viewHolder.setText(R.id.tv_title,item.getTitle())
+                        .setText(R.id.tv_count,"参与人数"+item.getViews())
+                        .glideImage(R.id.iv_image,item.getImage());
+               if(item.getIscepin().equals("0")){
                    viewHolder.getView(R.id.ll_right_join).setVisibility(View.GONE);
                    viewHolder.getView(R.id.ll_no_join).setVisibility(View.VISIBLE);
                }else{
@@ -107,20 +122,46 @@ public class TestListActivity extends ListViewActivity {
 
     public void getList() {
         data_list.clear();
-        for (int i = page; i <10 ; i++) {
+       /* for (int i = page; i <10 ; i++) {
             data_list.add("测试"+i);
-        }
-        Handler h=new Handler();
-        h.postDelayed(new Runnable() {
+        }*/
+        Map<String, String> params = new HashMap<>();
+        params.put("data[limit]", "" + 10);
+        params.put("data[page]", "" + page);
+        OkhttpUtilManager.postNoCacah(this, "Evaluation/getEvaluationList", params, new OkhttpUtilResult() {
             @Override
-            public void run() {
-                if(lvTestList==null){
+            public void onSuccess(int type, String data) {
+                if (lvTestList == null) {
                     return;
+                }
+                Log.e("tst",data);
+                JSONObject object= null;
+                try {
+                    object = new JSONObject(data);
+                    Gson gson=new Gson();
+                    data_list=gson.fromJson(object.getString("data"), new TypeToken<List<TestListItemBean>>(){}.getType());
+                    if(data_list.size()==0){
+                        lvTestList.setEmptyView(llMain);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
                 lvTestList.onRefreshComplete();
                 adapter.notifyDataSetChanged();
             }
-        }, 1000);
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                if (lvTestList == null) {
+                    return;
+                }
+                Log.e("tst",msg);
+                lvTestList.setEmptyView(llMain);
+                lvTestList.onRefreshComplete();
+                adapter.notifyDataSetChanged();
+            }
+        });
+
     }
 
     /**

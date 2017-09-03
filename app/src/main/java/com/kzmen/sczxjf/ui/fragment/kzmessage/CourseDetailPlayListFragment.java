@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.kzmen.sczxjf.R;
-import com.kzmen.sczxjf.bean.kzbean.CourseListTstBean;
+import com.kzmen.sczxjf.bean.kzbean.CourseListBean;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.ui.fragment.basic.SuperFragment;
@@ -70,13 +70,13 @@ public class CourseDetailPlayListFragment extends SuperFragment {
         super.onDestroyView();
     }
 
-    private List<CourseListTstBean> beanlist;
-    private CommonAdapter<CourseListTstBean> adapter2;
+    private List<CourseListBean> beanlist;
+    private CommonAdapter<CourseListBean> adapter2;
 
     private void initData() {
         beanlist = new ArrayList<>();
-        for (int i = tabPos; i < 6 + tabPos; i++) {
-            CourseListTstBean bean = new CourseListTstBean();
+        /*for (int i = tabPos; i < 6 + tabPos; i++) {
+            CourseListBean bean = new CourseListBean();
             if (i % 3 == 0) {
                 bean.setType(0);
             } else {
@@ -85,11 +85,19 @@ public class CourseDetailPlayListFragment extends SuperFragment {
             bean.setName("测试" + i);
             bean.setTime("03:0" + i);
             beanlist.add(bean);
-        }
-        adapter2 = new CommonAdapter<CourseListTstBean>(getActivity(), R.layout.kz_course_detail_list_item, beanlist) {
+        }*/
+        adapter2 = new CommonAdapter<CourseListBean>(getActivity(), R.layout.kz_course_detail_list_item, beanlist) {
             @Override
-            protected void convert(ViewHolder viewHolder, CourseListTstBean item, int position) {
-                if (item.getType() == 0) {
+            protected void convert(ViewHolder viewHolder, CourseListBean item, int position) {
+                viewHolder.getView(R.id.top_line).setVisibility(View.VISIBLE);
+                viewHolder.getView(R.id.bottom_line).setVisibility(View.VISIBLE);
+                if(position==0){
+                    viewHolder.getView(R.id.top_line).setVisibility(View.INVISIBLE);
+                }
+                if(position==(beanlist.size()-1)){
+                    viewHolder.getView(R.id.bottom_line).setVisibility(View.INVISIBLE);
+                }
+                if (position%3 == 0) {
                     viewHolder.getView(R.id.iv_play_state).setVisibility(View.INVISIBLE);
                     viewHolder.getView(R.id.v_cricle_point).setVisibility(View.VISIBLE);
                     viewHolder.getView(R.id.tv_title).setVisibility(View.VISIBLE);
@@ -97,7 +105,7 @@ public class CourseDetailPlayListFragment extends SuperFragment {
                     viewHolder.getView(R.id.ll_play_state).setVisibility(View.INVISIBLE);
                     viewHolder.getView(R.id.tv_second).setVisibility(View.INVISIBLE);
                 } else {
-                    viewHolder.getView(R.id.v_cricle_point).setVisibility(View.INVISIBLE);
+                    viewHolder.getView(R.id.v_cricle_point).setVisibility(View.GONE);
                     viewHolder.getView(R.id.iv_play_state).setVisibility(View.INVISIBLE);
                     viewHolder.setText(R.id.tv_second, item.getName());
                     viewHolder.getView(R.id.tv_second).setVisibility(View.VISIBLE);

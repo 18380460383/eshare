@@ -9,7 +9,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_gravity="right"
-        android:background="@drawable/icon_play" />
+        android:background="@drawable/icon_member_collect" />
 
     <ImageView
         android:id="@+id/iv_img"
@@ -46,6 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
             android:text="积分兑换"
-            android:textSize="12dp" />
+            android:textSize="12dp"
+            android:id="@+id/textView3" />
     </LinearLayout>
 </LinearLayout>

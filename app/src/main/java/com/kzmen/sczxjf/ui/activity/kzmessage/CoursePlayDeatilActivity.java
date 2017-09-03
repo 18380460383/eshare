@@ -12,10 +12,9 @@ import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
-import com.kzmen.sczxjf.bean.kzbean.CourseListTstBean;
+import com.kzmen.sczxjf.bean.kzbean.CourseListBean;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.consta.PlayState;
@@ -68,7 +67,7 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
 
     private String baseUrl1 = "www.cocopeng.com/";
     private String baseUrl2 = "http://192.168.0.101:8000/static/mp3/";
-
+   // private String baseUrl2 = "www.cocopeng.com/mp3/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,14 +149,14 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
         AppContext.getPlayService().stop();
     }
 
-    private List<CourseListTstBean> beanlist;
-    private CommonAdapter<CourseListTstBean> adapter2;
+    private List<CourseListBean> beanlist;
+    private CommonAdapter<CourseListBean> adapter2;
 
     private void initData() {
         listPlay = new ArrayList<>();
         beanlist = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            CourseListTstBean bean = new CourseListTstBean();
+        /*for (int i = 0; i < 20; i++) {
+            CourseListBean bean = new CourseListBean();
             if (i % 3 == 0) {
                 bean.setType(0);
             } else {
@@ -166,10 +165,10 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
             bean.setName("测试" + i);
             bean.setTime("03:0" + i);
             beanlist.add(bean);
-        }
-        adapter2 = new CommonAdapter<CourseListTstBean>(CoursePlayDeatilActivity.this, R.layout.kz_good_ask_item, beanlist) {
+        }*/
+        adapter2 = new CommonAdapter<CourseListBean>(CoursePlayDeatilActivity.this, R.layout.kz_good_ask_item, beanlist) {
             @Override
-            protected void convert(ViewHolder viewHolder, CourseListTstBean item, int position) {
+            protected void convert(ViewHolder viewHolder, CourseListBean item, int position) {
                 viewHolder.setText(R.id.tv_user_name, "" + item.getName());
                 if (position % 3 == 0) {
                     viewHolder.getView(R.id.ll_txt).setVisibility(View.VISIBLE);
@@ -186,7 +185,7 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         //获得adapter
-        CommonAdapter<CourseListTstBean> adapter = (CommonAdapter) listView.getAdapter();
+        CommonAdapter<CourseListBean> adapter = (CommonAdapter) listView.getAdapter();
         if (adapter == null) {
             return;
         }
@@ -298,12 +297,12 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
     public void playposition(int position) {
         playPos = position;
         if (playPos == 0) {
-            Glide.with(this).load(R.drawable.btn_player_prev_unclick).into(ivPlayPre);
+            ivPlayPre.setBackgroundResource(R.drawable.btn_player_prev_unclick);
         } else if (playPos >= listPlay.size() - 1) {
-            Glide.with(this).load(R.drawable.btn_player_next_unclick).into(ivPlayNext);
+            ivPlayNext.setBackgroundResource(R.drawable.btn_player_next_unclick);
         } else {
-            Glide.with(this).load(R.drawable.btn_player_prev).into(ivPlayPre);
-            Glide.with(this).load(R.drawable.btn_player_next).into(ivPlayNext);
+            ivPlayNext.setBackgroundResource(R.drawable.btn_player_next);
+            ivPlayPre.setBackgroundResource(R.drawable.btn_player_prev);
         }
     }
 
@@ -314,10 +313,10 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
         }
         switch (state) {
             case PlayState.PLAY_PLAYING:
-                Glide.with(this).load(R.drawable.btn_player_pause).into(ivPlayPlay);
+                ivPlayPlay.setBackgroundResource(R.drawable.btn_player_pause);
                 break;
             case PlayState.PLAY_PAUSE:
-                Glide.with(this).load(R.drawable.btn_player_play).into(ivPlayPlay);
+                ivPlayPlay.setBackgroundResource(R.drawable.btn_player_play);
                 break;
         }
         if(playPop!=null){

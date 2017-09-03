@@ -80,7 +80,7 @@ public class Mp3ServerAcitivity extends AppCompatActivity implements View.OnClic
                 next();
                 break;
             case R.id.bt_pause:
-               List<Music> mMusicList = new ArrayList<>();
+                List<Music> mMusicList = new ArrayList<>();
                 Music music = new Music();
                 music.setType(Music.Type.ONLINE);
                 music.setPath("http://192.168.0.102:8000/static/mp3/Dawn.mp3");

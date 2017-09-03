@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
-import com.kzmen.sczxjf.bean.kzbean.CourseListTstBean;
+import com.kzmen.sczxjf.bean.kzbean.CourseListBean;
 
 import java.util.List;
 
@@ -18,10 +18,10 @@ import java.util.List;
  */
 
 public class Kz_CourseDetaiListAdapter extends BaseAdapter {
-    private List<CourseListTstBean>beanList;
+    private List<CourseListBean>beanList;
     private Context mContext;
 
-    public Kz_CourseDetaiListAdapter(Context mContext, List<CourseListTstBean> beanList) {
+    public Kz_CourseDetaiListAdapter(Context mContext, List<CourseListBean> beanList) {
         this.mContext = mContext;
         this.beanList = beanList;
     }
@@ -56,7 +56,7 @@ public class Kz_CourseDetaiListAdapter extends BaseAdapter {
         }else{
             viewHolder= (ViewHolder) view.getTag();
         }
-        CourseListTstBean bean=beanList.get(i);
+       /* CourseListBean bean=beanList.get(i);
         viewHolder.v_cricle_point.setVisibility(bean.getType()==0?View.VISIBLE:View.GONE);
         viewHolder.tv_title.setVisibility(bean.getType()==0?View.VISIBLE:View.GONE);
         viewHolder.tv_second.setVisibility(bean.getType()==0?View.GONE:View.VISIBLE);
@@ -67,7 +67,7 @@ public class Kz_CourseDetaiListAdapter extends BaseAdapter {
         }else{
             viewHolder.tv_second.setText(bean.getName());
             viewHolder.tv_time.setText(bean.getTime());
-        }
+        }*/
         return view;
     }
     class ViewHolder{

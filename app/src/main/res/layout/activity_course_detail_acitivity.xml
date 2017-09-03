@@ -17,16 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <include layout="@layout/kz_title" />
-
-            <ImageView
-                android:id="@+id/iv_share"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="@dimen/margin_top20"
-                android:background="@drawable/icon_share" />
+            <include layout="@layout/kz_title_with_shareandcollection" />
         </RelativeLayout>
 
         <android.support.v4.widget.NestedScrollView
@@ -50,7 +41,7 @@
                         android:id="@+id/iv_user_bg"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:background="@drawable/icon_user1" />
+                        />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -71,13 +62,15 @@
                                 android:background="@drawable/icon_check" />
 
                             <TextView
+                                android:id="@+id/tv_time"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:text="39分钟语音" />
+                                android:text="" />
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/ll_hudong"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -93,10 +86,12 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
-                                android:text="讲师互动" />
+                                android:text="讲师互动"
+                                android:id="@+id/textView4" />
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/ll_xiaojianghudong"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -122,7 +117,8 @@
                         android:layout_marginLeft="15dp"
                         android:text="讲师简介"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:id="@+id/textView5" />
 
                     <com.kzmen.sczxjf.view.ExpandableTextView
                         android:id="@+id/expand_text_view"
@@ -137,7 +133,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="@string/tst"
                             android:textColor="#666666"
                             android:textSize="16sp" />
 
@@ -148,7 +143,7 @@
                             android:layout_gravity="center|bottom"
                             android:background="@android:color/transparent"
                             android:paddingBottom="12dp"
-                            android:paddingTop="10dp" />
+                            android:layout_marginTop="10dp" />
 
                         <TextView
                             android:id="@id/ex_message"
@@ -178,17 +173,24 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tv_course_stage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
-                            android:text="共5阶段，24小时"
+                            android:text=""
                             android:textSize="13dp" />
-
                         <TextView
+                            android:id="@+id/tv_course_section"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="13dp" />
+                        <TextView
+                            android:id="@+id/tv_views"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
-                            android:text="1222人学习"
+                            android:text=""
                             android:textSize="13dp" />
                     </LinearLayout>
 
@@ -230,14 +232,15 @@
                             android:background="@drawable/cornor_backgroud_yellow"
                             android:gravity="center"
                             android:padding="10dp"
-                            android:text="2元向讲师提问"
+                            android:text=""
                             android:textColor="@color/white" />
 
                         <TextView
+                            android:id="@+id/tv_questions_desc"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="精华提问，还会奖励收听收入的50%分成" />
+                            android:text="" />
 
                     </LinearLayout>
 
@@ -288,9 +291,7 @@
                     layout="@layout/smartloadinglayout_view_on_loading" />
             </RelativeLayout>
 
-
         </android.support.v4.widget.NestedScrollView>
-
 
     </LinearLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

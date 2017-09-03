@@ -1,9 +1,7 @@
 package com.kzmen.sczxjf.ui.activity.kzmessage;
 
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -14,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -22,36 +21,34 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.kzmen.sczxjf.AppContext;
-import com.kzmen.sczxjf.Constants;
-import com.kzmen.sczxjf.EnConstants;
 import com.kzmen.sczxjf.R;
-import com.kzmen.sczxjf.bean.user.User_For_pe;
+import com.kzmen.sczxjf.bean.kzbean.UserBean;
+import com.kzmen.sczxjf.bean.kzbean.UserMessageBean;
 import com.kzmen.sczxjf.control.ScreenControl;
+import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.NetworkDownload;
+import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.ui.activity.personal.LoginActivity;
 import com.kzmen.sczxjf.ui.activity.personal.MsgCenterActivity;
 import com.kzmen.sczxjf.ui.fragment.kzmessage.KzMessageFragment;
 import com.kzmen.sczxjf.ui.fragment.personal.CMenuFragment;
-import com.kzmen.sczxjf.util.EshareLoger;
 import com.kzmen.sczxjf.utils.AppUtils;
 import com.kzmen.sczxjf.utils.BitmapUtils;
-import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.vondear.rxtools.view.RxToast;
 
-import org.apache.http.Header;
+import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import cn.jpush.android.api.JPushInterface;
 
 /**
  * 主页面tab页面
@@ -80,7 +77,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     @InjectView(R.id.ll_search)
     LinearLayout ll_search;
     private ServiceConnection mPlayServiceConnection;
-   // protected Handler mHandler = new Handler(Looper.getMainLooper());
+    // protected Handler mHandler = new Handler(Looper.getMainLooper());
     /**
      * 当前dialog是否显示在界面上
      */
@@ -102,7 +99,8 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     @Override
     public void onCreateDataForView() {
         checkService();
-        setAccBroadcastReceiver();
+        //setAccBroadcastReceiver();
+        initUserMessage();
         AppContext.maintabeactivity = this;
         supportFragmentManager = getSupportFragmentManager();
         initDate();
@@ -115,17 +113,38 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         DrawerLayout.LayoutParams layoutParams = (DrawerLayout.LayoutParams) menu.getLayoutParams();
         layoutParams.width = (int) (i * 0.7);
         menu.setLayoutParams(layoutParams);
-       /* if (!setLl_title()) {
-            EToastUtil.show(this, "设置标题错误");
-        }
-        if(!setOnScroll(R.id.sv_main)){
-            EToastUtil.show(this, "设置滑动失败");
-        }*/
+
         back.setVisibility(View.INVISIBLE);
         getCachTst();
         setOnloading(R.id.ll_content);
         mLayout.onLoading();
+        //mLayout.onDone();
+        Glide.with(this).load(AppContext.getInstance().getUserLogin().getAvatar()).into(headImage);
     }
+
+    private void initUserMessage() {
+        OkhttpUtilManager.postNoCacah(this, "User/get_user_info", null, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                Log.e("tst",data);
+                try {
+                    JSONObject object=new JSONObject(data);
+                    Gson gson=new Gson();
+                    UserMessageBean bean=gson.fromJson(object.getString("data"),UserMessageBean.class);
+                    Log.e("tst",bean.toString());
+                    AppContext.userMessageBean=bean;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                RxToast.normal(msg);
+            }
+        });
+    }
+
     public Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -173,7 +192,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
                 }*/
                 break;
             case R.id.iv_history:
-                 intent = new Intent(this, com.kzmen.sczxjf.ui.activity.kzmessage.LoginActivity.class);
+                intent = new Intent(this, com.kzmen.sczxjf.ui.activity.kzmessage.LoginActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_msg:
@@ -192,14 +211,14 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
      * 加载页面数据
      */
     private void initDate() {
-        onLoginSuccess(AppContext.getInstance().getPEUser());
+        onLoginSuccess(AppContext.getInstance().getUserLogin());
     }
 
 
     /**
      * 登录成功
      */
-    private void onLoginSuccess(User_For_pe login) {
+    private void onLoginSuccess(UserBean login) {
         //TODO 登陆信息正常后初始化界面
         //TODO 加载菜单
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
@@ -212,7 +231,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         setHeadImageAndMenu(login);
     }
 
-    public void setHeadImageAndMenu(User_For_pe login) {
+    public void setHeadImageAndMenu(UserBean login) {
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
         fragmentcmenu.setMenuBack(new CMenuFragment.MenuBack() {
             @Override
@@ -225,7 +244,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         fragmentTransaction.commitAllowingStateLoss();
 
         final double v = new ScreenControl().getscreenHigh() / 16 * 1.5 - 60;
-        ImageLoader.getInstance().loadImage(login.getImageurl(), new ImageLoadingListener() {
+        ImageLoader.getInstance().loadImage(login.getAvatar(), new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String s, View view) {
                 headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.drawable.image_def)));
@@ -252,7 +271,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
             }
         });
 
-        putJPusID();
+     //   putJPusID();
 
     }
 
@@ -260,7 +279,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     /**
      * 上传极光ID
      */
-    private void putJPusID() {
+  /*  private void putJPusID() {
         String registrationID = JPushInterface.getRegistrationID(getApplicationContext());
         Map<String, String> map = new HashMap<>();
         new RequestParams();
@@ -279,7 +298,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
 
             }
         });
-    }
+    }*/
 
     @Override
     public void onBackPressed() {
@@ -300,7 +319,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
             int anInt = data.getExtras().getInt(MsgCenterActivity.MSGNUM);
         } else if (resultCode == RESULT_OK && requestCode == LOGIN) {
             if (data.getIntExtra("loginstate", 0) == 1) {
-                setHeadImageAndMenu(AppContext.getInstance().getPEUser());
+                setHeadImageAndMenu(AppContext.getInstance().getUserLogin());
             }
         }
     }
@@ -398,7 +417,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         return false;
     }
 
-    private void setAccBroadcastReceiver() {
+   /* private void setAccBroadcastReceiver() {
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -443,7 +462,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         IntentFilter filter2 = new IntentFilter();
         filter2.addAction(EnConstants.BROCAST_LOGIN_SUCCESS);
         registerReceiver(loginReceiver, filter2);
-    }
+    }*/
 
     public void extP() {
         headImage.setImageResource(R.drawable.userhead);

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.bean.kzbean.HomeActivityBean;
 
 import java.util.List;
 
@@ -17,10 +18,10 @@ import java.util.List;
  */
 
 public class KzActivGridAdapter extends BaseAdapter {
-    private List<String> listData;
+    private List<HomeActivityBean> listData;
     private Context mContext;
 
-    public KzActivGridAdapter(Context mContext, List<String> listData) {
+    public KzActivGridAdapter(Context mContext, List<HomeActivityBean> listData) {
         this.mContext = mContext;
         this.listData = listData;
     }
@@ -51,7 +52,8 @@ public class KzActivGridAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) view.getTag();
         }
-        Glide.with(mContext).load("http://cocopeng.com/img/bg-01.jpg").into(viewHolder.iv_image);
+        Glide.with(mContext).load(listData.get(i).getImageurl())
+                .placeholder(R.drawable.icon_image_normal).into(viewHolder.iv_image);
         return view;
     }
 

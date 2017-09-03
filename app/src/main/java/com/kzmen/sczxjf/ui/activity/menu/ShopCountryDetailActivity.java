@@ -2,11 +2,11 @@ package com.kzmen.sczxjf.ui.activity.menu;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
+import com.kzmen.sczxjf.view.DJEditText;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -16,7 +16,7 @@ public class ShopCountryDetailActivity extends SuperActivity {
     @InjectView(R.id.tv_save)
     TextView tvSave;
     @InjectView(R.id.et_input)
-    EditText etInput;
+    DJEditText etInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

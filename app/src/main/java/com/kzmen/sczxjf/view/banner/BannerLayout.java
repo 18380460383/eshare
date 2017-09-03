@@ -246,9 +246,9 @@ public class BannerLayout extends RelativeLayout {
         });
         imageView.setScaleType(ScaleType.FIT_XY);
         if (defaultImage != 0){
-            Glide.with(getContext()).load(url).placeholder(defaultImage).fitCenter().into(imageView);
+            Glide.with(getContext()).load(url) .placeholder(R.drawable.icon_image_normal).fitCenter().into(imageView);
         }else {
-            Glide.with(getContext()).load(url).fitCenter().into(imageView);
+            Glide.with(getContext()).load(url) .placeholder(R.drawable.icon_image_normal).fitCenter().into(imageView);
         }
         return imageView;
     }

@@ -7,7 +7,7 @@
     <include
         android:id="@+id/about_title"
         style="@style/TitleStyle"
-        layout="@layout/e_title" />
+        layout="@layout/kz_title" />
     <ProgressBar
         android:id="@+id/about_progressbar"
         android:layout_width="match_parent"

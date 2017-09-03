@@ -8,34 +8,46 @@ import android.support.design.widget.TabLayout;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.adapter.Kz_CourseDetaiListAdapter;
 import com.kzmen.sczxjf.adapter.Kz_Course_FragmentAdapter;
-import com.kzmen.sczxjf.bean.kzbean.CourseListTstBean;
+import com.kzmen.sczxjf.bean.kzbean.CourseDetailBean;
+import com.kzmen.sczxjf.bean.kzbean.CourseListBean;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.dialog.ShareDialog;
+import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
+import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.popuwidow.Kz_CourseAskPopu;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.view.ExpandViewPager;
 import com.kzmen.sczxjf.view.ExpandableTextView;
 import com.kzmen.sczxjf.view.MyListView;
+import com.kzmen.sczxjf.view.loading.LoadingView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -65,34 +77,100 @@ public class CourseDetailAcitivity extends SuperActivity {
     NestedScrollView svMain;
     @InjectView(R.id.kz_tiltle)
     LinearLayout llTitle;
+    @InjectView(R.id.iv_collect)
+    ImageView ivCollect;
+    @InjectView(R.id.tv_time)
+    TextView tvTime;
+    @InjectView(R.id.textView4)
+    TextView textView4;
+    @InjectView(R.id.ll_hudong)
+    LinearLayout llHudong;
+    @InjectView(R.id.ll_xiaojianghudong)
+    LinearLayout llXiaojianghudong;
+    @InjectView(R.id.expandable_text)
+    TextView expandableText;
+    @InjectView(R.id.ex_message)
+    TextView exMessage;
+    @InjectView(R.id.expand_text_view)
+    ExpandableTextView expandTextView;
+    @InjectView(R.id.tv_course_stage)
+    TextView tvCourseStage;
+    @InjectView(R.id.tv_course_section)
+    TextView tvCourseSection;
+    @InjectView(R.id.tv_views)
+    TextView tvViews;
+    @InjectView(R.id.tv_questions_desc)
+    TextView tvQuestionsDesc;
+    @InjectView(R.id.btn_error)
+    Button btnError;
+    @InjectView(R.id.tv_loading_message)
+    TextView tvLoadingMessage;
+    @InjectView(R.id.loadView)
+    LoadingView loadView;
+    @InjectView(R.id.ll_loading)
+    LinearLayout llLoading;
     private String[] titles = new String[]{"阶段一", "阶段二", "阶段三", "阶段四", "阶段五"};
     private ShareDialog shareDialog;
     private Kz_Course_FragmentAdapter adapter;
-   // private CustomLoadingLayout mLayout; //SmartLoadingLayout对象
+    // private CustomLoadingLayout mLayout; //SmartLoadingLayout对象
+    private String cid = "";
+    public Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            // 数据下载完成，转换状态，显示内容视图
+            switch (msg.what) {
+                case 0:
+                    mLayout.onError();
+                    break;
+                case 1:
+                    mLayout.onDone();
+                    break;
+                default:
+                    mLayout.onEmpty();
+                    break;
+            }
+        }
+    };
+    private CourseDetailBean courseDetailBean;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
     public void onCreateDataForView() {
         setTitle(R.id.kz_tiltle, "课程详情");
-        /*if (!setLl_title()) {
-            EToastUtil.show(this, "设置标题错误");
-        }
-        if (!setOnScroll(R.id.sv_main)) {
-            EToastUtil.show(this, "设置滑动失败");
-        }*/
-        initView();
-
+        setOnloading(R.id.ll_content);
+        mLayout.onLoading();
+        initData();
     }
 
     private void initView() {
-       /* mLayout = SmartLoadingLayout.createCustomLayout(this);
-        mLayout.setLoadingView(R.id.my_loading_page);
-        mLayout.setContentView(R.id.ll_content);
-        mLayout.setEmptyView(R.id.my_empty_page);
-        mLayout.setErrorView(R.id.my_error_page);*/
+        if (courseDetailBean != null) {
+            if (courseDetailBean.getIszan().equals("1")) {
+                ivCollect.setBackgroundResource(R.drawable.btn_collect_current);
+            }
+            Glide.with(this).load(courseDetailBean.getBanner()).placeholder(R.drawable.icon_image_normal)
+                    .into(ivUserBg);
+            tvTime.setText(courseDetailBean.getCourse_time() + "分钟语音");
+            if (courseDetailBean.getIsquestion().equals("0")) {
+                llHudong.setVisibility(View.GONE);
+            }
+            if (courseDetailBean.getIsxiaojiang().equals("0")) {
+                llXiaojianghudong.setVisibility(View.GONE);
+            }
+
+            tvCourseStage.setText("共" + courseDetailBean.getCourse_stage() + "阶段，");
+            tvCourseSection.setText(courseDetailBean.getCourse_section() + "节课程");
+            tvViews.setText(courseDetailBean.getViews() + "人学习");
+            tvAsk.setText(courseDetailBean.getQuestions_button());
+            tvQuestionsDesc.setText(courseDetailBean.getQuestions_desc());
+            expandTextView.setText(courseDetailBean.getDescribe());
+        }
+
+
         adapter = new Kz_Course_FragmentAdapter(getSupportFragmentManager(), CourseDetailAcitivity.this, titles);
         adapter.setTitles(titles);
         infoViewpager.setAdapter(adapter);
@@ -125,48 +203,51 @@ public class CourseDetailAcitivity extends SuperActivity {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
-        setOnloading(R.id.ll_content);
-        mLayout.onLoading();
-        mHandler.sendEmptyMessageDelayed(1,5*1000);
-        ExpandableTextView expTv1 = (ExpandableTextView) findViewById(R.id.expand_text_view);
-        expTv1.setText(getString(R.string.tst));
+
+       /* ExpandableTextView expTv1 = (ExpandableTextView) findViewById(R.id.expand_text_view);
+        expTv1.setText(getString(R.string.tst));*/
     }
-    private Handler mHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            // 数据下载完成，转换状态，显示内容视图
-            initData();
-            mLayout.onDone();
-        }
-    };
-    private List<CourseListTstBean> beanlist;
+
+    private List<CourseListBean> beanlist;
     private Kz_CourseDetaiListAdapter adapter1;
-    private CommonAdapter<CourseListTstBean> adapter2;
+    private CommonAdapter<CourseListBean> adapter2;
 
     private void initData() {
         beanlist = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            CourseListTstBean bean = new CourseListTstBean();
-            if (i % 3 == 0) {
-                bean.setType(0);
-            } else {
-                bean.setType(1);
-            }
-            bean.setName("测试" + i);
-            bean.setTime("03:0" + i);
-            beanlist.add(bean);
-        }
-        adapter2 = new CommonAdapter<CourseListTstBean>(CourseDetailAcitivity.this, R.layout.kz_good_ask_item, beanlist) {
+        Map<String, String> params = new HashMap<>();
+        params.put("data[cid]", cid);
+        OkhttpUtilManager.postNoCacah(this, "Course/getCourseShow", params, new OkhttpUtilResult() {
             @Override
-            protected void convert(ViewHolder viewHolder, CourseListTstBean item, int position) {
+            public void onSuccess(int type, String data) {
+                Log.e("tst", data);
+                mHandler.sendEmptyMessage(1);//CourseDetailBean
+                try {
+                    JSONObject object = new JSONObject(data);
+                    Gson gson = new Gson();
+                    courseDetailBean = gson.fromJson(object.getString("data"), CourseDetailBean.class);
+                    Log.e("tst", courseDetailBean.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                initView();
+            }
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                Log.e("tst", msg);
+                mHandler.sendEmptyMessage(0);
+            }
+        });
+        adapter2 = new CommonAdapter<CourseListBean>(CourseDetailAcitivity.this, R.layout.kz_good_ask_item, beanlist) {
+            @Override
+            protected void convert(ViewHolder viewHolder, CourseListBean item, int position) {
                 viewHolder.setText(R.id.tv_user_name, "" + item.getName());
-                if(position%3==0){
+                if (position % 3 == 0) {
                     viewHolder.getView(R.id.ll_txt).setVisibility(View.VISIBLE);
                     viewHolder.getView(R.id.ll_media).setVisibility(View.GONE);
-                }else{
+                } else {
                     viewHolder.getView(R.id.ll_txt).setVisibility(View.GONE);
                     viewHolder.getView(R.id.ll_media).setVisibility(View.VISIBLE);
                 }
@@ -184,6 +265,7 @@ public class CourseDetailAcitivity extends SuperActivity {
     @Override
     public void setThisContentView() {
         setContentView(R.layout.activity_course_detail_acitivity);
+        cid = getIntent().getExtras().getString("cid");
     }
 
     @OnClick({R.id.iv_share, R.id.tv_ask})
@@ -215,10 +297,12 @@ public class CourseDetailAcitivity extends SuperActivity {
                 break;
         }
     }
+
     private Kz_CourseAskPopu playPop;
     WindowManager.LayoutParams params;
+
     public void showPopFormBottom(View view) {
-        playPop= new Kz_CourseAskPopu(this);
+        playPop = new Kz_CourseAskPopu(this);
 //        设置Popupwindow显示位置（从底部弹出）
         playPop.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
         params = getWindow().getAttributes();
@@ -235,9 +319,10 @@ public class CourseDetailAcitivity extends SuperActivity {
         });
 
     }
+
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         //获得adapter
-        CommonAdapter<CourseListTstBean> adapter = (CommonAdapter) listView.getAdapter();
+        CommonAdapter<CourseListBean> adapter = (CommonAdapter) listView.getAdapter();
         if (adapter == null) {
             return;
         }

@@ -154,7 +154,7 @@ public class KnowageAskPreActivity extends SuperActivity implements ImagePickerA
 
     private ImagePickerAdapter adapter;
     private ArrayList<ImageItem> selImageList; //当前选择的所有图片
-    private int maxImgCount = 8;               //允许选择图片最大数
+    private int maxImgCount = 3;               //允许选择图片最大数
 
 
     private SelectDialog showDialog(SelectDialog.SelectDialogListener listener, List<String> names) {

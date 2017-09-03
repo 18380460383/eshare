@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
+        android:background="@color/white"
     tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.CourseListActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include layout="@layout/kz_title" />
+        <include layout="@layout/kz_title_with_shareandcollection" />
     </RelativeLayout>
 
     <com.kzmen.sczxjf.view.MyScrollView
@@ -35,7 +35,7 @@
                     android:id="@+id/tv_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="标题"
+                    android:text=""
                     android:textStyle="bold" />
 
                 <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard

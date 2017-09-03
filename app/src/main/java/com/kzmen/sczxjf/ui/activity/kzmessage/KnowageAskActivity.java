@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.percent.PercentRelativeLayout;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
@@ -30,6 +31,8 @@ public class KnowageAskActivity extends SuperActivity {
     TextView tvAsk;
     @InjectView(R.id.lv_aks)
     MyListView lvAks;
+    @InjectView(R.id.ll_ask)
+    LinearLayout ll_ask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +49,12 @@ public class KnowageAskActivity extends SuperActivity {
         setContentView(R.layout.activity_knowage_ask1);
     }
 
-    @OnClick(R.id.tv_ask)
+
+    @OnClick(R.id.ll_ask)
     public void onViewClicked(View view) {
         Intent intent=null;
         switch (view.getId()){
-            case R.id.tv_ask:
+            case R.id.ll_ask:
                 intent=new Intent(KnowageAskActivity.this,KnowageAskPreActivity.class);
                 startActivity(intent);
                 break;

@@ -3,23 +3,31 @@ package com.kzmen.sczxjf.ui.activity.kzmessage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.bean.kzbean.CourseBean;
+import com.kzmen.sczxjf.bean.kzbean.CourseListBean;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.ListViewActivity;
 import com.kzmen.sczxjf.util.glide.GlideRoundTransform;
+import com.kzmen.sczxjf.view.MyListView;
+import com.vondear.rxtools.view.RxToast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,8 +43,8 @@ public class CourseListActivity extends ListViewActivity {
     @InjectView(R.id.ll_main)
     LinearLayout llMain;
     private int page;
-    private List<String>listData;
-    private CommonAdapter<String>adapter;
+    private List<CourseListBean>listData;
+    private CommonAdapter<CourseListBean>adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,21 +64,45 @@ public class CourseListActivity extends ListViewActivity {
     private void initData() {
         listData = new ArrayList<>();
         page = 1;
-        adapter =new CommonAdapter<String>(CourseListActivity.this,R.layout.kz_course_list_item,listData) {
+        adapter =new CommonAdapter<CourseListBean>(CourseListActivity.this,R.layout.kz_course_list_item,listData) {
             @Override
-            protected void convert(ViewHolder viewHolder, String item, int position) {
-                ((TextView)(viewHolder.getView(R.id.tv_title))).setText(listData.get(position)+getString(R.string.tst));
-                Glide.with(CourseListActivity.this).load(R.drawable.icon_user1).transform(new GlideRoundTransform(CourseListActivity.this, 0)).into((ImageView) viewHolder.getView(R.id.iv_user_img));
+            protected void convert(ViewHolder viewHolder, CourseListBean item, int position) {
+                viewHolder.setText(R.id.tv_title,item.getDescribe())
+                        .setText(R.id.tv_tid_title,item.getTid_title())
+                        .setText(R.id.tv_name,item.getName())
+                        ;
+                Glide.with(CourseListActivity.this).load(item.getImage()).
+                        transform(new GlideRoundTransform(CourseListActivity.this, 0)).
+                        into((ImageView) viewHolder.getView(R.id.iv_user_img));
+                ((MyListView)viewHolder.getView(R.id.lv_course_list)).setAdapter(new CommonAdapter<CourseBean>(CourseListActivity.this,R.layout.kz_course_listitem,listData.get(position).getCourse_list()) {
+                    @Override
+                    protected void convert(ViewHolder viewHolder, final CourseBean item, int position) {
+                        viewHolder.setText(R.id.tv_title,item.getTitle())
+                                .setText(R.id.tv_descprit,item.getDescribe())
+                                .setText(R.id.tv_count,item.getViews()+"人正在学习");
+                        viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                RxToast.normal(item.getCid());
+                                Intent intent=new Intent(CourseListActivity.this,CourseDetailAcitivity.class);
+                                Bundle bundle=new Bundle();
+                                bundle.putCharSequence("cid",item.getCid());
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                });
             }
         };
         setmPullRefreshListView(mPullRefreshListView, adapter);
-        mPullRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       /* mPullRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent=new Intent(CourseListActivity.this,CourseDetailAcitivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
         setADD();
     }
 
@@ -123,11 +155,12 @@ public class CourseListActivity extends ListViewActivity {
         });
     }
     private void getData(int page){
-        listData.clear();
+        if(page==1){
+            listData.clear();
+        }
         /*for (int i = page; i <page+10 ; i++) {
             listData.add("测试"+i);
         }
-
         Handler h=new Handler();
         h.postDelayed(new Runnable() {
             @Override
@@ -140,20 +173,35 @@ public class CourseListActivity extends ListViewActivity {
             }
         }, 1000);*/
         Map<String, String> params = new HashMap<>();
-        params.put("limit", "" + 10);
-        params.put("page", "" + page);
-        OkhttpUtilManager.postNoCacah(this, "Newscase/getNewscaseList", params, new OkhttpUtilResult() {
+        params.put("data[limit]", "" + 10);
+        params.put("data[page]", "" + page);
+        params.put("data[keywords]", "" );
+        OkhttpUtilManager.postNoCacah(this, "Course/getCourseList", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
-                if (mPullRefreshListView == null) {
-                    return;
+                Log.e("tst", data);
+                JSONObject object = null;
+                try {
+                    object = new JSONObject(data);
+                    Gson gson = new Gson();
+                    List<CourseListBean> datalist = gson.fromJson(object.getString("data"), new TypeToken<List<CourseListBean>>() {
+                    }.getType());
+                    if (datalist.size() == 0) {
+                        mPullRefreshListView.setEmptyView(llMain);
+                    } else {
+                        listData.addAll(datalist);
+                    }
+                } catch (JSONException e) {
+                    mPullRefreshListView.setEmptyView(llMain);
+                    e.printStackTrace();
                 }
-                adapter.notifyDataSetChanged();
                 mPullRefreshListView.onRefreshComplete();
+                adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onError(int code, String msg) {
+            public void onErrorWrong(int code, String msg) {
+                Log.e("tst",msg);
                 if (mPullRefreshListView == null) {
                     return;
                 }

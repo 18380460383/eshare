@@ -22,7 +22,7 @@
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
-    <EditText
+    <com.kzmen.sczxjf.view.DJEditText
         android:id="@+id/et_input"
         style="?android:attr/textViewStyle"
         android:layout_width="match_parent"

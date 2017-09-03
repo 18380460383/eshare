@@ -19,6 +19,8 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 public class ViewHolder
 {
     private SparseArray<View> mViews;
@@ -142,6 +144,11 @@ public class ViewHolder
     {
         View view = getView(viewId);
         view.setBackgroundResource(backgroundRes);
+        return this;
+    }
+    public ViewHolder glideImage(int viewId, String url){
+        View view = getView(viewId);
+        Glide.with(mContext).load(url).into((ImageView) view);
         return this;
     }
 

@@ -4,8 +4,8 @@
 
     <!-- 高度40 -->
     <size
-        android:width="40dp"
-        android:height="40dp" />
+        android:width="20dp"
+        android:height="20dp" />
     <!-- 圆角弧度 20 -->
     <corners android:radius="20dp" />
 

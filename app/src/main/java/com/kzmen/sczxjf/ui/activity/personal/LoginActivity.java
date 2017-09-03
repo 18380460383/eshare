@@ -215,9 +215,7 @@ public class LoginActivity extends SuperActivity {
         Intent intent = new Intent();
         intent.putExtra("loginstate", 1);
         setResult(RESULT_OK, intent);
-        if(AppContext.maintabeactivity!=null){
-            AppContext.maintabeactivity.setHeadImageAndMenu(data);
-        }
+
         finish();
     }
     public void getToken() {

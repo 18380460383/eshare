@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.percent.PercentRelativeLayout;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,7 +13,9 @@ import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.utils.TextUtil;
+import com.kzmen.sczxjf.view.DJEditText;
 import com.vondear.rxtools.view.RxToast;
+import com.vondear.rxtools.view.dialog.RxDialogSure;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,10 +31,12 @@ public class ForgetPassActivity extends SuperActivity {
     TextView titleName;
     @InjectView(R.id.kz_tiltle)
     LinearLayout kzTiltle;
+    @InjectView(R.id.ll_xieyi)
+    LinearLayout ll_xieyi;
     @InjectView(R.id.et_phone)
-    EditText etPhone;
+    DJEditText etPhone;
     @InjectView(R.id.ev_yz)
-    EditText evYz;
+    DJEditText evYz;
     @InjectView(R.id.tv_yz)
     TextView tvYz;
     @InjectView(R.id.tv_next)
@@ -77,11 +80,13 @@ public class ForgetPassActivity extends SuperActivity {
         return true;
     }
 
-    @OnClick({R.id.tv_yz, R.id.tv_next})
+    @OnClick({R.id.tv_yz, R.id.tv_next,R.id.ll_xieyi})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_yz:
-                timer.start();
+                phone=etPhone.getText().toString();
+                yzen=evYz.getText().toString();
+
                 getYz();
                 break;
             case R.id.tv_next:
@@ -89,6 +94,11 @@ public class ForgetPassActivity extends SuperActivity {
                     startActivity(new Intent(ForgetPassActivity.this, ResetPassActivity.class));
                     finish();
                 }
+                break;
+            case R.id.ll_xieyi:
+                RxDialogSure dialogSure=new RxDialogSure(ForgetPassActivity.this);
+                dialogSure.setTitle("用户协议");
+                dialogSure.show();
                 break;
         }
     }
@@ -115,21 +125,25 @@ public class ForgetPassActivity extends SuperActivity {
             RxToast.normal("电话号码不能为空");
             return;
         }
+        timer.start();
         Map<String, String> params = new HashMap<>();
-        params.put("phone", phone);
-        params.put("type", "2");
-        OkhttpUtilManager.postNoCacah(this, "get_phone_code", params, new OkhttpUtilResult() {
+        params.put("data[phone]", phone);
+        params.put("data[type]", "1");
+        OkhttpUtilManager.postNoCacah(this, "public/get_phone_code", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
                 if (timer != null) {
                     timer.onFinish();
                 }
                 tvYz.setText("获取验证码");
+                tvYz.setEnabled(true);
             }
 
             @Override
-            public void onError(int code, String msg) {
+            public void onErrorWrong(int code, String msg) {
                 tvYz.setText("获取验证码");
+                RxToast.normal(msg);
+                tvYz.setEnabled(true);
             }
         });
     }

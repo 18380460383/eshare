@@ -3,6 +3,7 @@ package com.kzmen.sczxjf.ui.fragment.kzmessage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,22 +14,24 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.adapter.KzActivGridAdapter;
 import com.kzmen.sczxjf.adapter.KzMainColumnAdapter;
 import com.kzmen.sczxjf.adapter.Kz_MainAskAdapter;
 import com.kzmen.sczxjf.adapter.Kz_MainCourseAdapter;
-import com.kzmen.sczxjf.bean.kzbean.MainColumnItemBean;
+import com.kzmen.sczxjf.bean.kzbean.HomeActivityBean;
+import com.kzmen.sczxjf.bean.kzbean.HomeBanerBean;
+import com.kzmen.sczxjf.bean.kzbean.HomepageMenuBean;
 import com.kzmen.sczxjf.cusinterface.PlayMessage;
 import com.kzmen.sczxjf.interfaces.MainAskListClick;
 import com.kzmen.sczxjf.interfaces.MainCourseListClick;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
-import com.kzmen.sczxjf.net.DataFactory;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.smartlayout.widgit.CustomLoadingLayout;
 import com.kzmen.sczxjf.test.bean.Music;
-import com.kzmen.sczxjf.test.bean.TstBean;
 import com.kzmen.sczxjf.ui.activity.kzmessage.ActivListActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.CaseListActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.CourseListActivity;
@@ -42,6 +45,9 @@ import com.kzmen.sczxjf.view.ExPandGridView;
 import com.kzmen.sczxjf.view.MyListView;
 import com.kzmen.sczxjf.view.banner.BannerLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +60,8 @@ import butterknife.OnClick;
  * 卡掌门--掌信端
  */
 public class KzMessageFragment extends SuperFragment implements PlayMessage, SwipeRefreshLayout.OnRefreshListener {
+    @InjectView(R.id.nsv_main)
+    NestedScrollView nsv_main;
     @InjectView(R.id.bl_main_banner)
     BannerLayout blMainBanner;
     @InjectView(R.id.gv_column)
@@ -72,21 +80,16 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
     MyListView lvAsk;
     private SwipeRefreshLayout mSwipeLayout;
     private View view = null;
-    private BannerLayout bl_main_banner;
-    private List<String> urlList;
+
+    private List<HomeBanerBean> bannerList;
+    private List<String> bannerListUrl;
     private GridView gv_column;
-    private List<String> listTst;
-    private List<MainColumnItemBean> columnItemBeanList;
-    private List<String> listTstActiv;
+    private List<HomepageMenuBean> columnItemBeanList;
+    private List<HomeActivityBean> activityList;
     private KzMainColumnAdapter kzMainColumnAdapter;
     private KzActivGridAdapter kzActivGridAdapter;
     private List<Music> mMusicList;
-
-    private String url = "http://cocopeng.com/img/bg-01.jpg";
-    private String url2 = "http://cocopeng.com/img/bg-01.jpg";
-    private String url1 = "http://192.168.0.101:8000/static/mp3/2.jpg";
-    private String baseUrl1 = "www.cocopeng.com/";
-    private String baseUrl2 = "http://192.168.0.101:8000/static/mp3/";
+    private String baseUrl2 = "http://192.168.0.198:8000/static/mp3/";
     protected CustomLoadingLayout mLayout; //SmartLoadingLayout对象
 
     private Kz_MainCourseAdapter kz_mainCourseAdapter;
@@ -119,18 +122,19 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
 
         ButterKnife.inject(this, view);
         initView(view);
-        isPrepared=true;
+        isPrepared = true;
         lazyLoad();
         return view;
     }
 
     @Override
     protected void lazyLoad() {
-        if (!isPrepared || !isVisible ) {
+        if (!isPrepared || !isVisible) {
             return;
         }
-       // initData();
+        // initData();
     }
+
     private void initView(View vew) {
         mSwipeLayout = (SwipeRefreshLayout) vew.findViewById(R.id.sp_main);
         mSwipeLayout.setOnRefreshListener(this);
@@ -142,35 +146,115 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
                 EToastUtil.show(getActivity(), "" + position);
             }
         });
+        mMusicList = new ArrayList<>();
+        bannerList = new ArrayList<>();
+        bannerListUrl = new ArrayList<>();
+        columnItemBeanList = new ArrayList<>();
+        activityList = new ArrayList<>();
         initData();
+        initData1();
+    }
+    private void getFoucus(){
+        if(blMainBanner==null){
+            return;
+        }
+        blMainBanner.setFocusable(true);
+        blMainBanner.setFocusableInTouchMode(true);
+        blMainBanner.requestFocus();
+    }
+    private void initData1() {
+        OkhttpUtilManager.postNoCacah(getActivity(), "Index/getHomePageList", null, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                try {
+                    JSONObject object = new JSONObject(data);
+                    Gson gson = new Gson();
+                    bannerList = gson.fromJson(object.getString("data"), new TypeToken<List<HomeBanerBean>>() {
+                    }.getType());
+                    bannerListUrl.clear();
+                    for (HomeBanerBean bean : bannerList) {
+                        bannerListUrl.add(bean.getImageurl());
+                    }
+                    blMainBanner.setViewUrls(bannerListUrl);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                getFoucus();
+                ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(1);
+            }
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                Log.e("tst", msg);
+                ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(0);
+            }
+        });
+        OkhttpUtilManager.postNoCacah(getActivity(), "Index/getHomepageMenu", null, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                try {
+                    JSONObject object = new JSONObject(data);
+                    Gson gson = new Gson();
+                    List<HomepageMenuBean> list = gson.fromJson(object.getString("data"), new TypeToken<List<HomepageMenuBean>>() {
+                    }.getType());
+                    columnItemBeanList.addAll(list);
+                    kzMainColumnAdapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                getFoucus();
+                ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(1);
+            }
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                Log.e("tst", msg);
+            }
+        });
+        OkhttpUtilManager.postNoCacah(getActivity(), "Index/getHomepageCourse", null, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                Log.e("tst", data);
+                getFoucus();
+                ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(1);
+            }
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                Log.e("tst", msg);
+                ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(0);
+            }
+
+        });
+        OkhttpUtilManager.postNoCacah(getActivity(), "Index/getHomeActivity", null, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                try {
+                    JSONObject object = new JSONObject(data);
+                    Gson gson = new Gson();
+                    List<HomeActivityBean> list = gson.fromJson(object.getString("data"), new TypeToken<List<HomeActivityBean>>() {
+                    }.getType());
+                    activityList.addAll(list);
+                    kzActivGridAdapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                getFoucus();
+                ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(1);
+            }
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                Log.e("tst", msg);
+                ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(0);
+            }
+        });
     }
 
     private void initData() {
-        mMusicList = new ArrayList<>();
-        urlList = new ArrayList<>();
-        listTst = new ArrayList<>();
-        columnItemBeanList = new ArrayList<>();
-        listTstActiv = new ArrayList<>();
-        urlList.add(url1);
-        urlList.add(url1);
-        urlList.add(url1);
-        urlList.add(url1);
-        urlList.add(url1);
-        blMainBanner.setViewUrls(urlList);
-
-        columnItemBeanList.add(new MainColumnItemBean("课程", R.drawable.menu_lesson));
-        columnItemBeanList.add(new MainColumnItemBean("问答", R.drawable.menu_interlocution));
-        columnItemBeanList.add(new MainColumnItemBean("测评", R.drawable.menu_evaluation));
-        columnItemBeanList.add(new MainColumnItemBean("活动", R.drawable.menu_activity));
-        columnItemBeanList.add(new MainColumnItemBean("案例", R.drawable.menu_case));
-
         kzMainColumnAdapter = new KzMainColumnAdapter(getActivity(), columnItemBeanList);
         gvColumn.setAdapter(kzMainColumnAdapter);
-        listTstActiv.add("测试1");
-        listTstActiv.add("测试1");
-        listTstActiv.add("测试1");
-        listTstActiv.add("测试1");
-        kzActivGridAdapter = new KzActivGridAdapter(getActivity(), listTstActiv);
+        kzActivGridAdapter = new KzActivGridAdapter(getActivity(), activityList);
         gvMoreActiv.setAdapter(kzActivGridAdapter);
         gvColumn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -198,12 +282,10 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
                 }
             }
         });
-        OkhttpUtilManager.get(getActivity(), "get/", "mainfragment", null,new OkhttpUtilResult() {
+        /*OkhttpUtilManager.get(getActivity(), "get/", "mainfragment", null,new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
                 Log.e("onSuccess", type + "      " + data);
-                List<TstBean> listBean = DataFactory.jsonToArrayList(data, TstBean.class);
-                Log.e("onSuccess", "" + listBean.size() + "    " + listBean.toString());
                 if(getActivity()==null){
                     return;
                 }
@@ -211,15 +293,16 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
             }
 
             @Override
-            public void onError(int code, String msg) {
-                Log.e("onError", msg);
+            public void onErrorWrong(int code, String msg) {
+                Log.e("onErrorWrong", msg);
                 if(getActivity()==null){
                     return;
                 }
                 ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(1);
                 //EToastUtil.show(getActivity(), "" + msg);
             }
-        });
+        });*/
+        mHandler.sendEmptyMessage(1);
         listCourse = new ArrayList<>();
         listCourse.add("测试1");
         listCourse.add("测试2");
@@ -337,7 +420,6 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
 
     @Override
     public void playposition(int position) {
-
     }
 
     @Override
@@ -372,7 +454,6 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
     public void onRefresh() {
         mHandler.sendEmptyMessageDelayed(1, 3000);
     }
-
 
 
     class SeekBarChangeEvent implements SeekBar.OnSeekBarChangeListener {

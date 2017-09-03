@@ -64,24 +64,23 @@
         android:label="@string/app_name"
         android:theme="@style/BaseAppTheme">
 
-        <!-- logo页面 -->
+
         <activity
             android:name=".test.Mp3RecorderActivity"
-            android:screenOrientation="portrait" />
-        <!--  -->
+            android:screenOrientation="portrait" >
+
+        </activity>
+        <!-- logo页面 -->
         <activity
             android:name=".ui.activity.LogoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/LogoTheme">
-
-            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            -->
         </activity>
 
         <!-- 使用说明界面 -->
@@ -488,11 +487,14 @@
             android:name=".ui.activity.kzmessage.IndexActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait">
+
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            -->
         </activity>
         <activity android:name=".ui.activity.kzmessage.ForgetPassActivity" />
         <activity android:name=".ui.activity.kzmessage.ResetPassActivity" />
@@ -501,7 +503,7 @@
         <activity
             android:name=".ui.activity.menu.IntegralMsgActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.menu.ShopDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -534,7 +536,8 @@
             android:name=".ui.activity.menu.ShopCountryDetailActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.menu.FriendInvateActivity"></activity>
+        <activity android:name=".ui.activity.menu.FriendInvateActivity" />
+        <activity android:name=".ui.activity.kzmessage.KnowageAskSheqActivity"></activity>
     </application>
 
 </manifest>

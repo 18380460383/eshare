@@ -12,9 +12,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kzmen.sczxjf.bean.Advertisement;
 import com.kzmen.sczxjf.bean.Config;
-import com.kzmen.sczxjf.bean.MoneyBean;
 import com.kzmen.sczxjf.bean.UserInfo;
 import com.kzmen.sczxjf.bean.WeixinInfo;
+import com.kzmen.sczxjf.bean.kzbean.UserBean;
+import com.kzmen.sczxjf.bean.kzbean.UserMessageBean;
 import com.kzmen.sczxjf.bean.user.User_For_pe;
 import com.kzmen.sczxjf.ebean.User;
 import com.kzmen.sczxjf.imagepicker.ImagePicker;
@@ -24,16 +25,15 @@ import com.kzmen.sczxjf.multidex.MultiDexApplication;
 import com.kzmen.sczxjf.test.server.PlayService;
 import com.kzmen.sczxjf.ui.activity.BaseWebActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.MainTabActivity;
-import com.kzmen.sczxjf.ui.activity.personal.YaoActivity;
 import com.kzmen.sczxjf.util.PreferenceUtil;
 import com.kzmen.sczxjf.utils.FileUtils;
 import com.lzy.okhttputils.OkHttpUtils;
-import com.lzy.okhttputils.model.HttpHeaders;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.qiniu.android.storage.Configuration;
 import com.qiniu.android.storage.UploadManager;
+import com.vondear.rxtools.RxUtils;
 
 import java.io.File;
 import java.util.Date;
@@ -60,16 +60,16 @@ public class AppContext extends MultiDexApplication {
     public String accessToken;
     public String openid;
     public  User user;
-    private UserInfo userInfo;
-    public MoneyBean moneyBean;
-    public YaoActivity yaoActivity;
+    private  UserInfo userInfo;
     public SharedPreferences sp;
+    public static  UserBean userBean;
     // 七牛sdk
     private Configuration config7niu;
     private UploadManager uploadManager;
     private Config appconfig=null;
     public BaseWebActivity mBaseWebAct;
     private User_For_pe peuser;
+    public static UserMessageBean userMessageBean;
 
     private int netState=0; // 0 不可用  1.wifi可用  2.wifi不可用  3.移动网可用 4.移动网不可用
     public static String sign="";
@@ -97,6 +97,7 @@ public class AppContext extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        RxUtils.init(this);
         try {
             JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
             JPushInterface.init(this);     		// 初始化 JPush
@@ -134,11 +135,7 @@ public class AppContext extends MultiDexApplication {
                 }
             }
         }.run();
-        HttpHeaders headers = new HttpHeaders();
-        headers.put("sign", sign);    //所有的 header 都 不支持 中文
-        headers.put("token", token);
-        headers.put("app_bate", app_bate);
-        headers.put("from", from);
+
         //必须调用初始化
         OkHttpUtils.init(this);
         //以下都不是必须的，根据需要自行选择
@@ -148,7 +145,7 @@ public class AppContext extends MultiDexApplication {
                 .setWriteTimeOut(6*1000)                 //全局的写入超时时间
                 //.setCookieStore(new MemoryCookieStore())                           //cookie使用内存缓存（app退出后，cookie消失）
                 //.setCookieStore(new PersistentCookieStore())                       //cookie持久化存储，如果cookie不过期，则一直有效
-                .addCommonHeaders(headers)                                         //设置全局公共头
+                              //设置全局公共头
                 ;
 
     }
@@ -285,15 +282,6 @@ public class AppContext extends MultiDexApplication {
                 List<UserInfo.ExtraEntity> list = new Gson().fromJson(
                         sp.getString("extras", null), new TypeToken<List<UserInfo.ExtraEntity>>() {
                 }.getType());
-//                try {
-//                    JSONArray array = new JSONArray(sp.getString("extras", null));
-//                    for(int i = 0; i < array.length(); i++ ) {
-//                        list.add(new Gson().fromJson(array.get(i).toString(), UserInfo.ExtraEntity.class));
-//                    }
-//                    this.userInfo.setExtras(list);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
                 this.userInfo.setExtras(list);
             }
         }
@@ -458,6 +446,37 @@ public class AppContext extends MultiDexApplication {
          String s = g.toJson(peuser);
         edit.putString("peuser",s);
         edit.commit();
+    }
+    public void setUserLogin(UserBean userBean){
+        this.sign=userBean.getSign();
+        this.token=userBean.getToken();
+        this.app_bate="1";
+        this.userBean=userBean;
+        SharedPreferences.Editor edit = sp.edit();
+        Gson g=new Gson();
+        String s = g.toJson(userBean);
+        edit.putString("userBean",s);
+        edit.commit();
+    }
+
+    public UserBean getUserLogin(){
+        if(this.userBean==null){
+            String peuserStr = sp.getString("userBean", null);
+            if(peuserStr==null){
+                this.userBean=new UserBean();
+                return this.userBean;
+            }else{
+                Gson gson=new Gson();
+                this.userBean= gson.fromJson(peuserStr, UserBean.class);
+                this.sign=userBean.getSign();
+                this.token=userBean.getToken();
+                this.app_bate="1";
+                this.userBean=userBean;
+                return this.userBean;
+            }
+        }else{
+            return this.userBean;
+        }
     }
     public User_For_pe getPEUser(){
         if(this.peuser==null){

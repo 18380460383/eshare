@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.kzmen.sczxjf.R;
-import com.kzmen.sczxjf.bean.ShopBean;
+import com.kzmen.sczxjf.bean.kzbean.JiFenShopListItemBean;
 import com.kzmen.sczxjf.control.ImageLoaderOptionsControl;
 import com.kzmen.sczxjf.ui.activity.menu.ShopDetailActivity;
 import com.kzmen.sczxjf.view.PointListView;
@@ -30,7 +30,7 @@ public class Kz_ShopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private ImageLoader imageLoader = ImageLoader.getInstance();
     private static final int TYPE_HEADER = 0, TYPE_ITEM = 1, TYPE_FOOT = 2;
     private DisplayImageOptions options;
-    public List<ShopBean> mDatas;
+    public List<JiFenShopListItemBean> mDatas;
     private Context context;
     private int headViewid;
     private int headViewSize;
@@ -46,7 +46,7 @@ public class Kz_ShopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private int itemNum=0;
     private ShopAdapter.HeadBack headBack;
 
-    public Kz_ShopAdapter(Context context,List<ShopBean> mDatas) {
+    public Kz_ShopAdapter(Context context,List<JiFenShopListItemBean> mDatas) {
         this.mDatas = mDatas;
         this.context=context;
     }
@@ -78,7 +78,6 @@ public class Kz_ShopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             case TYPE_ITEM:
                 view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.kz_shop_item, viewGroup, false);
-
                 break;
 
             case TYPE_FOOT:
@@ -102,7 +101,7 @@ public class Kz_ShopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 break;
             default:
                 final int pos = getRealPosition(holder);
-                final ShopBean shopBean = mDatas.get(pos);
+                final JiFenShopListItemBean shopBean = mDatas.get(pos);
                 final View itemView = holder.itemView;
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

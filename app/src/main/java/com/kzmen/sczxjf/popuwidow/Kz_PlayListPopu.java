@@ -75,9 +75,33 @@ public class Kz_PlayListPopu extends PopupWindow {
         adapter = new CommonAdapter<Music>(mContext, R.layout.kz_course_detail_list_item, listData) {
             @Override
             protected void convert(ViewHolder viewHolder, Music item, int position) {
-                viewHolder.setText(R.id.tv_title, item.getPath());
+                viewHolder.getView(R.id.top_line).setVisibility(View.VISIBLE);
+                viewHolder.getView(R.id.bottom_line).setVisibility(View.VISIBLE);
                 animationDrawable = (AnimationDrawable) ((ImageView)viewHolder.getView(R.id.iv_play_state))
                         .getDrawable();
+                if(position==0){
+                    viewHolder.getView(R.id.top_line).setVisibility(View.INVISIBLE);
+                }
+                if(position==(listData.size()-1)){
+                    viewHolder.getView(R.id.bottom_line).setVisibility(View.INVISIBLE);
+                }
+                if (position%2==0) {
+                    viewHolder.getView(R.id.iv_play_state).setVisibility(View.GONE);
+                    viewHolder.getView(R.id.v_cricle_point).setVisibility(View.VISIBLE);
+                    viewHolder.getView(R.id.tv_title).setVisibility(View.VISIBLE);
+                    viewHolder.setText(R.id.tv_title, item.getPath());
+                    viewHolder.getView(R.id.ll_play_state).setVisibility(View.GONE);
+                    viewHolder.getView(R.id.tv_second).setVisibility(View.INVISIBLE);
+                } else {
+                    viewHolder.getView(R.id.v_cricle_point).setVisibility(View.GONE);
+                    viewHolder.getView(R.id.iv_play_state).setVisibility(View.GONE);
+                    viewHolder.setText(R.id.tv_second, item.getPath());
+                    viewHolder.getView(R.id.tv_second).setVisibility(View.VISIBLE);
+                    viewHolder.getView(R.id.tv_title).setVisibility(View.INVISIBLE);
+                    viewHolder.getView(R.id.ll_play_state).setVisibility(View.VISIBLE);
+                }
+               // viewHolder.setText(R.id.tv_title, item.getPath());
+
                 if (position == playPos) {
                     viewHolder.getView(R.id.iv_play_state).setVisibility(View.VISIBLE);
                    switch (state){
@@ -89,7 +113,7 @@ public class Kz_PlayListPopu extends PopupWindow {
                            break;
                    }
                 } else {
-                    viewHolder.getView(R.id.iv_play_state).setVisibility(View.INVISIBLE);
+                    viewHolder.getView(R.id.iv_play_state).setVisibility(View.GONE);
                 }
             }
         };

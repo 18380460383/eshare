@@ -115,7 +115,7 @@ public class IntegralMsgActivity extends ListViewActivity {
             }
 
             @Override
-            public void onError(int code, String msg) {
+            public void onErrorWrong(int code, String msg) {
                 if (mPullRefreshListView == null) {
                     return;
                 }

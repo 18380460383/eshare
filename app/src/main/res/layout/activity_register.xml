@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.LoginActivity">
 
     <RelativeLayout
@@ -17,9 +17,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@color/white"
+        android:orientation="vertical"
         android:padding="@dimen/margin_top30">
 
 
@@ -38,20 +39,19 @@
                 android:textStyle="bold" />
 
 
-            <EditText
-                android:inputType="number"
-                android:layout_marginLeft="8dp"
+            <com.kzmen.sczxjf.view.DJEditText
                 android:id="@+id/et_phone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
                 android:background="@null"
                 android:hint=""
+                android:inputType="number"
                 android:textSize="14dp" />
 
         </LinearLayout>
 
-        <View
-            style="@style/bottom_line_gloom" />
+        <View style="@style/bottom_line_gloom" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,11 +68,11 @@
                 android:textStyle="bold" />
 
 
-            <EditText
-                android:layout_marginLeft="8dp"
+            <com.kzmen.sczxjf.view.DJEditText
                 android:id="@+id/ev_yz"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:background="@null"
                 android:hint=""
@@ -90,8 +90,7 @@
                 android:text="发送验证码" />
         </LinearLayout>
 
-        <View
-            style="@style/bottom_line_gloom" />
+        <View style="@style/bottom_line_gloom" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -108,31 +107,22 @@
                 android:textStyle="bold" />
 
 
-            <EditText
-                android:inputType="textPassword"
-                android:layout_marginLeft="8dp"
+            <com.kzmen.sczxjf.view.PasswordToggleEditText
                 android:id="@+id/et_pass"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:background="@null"
                 android:hint=""
+                android:inputType="textPassword"
                 android:textSize="14dp" />
 
 
-            <ImageView
-                android:id="@+id/iv_show"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="8dp"
-                android:background="@drawable/btn_play"
-                android:gravity="center"
-                android:padding="8dp" />
+
         </LinearLayout>
 
-        <View
-            style="@style/bottom_line_gloom"/>
+        <View style="@style/bottom_line_gloom" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -148,21 +138,21 @@
                 android:textColor="@color/seprate"
                 android:textStyle="normal" />
 
-            <EditText
-                android:layout_marginLeft="8dp"
+            <com.kzmen.sczxjf.view.DJEditText
                 android:id="@+id/et_yq"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:background="@null"
                 android:textSize="14dp" />
 
         </LinearLayout>
 
-        <View
-            style="@style/bottom_line_gloom" />
+        <View style="@style/bottom_line_gloom" />
 
         <TextView
             android:id="@+id/tv_register"
+            style="@style/login_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -170,8 +160,26 @@
             android:layout_marginTop="@dimen/margin_top30"
             android:background="@drawable/kz_bg_yellow_line"
             android:gravity="center"
-            style="@style/login_text"
             android:text="注册" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_xieyi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册表明您同意" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="卡掌门用户协议"
+            android:textStyle="bold" />
+    </LinearLayout>
 </LinearLayout>

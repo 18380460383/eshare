@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.LoginActivity">
 
     <RelativeLayout
@@ -40,7 +41,7 @@
                 android:textStyle="bold" />
 
 
-            <EditText
+            <com.kzmen.sczxjf.view.DJEditText
                 android:inputType="number"
                 android:layout_marginLeft="8dp"
                 android:id="@+id/et_phone"
@@ -48,6 +49,7 @@
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:hint=""
+                android:text="15801035398"
                 android:textSize="14dp" />
 
         </LinearLayout>
@@ -72,7 +74,7 @@
                 android:textStyle="bold" />
 
 
-            <EditText
+            <com.kzmen.sczxjf.view.PasswordToggleEditText
                 android:inputType="textPassword"
                 android:layout_marginLeft="8dp"
                 android:id="@+id/et_pass"
@@ -83,16 +85,6 @@
                 android:hint=""
                 android:textSize="14dp" />
 
-
-            <ImageView
-                android:id="@+id/iv_show"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="8dp"
-                android:background="@drawable/btn_play"
-                android:gravity="center"
-                android:padding="8dp" />
         </LinearLayout>
 
         <View

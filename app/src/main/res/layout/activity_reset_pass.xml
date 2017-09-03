@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.LoginActivity">
 
     <RelativeLayout
@@ -36,7 +37,7 @@
                 android:textStyle="bold" />
 
 
-            <EditText
+            <com.kzmen.sczxjf.view.PasswordToggleEditText
                 android:id="@+id/et_phone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -65,7 +66,7 @@
                 android:textStyle="bold" />
 
 
-            <EditText
+            <com.kzmen.sczxjf.view.PasswordToggleEditText
                 android:id="@+id/et_pass_confim"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

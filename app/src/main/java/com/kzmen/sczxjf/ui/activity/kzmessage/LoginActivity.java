@@ -6,26 +6,23 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.percent.PercentRelativeLayout;
+import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.google.gson.Gson;
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.Constants;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.WeixinInfo;
-import com.kzmen.sczxjf.bean.user.User_For_pe;
+import com.kzmen.sczxjf.bean.kzbean.UserBean;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
-import com.kzmen.sczxjf.net.EnWebUtil;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
-import com.kzmen.sczxjf.util.TLog;
-import com.kzmen.sczxjf.utils.JsonUtils;
 import com.kzmen.sczxjf.utils.TextUtil;
-import com.loopj.android.http.RequestParams;
+import com.kzmen.sczxjf.view.DJEditText;
+import com.kzmen.sczxjf.view.PasswordToggleEditText;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -49,11 +46,9 @@ public class LoginActivity extends SuperActivity {
     @InjectView(R.id.kz_tiltle)
     LinearLayout kzTiltle;
     @InjectView(R.id.et_phone)
-    EditText etPhone;
+    DJEditText etPhone;
     @InjectView(R.id.et_pass)
-    EditText etPass;
-    @InjectView(R.id.iv_show)
-    ImageView ivShow;
+    PasswordToggleEditText etPass;
     @InjectView(R.id.tv_login)
     TextView tvLogin;
     @InjectView(R.id.tv_forgetpass)
@@ -88,14 +83,14 @@ public class LoginActivity extends SuperActivity {
         return true;
     }
 
-    @OnClick({R.id.iv_show, R.id.tv_login, R.id.ll_login_weix, R.id.tv_forgetpass})
+    @OnClick({ R.id.tv_login, R.id.ll_login_weix, R.id.tv_forgetpass})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_show:
-                break;
+
             case R.id.tv_login:
-                startActivity(new Intent(LoginActivity.this, MainTabActivity.class));
-                //onLogin();
+               /* startActivity(new Intent(LoginActivity.this, MainTabActivity.class));
+                finish();*/
+                onLogin();
                 break;
             case R.id.ll_login_weix:
                 showProgressDialog("跳转微信登录中");
@@ -110,20 +105,39 @@ public class LoginActivity extends SuperActivity {
     private void onLogin() {
         phone = etPhone.getText().toString();
         pass = etPass.getText().toString();
-        Map<String, String> params = new HashMap<>();
         if (isAllRight()) {
-            params.put("phone", phone);
-            params.put("pwd", pass);
-            OkhttpUtilManager.postNoCacah(this, "login", params, new OkhttpUtilResult() {
+            showProgressDialog("登陆中");
+            Map<String, String> params = new HashMap<>();
+            params.put("data[phone]", phone);
+            params.put("data[pwd]", pass);
+            OkhttpUtilManager.postNoCacah(this, "public/login", params, new OkhttpUtilResult() {
                 @Override
                 public void onSuccess(int type, String data) {
-                    startActivity(new Intent(LoginActivity.this, MainTabActivity.class));
-                    finish();
+                    try {
+                        JSONObject object = new JSONObject(data);
+                        Gson gson = new Gson();
+                        UserBean bean = gson.fromJson(object.getString("data"), UserBean.class);
+                        Log.e("tst", bean.toString());
+                        AppContext.getInstance().setUserLogin(bean);
+                        AppContext.getInstance().setPersonageOnLine(true);
+                        AppContext.getInstance().setCpassword(pass);
+                        startActivity(new Intent(LoginActivity.this, MainTabActivity.class));
+                        finish();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    dismissProgressDialog();
                 }
 
                 @Override
-                public void onError(int code, String msg) {
+                public void onErrorWrong(int code, String msg) {
+                    dismissProgressDialog();
                     RxToast.normal(msg);
+                   /* if(code==99){
+                        RxToast.normal("登陆失败");
+                    }else{
+                        RxToast.normal(msg);
+                    }*/
                 }
             });
         }
@@ -177,54 +191,47 @@ public class LoginActivity extends SuperActivity {
         final WeixinInfo info = WeixinInfo.parseJson(new JSONObject(json));
         if (info != null) {
             showProgressDialog("登陆中");
-            RequestParams requestParams1 = new RequestParams();
-            requestParams1.put("weixin[platform]", "android");
-            requestParams1.put("weixin[unionid]", info.unionid);
-            requestParams1.put("weixin[imageurl]", info.headimgurl);
-            requestParams1.put("weixin[username]", info.nickname);
-            requestParams1.put("weixin[city]", info.city + "");
-            requestParams1.put("weixin[country]", info.country + "");
-            requestParams1.put("weixin[sex]", info.sex + "");
-            requestParams1.put("weixin[province]", info.province + "");
-            requestParams1.put("weixin[source]", AppContext.getInstance().getChannel());
-
-            EnWebUtil.getInstance().post(this, new String[]{"OwnAccount", "loginAppByWeixin"}, requestParams1, new EnWebUtil.AesListener2() {
+            Map<String, String> params = new HashMap<>();
+            params.put("data[weixin]", info.unionid + "");
+            params.put("data[openid]", info.openid + "");
+            params.put("data[username]", info.nickname + "");
+            params.put("data[avatar]", info.headimgurl + "");
+            params.put("data[third_country]", info.country + "");
+            params.put("data[third_province]", info.province + "");
+            params.put("data[third_city]", info.city + "");
+            params.put("data[third_sex]", info.sex + "");
+            OkhttpUtilManager.postNoCacah(this, "", params, new OkhttpUtilResult() {
                 @Override
-                public void onSuccess(String errorCode, String errorMsg, String data) {
-                    if ("0".equals(errorCode)) {
-                        try {
-                            User_For_pe bean = JsonUtils.getBean(new JSONObject(data), User_For_pe.class);
-                            TLog.error("用户数据" + data);
-                            onLoginSuccess(bean);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        Toast.makeText(LoginActivity.this, errorMsg, Toast.LENGTH_SHORT).show();
+                public void onSuccess(int type, String data) {
+                    JSONObject object = null;
+                    try {
+                        object = new JSONObject(data);
+                        Gson gson = new Gson();
+                        UserBean bean = gson.fromJson(object.getString("data"), UserBean.class);
+                        onLoginSuccess(bean);
+                        startActivity(new Intent(LoginActivity.this, MainTabActivity.class));
+                        finish();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    dismissProgressDialog();
                 }
 
                 @Override
-                public void onFail(String result) {
-                    Toast.makeText(LoginActivity.this, "微信登陆失败", Toast.LENGTH_SHORT).show();
-                    dismissProgressDialog();
+                public void onErrorWrong(int code, String msg) {
+                    Toast.makeText(LoginActivity.this, "微信登录失败", Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
 
-    private void onLoginSuccess(User_For_pe data) {
-        AppContext.getInstance().setPEUser(data);
+    private void onLoginSuccess(UserBean data) {
+        AppContext.getInstance().setUserLogin(data);
         AppContext.getInstance().setPersonageOnLine(true);
         AppContext.getInstance().setFirst();
         dismissProgressDialog();
-        Intent intent = new Intent();
+        /*Intent intent = new Intent();
         intent.putExtra("loginstate", 1);
-        setResult(RESULT_OK, intent);
-        if (AppContext.maintabeactivity != null) {
-            AppContext.maintabeactivity.setHeadImageAndMenu(data);
-        }
+        setResult(RESULT_OK, intent);*/
         finish();
     }
 }

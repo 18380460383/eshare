@@ -1,7 +1,6 @@
 package com.kzmen.sczxjf.ui.activity.kzmessage;
 
 import android.os.Bundle;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
@@ -9,6 +8,7 @@ import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.utils.TextUtil;
+import com.kzmen.sczxjf.view.PasswordToggleEditText;
 import com.vondear.rxtools.view.RxToast;
 
 import java.util.HashMap;
@@ -20,9 +20,9 @@ import butterknife.OnClick;
 public class ResetPassActivity extends SuperActivity {
 
     @InjectView(R.id.et_phone)
-    EditText etPhone;
+    PasswordToggleEditText etPhone;
     @InjectView(R.id.et_pass_confim)
-    EditText etPassConfim;
+    PasswordToggleEditText etPassConfim;
     @InjectView(R.id.tv_complete)
     TextView tvComplete;
 
@@ -63,7 +63,7 @@ public class ResetPassActivity extends SuperActivity {
                 }
 
                 @Override
-                public void onError(int code, String msg) {
+                public void onErrorWrong(int code, String msg) {
                     RxToast.normal(msg);
                 }
             });

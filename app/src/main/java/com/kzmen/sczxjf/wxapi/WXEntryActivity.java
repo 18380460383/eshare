@@ -102,10 +102,7 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                 weixinShare.putExtra(Constants.WEIXIN_SHARE_KEY,Constants.WEIXIN_SHARE_VALUE_FAILURE);
                 sendBroadcast(weixinShare);
                 // 认证失败
-                if(AppContext.getInstance().yaoActivity != null) {
-                    AppContext.getInstance().yaoActivity.dismissProgressDialog();
-                    AppContext.getInstance().yaoActivity.onShareCancel();
-                }
+
                 if(AppContext.getInstance().mBaseWebAct != null) {
                     EshareLoger.logI("BaseWeb不为空fail");
                     AppContext.getInstance().mBaseWebAct.onShareCancel();

@@ -6,18 +6,26 @@ import android.os.CountDownTimer;
 import android.support.percent.PercentRelativeLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.bean.kzbean.UserBean;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
+import com.kzmen.sczxjf.utils.TextUtil;
 import com.vondear.rxtools.RxRegUtils;
 import com.vondear.rxtools.view.RxToast;
+import com.vondear.rxtools.view.dialog.RxDialogSure;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,9 +54,9 @@ public class RegisterActivity extends SuperActivity {
     LinearLayout kzTiltle;
     @InjectView(R.id.et_pass)
     EditText etPass;
-    @InjectView(R.id.iv_show)
-    ImageView ivShow;
-    private String yzGet = "3214";
+    @InjectView(R.id.ll_xieyi)
+    LinearLayout llXieyi;
+    private String yzGet = "";
     private String phone;
     private String yz;
     private String password;
@@ -85,11 +93,7 @@ public class RegisterActivity extends SuperActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 11) {
-                    if (!RxRegUtils.isMobile(s.toString())) {
-                        RxToast.normal("手机号码格式不正确");
-                    }
-                }
+
             }
 
             @Override
@@ -109,38 +113,100 @@ public class RegisterActivity extends SuperActivity {
         return true;
     }
 
-    @OnClick({R.id.tv_yz, R.id.tv_register})
+    @OnClick({R.id.tv_yz, R.id.tv_register,R.id.ll_xieyi})
     public void onViewClicked(View view) {
         Intent intent = null;
         switch (view.getId()) {
             case R.id.tv_yz:
-                timer.start();
+                phone = etPhone.getText().toString();
+
+                getYz();
                 break;
             case R.id.tv_register:
                 if (isAllRight()) {
                     Map<String, String> params = new HashMap<>();
-                    params.put("phone", phone);
-                    params.put("code", yz);
-                    params.put("pwd", password);
-                    params.put("invite_code", yq);
-                    OkhttpUtilManager.postNoCacah(RegisterActivity.this, "register", params, new OkhttpUtilResult() {
+                    params.put("data[phone]", phone);
+                    params.put("data[code]", yz);
+                    params.put("data[pwd]", password);
+                    params.put("data[invite_code]", yq);
+                    OkhttpUtilManager.postNoCacah(RegisterActivity.this, "public/register", params, new OkhttpUtilResult() {
                         @Override
                         public void onSuccess(int type, String data) {
                             //注册成功
+                            Log.e("tst", data);
+                            JSONObject object = null;
+                            try {
+                                object = new JSONObject(data);
+                                Gson gson = new Gson();
+                                UserBean bean = gson.fromJson(object.getString("data"), UserBean.class);
+                                AppContext.getInstance().setUserLogin(bean);
+                                startActivity(new Intent(RegisterActivity.this, MainTabActivity.class));
+                                finish();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
                         }
 
                         @Override
-                        public void onError(int code, String msg) {
+                        public void onErrorWrong(int code, String msg) {
                             RxToast.normal(msg);
                         }
                     });
                 }
                 // intent = new Intent(RegisterActivity.this, BindWXAcitivity.class);
                 break;
+            case R.id.ll_xieyi:
+                RxDialogSure dialogSure=new RxDialogSure(RegisterActivity.this);
+                dialogSure.setTitle("用户协议");
+                dialogSure.show();
+                break;
         }
         if (intent != null) {
             startActivity(intent);
         }
+    }
+
+    private void getYz() {
+        if (TextUtil.isEmpty(phone)) {
+            RxToast.normal("电话号码不能为空");
+            return;
+        }
+        timer.start();
+        Map<String, String> params = new HashMap<>();
+        params.put("data[phone]", phone);
+        params.put("data[type]", "1");
+        OkhttpUtilManager.postNoCacah(this, "public/get_phone_code", params, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                if (timer != null) {
+                    timer.cancel();
+                }
+                Log.e("tst", data);
+                try {
+                    JSONObject object = new JSONObject(data);
+                    JSONObject object1 = new JSONObject(object.getString("data"));
+                    String code = object1.getString("code");
+                    tvYz.setText(code);
+                    yzGet = code;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    yzGet = "-9999";
+                }
+                tvYz.setEnabled(true);
+            }
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                if (timer != null) {
+                    timer.cancel();
+                }
+                Log.e("tst", msg);
+                yzGet = "-9999";
+                tvYz.setEnabled(true);
+                tvYz.setText("获取验证码");
+            }
+        });
     }
 
     private boolean isAllRight() {
@@ -152,7 +218,7 @@ public class RegisterActivity extends SuperActivity {
             RxToast.normal("手机号码格式不正确");
             return false;
         }
-        if (yz != yzGet) {
+        if (!yz.equals(yzGet)) {
             RxToast.normal("验证码不正确");
             return false;
         }

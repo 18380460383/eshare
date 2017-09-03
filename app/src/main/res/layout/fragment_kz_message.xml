@@ -16,6 +16,7 @@
         tools:context="com.kzmen.sczxjf.ui.fragment.kzmessage.KzMessageFragment">
 
         <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nsv_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

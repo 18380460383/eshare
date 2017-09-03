@@ -44,7 +44,8 @@ public class KnowageAskIndexActivity extends SuperActivity {
         setContentView(R.layout.activity_knowage_ask);
     }
 
-    @OnClick(R.id.tv_ask_xy)
+
+    @OnClick({R.id.tv_ask_xy, R.id.tv_ask_yx})
     public void onViewClicked(View view) {
         Intent intent=null;
         switch (view.getId()){
@@ -52,6 +53,11 @@ public class KnowageAskIndexActivity extends SuperActivity {
                 intent=new Intent(KnowageAskIndexActivity.this,KnowageAskActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.tv_ask_yx:
+                intent=new Intent(KnowageAskIndexActivity.this,KnowageAskSheqActivity.class);
+                startActivity(intent);
+                break;
         }
+
     }
 }

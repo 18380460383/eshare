@@ -9,12 +9,13 @@
 
     <ImageView
         android:id="@+id/iv_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/icon_play" />
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@drawable/icon_empty" />
 
     <TextView
+        android:layout_marginTop="25dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="没有数据！" />
+        android:text="当前没有数据！" />
 </LinearLayout>

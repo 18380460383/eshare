@@ -67,7 +67,6 @@ public class YaoActivity extends BaseActivity {
     private void initView() {
         setProgressBarVisibility(true);
         setContentView(R.layout.activity_yao);
-        AppContext.getInstance().yaoActivity = this;
         mWebView = (WebView) findViewById(R.id.activity_yao_wb);
         iv_back = (ImageView) findViewById(R.id.title_back);
         tv_title = (TextView) findViewById(R.id.title_name);

@@ -12,6 +12,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.KnowageAskDetailActivity">
 
     <RelativeLayout
@@ -38,10 +39,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <ImageView
+                    android:background="@drawable/icon_quiz_a"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     />
                 <LinearLayout
+                    android:layout_marginLeft="15dp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -67,20 +70,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="提问"
-                    android:textColor="@color/white"
-                    android:background="@drawable/cornor_backgroud_yellow"
+                    android:background="@drawable/cornor_background_yellow_large"
                     />
             </LinearLayout>
             <LinearLayout
+                android:layout_marginTop="30dp"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <ImageView
+                    android:background="@drawable/icon_quiz_b"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     />
                 <LinearLayout
+                    android:layout_marginLeft="15dp"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -106,8 +111,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="提问"
-                    android:textColor="@color/white"
-                    android:background="@drawable/cornor_backgroud_yellow"
+
+                    android:background="@drawable/cornor_background_yellow_large"
                     />
             </LinearLayout>
             <LinearLayout

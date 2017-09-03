@@ -24,8 +24,7 @@
             android:textColor="@color/bottom_yellow"
             android:textSize="16dp" />
 
-        <include
-            layout="@layout/kz_title" />
+        <include layout="@layout/kz_title" />
 
         <TextView
             android:id="@+id/tv_pre"
@@ -36,7 +35,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="发布"
-            android:textSize="16dp" />
+            android:textSize="20dp" />
     </RelativeLayout>
 
     <ScrollView
@@ -53,29 +52,19 @@
             android:orientation="vertical">
 
             <EditText
-                android:hint="问题描述"
                 android:id="@+id/et_content"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/edit_text"
                 android:enabled="true"
                 android:gravity="top"
+                android:hint="问题描述"
                 android:inputType="textMultiLine"
                 android:maxLines="10"
                 android:minLines="8"
                 android:scrollbars="vertical" />
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:choiceMode="singleChoice"
-                android:divider="@null"
-                android:fadingEdge="none"
-                android:listSelector="@android:color/transparent"
-                android:scrollbarStyle="outsideOverlay"
-                app:layoutManager="android.support.v7.widget.GridLayoutManager"
-                app:spanCount="3"
-                tools:listitem="@layout/list_item_image" />
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,17 +82,29 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
-
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="120dp"
+                    android:layout_height="48dp"
+                    android:choiceMode="singleChoice"
+                    android:divider="@null"
+                    android:fadingEdge="none"
+                    android:listSelector="@android:color/transparent"
+                    android:scrollbarStyle="outsideOverlay"
+                    app:layoutManager="android.support.v7.widget.GridLayoutManager"
+                    app:spanCount="3"
+                    tools:listitem="@layout/list_item_image" />
                 <ImageView
                     android:id="@+id/iv_choice_pic"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:background="@drawable/btn_player_play" />
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/icon_picture" />
 
                 <TextView
                     android:id="@+id/tv_limite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
                     android:text="0/150" />
             </LinearLayout>
 
@@ -181,7 +182,7 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:layout_width="24dp"
+                    android:layout_width="16dp"
                     android:layout_height="32dp"
                     android:background="@drawable/into" />
             </LinearLayout>
