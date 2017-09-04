@@ -24,7 +24,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 
-public class BindWXAcitivity extends SuperActivity {
+public class BindPhoneAcitivity extends SuperActivity {
 
     @InjectView(R.id.back)
     PercentRelativeLayout back;
@@ -90,12 +90,12 @@ public class BindWXAcitivity extends SuperActivity {
                 break;
             case R.id.tv_next:
                 if (isAllRight()) {
-                    startActivity(new Intent(BindWXAcitivity.this, MainTabActivity.class));
+                    startActivity(new Intent(BindPhoneAcitivity.this, MainTabActivity.class));
                     finish();
                 }
                 break;
             case R.id.ll_xieyi:
-                RxDialogSure dialogSure = new RxDialogSure(BindWXAcitivity.this);
+                RxDialogSure dialogSure = new RxDialogSure(BindPhoneAcitivity.this);
                 dialogSure.setTitle("用户协议");
                 dialogSure.show();
                 break;

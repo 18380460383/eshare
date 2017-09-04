@@ -170,7 +170,6 @@ public class CourseDetailAcitivity extends SuperActivity {
             expandTextView.setText(courseDetailBean.getDescribe());
         }
 
-
         adapter = new Kz_Course_FragmentAdapter(getSupportFragmentManager(), CourseDetailAcitivity.this, titles);
         adapter.setTitles(titles);
         infoViewpager.setAdapter(adapter);
@@ -255,11 +254,6 @@ public class CourseDetailAcitivity extends SuperActivity {
         };
         lvGoodask.setAdapter(adapter2);
         setListViewHeightBasedOnChildren(lvGoodask);
-    }
-
-    @Override
-    protected boolean isShareActivity() {
-        return true;
     }
 
     @Override

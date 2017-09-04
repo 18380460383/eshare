@@ -274,7 +274,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ui.activity.kzmessage.RegisterActivity" />
         <activity android:name=".ui.activity.kzmessage.LoginActivity" />
-        <activity android:name=".ui.activity.kzmessage.BindWXAcitivity" />
+        <activity android:name=".ui.activity.kzmessage.BindPhoneAcitivity" />
         <activity android:name=".ui.activity.kzmessage.PersonMessActivity" />
         <activity android:name=".ui.activity.kzmessage.AccountMessageActivity" />
         <activity

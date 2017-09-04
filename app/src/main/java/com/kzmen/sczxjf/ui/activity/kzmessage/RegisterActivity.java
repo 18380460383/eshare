@@ -158,7 +158,6 @@ public class RegisterActivity extends SuperActivity {
                         }
                     });
                 }
-                // intent = new Intent(RegisterActivity.this, BindWXAcitivity.class);
                 break;
             case R.id.ll_xieyi:
                 RxDialogSure dialogSure = new RxDialogSure(RegisterActivity.this);
@@ -215,9 +214,13 @@ public class RegisterActivity extends SuperActivity {
     private boolean isPhoneRigth() {
         phone = etPhone.getText().toString();
         if (TextUtil.isEmpty(phone)) {
+            RxToast.normal("电话号码不能为空");
             return false;
         }
-        return RxRegUtils.isTel(phone);
+        if(!RxRegUtils.isMobile(phone)){
+            RxToast.normal("电话号码不合法");
+        }
+        return true;
     }
 
     private boolean isAllRight() {

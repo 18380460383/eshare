@@ -84,11 +84,6 @@ public class CaseListActivity extends ListViewActivity {
         setADD();
     }
 
-    @Override
-    protected boolean isShareActivity() {
-        return true;
-    }
-
     /**
      * 下拉刷新
      *
@@ -112,6 +107,9 @@ public class CaseListActivity extends ListViewActivity {
     }
 
     public void getList() {
+        if(page==1){
+            data_list.clear();
+        }
         Map<String, String> params = new HashMap<>();
         params.put("data[limit]", "" + 10);
         params.put("data[page]", "" + page);
