@@ -16,7 +16,6 @@ import android.util.Log;
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.cusinterface.PlayMessage;
 import com.kzmen.sczxjf.test.bean.Music;
-import com.kzmen.sczxjf.util.EToastUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,10 +50,19 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
     private int mPlayState = STATE_IDLE;
     private int realPost = 0;
     private PlayMessage playMessage;
-    private void startTimer() {
+    private void stopTimer(){
         if (mTimer == null) {
-            mTimer = new Timer();
+           return;
         }
+        mTimer.cancel();
+        mTimer=null;
+    }
+    private void startTimer() {
+        if (mTimer != null) {
+            mTimer.cancel();
+           mTimer=null;
+        }
+        mTimer = new Timer();
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -72,7 +80,7 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
     // 计时器
     Handler handler = new Handler() {
         public void handleMessage(android.os.Message msg) {
-            int position = mPlayer.getCurrentPosition();
+            int position = mPlayer.getCurrentPosition()+1000;
             int duration = mPlayer.getDuration();
             if (duration > 0) {
                 // 计算进度（获取进度条最大刻度*当前音乐播放位置 / 当前音乐时长）
@@ -130,7 +138,7 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
                     break;
             }
         }
-        startTimer();
+        //startTimer();
         return START_NOT_STICKY;
     }
 
@@ -159,7 +167,7 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
             position = 0;
         }
         if(realPost>=mMusicList.size()){
-            EToastUtil.show(getApplicationContext(),"播放完毕");
+            //EToastUtil.show(getApplicationContext(),"播放完毕");
             realPost=0;
             position = 0;
             mPlayingPosition = position;
@@ -173,6 +181,7 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
     }
 
     public void play(Music music) {
+        startTimer();
         mPlayingMusic = music;
         try {
             mPlayer.reset();
@@ -265,6 +274,7 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
         if (isIdle()) {
             return;
         }
+        stopTimer();
         pause();
         mPlayer.reset();
         mPlayState = STATE_IDLE;

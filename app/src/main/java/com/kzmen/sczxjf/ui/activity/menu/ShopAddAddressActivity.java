@@ -16,9 +16,7 @@ import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.ListViewActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -102,7 +100,7 @@ public class ShopAddAddressActivity extends ListViewActivity {
             }
 
             @Override
-            public void onError(int code, String msg) {
+            public void onErrorWrong(int code, String msg) {
                 if (mPullRefreshListView == null) {
                     return;
                 }

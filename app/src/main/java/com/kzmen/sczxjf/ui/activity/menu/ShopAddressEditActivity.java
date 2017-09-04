@@ -125,7 +125,9 @@ public class ShopAddressEditActivity extends SuperActivity {
                 break;
             case REQ_ADDRESS:
                 tvUserAddress.setText(msg);
-                EToastUtil.show(ShopAddressEditActivity.this, "address  " + msg);
+                String yb=data.getStringExtra("yb");
+                tvUserYbian.setText(yb);
+                EToastUtil.show(ShopAddressEditActivity.this, "address  " + msg+"   yb   "+yb);
                 break;
             case REQ_STREET:
                 tvUserStreet.setText(msg);

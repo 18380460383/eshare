@@ -45,7 +45,7 @@
             <TextView
                 android:id="@+id/tv_provice"
                 style="@style/area_text_value"
-                android:text="收货人" />
+                android:text="" />
 
             <ImageView style="@style/area_text_more" />
         </LinearLayout>
@@ -67,7 +67,7 @@
             <TextView
                 android:id="@+id/tv_city"
                 style="@style/area_text_value"
-                android:text="收货人" />
+                android:text="" />
 
             <ImageView
                 style="@style/area_text_more" />
@@ -90,7 +90,7 @@
             <TextView
                 android:id="@+id/tv_user_name"
                 style="@style/area_text_value"
-                android:text="武侯区" />
+                android:text="" />
 
             <ImageView
                 style="@style/area_text_more"

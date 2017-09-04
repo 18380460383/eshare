@@ -138,13 +138,14 @@ public class BindWXAcitivity extends SuperActivity {
             }
 
             @Override
-            public void onError(int code, String msg) {
+            public void onErrorWrong(int code, String msg) {
                 if (timer != null) {
                     timer.onFinish();
                 }
                 yzenGet = "-111111";
                 tvYz.setText("获取验证码");
             }
+
         });
     }
 

@@ -12,7 +12,6 @@ import com.kzmen.sczxjf.bean.kzbean.ShopOrderAddressBean;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
-import com.kzmen.sczxjf.util.EToastUtil;
 import com.vondear.rxtools.view.RxToast;
 
 import java.util.HashMap;
@@ -77,16 +76,17 @@ public class ShopOrderComfirActivity extends SuperActivity {
     }
     private void commitOrder(){
         Map<String,String> params=new HashMap<>();
-        params.put("gid",  "");
-        params.put("num",   "10");
-        params.put("aid",   "10");
+        params.put("data[gid]",  "");
+        params.put("data[num]",   "10");
+        params.put("data[aid]",   "10");
         OkhttpUtilManager.postNoCacah(this, "Goods/UserAddOrder", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
 
             }
+
             @Override
-            public void onError(int code, String msg) {
+            public void onErrorWrong(int code, String msg) {
                 RxToast.normal(msg);
             }
         });
@@ -100,10 +100,28 @@ public class ShopOrderComfirActivity extends SuperActivity {
         // 根据上面发送过去的请求吗来区别
         switch (requestCode) {
             case 1000:
-                EToastUtil.show(ShopOrderComfirActivity.this, "niccc" + msg.toString());
+                if(msg!=null){
+                    llAddress.setVisibility(View.VISIBLE);
+                    llNoaddress.setVisibility(View.GONE);
+                    tvUserName.setText(msg.getUserName());
+                    tvAddress.setText(msg.getUserAddress());
+                    tvPhone.setText(msg.getUserPhone());
+                }else{
+                    llAddress.setVisibility(View.GONE);
+                    llNoaddress.setVisibility(View.VISIBLE);
+                }
                 break;
             case 2000:
-                EToastUtil.show(ShopOrderComfirActivity.this, "niccc" + msg.toString());
+                if(msg!=null){
+                    llAddress.setVisibility(View.VISIBLE);
+                    llNoaddress.setVisibility(View.GONE);
+                    tvUserName.setText(msg.getUserName());
+                    tvAddress.setText(msg.getUserAddress());
+                    tvPhone.setText(msg.getUserPhone());
+                }else{
+                    llAddress.setVisibility(View.GONE);
+                    llNoaddress.setVisibility(View.VISIBLE);
+                }
                 break;
         }
     }

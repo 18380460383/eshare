@@ -14,7 +14,6 @@ import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.view.banner.BannerLayout;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,8 +87,9 @@ public class ShopDetailActivity extends SuperActivity {
             public void onSuccess(int type, String data) {
                 mHandler.sendEmptyMessage(1);
             }
+
             @Override
-            public void onError(int code, String msg) {
+            public void onErrorWrong(int code, String msg) {
                 mHandler.sendEmptyMessage(0);
             }
         });
