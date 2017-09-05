@@ -13,6 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.bean.kzbean.TestItemBean;
 import com.kzmen.sczxjf.test.adapter.AnserQuesAdapter;
 import com.kzmen.sczxjf.test.bean.AnserItemBean;
 import com.kzmen.sczxjf.test.bean.QuestionBean;
@@ -84,21 +85,20 @@ public class AnserQuesActivity extends AppCompatActivity {
         mRadioGroup = (RadioGroup) findViewById(R.id.mRadioGroup);
     }
 
-    private List<QuestionBean> questionBeanList;
-    private List<AnserItemBean> itemBeanList;
+    private List<TestItemBean> questionBeanList;
+    private List<TestItemBean.ResultBean> itemBeanList;
 
     /**
      * 初始化数据库服务
      */
     private void initDB() {
-        DBService dbService = new DBService();
-        final List<Question> list = dbService.getQuestion();
-        questionBeanList = dbService.getQuestion1();
+
+       /* questionBeanList = new ArrayList<>();
         itemBeanList = new ArrayList<>();
         if (questionBeanList != null) {
-            itemBeanList = questionBeanList.get(0).getAnswerList();
+            itemBeanList = questionBeanList.get(0).getResult();
             anserQuesAdapter = new AnserQuesAdapter(this, itemBeanList);
-            anserQuesAdapter.setRightAnswer(questionBeanList.get(0).getAnswer());
+            anserQuesAdapter.setRightAnswer(questionBeanList.get(0).getCorrect());
             Log.e("tst", itemBeanList.toString());
         }
         if (anserQuesAdapter != null) {
@@ -114,10 +114,10 @@ public class AnserQuesActivity extends AppCompatActivity {
                 }
             });
         }
-        count = list.size();
+        count = questionBeanList.size();
         corrent = 0;
 
-        Question q = list.get(0);
+        TestItemBean q = questionBeanList.get(0);
         tv_title.setText(q.question);
 
         mRadioButton[0].setText(q.answerA);
@@ -264,7 +264,7 @@ public class AnserQuesActivity extends AppCompatActivity {
                     }
                 }
             }
-        });
+        });*/
     }
 
     /**

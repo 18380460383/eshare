@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,27 +14,29 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.bean.kzbean.HomeCourseBean;
+import com.kzmen.sczxjf.commonadapter.CommonAdapter;
+import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.consta.PlayState;
 import com.kzmen.sczxjf.interfaces.MainCourseListClick;
+import com.kzmen.sczxjf.view.MyListView;
 
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-import static com.kzmen.sczxjf.R.id.sb_play;
-
 /**
  * Created by pjj18 on 2017/8/21.
  */
 
 public class Kz_MainCourseAdapter extends BaseAdapter {
-    private List<String> listData;
+    private List<HomeCourseBean> listData;
     private Context mContext;
     private MainCourseListClick mainCourseListClick;
     private int playPosition = -1;
 
-    public Kz_MainCourseAdapter(Context mContext, List<String> listData, MainCourseListClick mainCourseListClick) {
+    public Kz_MainCourseAdapter(Context mContext, List<HomeCourseBean> listData, MainCourseListClick mainCourseListClick) {
         this.mContext = mContext;
         this.listData = listData;
         this.mainCourseListClick = mainCourseListClick;
@@ -66,19 +69,24 @@ public class Kz_MainCourseAdapter extends BaseAdapter {
         }
         viewHolder.sbPlay.setTag(position);
         viewHolder.sbPlay.setOnSeekBarChangeListener(new SeekBarChangeEvent());
-        viewHolder.tvTitle.setText(listData.get(position));
-        Glide.with(mContext).load(R.drawable.icon_user1).into(viewHolder.ivUserHead);
-        viewHolder.llXiaojiang1.setOnClickListener(new View.OnClickListener() {
+        viewHolder.tvTitle.setText(listData.get(position).getDescribe());
+        viewHolder.tvCourseEx.setText(listData.get(position).getTitle());
+        viewHolder.tvUserName.setText(listData.get(position).getTid_name());
+        viewHolder.tvUserIdentity.setText(listData.get(position).getTid_title());
+        viewHolder.tv_views.setText(listData.get(position).getViews());
+        Glide.with(mContext).load("http://api.kzmen.cn"+listData.get(position).getImage())
+                .placeholder(R.drawable.icon_image_normal)
+                .into(viewHolder.ivUserHead);
+        viewHolder.lvXiaojiang.setAdapter(new CommonAdapter<HomeCourseBean.XiaojiangArrBean>(mContext,R.layout.kz_xiaojiang_list_item,listData.get(position).getXiaojiang_arr()) {
             @Override
-            public void onClick(View v) {
-                if (mainCourseListClick != null) {
-                    mainCourseListClick.onClickXiaoJiang(position);
-                }
+            protected void convert(com.kzmen.sczxjf.commonadapter.ViewHolder viewHolder, HomeCourseBean.XiaojiangArrBean item, int position) {
+                viewHolder.setText(R.id.tv_xiaojiang_title1,item.getTitle())
+                        .setText(R.id.tv_xiaogjiangtime1,item.getMedia_time());
             }
         });
-        viewHolder.llXiaojiang2.setOnClickListener(new View.OnClickListener() {
+        viewHolder.lvXiaojiang.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (mainCourseListClick != null) {
                     mainCourseListClick.onClickXiaoJiang(position);
                 }
@@ -101,7 +109,7 @@ public class Kz_MainCourseAdapter extends BaseAdapter {
                 }
             }
         });
-        if(position==playPosition){
+        if (position == playPosition) {
             viewHolder.tvMediaStartTime.setText(start);
             viewHolder.tvMediaEndTime.setText(end);
             viewHolder.sbPlay.setProgress(pos);
@@ -113,7 +121,7 @@ public class Kz_MainCourseAdapter extends BaseAdapter {
                     viewHolder.ivCoursePlay.setBackgroundResource(R.drawable.btn_player_play);
                     break;
             }
-        }else{
+        } else {
             viewHolder.ivCoursePlay.setBackgroundResource(R.drawable.btn_player_play);
         }
         return convertView;
@@ -150,54 +158,13 @@ public class Kz_MainCourseAdapter extends BaseAdapter {
         return playPosition;
     }
 
-    class ViewHolder {
-        @InjectView(R.id.iv_user_head)
-        ImageView ivUserHead;
-        @InjectView(R.id.tv_user_identity)
-        TextView tvUserIdentity;
-        @InjectView(R.id.tv_user_name)
-        TextView tvUserName;
-        @InjectView(R.id.ll_user_head)
-        LinearLayout llUserHead;
-        @InjectView(R.id.tv_course_ex)
-        TextView tvCourseEx;
-        @InjectView(R.id.tv_title)
-        TextView tvTitle;
-        @InjectView(R.id.tv_media_start_time)
-        TextView tvMediaStartTime;
-        @InjectView(R.id.tv_media_end_time)
-        TextView tvMediaEndTime;
-        @InjectView(sb_play)
-        SeekBar sbPlay;
-        @InjectView(R.id.iv_course_play)
-        ImageView ivCoursePlay;
-        @InjectView(R.id.tv_xiaojiang_title1)
-        TextView tvXiaojiangTitle1;
-        @InjectView(R.id.tv_xiaogjiangtime1)
-        TextView tvXiaogjiangtime1;
-        @InjectView(R.id.ll_xiaojiang1)
-        LinearLayout llXiaojiang1;
-        @InjectView(R.id.tv_xiaojiang_title2)
-        TextView tvXiaojiangTitle2;
-        @InjectView(R.id.tv_xiaogjiangtime2)
-        TextView tvXiaogjiangtime2;
-        @InjectView(R.id.ll_xiaojiang2)
-        LinearLayout llXiaojiang2;
-        @InjectView(R.id.ll_more_course)
-        LinearLayout llMoreCourse;
-
-        ViewHolder(View view) {
-            ButterKnife.inject(this, view);
-        }
-    }
-
     class SeekBarChangeEvent implements SeekBar.OnSeekBarChangeListener {
         int progress;
 
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress,
                                       boolean fromUser) {
-            if (((int)seekBar.getTag()) == playPosition) {
+            if (((int) seekBar.getTag()) == playPosition) {
                 this.progress = progress * (AppContext.getPlayService().mPlayer.getDuration())
                         / seekBar.getMax();
             }
@@ -211,9 +178,42 @@ public class Kz_MainCourseAdapter extends BaseAdapter {
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
             // seekTo()的参数是相对与影片时间的数字，而不是与seekBar.getMax()相对的数字
-            if (((int)seekBar.getTag()) == playPosition) {
+            if (((int) seekBar.getTag()) == playPosition) {
                 AppContext.getPlayService().mPlayer.seekTo(progress);
             }
+        }
+    }
+
+    class ViewHolder {
+        @InjectView(R.id.iv_user_head)
+        ImageView ivUserHead;
+        @InjectView(R.id.tv_user_identity)
+        TextView tvUserIdentity;
+        @InjectView(R.id.tv_views)
+        TextView tv_views;
+        @InjectView(R.id.tv_user_name)
+        TextView tvUserName;
+        @InjectView(R.id.ll_user_head)
+        LinearLayout llUserHead;
+        @InjectView(R.id.tv_course_ex)
+        TextView tvCourseEx;
+        @InjectView(R.id.tv_title)
+        TextView tvTitle;
+        @InjectView(R.id.tv_media_start_time)
+        TextView tvMediaStartTime;
+        @InjectView(R.id.tv_media_end_time)
+        TextView tvMediaEndTime;
+        @InjectView(R.id.sb_play)
+        SeekBar sbPlay;
+        @InjectView(R.id.iv_course_play)
+        ImageView ivCoursePlay;
+        @InjectView(R.id.lv_xiaojiang)
+        MyListView lvXiaojiang;
+        @InjectView(R.id.ll_more_course)
+        LinearLayout llMoreCourse;
+
+        ViewHolder(View view) {
+            ButterKnife.inject(this, view);
         }
     }
 }

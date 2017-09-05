@@ -73,6 +73,8 @@
             </RadioGroup>
             <com.kzmen.sczxjf.view.MyListView
                 android:id="@+id/lv_question"
+                android:divider="@color/transparent"
+                android:dividerHeight="0dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </LinearLayout>

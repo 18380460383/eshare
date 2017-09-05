@@ -24,6 +24,7 @@ import com.kzmen.sczxjf.adapter.Kz_MainAskAdapter;
 import com.kzmen.sczxjf.adapter.Kz_MainCourseAdapter;
 import com.kzmen.sczxjf.bean.kzbean.HomeActivityBean;
 import com.kzmen.sczxjf.bean.kzbean.HomeBanerBean;
+import com.kzmen.sczxjf.bean.kzbean.HomeCourseBean;
 import com.kzmen.sczxjf.bean.kzbean.HomepageMenuBean;
 import com.kzmen.sczxjf.cusinterface.PlayMessage;
 import com.kzmen.sczxjf.interfaces.MainAskListClick;
@@ -93,7 +94,7 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
     protected CustomLoadingLayout mLayout; //SmartLoadingLayout对象
 
     private Kz_MainCourseAdapter kz_mainCourseAdapter;
-    private List<String> listCourse;
+    private List<HomeCourseBean> listCourse;
 
     private Kz_MainAskAdapter kz_mainAskAdapter;
     private List<String> listAsk;
@@ -215,6 +216,18 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
             @Override
             public void onSuccess(int type, String data) {
                 Log.e("tst", data);
+                try {
+                    JSONObject object = new JSONObject(data);
+                    Gson gson = new Gson();
+                    List<HomeCourseBean> list = gson.fromJson(object.getString("data"), new TypeToken<List<HomeCourseBean>>() {
+                    }.getType());
+                    if(list.size()>0){
+                        listCourse.addAll(list);
+                        kzMainColumnAdapter.notifyDataSetChanged();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 getFoucus();
                 ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(1);
             }
@@ -304,8 +317,8 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
         });*/
         mHandler.sendEmptyMessage(1);
         listCourse = new ArrayList<>();
-        listCourse.add("测试1");
-        listCourse.add("测试2");
+        /*listCourse.add("测试1");
+        listCourse.add("测试2");*/
         kz_mainCourseAdapter = new Kz_MainCourseAdapter(getActivity(), listCourse, new MainCourseListClick() {
             @Override
             public void onPlay(int position) {

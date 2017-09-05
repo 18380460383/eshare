@@ -22,6 +22,8 @@ import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.ListViewActivity;
+import com.kzmen.sczxjf.ui.activity.menu.PayTypeAcitivity;
+import com.kzmen.sczxjf.ui.activity.menu.SpecialPowerActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,7 +46,7 @@ public class TestListActivity extends ListViewActivity {
     PullToRefreshListView lvTestList;
     @InjectView(R.id.ll_main)
     LinearLayout llMain;
-    private int page = 0;
+    private int page = 1;
     private CommonAdapter<TestListItemBean> adapter;
     private List<TestListItemBean> data_list;
 
@@ -60,33 +62,25 @@ public class TestListActivity extends ListViewActivity {
         page = 1;
         adapter = new CommonAdapter<TestListItemBean>(this, R.layout.kz_test_list_item, data_list) {
             @Override
-            protected void convert(ViewHolder viewHolder, TestListItemBean item, int position) {
+            protected void convert(ViewHolder viewHolder, final TestListItemBean item, int position) {
                 viewHolder.setText(R.id.tv_title, item.getTitle())
                         .setText(R.id.tv_count, "参与人数" + item.getViews())
-                        .glideImage(R.id.iv_image, item.getImage());
-                if (item.getIscepin().equals("0")) {
-                    viewHolder.getView(R.id.ll_right_join).setVisibility(View.GONE);
-                    viewHolder.getView(R.id.ll_no_join).setVisibility(View.VISIBLE);
-                } else {
-                    viewHolder.getView(R.id.ll_right_join).setVisibility(View.VISIBLE);
-                    viewHolder.getView(R.id.ll_no_join).setVisibility(View.GONE);
-                }
+                        .glideImage(R.id.iv_image, item.getImage())
+                        .setText(R.id.textView6,item.getCepin_text());
+                viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(TestListActivity.this,TestDetailActivity.class);
+                        Bundle bundle=new Bundle();
+                        bundle.putString("id",item.getId());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
             }
         };
         setmPullRefreshListView(lvTestList, adapter);
         setADD();
-        lvTestList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = null;
-                if (position % 3 != 0) {
-                    intent = new Intent(TestListActivity.this, TestResultActivity.class);
-                } else {
-                    intent = new Intent(TestListActivity.this, TestDetailActivity.class);
-                }
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -102,7 +96,7 @@ public class TestListActivity extends ListViewActivity {
      */
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-        page++;
+        page=1;
         getList();
     }
 
@@ -113,7 +107,7 @@ public class TestListActivity extends ListViewActivity {
      */
     @Override
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-        page = 0;
+        page = 1;
         getList();
     }
 
@@ -135,8 +129,9 @@ public class TestListActivity extends ListViewActivity {
                 try {
                     object = new JSONObject(data);
                     Gson gson = new Gson();
-                    data_list = gson.fromJson(object.getString("data"), new TypeToken<List<TestListItemBean>>() {
+                    List<TestListItemBean> datalist = gson.fromJson(object.getString("data"), new TypeToken<List<TestListItemBean>>() {
                     }.getType());
+                    data_list.addAll(datalist);
                     if (data_list.size() == 0) {
                         lvTestList.setEmptyView(llMain);
                     }

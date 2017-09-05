@@ -3,11 +3,13 @@ package com.kzmen.sczxjf.ui.activity.kzmessage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.percent.PercentRelativeLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.bean.kzbean.TestResultBean;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 
 import butterknife.InjectView;
@@ -35,7 +37,8 @@ public class TestResultActivity extends SuperActivity {
     LinearLayout llTestBd;
     @InjectView(R.id.tv_conplete_test)
     TextView tvConpleteTest;
-
+    private TestResultBean testResultBean;
+    private String count="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,11 +47,28 @@ public class TestResultActivity extends SuperActivity {
     @Override
     public void onCreateDataForView() {
         setTitle(R.id.kz_tiltle, "测评结果");
+        initView();
+    }
+
+    private void initView() {
+        if(testResultBean!=null){
+            tvTestGrade.setText(""+testResultBean.getScore());
+            tvRightCount.setText(""+testResultBean.getCorrect());
+            tvWrongCount.setText(""+testResultBean.getError());
+            tvAnswerCount.setText(""+count);
+            tvGetJf.setText("+"+testResultBean.getTrue_score());
+        }
     }
 
     @Override
     public void setThisContentView() {
         setContentView(R.layout.activity_test_result);
+        Bundle bundle=getIntent().getExtras();
+        if(bundle!=null){
+            count=bundle.getString("count");
+            testResultBean= (TestResultBean) bundle.getSerializable("result");
+            Log.e("tst",count+"    "+testResultBean.toString());
+        }
     }
 
     @OnClick({R.id.ll_test_bd, R.id.tv_conplete_test})

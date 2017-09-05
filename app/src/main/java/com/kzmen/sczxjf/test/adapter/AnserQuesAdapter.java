@@ -6,10 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.bean.kzbean.TestItemBean;
 import com.kzmen.sczxjf.test.bean.AnserItemBean;
 
 import java.util.List;
@@ -23,13 +25,13 @@ public class AnserQuesAdapter extends BaseAdapter {
     Context context;
     LayoutInflater mInflater;
     ViewHolder holder;
-    List<AnserItemBean> list;
-    AnserItemBean question;
-    private int rightAnswer;
+    List<TestItemBean.ResultBean> list;
+    TestItemBean.ResultBean question;
+    private String rightAnswer;
     private int selected=-1;
     private int clickCount=0;
 
-    public AnserQuesAdapter(Context context,List<AnserItemBean>list) {
+    public AnserQuesAdapter(Context context,List<TestItemBean.ResultBean>list) {
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
         this.list=list;
@@ -47,15 +49,15 @@ public class AnserQuesAdapter extends BaseAdapter {
         this.clickCount ++;
     }
 
-    public int getRightAnswer() {
+    public String getRightAnswer() {
         return rightAnswer;
     }
 
-    public void setRightAnswer(int rightAnswer) {
+    public void setRightAnswer(String rightAnswer) {
         this.rightAnswer = rightAnswer;
     }
 
-    public void setList(List<AnserItemBean> Book) {
+    public void setList(List<TestItemBean.ResultBean> Book) {
         this.list = Book;
     }
 
@@ -105,29 +107,33 @@ public class AnserQuesAdapter extends BaseAdapter {
             holder.rb_check.setClickable(false);
             holder.iv_state = (ImageView) convertView
                     .findViewById(R.id.iv_state);
+            holder.ll_content= (LinearLayout) convertView.findViewById(R.id.ll_content);
             holder.tv_name= (TextView) convertView.findViewById(R.id.tv_name);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        question = (AnserItemBean) getItem(position);
-        holder.rb_check.setChecked(question.isSelected());
-        holder.tv_name.setText(question.getAnswer());
-        holder.iv_state.setVisibility(View.INVISIBLE);
+        question = (TestItemBean.ResultBean) getItem(position);
+       // holder.rb_check.setChecked(question.isSelected());
+        holder.tv_name.setText(question.getOpt_title());
+        holder.iv_state.setVisibility(View.GONE);
        // if(selected!=-1){
-            if(rightAnswer==position){
+           /* if(question.getOpt_id().equals(rightAnswer)){
                 holder.iv_state.setBackgroundResource(R.drawable.right);
             }else{
                 holder.iv_state.setBackgroundResource(R.drawable.wrong);
-            }
+            }*/
         //}
+        //holder.rb_check.setChecked(false);
+        holder.ll_content.setBackgroundResource(R.drawable.kz_rb_bg_white);
         if(clickCount==1){
             if(position==selected){
                 holder.rb_check.setChecked(true);
-                holder.iv_state.setVisibility(View.VISIBLE);
+                holder.ll_content.setBackgroundResource(R.drawable.kz_rb_bg_yellow);
+                //holder.iv_state.setVisibility(View.VISIBLE);
             }else if(selected!=-1){
-                if(rightAnswer==position){
-                    holder.iv_state.setVisibility(View.VISIBLE);
+                if(question.getOpt_id().equals(rightAnswer)){
+                    //holder.iv_state.setVisibility(View.VISIBLE);
                 }
             }
         }
@@ -138,6 +144,7 @@ public class AnserQuesAdapter extends BaseAdapter {
         RadioButton rb_check;
         ImageView iv_state;
         TextView tv_name;
+        LinearLayout ll_content;
     }
 
 }

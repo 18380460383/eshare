@@ -4,16 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.UpdateNickNameAcitivy">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <include layout="@layout/kz_title" />
     </RelativeLayout>
-
     <LinearLayout
         android:id="@+id/ll_content"
         android:layout_width="match_parent"
@@ -31,7 +29,7 @@
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="名字" />
+                android:text="" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -50,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
-                    android:text="6233"
+                    android:text=""
                     android:textColor="@color/bottom_yellow"
                     android:textSize="18dp" />
 
@@ -93,9 +91,12 @@
             android:id="@+id/lv_integral_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:dividerHeight="0dp"
-            android:divider="@color/transparent"/>
+            android:divider="@color/transparent"
+            android:dividerHeight="0dp" />
     </LinearLayout>
+
+
+
     <include
         android:id="@+id/my_empty_page"
         layout="@layout/smartloadinglayout_view_on_empty" />

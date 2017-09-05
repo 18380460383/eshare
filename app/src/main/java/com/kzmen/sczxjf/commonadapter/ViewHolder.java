@@ -151,6 +151,11 @@ public class ViewHolder
         Glide.with(mContext).load(url).into((ImageView) view);
         return this;
     }
+    public ViewHolder glideImage(int viewId, int srid){
+        View view = getView(viewId);
+        Glide.with(mContext).load(srid).into((ImageView) view);
+        return this;
+    }
 
     public ViewHolder setTextColor(int viewId, int textColor)
     {
