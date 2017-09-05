@@ -1,6 +1,6 @@
 package com.kzmen.sczxjf.popuwidow;
 
-import android.content.Context;
+import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.cusinterface.PlayPopuInterface;
+import com.kzmen.sczxjf.ui.activity.kzmessage.CourseDetailAcitivity;
 import com.kzmen.sczxjf.util.EToastUtil;
 
 import butterknife.ButterKnife;
@@ -37,7 +38,7 @@ public class Kz_CourseAskPopu extends PopupWindow {
     EditText etContent;
     @InjectView(R.id.tv_content_count)
     TextView tvContentCount;
-    private Context mContext;
+    private Activity mContext;
     private View view;
     private PlayPopuInterface popuInterface;
     private int playPos = -1;
@@ -51,7 +52,7 @@ public class Kz_CourseAskPopu extends PopupWindow {
         this.playPos = playPos;
     }
 
-    public Kz_CourseAskPopu(Context mContext) {
+    public Kz_CourseAskPopu(Activity mContext) {
         this.mContext=mContext;
         this.view = LayoutInflater.from(mContext).inflate(R.layout.kz_popu_course_ask, null);
         ButterKnife.inject(this, view);
@@ -98,6 +99,7 @@ public class Kz_CourseAskPopu extends PopupWindow {
                 break;
             case R.id.ll_submit:
                 EToastUtil.show(mContext,"支付");
+                ((CourseDetailAcitivity)mContext).doPay();
                 dismiss();
                 break;
         }

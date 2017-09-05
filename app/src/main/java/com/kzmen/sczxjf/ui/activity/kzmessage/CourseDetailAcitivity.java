@@ -35,6 +35,7 @@ import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.popuwidow.Kz_CourseAskPopu;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
+import com.kzmen.sczxjf.ui.activity.menu.PayTypeAcitivity;
 import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.view.ExpandViewPager;
 import com.kzmen.sczxjf.view.ExpandableTextView;
@@ -170,7 +171,6 @@ public class CourseDetailAcitivity extends SuperActivity {
             expandTextView.setText(courseDetailBean.getDescribe());
         }
 
-
         adapter = new Kz_Course_FragmentAdapter(getSupportFragmentManager(), CourseDetailAcitivity.this, titles);
         adapter.setTitles(titles);
         infoViewpager.setAdapter(adapter);
@@ -205,9 +205,6 @@ public class CourseDetailAcitivity extends SuperActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
-
-       /* ExpandableTextView expTv1 = (ExpandableTextView) findViewById(R.id.expand_text_view);
-        expTv1.setText(getString(R.string.tst));*/
     }
 
     private List<CourseListBean> beanlist;
@@ -255,11 +252,6 @@ public class CourseDetailAcitivity extends SuperActivity {
         };
         lvGoodask.setAdapter(adapter2);
         setListViewHeightBasedOnChildren(lvGoodask);
-    }
-
-    @Override
-    protected boolean isShareActivity() {
-        return true;
     }
 
     @Override
@@ -319,7 +311,10 @@ public class CourseDetailAcitivity extends SuperActivity {
         });
 
     }
-
+    public void doPay(){
+        Intent intent=new Intent(CourseDetailAcitivity.this,PayTypeAcitivity.class);
+       startActivity(intent);
+    }
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         //获得adapter
         CommonAdapter<CourseListBean> adapter = (CommonAdapter) listView.getAdapter();

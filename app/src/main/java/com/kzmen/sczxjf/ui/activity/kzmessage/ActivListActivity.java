@@ -45,10 +45,6 @@ public class ActivListActivity extends ListViewActivity {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    protected boolean isShareActivity() {
-        return true;
-    }
 
     @Override
     public void onCreateDataForView() {
@@ -100,9 +96,9 @@ public class ActivListActivity extends ListViewActivity {
     }
 
     public void getList() {
-       /* for (int i = page; i <10+page ; i++) {
-            data_list.add("测试"+i);
-        }*/
+      if(page==1){
+          data_list.clear();
+      }
         Map<String, String> params = new HashMap<>();
         params.put("data[limit]", "" + 10);
         params.put("data[page]", "" + page);

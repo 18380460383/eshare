@@ -20,10 +20,7 @@ public class GetBalanceActivity extends SuperActivity {
         setTitle(R.id.kz_tiltle,"余额提现");
     }
 
-    @Override
-    protected boolean isShareActivity() {
-        return true;
-    }
+
 
     @Override
     public void setThisContentView() {

@@ -17,7 +17,7 @@ import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.adapter.GuidePagerAdapter;
 import com.kzmen.sczxjf.control.CustomProgressDialog;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
-import com.kzmen.sczxjf.ui.activity.kzmessage.MainTabActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.IndexActivity;
 import com.kzmen.sczxjf.utils.AppUtils;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.tencent.mm.sdk.openapi.IWXAPI;
@@ -151,7 +151,7 @@ public class FirstGuideActivity extends SuperActivity{
             /*// 跳转
             showProgressDialog(null);
             getToken();*/
-            startActivity(new Intent(FirstGuideActivity.this,MainTabActivity.class));
+            startActivity(new Intent(FirstGuideActivity.this, IndexActivity.class));
             finish();
         }
     }

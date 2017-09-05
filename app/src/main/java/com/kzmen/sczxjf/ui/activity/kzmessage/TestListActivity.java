@@ -94,10 +94,6 @@ public class TestListActivity extends ListViewActivity {
         setContentView(R.layout.activity_test_list);
     }
 
-    @Override
-    protected boolean isShareActivity() {
-        return true;
-    }
 
     /**
      * 下拉刷新
@@ -122,10 +118,9 @@ public class TestListActivity extends ListViewActivity {
     }
 
     public void getList() {
-        data_list.clear();
-       /* for (int i = page; i <10 ; i++) {
-            data_list.add("测试"+i);
-        }*/
+        if(page==1){
+            data_list.clear();
+        }
         Map<String, String> params = new HashMap<>();
         params.put("data[limit]", "" + 10);
         params.put("data[page]", "" + page);

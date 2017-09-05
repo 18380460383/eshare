@@ -23,17 +23,17 @@
     </RelativeLayout>
 
 
-    <GridView
+    <com.kzmen.sczxjf.view.ExPandGridView
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:id="@+id/share_gridView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_top20"
+        android:layout_marginTop="15dp"
         android:gravity="center"
         android:horizontalSpacing="20dp"
         android:numColumns="3"
-        android:verticalSpacing="20dp"></GridView>
+        android:verticalSpacing="20dp"></com.kzmen.sczxjf.view.ExPandGridView>
 
 
     <RelativeLayout
@@ -42,17 +42,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="@dimen/margin_top20">
-
+        android:layout_marginTop="15dp">
         <TextView
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:text="取消"
-            android:textColor="#000000"
-            android:textSize="20sp" />
+            android:textSize="16dp" />
 
     </RelativeLayout>
 

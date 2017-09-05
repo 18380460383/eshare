@@ -138,10 +138,6 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
         setContentView(R.layout.activity_small_talk_deatil);
     }
 
-    @Override
-    protected boolean isShareActivity() {
-        return true;
-    }
 
     @Override
     protected void onDestroy() {

@@ -10,7 +10,7 @@
 
 
     <style name="LogoTheme" parent="AppTheme">
-        <item name="android:windowBackground">@mipmap/welcome</item>
+        <item name="android:windowBackground">@mipmap/icon</item>
     </style>
 
     <style name="into_image_style">

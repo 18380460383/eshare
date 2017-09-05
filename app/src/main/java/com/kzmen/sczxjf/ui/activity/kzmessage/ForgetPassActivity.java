@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.percent.PercentRelativeLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,6 +18,9 @@ import com.kzmen.sczxjf.view.DJEditText;
 import com.vondear.rxtools.RxRegUtils;
 import com.vondear.rxtools.view.RxToast;
 import com.vondear.rxtools.view.dialog.RxDialogSure;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -85,7 +89,6 @@ public class ForgetPassActivity extends SuperActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_yz:
-
                 yzen=evYz.getText().toString();
                 if(isPhoneRigth()){
                     timer.start();
@@ -108,9 +111,13 @@ public class ForgetPassActivity extends SuperActivity {
     private boolean isPhoneRigth(){
         phone=etPhone.getText().toString();
         if(TextUtil.isEmpty(phone)){
+            RxToast.normal("电话号码不能为空");
             return false;
         }
-        return RxRegUtils.isTel(phone);
+        if(!RxRegUtils.isMobile(phone)){
+            RxToast.normal("电话号码不合法");
+        }
+        return true;
     }
     public boolean isAllRight() {
         if (TextUtil.isEmpty(phone)) {
@@ -144,18 +151,29 @@ public class ForgetPassActivity extends SuperActivity {
                 if (timer != null) {
                     timer.cancel();
                 }
-                tvYz.setText("获取验证码");
+                Log.e("tst", data);
+                try {
+                    JSONObject object = new JSONObject(data);
+                    JSONObject object1 = new JSONObject(object.getString("data"));
+                    String code = object1.getString("code");
+                    tvYz.setText(code);
+                    yzen = code;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    yzenGet = "-9999";
+                }
                 tvYz.setEnabled(true);
             }
 
             @Override
             public void onErrorWrong(int code, String msg) {
-                yzenGet="-111111"; tvYz.setText("获取验证码");
-                RxToast.normal(msg);
+                if (timer != null) {
+                    timer.cancel();
+                }
+                Log.e("tst", msg);
+                yzenGet = "-9999";
                 tvYz.setEnabled(true);
-
             }
-
         });
     }
 

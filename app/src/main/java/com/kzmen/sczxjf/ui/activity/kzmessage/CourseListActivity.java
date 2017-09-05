@@ -51,11 +51,6 @@ public class CourseListActivity extends ListViewActivity {
     }
 
     @Override
-    protected boolean isShareActivity() {
-        return true;
-    }
-
-    @Override
     public void onCreateDataForView() {
         setTitle(R.id.kz_tiltle, "课程");
         initData();
@@ -118,7 +113,7 @@ public class CourseListActivity extends ListViewActivity {
      */
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-        page=0;
+        page=1;
         getData(page);
     }
 
