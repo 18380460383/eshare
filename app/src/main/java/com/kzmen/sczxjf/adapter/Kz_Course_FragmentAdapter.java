@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.bean.kzbean.CourseDetailBean;
 import com.kzmen.sczxjf.ui.fragment.kzmessage.CourseDetailPlayListFragment;
 
 /**
@@ -23,10 +24,12 @@ public class Kz_Course_FragmentAdapter extends FragmentStatePagerAdapter {
     private String[] titles;
     private LayoutInflater mInflater;
     private Context mContext;
-    public Kz_Course_FragmentAdapter(FragmentManager fm, Context mContext, String[] titles) {
+    private CourseDetailBean bean;
+    public Kz_Course_FragmentAdapter(FragmentManager fm, Context mContext, String[] titles,CourseDetailBean bean) {
         super(fm);
         this.titles=titles;
         this.mContext=mContext;
+        this.bean=bean;
     }
 
     @Override
@@ -35,6 +38,7 @@ public class Kz_Course_FragmentAdapter extends FragmentStatePagerAdapter {
         Bundle bundle = null;
         bundle = new Bundle();
         bundle.putInt("tabPos", position);
+        bundle.putSerializable("stage",bean.getStage_list().get(position));
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -72,9 +76,9 @@ public class Kz_Course_FragmentAdapter extends FragmentStatePagerAdapter {
         tv.setText(titles[position]);
         ImageView img = (ImageView) view.findViewById(R.id.imageView);
         LinearLayout ll_main= (LinearLayout) view.findViewById(R.id.ll_main);
-        if(position>=3){
+        if(bean.getStage_list().get(position).getIsunlock()==1){
             img.setVisibility(View.VISIBLE);
-           ll_main.setBackgroundResource(R.color.title);
+            ll_main.setBackgroundResource(R.color.title);
         }else{
             img.setVisibility(View.GONE);
             ll_main.setBackgroundResource(R.color.white);

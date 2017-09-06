@@ -149,7 +149,7 @@ public class ViewHolder
     }
     public ViewHolder glideImage(int viewId, String url){
         View view = getView(viewId);
-        Glide.with(mContext).load(url).into((ImageView) view);
+        Glide.with(mContext).load(url).placeholder(R.drawable.icon_image_normal).into((ImageView) view);
         return this;
     }
     public ViewHolder glideImage(int viewId, int srid){

@@ -153,20 +153,6 @@ public class CourseListActivity extends ListViewActivity {
         if(page==1){
             listData.clear();
         }
-        /*for (int i = page; i <page+10 ; i++) {
-            listData.add("测试"+i);
-        }
-        Handler h=new Handler();
-        h.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(mPullRefreshListView==null){
-                    return;
-                }
-                mPullRefreshListView.onRefreshComplete();
-                adapter.notifyDataSetChanged();
-            }
-        }, 1000);*/
         Map<String, String> params = new HashMap<>();
         params.put("data[limit]", "" + 10);
         params.put("data[page]", "" + page);

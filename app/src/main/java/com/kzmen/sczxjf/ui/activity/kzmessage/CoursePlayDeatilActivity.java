@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.bean.kzbean.CourseDetailBean;
 import com.kzmen.sczxjf.bean.kzbean.CourseListBean;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
@@ -133,9 +134,17 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
         AppContext.getPlayService().setPlayMessage(this);
     }
 
+    private Bundle bundle;
+    private CourseDetailBean.StageListBean stageListBean;
+    private int position=0;
     @Override
     public void setThisContentView() {
         setContentView(R.layout.activity_small_talk_deatil);
+        bundle=getIntent().getExtras();
+        if(bundle!=null){
+            stageListBean= (CourseDetailBean.StageListBean) bundle.getSerializable("stage");
+            position=bundle.getInt("position");
+        }
     }
 
 
@@ -151,17 +160,6 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
     private void initData() {
         listPlay = new ArrayList<>();
         beanlist = new ArrayList<>();
-        /*for (int i = 0; i < 20; i++) {
-            CourseListBean bean = new CourseListBean();
-            if (i % 3 == 0) {
-                bean.setType(0);
-            } else {
-                bean.setType(1);
-            }
-            bean.setName("测试" + i);
-            bean.setTime("03:0" + i);
-            beanlist.add(bean);
-        }*/
         adapter2 = new CommonAdapter<CourseListBean>(CoursePlayDeatilActivity.this, R.layout.kz_good_ask_item, beanlist) {
             @Override
             protected void convert(ViewHolder viewHolder, CourseListBean item, int position) {
@@ -185,7 +183,6 @@ public class CoursePlayDeatilActivity extends SuperActivity implements PlayMessa
         if (adapter == null) {
             return;
         }
-
         int totalHeight = 0;
         for (int i = 0; i < adapter.getCount(); i++) {
             View listItem = adapter.getView(i, null, listView);

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent">-->
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -20,7 +20,7 @@
             <include layout="@layout/kz_title_with_shareandcollection" />
         </RelativeLayout>
 
-        <android.support.v4.widget.NestedScrollView
+        <com.handmark.pulltorefresh.library.PullToRefreshScrollView
             android:id="@+id/sv_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -274,16 +274,16 @@
                             android:divider="@color/title"
                             android:dividerHeight="10dp"
                             android:id="@+id/lv_question"/>
-                       <!-- <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-                            <com.handmark.pulltorefresh.library.PullToRefreshListView
-                                android:id="@+id/msg_center_lv"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:dividerHeight="0.5dp" />
-                            <include layout="@layout/kz_empty_view"/>
-                        </RelativeLayout>-->
+                        <!-- <RelativeLayout
+                             android:layout_width="match_parent"
+                             android:layout_height="match_parent">
+                             <com.handmark.pulltorefresh.library.PullToRefreshListView
+                                 android:id="@+id/msg_center_lv"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="match_parent"
+                                 android:dividerHeight="0.5dp" />
+                             <include layout="@layout/kz_empty_view"/>
+                         </RelativeLayout>-->
                     </LinearLayout>
                 </LinearLayout>
 
@@ -300,7 +300,8 @@
                     layout="@layout/smartloadinglayout_view_on_loading" />
             </RelativeLayout>
 
-        </android.support.v4.widget.NestedScrollView>
+        </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 
     </LinearLayout>
-</android.support.v4.widget.SwipeRefreshLayout>
+<!--
+</android.support.v4.widget.SwipeRefreshLayout>-->

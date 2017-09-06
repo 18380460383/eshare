@@ -7,7 +7,6 @@ import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -19,11 +18,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.adapter.Kz_CourseDetaiListAdapter;
 import com.kzmen.sczxjf.adapter.Kz_Course_FragmentAdapter;
@@ -63,10 +65,10 @@ import butterknife.OnClick;
 public class CourseDetailAcitivity extends SuperActivity {
     @InjectView(R.id.lv_question)
     MyListView lv_question;
-  /*  @InjectView(R.id.ll_main)
-    LinearLayout llMain;
-    @InjectView(R.id.msg_center_lv)
-    PullToRefreshListView mPullRefreshListView;*/
+    /*  @InjectView(R.id.ll_main)
+      LinearLayout llMain;
+      @InjectView(R.id.msg_center_lv)
+      PullToRefreshListView mPullRefreshListView;*/
     @InjectView(R.id.back)
     PercentRelativeLayout back;
     @InjectView(R.id.title_name)
@@ -82,7 +84,8 @@ public class CourseDetailAcitivity extends SuperActivity {
     @InjectView(R.id.tv_ask)
     TextView tvAsk;
     @InjectView(R.id.sv_main)
-    NestedScrollView svMain;
+    PullToRefreshScrollView mPullRefreshScrollView;
+    ;
     @InjectView(R.id.kz_tiltle)
     LinearLayout llTitle;
     @InjectView(R.id.iv_collect)
@@ -117,7 +120,7 @@ public class CourseDetailAcitivity extends SuperActivity {
     LoadingView loadView;
     @InjectView(R.id.ll_loading)
     LinearLayout llLoading;
-    private String[] titles = new String[]{"阶段一", "阶段二", "阶段三", "阶段四", "阶段五"};
+    private String[] titles ;//= new String[]{"阶段一", "阶段二", "阶段三", "阶段四", "阶段五"}
     private ShareDialog shareDialog;
     private Kz_Course_FragmentAdapter adapter;
     // private CustomLoadingLayout mLayout; //SmartLoadingLayout对象
@@ -157,7 +160,11 @@ public class CourseDetailAcitivity extends SuperActivity {
 
     private void initView() {
         if (courseDetailBean != null) {
-            if (courseDetailBean.getIszan().equals("1")) {
+            titles=new String[courseDetailBean.getStage_list().size()];
+            for (int i = 0; i < courseDetailBean.getStage_list().size(); i++) {
+                titles[i]=courseDetailBean.getStage_list().get(i).getStage_name();
+            }
+            if (courseDetailBean.getIscollect()==1) {
                 ivCollect.setBackgroundResource(R.drawable.btn_collect_current);
             }
             Glide.with(this).load(courseDetailBean.getBanner()).placeholder(R.drawable.icon_image_normal)
@@ -178,7 +185,7 @@ public class CourseDetailAcitivity extends SuperActivity {
             expandTextView.setText(courseDetailBean.getDescribe());
         }
 
-        adapter = new Kz_Course_FragmentAdapter(getSupportFragmentManager(), CourseDetailAcitivity.this, titles);
+        adapter = new Kz_Course_FragmentAdapter(getSupportFragmentManager(), CourseDetailAcitivity.this, titles,courseDetailBean);
         adapter.setTitles(titles);
         infoViewpager.setAdapter(adapter);
         tabLayout.setupWithViewPager(infoViewpager);
@@ -249,64 +256,80 @@ public class CourseDetailAcitivity extends SuperActivity {
             @Override
             protected void convert(ViewHolder viewHolder, final CouseQuestionBean item, int position) {
                 viewHolder.setText(R.id.tv_title, "" + item.getContent())
-                .glideImage(R.id.iv_user_head,item.getAvatar())
-                .glideImage(R.id.iv_answer_img,item.getAnswer_avatar())
-                .setText(R.id.tv_user_name,item.getUsername())
-                .setText(R.id.tv_time,""+item.getDatetime())
-                .setText(R.id.tv_zans,""+item.getZans())
-                .setText(R.id.tv_views,""+item.getViews())
-                .setText(R.id.tv_ask_listen_state2,item.getMedia_button())
-                .setText(R.id.tv_content,item.getAnswer_content());
+                        .glideImage(R.id.iv_user_head, item.getAvatar())
+                        .glideImage(R.id.iv_answer_img, item.getAnswer_avatar())
+                        .setText(R.id.tv_user_name, item.getUsername())
+                        .setText(R.id.tv_time, "" + item.getDatetime())
+                        .setText(R.id.tv_zans, "" + item.getZans())
+                        .setText(R.id.tv_views, "" + item.getViews())
+                        .setText(R.id.tv_ask_listen_state2, item.getMedia_button())
+                        .setText(R.id.tv_content, item.getAnswer_content());
                 viewHolder.getView(R.id.ll_listens).setBackgroundResource(R.drawable.bg_play_blue);
-                if(item.getIsopen().equals("1")){
+                if (item.getIsopen().equals("1")) {
                     viewHolder.getView(R.id.ll_listens).setBackgroundResource(R.drawable.bg_play_green);
-                    viewHolder.getView(R.id.ll_listens).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            doPay(item.getMedia_money());
-                        }
-                    });
-                }else{
-                    RxToast.normal("播放"+item.getAnswer_media());
                 }
-                if(TextUtil.isEmpty(item.getAnswer_media())){
+                viewHolder.getView(R.id.ll_listens).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (item.getIsopen().equals("1")) {
+                            doPay(item.getMedia_money());
+                        } else {
+                            RxToast.normal("播放" + item.getAnswer_media());
+                        }
+                    }
+                });
+                viewHolder.getView(R.id.imageView4).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showPopFormBottom(v);
+                    }
+                });
+                viewHolder.getView(R.id.iv_zans).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        RxToast.normal("点赞或者取消");
+                    }
+                });
+                if (TextUtil.isEmpty(item.getAnswer_media())) {
                     viewHolder.getView(R.id.ll_txt).setVisibility(View.VISIBLE);
                     viewHolder.getView(R.id.ll_media).setVisibility(View.GONE);
-                }else{
+                } else {
                     viewHolder.getView(R.id.ll_txt).setVisibility(View.GONE);
                     viewHolder.getView(R.id.ll_media).setVisibility(View.VISIBLE);
                 }
                 viewHolder.getView(R.id.lv_add_question).setVisibility(View.GONE);
-                if(item.getZhuijia_list()!=null){
+                if (item.getZhuijia_list() != null) {
                     viewHolder.getView(R.id.lv_add_question).setVisibility(View.VISIBLE);
-                    ((MyListView)viewHolder.getView(R.id.lv_add_question)).setAdapter(new CommonAdapter<CouseQuestionBean.ZhuijiaListBean>(CourseDetailAcitivity.this,R.layout.kz_question_list_item,item.getZhuijia_list()) {
+                    ((MyListView) viewHolder.getView(R.id.lv_add_question)).setAdapter(new CommonAdapter<CouseQuestionBean.ZhuijiaListBean>(CourseDetailAcitivity.this, R.layout.kz_question_list_item, item.getZhuijia_list()) {
                         @Override
                         protected void convert(ViewHolder viewHolder, final CouseQuestionBean.ZhuijiaListBean item, int position) {
                             viewHolder.setText(R.id.tv_user_name, "" + item.getContent())
-                                    .glideImage(R.id.iv_user_head,item.getAvatar())
-                                    .glideImage(R.id.iv_answer_img,item.getAnswer_avatar())
-                                    .setText(R.id.tv_user_name,item.getUsername())
-                                    .setText(R.id.tv_time,""+item.getDatetime())
-                                    .setText(R.id.tv_zans,""+item.getZans())
-                                    .setText(R.id.tv_views,""+item.getViews())
-                                    .setText(R.id.tv_ask_listen_state2,item.getMedia_button())
-                                    .setText(R.id.tv_content,item.getAnswer_content());
+                                    .glideImage(R.id.iv_user_head, item.getAvatar())
+                                    .glideImage(R.id.iv_answer_img, item.getAnswer_avatar())
+                                    .setText(R.id.tv_user_name, item.getUsername())
+                                    .setText(R.id.tv_time, "" + item.getDatetime())
+                                    .setText(R.id.tv_zans, "" + item.getZans())
+                                    .setText(R.id.tv_views, "" + item.getViews())
+                                    .setText(R.id.tv_ask_listen_state2, item.getMedia_button())
+                                    .setText(R.id.tv_content, item.getAnswer_content());
                             viewHolder.getView(R.id.ll_listens).setBackgroundResource(R.drawable.bg_play_blue);
-                            if(item.getIsopen().equals("1")){
+                            if (item.getIsopen().equals("1")) {
                                 viewHolder.getView(R.id.ll_listens).setBackgroundResource(R.drawable.bg_play_green);
-                                viewHolder.getView(R.id.ll_listens).setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        doPay(item.getMedia_money());
-                                    }
-                                });
-                            }else{
-                                RxToast.normal("播放"+item.getAnswer_media());
                             }
-                            if(TextUtil.isEmpty(item.getAnswer_media())){
+                            viewHolder.getView(R.id.ll_listens).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    if (item.getIsopen().equals("1")) {
+                                        doPay(item.getMedia_money());
+                                    } else {
+                                        RxToast.normal("播放" + item.getAnswer_media());
+                                    }
+                                }
+                            });
+                            if (TextUtil.isEmpty(item.getAnswer_media())) {
                                 viewHolder.getView(R.id.ll_txt).setVisibility(View.VISIBLE);
                                 viewHolder.getView(R.id.ll_media).setVisibility(View.GONE);
-                            }else{
+                            } else {
                                 viewHolder.getView(R.id.ll_txt).setVisibility(View.GONE);
                                 viewHolder.getView(R.id.ll_media).setVisibility(View.VISIBLE);
                             }
@@ -319,61 +342,93 @@ public class CourseDetailAcitivity extends SuperActivity {
         lv_question.setAdapter(adapter2);
         getQuestion();
     }
-    private int page=1;
-   /* @Override
-    public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-        page++;
-        getQuestion();
-    }*/
-    private void getQuestion(){
-        Map<String,String>params1=new HashMap<>();
-        params1.put("data[page]",""+page);
-        params1.put("data[limit]","20");
-        params1.put("data[cid]","1");
+
+    private int page = 1;
+
+    /* @Override
+     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+         page++;
+         getQuestion();
+     }*/
+    private void getQuestion() {
+        Map<String, String> params1 = new HashMap<>();
+        params1.put("data[page]", "" + page);
+        params1.put("data[limit]", "20");
+        params1.put("data[cid]", "1");
         OkhttpUtilManager.postNoCacah(this, "Course/getCourseQuestion", params1, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
-                Log.e("tst",data);
+                Log.e("tst", data);
                 JSONObject object = null;
                 try {
                     object = new JSONObject(data);
                     Gson gson = new Gson();
                     List<CouseQuestionBean> datalist = gson.fromJson(object.getString("data"), new TypeToken<List<CouseQuestionBean>>() {
                     }.getType());
-                    beanlist.clear();
+                    //beanlist.clear();
                     if (datalist.size() == 0) {
-                       // mPullRefreshListView.setEmptyView(llMain);
+                        // mPullRefreshListView.setEmptyView(llMain);
                     } else {
                         beanlist.addAll(datalist);
                     }
-                    Log.e("tst",beanlist.toString());
+                    Log.e("tst", beanlist.toString());
                 } catch (JSONException e) {
-                   // mPullRefreshListView.setEmptyView(llMain);
+                    // mPullRefreshListView.setEmptyView(llMain);
                     e.printStackTrace();
                 }
-               // mPullRefreshListView.setEmptyView(llMain);
-               // mPullRefreshListView.onRefreshComplete();
+                // mPullRefreshListView.setEmptyView(llMain);
+                // mPullRefreshListView.onRefreshComplete();
+                getFoucus();
                 adapter2.notifyDataSetChanged();
+                mPullRefreshScrollView.onRefreshComplete();
             }
 
             @Override
             public void onErrorWrong(int code, String msg) {
-              /*  if (mPullRefreshListView == null) {
-                    return;
-                }
-                mPullRefreshListView.setEmptyView(llMain);
-                mPullRefreshListView.onRefreshComplete();
-                adapter2.notifyDataSetChanged();*/
+                getFoucus();
+                adapter2.notifyDataSetChanged();
+                mPullRefreshScrollView.onRefreshComplete();
             }
         });
     }
+
     @Override
     public void setThisContentView() {
         setContentView(R.layout.activity_course_detail_acitivity);
         cid = getIntent().getExtras().getString("cid");
+
+        //这几个刷新Label的设置
+        mPullRefreshScrollView.getLoadingLayoutProxy().setLastUpdatedLabel("lastUpdateLabel");
+        mPullRefreshScrollView.getLoadingLayoutProxy().setPullLabel("PULLLABLE");
+        mPullRefreshScrollView.getLoadingLayoutProxy().setRefreshingLabel("refreshingLabel");
+        mPullRefreshScrollView.getLoadingLayoutProxy().setReleaseLabel("releaseLabel");
+
+        //上拉、下拉设定
+        mPullRefreshScrollView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
+
+        //上拉监听函数
+        mPullRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
+
+            @Override
+            public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                //执行刷新函数
+                page++;
+                getQuestion();
+                Log.e("tst", "" + page);
+            }
+        });
     }
 
-    @OnClick({R.id.iv_share, R.id.tv_ask,R.id.iv_collect})
+    private void getFoucus() {
+        if (ivUserBg == null) {
+            return;
+        }
+        ivUserBg.setFocusable(true);
+        ivUserBg.setFocusableInTouchMode(true);
+        ivUserBg.requestFocus();
+    }
+
+    @OnClick({R.id.iv_share, R.id.tv_ask, R.id.iv_collect})
     public void onViewClicked(View view) {
         Intent intent = null;
         switch (view.getId()) {
@@ -385,7 +440,7 @@ public class CourseDetailAcitivity extends SuperActivity {
                         shareDialog.dismiss();
                     }
                 });
-                shareDialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                shareDialog.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                     @Override
                     public void onItemClick(AdapterView<?> arg0, View arg1,
                                             int arg2, long arg3) {
@@ -402,31 +457,33 @@ public class CourseDetailAcitivity extends SuperActivity {
                 break;
             case R.id.iv_collect:
                 testType++;
-                setUserCollect(""+testType,courseDetailBean.getCid(),courseDetailBean.getIscollect().equals("1")?"0":"1");//   protected void setUserCollect(final String optype, String aid, String state){
+                setUserCollect("" + testType, courseDetailBean.getCid(), courseDetailBean.getIscollect()==1 ? "0" : "1");//   protected void setUserCollect(final String optype, String aid, String state){
                 break;
         }
     }
-    private int testType=0;
+
+    private int testType = 0;
+
     @Override
     public void onError(String type) {
         super.onError(type);
-        RxToast.normal("失败"+type);
+        RxToast.normal("失败" + type);
     }
 
     @Override
-    public void onOperateSuccess(String type,String state) {
-        super.onOperateSuccess(type,state);
-       switch (type){
-           case "1":
-               ivCollect.setBackgroundResource(state.equals("1")?R.drawable.btn_collect:R.drawable.btn_collect_current);
-               break;
-           case "2":
+    public void onOperateSuccess(String type, String state) {
+        super.onOperateSuccess(type, state);
+        switch (type) {
+            case "1":
+                ivCollect.setBackgroundResource(state.equals("1") ? R.drawable.btn_collect : R.drawable.btn_collect_current);
+                break;
+            case "2":
 
-               break;
-           case "3":
+                break;
+            case "3":
 
-               break;
-       }
+                break;
+        }
     }
 
     private Kz_CourseAskPopu playPop;
@@ -450,30 +507,11 @@ public class CourseDetailAcitivity extends SuperActivity {
         });
 
     }
-    public void doPay(String price){
-        Intent intent=new Intent(CourseDetailAcitivity.this,PayTypeAcitivity.class);
-        Bundle bundle=new Bundle();
-        bundle.putString("price",price);
-        startActivity(intent);
-    }
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        //获得adapter
-        CommonAdapter<CourseListBean> adapter = (CommonAdapter) listView.getAdapter();
-        if (adapter == null) {
-            return;
-        }
 
-        int totalHeight = 0;
-        for (int i = 0; i < adapter.getCount(); i++) {
-            View listItem = adapter.getView(i, null, listView);
-            listItem.measure(0, 0);
-            //计算总高度
-            totalHeight += listItem.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        //计算分割线高度
-        params.height = totalHeight + (listView.getDividerHeight() * (adapter.getCount() - 1));
-        //给listview设置高度
-        listView.setLayoutParams(params);
+    public void doPay(String price) {
+        Intent intent = new Intent(CourseDetailAcitivity.this, PayTypeAcitivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("price", price);
+        startActivity(intent);
     }
 }

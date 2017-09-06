@@ -69,14 +69,11 @@ public class ShopActivity extends ListViewActivity {
         setContentView(R.layout.activity_shop);
         list = new ArrayList<>();
         adapter = new ShopAdapter(this,list);
-
     }
 
     @Override
     public void onCreateDataForView() {
         setTitle(R.id.shop_title, getResources().getString(R.string.shopactivity_title_cstr));
-
-
         inflate = LayoutInflater.from(this).inflate(R.layout.listview_null_bj, null);
         bjLl = (LinearLayout) inflate.findViewById(R.id.bj_ll);
         bjNullIv = (ImageView) inflate.findViewById(R.id.bj_null_iv);
