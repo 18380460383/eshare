@@ -16,7 +16,6 @@ import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.kzbean.HomeCourseBean;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
-import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.consta.PlayState;
 import com.kzmen.sczxjf.interfaces.MainCourseListClick;
 import com.kzmen.sczxjf.view.MyListView;
@@ -35,7 +34,7 @@ public class Kz_MainCourseAdapter extends BaseAdapter {
     private Context mContext;
     private MainCourseListClick mainCourseListClick;
     private int playPosition = -1;
-
+    private boolean isPlay=false;
     public Kz_MainCourseAdapter(Context mContext, List<HomeCourseBean> listData, MainCourseListClick mainCourseListClick) {
         this.mContext = mContext;
         this.listData = listData;
@@ -98,6 +97,7 @@ public class Kz_MainCourseAdapter extends BaseAdapter {
                 if (mainCourseListClick != null) {
                     mainCourseListClick.onPlay(position);
                     playPosition = position;
+                    isPlay=true;
                 }
             }
         });
@@ -123,6 +123,12 @@ public class Kz_MainCourseAdapter extends BaseAdapter {
             }
         } else {
             viewHolder.ivCoursePlay.setBackgroundResource(R.drawable.btn_player_play);
+        }
+        viewHolder.tv_play_state.setVisibility(View.GONE);
+        if(isPlay){
+            if(pos<=percent && percent<100){
+                viewHolder.tv_play_state.setVisibility(View.VISIBLE);
+            }
         }
         return convertView;
     }
@@ -203,6 +209,8 @@ public class Kz_MainCourseAdapter extends BaseAdapter {
         TextView tvMediaStartTime;
         @InjectView(R.id.tv_media_end_time)
         TextView tvMediaEndTime;
+        @InjectView(R.id.tv_play_state)
+        TextView tv_play_state;
         @InjectView(R.id.sb_play)
         SeekBar sbPlay;
         @InjectView(R.id.iv_course_play)

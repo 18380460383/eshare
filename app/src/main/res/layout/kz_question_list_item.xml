@@ -37,6 +37,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_top20"
@@ -139,7 +140,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/cornor_background_no_radius"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true">
 
                 <TextView
                     android:id="@+id/tv_content"
@@ -150,10 +153,5 @@
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
-    <com.kzmen.sczxjf.view.MyListView
-        android:id="@+id/lv_add_question"
-        android:divider="@color/transparent"
-        android:dividerHeight="0dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+
 </LinearLayout>

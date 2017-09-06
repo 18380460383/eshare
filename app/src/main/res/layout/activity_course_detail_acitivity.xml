@@ -268,13 +268,22 @@
 
                             <View style="@style/bottom_line_yellow" />
                         </LinearLayout>
-
                         <com.kzmen.sczxjf.view.MyListView
-                            android:id="@+id/lv_goodask"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:divider="@color/title"
-                            android:dividerHeight="8dp"></com.kzmen.sczxjf.view.MyListView>
+                            android:dividerHeight="10dp"
+                            android:id="@+id/lv_question"/>
+                       <!-- <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <com.handmark.pulltorefresh.library.PullToRefreshListView
+                                android:id="@+id/msg_center_lv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:dividerHeight="0.5dp" />
+                            <include layout="@layout/kz_empty_view"/>
+                        </RelativeLayout>-->
                     </LinearLayout>
                 </LinearLayout>
 

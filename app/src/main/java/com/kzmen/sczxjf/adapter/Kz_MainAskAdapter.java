@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.bean.kzbean.HomeAskBean;
 import com.kzmen.sczxjf.consta.PlayState;
 import com.kzmen.sczxjf.interfaces.MainAskListClick;
 import com.kzmen.sczxjf.util.glide.GlideCircleTransform;
@@ -26,14 +27,14 @@ import butterknife.InjectView;
  */
 
 public class Kz_MainAskAdapter extends BaseAdapter {
-    private List<String> listData;
+    private List<HomeAskBean> listData;
     private Context mContext;
     private AnimationDrawable animationDrawable;
     private int state = -1;
     private MainAskListClick mainAskListClick;
     private int playPosition = -1;
 
-    public Kz_MainAskAdapter(Context mContext, List<String> listData, MainAskListClick mainAskListClick) {
+    public Kz_MainAskAdapter(Context mContext, List<HomeAskBean> listData, MainAskListClick mainAskListClick) {
         this.mContext = mContext;
         this.listData = listData;
         this.mainAskListClick = mainAskListClick;
@@ -64,8 +65,21 @@ public class Kz_MainAskAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.tvAskTitle1.setText(listData.get(position));
-        Glide.with(mContext).load(R.drawable.icon_user).transform(new GlideCircleTransform(mContext)).into(viewHolder.ivAskHead2);
+        viewHolder.tvAskTitle1.setText(listData.get(position).getContent());
+        viewHolder.tvAskListenState2.setText(listData.get(position).getIsopen_str());
+        viewHolder.tvAskListenCount1.setText(listData.get(position).getViews()+"人听过");
+        viewHolder.tvAskListenType1.setVisibility(View.GONE);
+        if(listData.get(position).getTeacher().equals("1")){
+            viewHolder.tvAskListenType1.setVisibility(View.VISIBLE);
+        }
+        viewHolder.tvAskListenName1.setText(listData.get(position).getNickname());
+        if(listData.get(position).getIsopen().equals("1")){
+            viewHolder.ll_listen.setBackgroundResource(R.drawable.bg_play_orange);
+        }else{
+            viewHolder.ll_listen.setBackgroundResource(R.drawable.bg_play_blue);
+        }
+        Glide.with(mContext).load(listData.get(position).getAvatar())
+                .placeholder(R.drawable.icon_image_normal).transform(new GlideCircleTransform(mContext)).into(viewHolder.ivAskHead2);
         final ViewHolder finalViewHolder = viewHolder;
         viewHolder.ll_listen.setOnClickListener(new View.OnClickListener() {
             @Override

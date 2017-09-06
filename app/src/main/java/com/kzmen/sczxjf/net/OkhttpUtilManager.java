@@ -2,6 +2,7 @@ package com.kzmen.sczxjf.net;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.bean.kzbean.BaseBean;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
@@ -215,6 +216,9 @@ public class OkhttpUtilManager {
     }
 
     public static void postNoCacah(Context mContext, String url, Map<String, String> param, final OkhttpUtilResult result) {
+        Gson gson=new Gson();
+        String data=gson.toJson(param);
+        //Log.e("tst",data);
         HttpHeaders headers = new HttpHeaders();
         headers.put("sign", AppContext.sign);    //所有的 header 都 不支持 中文
         headers.put("token", AppContext.token);
@@ -235,6 +239,8 @@ public class OkhttpUtilManager {
                             BaseBean bean = BaseBean.parseEntity(object);
                             if (bean.getCode() == 200) {
                                 result.onSuccess(100, bean.getData());
+                            }else if(bean.getCode()==998){
+                                AppContext.getInstance().setPersonageOnLine(false);
                             } else {
                                 result.onErrorWrong(bean.getCode(), bean.getMessage());
                             }

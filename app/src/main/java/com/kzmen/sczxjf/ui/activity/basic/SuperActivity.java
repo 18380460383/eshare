@@ -29,8 +29,11 @@ import com.kzmen.sczxjf.control.CustomProgressDialog;
 import com.kzmen.sczxjf.cusinterface.ServerConnect;
 import com.kzmen.sczxjf.easypermissions.AppSettingsDialog;
 import com.kzmen.sczxjf.easypermissions.EasyPermissions;
+import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.interfaces.ScrollViewOnScroll;
+import com.kzmen.sczxjf.interfaces.UserOperate;
 import com.kzmen.sczxjf.net.NetworkDownload;
+import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.smartlayout.widgit.CustomLoadingLayout;
 import com.kzmen.sczxjf.smartlayout.widgit.SmartLoadingLayout;
 import com.kzmen.sczxjf.test.server.PlayService;
@@ -39,7 +42,9 @@ import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.util.Utils;
 import com.kzmen.sczxjf.view.MyScrollView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 
@@ -49,7 +54,8 @@ import butterknife.ButterKnife;
  * 时间：2016/4/6
  * 功能描述：超级Activity,本项目所有的Activity的父类
  */
-public abstract class SuperActivity extends FragmentActivity implements ServerConnect, EasyPermissions.PermissionCallbacks, ScrollViewOnScroll {
+public abstract class SuperActivity extends FragmentActivity implements ServerConnect, EasyPermissions.PermissionCallbacks,
+        ScrollViewOnScroll,UserOperate {
     private static final String TAG = "BasicActivity";
     private static final int RP_CAMERA_AND_STORAGE = 1;
     /**
@@ -440,5 +446,68 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
         mLayout.setContentView(contentID);
         mLayout.setEmptyView(R.id.my_empty_page);
         mLayout.setErrorView(R.id.my_error_page);
+    }
+
+    public SuperActivity() {
+        super();
+    }
+
+    @Override
+    public void onOperateSuccess(String type,String state) {
+    }
+
+    @Override
+    public void onError(String type) {
+    }
+
+    protected void setUserCollect(final String optype, String aid, final String state){
+        Map<String,String> params=new HashMap<>();
+        params.put("data[type]",optype);//收藏类型1课程2问题3商品4回答
+        params.put("data[aid]",aid);//id
+        params.put("data[state]",state);//1收藏 其他取消
+        OkhttpUtilManager.postNoCacah(this, "User/setCollect", params, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                onOperateSuccess("1",state);
+            }
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                onError("1");
+            }
+        });
+    }
+    protected void setReports(final String optype,String rid,final String state){
+        Map<String,String> params=new HashMap<>();
+        params.put("data[type]",optype);//举报类型1课程2问题3商品4回答
+        params.put("data[rid]",rid);//id
+        OkhttpUtilManager.postNoCacah(this, "User/setCollect", params, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                onOperateSuccess("2",state);
+            }
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                onError("2");
+            }
+        });
+    }
+    protected void setZans(final String optype,String zid,final String state){
+        Map<String,String> params=new HashMap<>();
+        params.put("data[type]",optype);//举报类型1课程2问题3商品4回答
+        params.put("data[zid]",zid);//id
+        params.put("data[state]",state);//id
+        OkhttpUtilManager.postNoCacah(this, "User/setCollect", params, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                onOperateSuccess("3",state);
+            }
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                onError("3");
+            }
+        });
     }
 }

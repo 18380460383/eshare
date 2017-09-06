@@ -52,6 +52,7 @@ public class PayTypeAcitivity extends SuperActivity {
     @InjectView(R.id.vv_vip)
     View vv_vip;
     private String title = "";
+    private String price="";
     private int chargeYear=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +65,11 @@ public class PayTypeAcitivity extends SuperActivity {
             setTitle(R.id.kz_tiltle, "支付方式");
             llVipRecharge.setVisibility(View.GONE);
             vv_vip.setVisibility(View.GONE);
+            //tvPrice.setText(price);
         } else {
             setTitle(R.id.kz_tiltle, title);
         }
+        tvPrice.setText(price);
     }
 
     @Override
@@ -75,6 +78,7 @@ public class PayTypeAcitivity extends SuperActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             title = bundle.getString("title");
+            price=bundle.getString("price");
         }
     }
 

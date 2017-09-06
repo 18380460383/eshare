@@ -3,7 +3,6 @@ package com.kzmen.sczxjf.ui.activity.kzmessage;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -36,12 +35,6 @@ import com.kzmen.sczxjf.ui.activity.personal.LoginActivity;
 import com.kzmen.sczxjf.ui.activity.personal.MsgCenterActivity;
 import com.kzmen.sczxjf.ui.fragment.kzmessage.KzMessageFragment;
 import com.kzmen.sczxjf.ui.fragment.personal.CMenuFragment;
-import com.kzmen.sczxjf.utils.AppUtils;
-import com.kzmen.sczxjf.utils.BitmapUtils;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.vondear.rxtools.view.RxToast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -126,7 +119,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         OkhttpUtilManager.postNoCacah(this, "User/get_user_info", null, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
-                Log.e("tst",data);
+                Log.e("tst","获取用户信息："+data);
                 try {
                     JSONObject object=new JSONObject(data);
                     Gson gson=new Gson();
@@ -140,7 +133,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
 
             @Override
             public void onErrorWrong(int code, String msg) {
-                RxToast.normal(msg);
+                Log.e("tst","获取用户信息："+msg);
             }
         });
     }
@@ -232,6 +225,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     }
 
     public void setHeadImageAndMenu(UserBean login) {
+        Glide.with(this).load(login.getAvatar()).placeholder(R.drawable.icon_image_normal).into(headImage);
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
         fragmentcmenu.setMenuBack(new CMenuFragment.MenuBack() {
             @Override
@@ -240,37 +234,8 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
             }
         });
         fragmentTransaction.replace(R.id.id_drawer, fragmentcmenu);
-
+        //fragmentcmenu.setHeadImage(bm);
         fragmentTransaction.commitAllowingStateLoss();
-
-        final double v = new ScreenControl().getscreenHigh() / 16 * 1.5 - 60;
-        ImageLoader.getInstance().loadImage(login.getAvatar(), new ImageLoadingListener() {
-            @Override
-            public void onLoadingStarted(String s, View view) {
-                headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.drawable.image_def)));
-            }
-
-            @Override
-            public void onLoadingFailed(String s, View view, FailReason failReason) {
-                headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.drawable.image_def)));
-            }
-
-            @Override
-            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                if (bitmap == null) {
-                } else {
-                    Bitmap bm = BitmapUtils.toRoundBitmap(bitmap);
-                    headImage.setImageBitmap(bm);
-                    fragmentcmenu.setHeadImage(bm);
-                }
-            }
-
-            @Override
-            public void onLoadingCancelled(String s, View view) {
-                headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.drawable.image_def)));
-            }
-        });
-
      //   putJPusID();
 
     }
@@ -408,61 +373,9 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     }
 
     @Override
-    protected boolean isShareActivity() {
-        return true;
-    }
-
-    @Override
     public boolean isCanExit() {
         return false;
     }
-
-   /* private void setAccBroadcastReceiver() {
-        receiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-
-                ImageLoader.getInstance().loadImage(AppContext.getInstance().getPEUser().getImageurl(), new ImageLoadingListener() {
-                    @Override
-                    public void onLoadingStarted(String s, View view) {
-                        headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.drawable.image_def)));
-                    }
-
-                    @Override
-                    public void onLoadingFailed(String s, View view, FailReason failReason) {
-                        headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.drawable.image_def)));
-                    }
-
-                    @Override
-                    public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                        if (bitmap == null) {
-                        } else {
-                            Bitmap bm = BitmapUtils.toRoundBitmap(bitmap);
-                            headImage.setImageBitmap(bm);
-                            fragmentcmenu.setHeadImage(bm);
-                        }
-                    }
-
-                    @Override
-                    public void onLoadingCancelled(String s, View view) {
-                        headImage.setImageBitmap(BitmapUtils.toRoundBitmap(AppUtils.readBitMap(MainTabActivity.this, R.drawable.image_def)));
-                    }
-                });
-            }
-        };
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Constants.WEIXIN_ACCREDIT);
-        registerReceiver(receiver, filter);
-        BroadcastReceiver loginReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                EshareLoger.logI("ON LOGIN SUCCESS");
-            }
-        };
-        IntentFilter filter2 = new IntentFilter();
-        filter2.addAction(EnConstants.BROCAST_LOGIN_SUCCESS);
-        registerReceiver(loginReceiver, filter2);
-    }*/
 
     public void extP() {
         headImage.setImageResource(R.drawable.userhead);

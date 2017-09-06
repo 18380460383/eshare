@@ -30,7 +30,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginLeft="@dimen/left_right_retract_small"
                     android:scaleType="fitXY"
-                    android:src="@drawable/icon_user" />
+                />
 
                 <ImageView
                     android:layout_width="16dp"

@@ -99,7 +99,7 @@ public class Kz_CourseAskPopu extends PopupWindow {
                 break;
             case R.id.ll_submit:
                 EToastUtil.show(mContext,"支付");
-                ((CourseDetailAcitivity)mContext).doPay();
+                ((CourseDetailAcitivity)mContext).doPay("100");
                 dismiss();
                 break;
         }

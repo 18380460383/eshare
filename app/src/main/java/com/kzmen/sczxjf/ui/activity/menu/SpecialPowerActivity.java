@@ -53,6 +53,7 @@ public class SpecialPowerActivity extends SuperActivity {
     public void onViewClicked() {
         Intent intent=new Intent(SpecialPowerActivity.this,PayTypeAcitivity.class);
         Bundle bundle=new Bundle();
+        bundle.putString("price","100");
         bundle.putString("title","会员充值");
         intent.putExtras(bundle);
         startActivity(intent);

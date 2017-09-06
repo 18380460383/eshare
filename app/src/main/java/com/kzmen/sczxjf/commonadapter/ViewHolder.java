@@ -20,6 +20,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.kzmen.sczxjf.R;
 
 public class ViewHolder
 {
@@ -153,7 +154,7 @@ public class ViewHolder
     }
     public ViewHolder glideImage(int viewId, int srid){
         View view = getView(viewId);
-        Glide.with(mContext).load(srid).into((ImageView) view);
+        Glide.with(mContext).load(srid).placeholder(R.drawable.icon_image_normal).into((ImageView) view);
         return this;
     }
 

@@ -23,6 +23,7 @@ import com.kzmen.sczxjf.adapter.KzMainColumnAdapter;
 import com.kzmen.sczxjf.adapter.Kz_MainAskAdapter;
 import com.kzmen.sczxjf.adapter.Kz_MainCourseAdapter;
 import com.kzmen.sczxjf.bean.kzbean.HomeActivityBean;
+import com.kzmen.sczxjf.bean.kzbean.HomeAskBean;
 import com.kzmen.sczxjf.bean.kzbean.HomeBanerBean;
 import com.kzmen.sczxjf.bean.kzbean.HomeCourseBean;
 import com.kzmen.sczxjf.bean.kzbean.HomepageMenuBean;
@@ -97,7 +98,7 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
     private List<HomeCourseBean> listCourse;
 
     private Kz_MainAskAdapter kz_mainAskAdapter;
-    private List<String> listAsk;
+    private List<HomeAskBean> listAsk;
 
     private boolean isCourseClick = false;
 
@@ -152,18 +153,22 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
         bannerListUrl = new ArrayList<>();
         columnItemBeanList = new ArrayList<>();
         activityList = new ArrayList<>();
+        listAsk = new ArrayList<>();
         initData();
         initData1();
     }
-    private void getFoucus(){
-        if(blMainBanner==null){
+
+    private void getFoucus() {
+        if (blMainBanner == null) {
             return;
         }
         blMainBanner.setFocusable(true);
         blMainBanner.setFocusableInTouchMode(true);
         blMainBanner.requestFocus();
     }
+
     private void initData1() {
+
         OkhttpUtilManager.postNoCacah(getActivity(), "Index/getHomePageList", null, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -181,13 +186,14 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
                     e.printStackTrace();
                 }
                 getFoucus();
-                ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(1);
+                ((MainTabActivity) getActivity()).mHandler.sendEmptyMessage(1);
+                mHandler.sendEmptyMessage(0);
             }
 
             @Override
             public void onErrorWrong(int code, String msg) {
                 Log.e("tst", msg);
-                ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(0);
+                ((MainTabActivity) getActivity()).mHandler.sendEmptyMessage(0);
             }
         });
         OkhttpUtilManager.postNoCacah(getActivity(), "Index/getHomepageMenu", null, new OkhttpUtilResult() {
@@ -198,13 +204,15 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
                     Gson gson = new Gson();
                     List<HomepageMenuBean> list = gson.fromJson(object.getString("data"), new TypeToken<List<HomepageMenuBean>>() {
                     }.getType());
+                    columnItemBeanList.clear();
                     columnItemBeanList.addAll(list);
                     kzMainColumnAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 getFoucus();
-                ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(1);
+                ((MainTabActivity) getActivity()).mHandler.sendEmptyMessage(1);
+                mHandler.sendEmptyMessage(0);
             }
 
             @Override
@@ -215,29 +223,59 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
         OkhttpUtilManager.postNoCacah(getActivity(), "Index/getHomepageCourse", null, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
-                Log.e("tst", data);
+                Log.e("tst", "课程：：：" + data);
                 try {
                     JSONObject object = new JSONObject(data);
                     Gson gson = new Gson();
                     List<HomeCourseBean> list = gson.fromJson(object.getString("data"), new TypeToken<List<HomeCourseBean>>() {
                     }.getType());
-                    if(list.size()>0){
+                    if (list.size() > 0) {
+                        listCourse.clear();
                         listCourse.addAll(list);
-                        kzMainColumnAdapter.notifyDataSetChanged();
+                        kz_mainCourseAdapter.notifyDataSetChanged();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 getFoucus();
-                ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(1);
+                ((MainTabActivity) getActivity()).mHandler.sendEmptyMessage(1);
+
             }
 
             @Override
             public void onErrorWrong(int code, String msg) {
                 Log.e("tst", msg);
-                ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(0);
+                ((MainTabActivity) getActivity()).mHandler.sendEmptyMessage(0);
             }
 
+        });
+        OkhttpUtilManager.postNoCacah(getActivity(), "Index/getHomeQuestion", null, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                Log.e("tst", data);
+                try {
+                    JSONObject object = new JSONObject(data);
+                    Gson gson = new Gson();
+                    List<HomeAskBean> list = gson.fromJson(object.getString("data"), new TypeToken<List<HomeAskBean>>() {
+                    }.getType());
+                    if (list.size() > 0) {
+                        listAsk.clear();
+                        listAsk.addAll(list);
+                        kz_mainAskAdapter.notifyDataSetChanged();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                getFoucus();
+                ((MainTabActivity) getActivity()).mHandler.sendEmptyMessage(1);
+
+            }
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                Log.e("tst", msg);
+                ((MainTabActivity) getActivity()).mHandler.sendEmptyMessage(0);
+            }
         });
         OkhttpUtilManager.postNoCacah(getActivity(), "Index/getHomeActivity", null, new OkhttpUtilResult() {
             @Override
@@ -247,22 +285,27 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
                     Gson gson = new Gson();
                     List<HomeActivityBean> list = gson.fromJson(object.getString("data"), new TypeToken<List<HomeActivityBean>>() {
                     }.getType());
-                    activityList.addAll(list);
-                    kzActivGridAdapter.notifyDataSetChanged();
+                    if (list.size() > 0) {
+                        activityList.clear();
+                        activityList.addAll(list);
+                        kzActivGridAdapter.notifyDataSetChanged();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 getFoucus();
-                ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(1);
+                ((MainTabActivity) getActivity()).mHandler.sendEmptyMessage(1);
             }
 
             @Override
             public void onErrorWrong(int code, String msg) {
                 Log.e("tst", msg);
-                ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(0);
+                ((MainTabActivity) getActivity()).mHandler.sendEmptyMessage(0);
             }
         });
     }
+
+    private List<String> musicList;
 
     private void initData() {
         kzMainColumnAdapter = new KzMainColumnAdapter(getActivity(), columnItemBeanList);
@@ -295,35 +338,19 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
                 }
             }
         });
-        /*OkhttpUtilManager.get(getActivity(), "get/", "mainfragment", null,new OkhttpUtilResult() {
-            @Override
-            public void onSuccess(int type, String data) {
-                Log.e("onSuccess", type + "      " + data);
-                if(getActivity()==null){
-                    return;
-                }
-                ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(1);
-            }
 
-            @Override
-            public void onErrorWrong(int code, String msg) {
-                Log.e("onErrorWrong", msg);
-                if(getActivity()==null){
-                    return;
-                }
-                ((MainTabActivity)getActivity()).mHandler.sendEmptyMessage(1);
-                //EToastUtil.show(getActivity(), "" + msg);
-            }
-        });*/
-        mHandler.sendEmptyMessage(1);
+        //mHandler.sendEmptyMessage(1);
         listCourse = new ArrayList<>();
-        /*listCourse.add("测试1");
-        listCourse.add("测试2");*/
+        musicList = new ArrayList<>();
         kz_mainCourseAdapter = new Kz_MainCourseAdapter(getActivity(), listCourse, new MainCourseListClick() {
             @Override
             public void onPlay(int position) {
                 isCourseClick = true;
-                setMusilList();
+                musicList.clear();
+                for (HomeCourseBean.KejianArrBean bean : listCourse.get(position).getKejian_arr()) {
+                    musicList.add(bean.getMedia());
+                }
+                setMusilList(musicList);
                 if (position == kz_mainCourseAdapter.getPlayPosition()) {
                     playPause();
                 } else {
@@ -342,16 +369,18 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
             }
         });
         lvCourse.setAdapter(kz_mainCourseAdapter);
-
-        listAsk = new ArrayList<>();
-        listAsk.add("问答测试1");
-        listAsk.add("问答测试2");
-        listAsk.add("问答测试3");
         kz_mainAskAdapter = new Kz_MainAskAdapter(getActivity(), listAsk, new MainAskListClick() {
             @Override
             public void onPosClick(int position) {
                 isCourseClick = false;
-                setMusic();
+                setMusic(listAsk.get(position).getAnswer_media());
+                /*if(listAsk.get(position).getIsopen().equals("1")){
+                    Intent intent=new Intent(getActivity(), PayTypeAcitivity.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putString("price","1");
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }*/
                 if (position == kz_mainAskAdapter.getPlayPosition()) {
                     playPause();
                 } else {
@@ -373,34 +402,28 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
 
     private int bufferPercent = 0;
 
-    private void setMusic() {
+    private void setMusic(String url) {
         mMusicList.clear();
         Music musicp = new Music();
         musicp.setType(Music.Type.ONLINE);
-        musicp.setPath(baseUrl2 + "贫民百万歌星伴奏.mp3");
+        musicp.setPath(url);//baseUrl2 + "贫民百万歌星伴奏.mp3"
         mMusicList.add(musicp);
         AppContext.getPlayService().setMusicList(mMusicList);
         AppContext.getPlayService().setPlayMessage(this);
     }
 
-    private void setMusilList() {
+    private void setMusilList(List<String> urlList) {
+        //baseUrl2 + "贫民百万歌星伴奏.mp3"
+        //baseUrl2 + "fade.mp3"
+        //baseUrl2 + "平凡之路.mp3"
+        //baseUrl2 + "星语心愿.mp3"
         mMusicList.clear();
-        Music music = new Music();
-        music.setType(Music.Type.ONLINE);
-        music.setPath(baseUrl2 + "贫民百万歌星伴奏.mp3");
-        mMusicList.add(music);
-        Music music1 = new Music();
-        music1.setType(Music.Type.ONLINE);
-        music1.setPath(baseUrl2 + "fade.mp3");
-        mMusicList.add(music1);
-        Music music2 = new Music();
-        music2.setType(Music.Type.ONLINE);
-        music2.setPath(baseUrl2 + "平凡之路.mp3");
-        mMusicList.add(music2);
-        Music music3 = new Music();
-        music3.setType(Music.Type.ONLINE);
-        music3.setPath(baseUrl2 + "星语心愿.mp3");
-        mMusicList.add(music3);
+        for (String str : urlList) {
+            Music music = new Music();
+            music.setType(Music.Type.ONLINE);
+            music.setPath(str);
+            mMusicList.add(music);
+        }
         AppContext.getPlayService().setMusicList(mMusicList);
         AppContext.getPlayService().setPlayMessage(this);
     }
@@ -465,7 +488,9 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
 
     @Override
     public void onRefresh() {
-        mHandler.sendEmptyMessageDelayed(1, 3000);
+
+        initData1();
+        // mHandler.sendEmptyMessageDelayed(1, 3000);
     }
 
 
