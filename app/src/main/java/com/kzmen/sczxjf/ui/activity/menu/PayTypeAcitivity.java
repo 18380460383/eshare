@@ -9,13 +9,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.bean.kzbean.OrderBean;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.utils.TextUtil;
 import com.vondear.rxtools.view.RxToast;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.InjectView;
 import butterknife.OnClick;
 
+import static com.kzmen.sczxjf.R.id.tv_acount_price;
 import static com.kzmen.sczxjf.R.id.tv_count;
 
 public class PayTypeAcitivity extends SuperActivity {
@@ -31,7 +36,7 @@ public class PayTypeAcitivity extends SuperActivity {
     LinearLayout llVipRecharge;
     @InjectView(R.id.tv_acount)
     TextView tvAcount;
-    @InjectView(R.id.tv_acount_price)
+    @InjectView(tv_acount_price)
     TextView tvAcountPrice;
     @InjectView(R.id.tv_acount_message)
     TextView tvAcountMessage;
@@ -70,19 +75,25 @@ public class PayTypeAcitivity extends SuperActivity {
             setTitle(R.id.kz_tiltle, title);
         }
         tvPrice.setText(price);
+        if(orderBean!=null){
+            tvPrice.setText(orderBean.getMoney());
+            tvAcountPrice.setText("￥"+orderBean.getBalance());
+            tvAcountMessage.setVisibility(Integer.valueOf(orderBean.getMoney())>Integer.valueOf(orderBean.getBalance())?View.VISIBLE:View.GONE);
+        }
     }
-
+    private OrderBean orderBean;
     @Override
     public void setThisContentView() {
         setContentView(R.layout.activity_pay_type_acitivity);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
+            orderBean= (OrderBean) bundle.getSerializable("orderBean");
             title = bundle.getString("title");
             price=bundle.getString("price");
         }
     }
 
-    @OnClick({R.id.iv_reduce, R.id.iv_add, R.id.rl_acount, R.id.ll_weix, R.id.ll_ali})
+    @OnClick({R.id.iv_reduce, R.id.iv_add, R.id.rl_acount, R.id.ll_weix, R.id.ll_ali,R.id.tv_sure})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_reduce:
@@ -99,18 +110,32 @@ public class PayTypeAcitivity extends SuperActivity {
                 resetRB();
                 rbAcount.setChecked(!rbAcount.isChecked());
                 RxToast.normal("余额支付");
+                doPay("1");
                 break;
             case R.id.ll_weix:
                 resetRB();
                 rbWeix.setChecked(!rbWeix.isChecked());
                 RxToast.normal("微信支付");
+                doPay("3");
                 break;
             case R.id.ll_ali:
                 resetRB();
                 rbAli.setChecked(!rbAli.isChecked());
                 RxToast.normal("支付宝支付");
+                doPay("2");
+                break;
+            case R.id.tv_sure:
                 break;
         }
+    }
+    private void doPay(String payment){
+        if(orderBean==null){
+            return;
+        }
+        Map<String,String>params=new HashMap<>();
+        params.put("payment",payment);
+        params.put("order",orderBean.getOrder());
+        params.put("source",orderBean.getSource());
     }
     private void resetRB(){
         rbAcount.setChecked(false);

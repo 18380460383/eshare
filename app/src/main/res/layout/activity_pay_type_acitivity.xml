@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_acount"
                 android:layout_marginTop="8dp"
-                android:text="￥200" />
+                android:text="" />
 
             <TextView
                 android:id="@+id/tv_acount_message"

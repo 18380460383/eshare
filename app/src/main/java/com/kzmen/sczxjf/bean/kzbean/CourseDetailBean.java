@@ -291,6 +291,33 @@ public class CourseDetailBean implements Serializable{
         private int isunlock;
         private List<KejianListBean> kejian_list;
         private List<XiaojiangListBean> xiaojiang_list;
+        private String unlock_desc;
+        private String unlock_money;
+        private String unlock_day;
+
+        public String getUnlock_desc() {
+            return unlock_desc;
+        }
+
+        public void setUnlock_desc(String unlock_desc) {
+            this.unlock_desc = unlock_desc;
+        }
+
+        public String getUnlock_money() {
+            return unlock_money;
+        }
+
+        public void setUnlock_money(String unlock_money) {
+            this.unlock_money = unlock_money;
+        }
+
+        public String getUnlock_day() {
+            return unlock_day;
+        }
+
+        public void setUnlock_day(String unlock_day) {
+            this.unlock_day = unlock_day;
+        }
 
         public String getSid() {
             return sid;

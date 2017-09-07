@@ -37,6 +37,7 @@ public class Kz_Course_FragmentAdapter extends FragmentStatePagerAdapter {
         Fragment fragment = new CourseDetailPlayListFragment();
         Bundle bundle = null;
         bundle = new Bundle();
+        bundle.putString("cid",bean.getCid());
         bundle.putInt("tabPos", position);
         bundle.putSerializable("stage",bean.getStage_list().get(position));
         fragment.setArguments(bundle);
@@ -76,7 +77,7 @@ public class Kz_Course_FragmentAdapter extends FragmentStatePagerAdapter {
         tv.setText(titles[position]);
         ImageView img = (ImageView) view.findViewById(R.id.imageView);
         LinearLayout ll_main= (LinearLayout) view.findViewById(R.id.ll_main);
-        if(bean.getStage_list().get(position).getIsunlock()==1){
+        if(bean.getStage_list().get(position).getIsunlock()!=1){
             img.setVisibility(View.VISIBLE);
             ll_main.setBackgroundResource(R.color.title);
         }else{

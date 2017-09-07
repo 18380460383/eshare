@@ -33,6 +33,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <com.kzmen.sczxjf.view.MyListView
+                android:id="@+id/lv_ask_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
             <LinearLayout
                 android:gravity="center"
                 android:layout_width="match_parent"

@@ -1,15 +1,22 @@
 package com.kzmen.sczxjf.net;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.bean.kzbean.BaseBean;
+import com.kzmen.sczxjf.bean.kzbean.OrderBean;
+import com.kzmen.sczxjf.control.CustomProgressDialog;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
+import com.kzmen.sczxjf.ui.activity.menu.PayTypeAcitivity;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.cache.CacheMode;
 import com.lzy.okhttputils.callback.StringCallback;
 import com.lzy.okhttputils.model.HttpHeaders;
+import com.vondear.rxtools.view.RxToast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -260,4 +267,61 @@ public class OkhttpUtilManager {
                     }
                 });
     }
+    /**
+     * 网络请求对话框
+     */
+    private static CustomProgressDialog progressDialog;
+    public static void setOrder(final Context mContext, String url, Map<String, String> param) {
+        progressDialog = new CustomProgressDialog(mContext);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setText("生成订单中");
+        progressDialog.show();
+        Gson gson=new Gson();
+        String data=gson.toJson(param);
+        //Log.e("tst",data);
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("sign", AppContext.sign);    //所有的 header 都 不支持 中文
+        headers.put("token", AppContext.token);
+        headers.put("app_bate", AppContext.app_bate);
+        headers.put("from", AppContext.from);
+        OkHttpUtils.post(URL + url)
+                .tag(mContext)
+                .params(param)
+                .headers(headers)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Log.e("order",s);
+                        try {
+                            JSONObject object = new JSONObject(s);
+                            BaseBean bean = BaseBean.parseEntity(object);
+                            if (bean.getCode() == 200) {
+                                Gson gson=new Gson();
+                                JSONObject object1=new JSONObject(bean.getData());
+                                OrderBean orderBean=gson.fromJson(object1.getString("data"),OrderBean.class);
+                                Intent intent = new Intent(mContext, PayTypeAcitivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("orderBean",orderBean);
+                                mContext.startActivity(intent);
+                            }else if(bean.getCode()==998){
+                                AppContext.getInstance().setPersonageOnLine(false);
+                            } else {
+                                RxToast.normal(""+bean.getMessage());
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onError(Call call, Response response, Exception e) {
+                        Log.e("order",response.toString());
+                        super.onError(call, response, e);
+                        RxToast.normal("订单生成失败");
+                        progressDialog.dismiss();
+                    }
+                });
+    }
+
 }

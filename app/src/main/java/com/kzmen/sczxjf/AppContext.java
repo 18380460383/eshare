@@ -18,9 +18,6 @@ import com.kzmen.sczxjf.bean.kzbean.UserBean;
 import com.kzmen.sczxjf.bean.kzbean.UserMessageBean;
 import com.kzmen.sczxjf.bean.user.User_For_pe;
 import com.kzmen.sczxjf.ebean.User;
-import com.kzmen.sczxjf.imagepicker.ImagePicker;
-import com.kzmen.sczxjf.imagepicker.loader.GlideImageLoader;
-import com.kzmen.sczxjf.imagepicker.view.CropImageView;
 import com.kzmen.sczxjf.multidex.MultiDexApplication;
 import com.kzmen.sczxjf.test.server.PlayService;
 import com.kzmen.sczxjf.ui.activity.BaseWebActivity;
@@ -85,7 +82,6 @@ public class AppContext extends MultiDexApplication {
     public void setNetState(int netState) {
         this.netState = netState;
     }
-
     /**
      * 获得当前app运行的AppContext
      */
@@ -103,25 +99,16 @@ public class AppContext extends MultiDexApplication {
             JPushInterface.init(this);     		// 初始化 JPush
         }catch (Exception e){
         }
-        ImagePicker imagePicker = ImagePicker.getInstance();
-        imagePicker.setImageLoader(new GlideImageLoader());   //设置图片加载器
-        imagePicker.setShowCamera(true);                      //显示拍照按钮
-        imagePicker.setCrop(true);                            //允许裁剪（单选才有效）
-        imagePicker.setSaveRectangle(true);                   //是否按矩形区域保存
-        imagePicker.setSelectLimit(8);              //选中数量限制
-        imagePicker.setMultiMode(true);                      //多选
-        imagePicker.setStyle(CropImageView.Style.RECTANGLE);  //裁剪框的形状
-        imagePicker.setFocusWidth(800);                       //裁剪框的宽度。单位像素（圆形自动取宽高最小值）
-        imagePicker.setFocusHeight(800);                      //裁剪框的高度。单位像素（圆形自动取宽高最小值）
-        imagePicker.setOutPutX(1000);                         //保存文件的宽度。单位像素
-        imagePicker.setOutPutY(1000);                         //保存文件的高度。单位像素
-
+        sp = getSharedPreferences(SHARED_USER, Context.MODE_PRIVATE);
+        userBean=getUserLogin();
+        sign=getUserLogin().getSign();
+        token=getUserLogin().getToken();
+        app_bate="1";
         new Runnable() {
             @Override
             public void run() {
                 try {
                     user = new User();
-                    sp = getSharedPreferences(SHARED_USER, Context.MODE_PRIVATE);
                     setChannel();
                     ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(instance)
                             .diskCache(new UnlimitedDiskCache(new File(FileUtils.getRootFile() + "/" + Constants.LOADER_PATH_IMG)))
@@ -135,7 +122,6 @@ public class AppContext extends MultiDexApplication {
                 }
             }
         }.run();
-
         //必须调用初始化
         OkHttpUtils.init(this);
         //以下都不是必须的，根据需要自行选择
@@ -143,9 +129,6 @@ public class AppContext extends MultiDexApplication {
                 .setConnectTimeout(6*1000)               //全局的连接超时时间
                 .setReadTimeOut(6*1000)                  //全局的读取超时时间
                 .setWriteTimeOut(6*1000)                 //全局的写入超时时间
-                //.setCookieStore(new MemoryCookieStore())                           //cookie使用内存缓存（app退出后，cookie消失）
-                //.setCookieStore(new PersistentCookieStore())                       //cookie持久化存储，如果cookie不过期，则一直有效
-                              //设置全局公共头
                 ;
 
     }
