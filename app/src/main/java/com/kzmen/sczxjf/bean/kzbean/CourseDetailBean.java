@@ -9,6 +9,7 @@ import java.util.List;
 
 public class CourseDetailBean implements Serializable{
 
+
     /**
      * cid : 1
      * title : 大咖带你玩转信用卡，提升额度不是梦
@@ -16,8 +17,8 @@ public class CourseDetailBean implements Serializable{
      * banner : http://api.kzmen.cn/Uploads/Picture/2017-08-17/5995b625982b8.png
      * isquestion : 1
      * isxiaojiang : 1
-     * zans : 225
-     * views : 699
+     * zans : 227
+     * views : 623
      * share_title : 大咖带你玩转信用卡，提升额度不是梦分享标题
      * share_des : 大咖带你玩转信用卡，提升额度不是梦分享摘要
      * share_image : http://api.kzmen.cn/Uploads/Picture/2017-08-16/59945d59ef2a1.png
@@ -34,7 +35,7 @@ public class CourseDetailBean implements Serializable{
      * questions_money : 2
      * questions_button : 2元向讲师提问
      * questions_desc : 精华提问，还会奖励收听收入的50%分成！
-     * stage_list : [{"sid":"1","stage_name":"阶段一","sort":"1","isunlock":1,"kejian_list":[{"id":"7","title":"为何要做信用卡的额度提升？","chapter_name":"导语","chapter_id":"1","media":"http://api.kzmen.cn/Uploads/Download/2017-08-19/5997c36721b89.mp3","media_time":"1"},{"id":"1","title":"为何要做信用卡的额度提升？","chapter_name":"提升额度对我的帮助","chapter_id":"2","media":"http://api.kzmen.cn/Uploads/Download/2017-08-19/5997c36721b89.mp3","media_time":"1"}],"xiaojiang_list":[{"id":"2","title":"为什么要办信用卡","media":"http://api.kzmen.cn/Uploads/Download/2017-08-19/5997cceccf4d1.wav","media_time":"1","charge_type":"0","charge_start":"0","charge_end":"0"},{"id":"4","title":"信用卡为什么总是批不下来？","media":"http://api.kzmen.cn/Uploads/Download/2017-08-19/5997c36721b89.mp3","media_time":"1","charge_type":"2","charge_start":"1503158400","charge_end":"1503590400"}]},{"sid":"2","stage_name":"阶段二","sort":"2","isunlock":1,"kejian_list":[{"id":"8","title":"为何要做信用卡的额度提升？","chapter_name":"导语","chapter_id":"1","media":"http://api.kzmen.cn/Uploads/Download/2017-08-19/5997c36721b89.mp3","media_time":"1"}],"xiaojiang_list":[]},{"sid":"3","stage_name":"阶段三","sort":"3","isunlock":1,"kejian_list":[],"xiaojiang_list":[]},{"sid":"4","stage_name":"阶段四","sort":"4","isunlock":1,"kejian_list":[],"xiaojiang_list":[]},{"sid":"5","stage_name":"阶段五","sort":"5","isunlock":1,"kejian_list":[],"xiaojiang_list":[]}]
+     * stage_list : [{"sid":"1","stage_name":"阶段一","sort":"1","isunlock":1,"kejian_list":[{"chapter_id":"1","chapter_name":"导语","kejian":[{"id":"7","title":"为何要做信用卡的额度提升？","media":"http://api.kzmen.cn/Uploads/Download/2017-08-19/5997c36721b89.mp3","media_time":"1"}]},{"chapter_id":"2","chapter_name":"提升额度对我的帮助","kejian":[{"id":"1","title":"为何要做信用卡的额度提升？","media":"http://api.kzmen.cn/Uploads/Download/2017-08-19/5997c36721b89.mp3","media_time":"1"},{"id":"10","title":"课件课件课件课件课件课件课件课件课件课件","media":"http://api.kzmen.cn/Uploads/Download/2017-08-19/5997c36721b89.mp3","media_time":"1"}]}],"xiaojiang_list":[{"id":"2","title":"为什么要办信用卡","media":"http://api.kzmen.cn/Uploads/Download/2017-08-19/5997cceccf4d1.wav","media_time":"1","charge_type":"0","charge_start":"0","charge_end":"0"},{"id":"4","title":"信用卡为什么总是批不下来？","media":"http://api.kzmen.cn/Uploads/Download/2017-08-19/5997c36721b89.mp3","media_time":"1","charge_type":"2","charge_start":"1504022400","charge_end":"1504800000"}]},{"sid":"2","stage_name":"阶段二","sort":"2","isunlock":1,"kejian_list":[],"xiaojiang_list":[]},{"sid":"3","stage_name":"阶段三","sort":"3","isunlock":1,"kejian_list":[],"xiaojiang_list":[]},{"sid":"4","stage_name":"阶段四","sort":"4","isunlock":1,"kejian_list":[],"xiaojiang_list":[]},{"sid":"5","stage_name":"阶段五","sort":"5","isunlock":1,"kejian_list":[],"xiaojiang_list":[]}]
      */
 
     private String cid;
@@ -263,37 +264,36 @@ public class CourseDetailBean implements Serializable{
         this.stage_list = stage_list;
     }
 
-    public static class StageListBean implements Serializable {
-        @Override
-        public String toString() {
-            return "StageListBean{" +
-                    "sid='" + sid + '\'' +
-                    ", stage_name='" + stage_name + '\'' +
-                    ", sort='" + sort + '\'' +
-                    ", isunlock=" + isunlock +
-                    ", kejian_list=" + kejian_list +
-                    ", xiaojiang_list=" + xiaojiang_list +
-                    '}';
-        }
-
+    public static class StageListBean implements Serializable{
         /**
          * sid : 1
          * stage_name : 阶段一
          * sort : 1
          * isunlock : 1
-         * kejian_list : [{"id":"7","title":"为何要做信用卡的额度提升？","chapter_name":"导语","chapter_id":"1","media":"http://api.kzmen.cn/Uploads/Download/2017-08-19/5997c36721b89.mp3","media_time":"1"},{"id":"1","title":"为何要做信用卡的额度提升？","chapter_name":"提升额度对我的帮助","chapter_id":"2","media":"http://api.kzmen.cn/Uploads/Download/2017-08-19/5997c36721b89.mp3","media_time":"1"}]
-         * xiaojiang_list : [{"id":"2","title":"为什么要办信用卡","media":"http://api.kzmen.cn/Uploads/Download/2017-08-19/5997cceccf4d1.wav","media_time":"1","charge_type":"0","charge_start":"0","charge_end":"0"},{"id":"4","title":"信用卡为什么总是批不下来？","media":"http://api.kzmen.cn/Uploads/Download/2017-08-19/5997c36721b89.mp3","media_time":"1","charge_type":"2","charge_start":"1503158400","charge_end":"1503590400"}]
+         * kejian_list : [{"chapter_id":"1","chapter_name":"导语","kejian":[{"id":"7","title":"为何要做信用卡的额度提升？","media":"http://api.kzmen.cn/Uploads/Download/2017-08-19/5997c36721b89.mp3","media_time":"1"}]},{"chapter_id":"2","chapter_name":"提升额度对我的帮助","kejian":[{"id":"1","title":"为何要做信用卡的额度提升？","media":"http://api.kzmen.cn/Uploads/Download/2017-08-19/5997c36721b89.mp3","media_time":"1"},{"id":"10","title":"课件课件课件课件课件课件课件课件课件课件","media":"http://api.kzmen.cn/Uploads/Download/2017-08-19/5997c36721b89.mp3","media_time":"1"}]}]
+         * xiaojiang_list : [{"id":"2","title":"为什么要办信用卡","media":"http://api.kzmen.cn/Uploads/Download/2017-08-19/5997cceccf4d1.wav","media_time":"1","charge_type":"0","charge_start":"0","charge_end":"0"},{"id":"4","title":"信用卡为什么总是批不下来？","media":"http://api.kzmen.cn/Uploads/Download/2017-08-19/5997c36721b89.mp3","media_time":"1","charge_type":"2","charge_start":"1504022400","charge_end":"1504800000"}]
          */
-
         private String sid;
         private String stage_name;
         private String sort;
-        private int isunlock;
-        private List<KejianListBean> kejian_list;
-        private List<XiaojiangListBean> xiaojiang_list;
         private String unlock_desc;
         private String unlock_money;
         private String unlock_day;
+        private int isunlock;
+        private List<KejianListBean> kejian_list;
+        private List<XiaojiangListBean> xiaojiang_list;
+
+        public String getSid() {
+            return sid;
+        }
+
+        public void setSid(String sid) {
+            this.sid = sid;
+        }
+
+        public String getStage_name() {
+            return stage_name;
+        }
 
         public String getUnlock_desc() {
             return unlock_desc;
@@ -317,18 +317,6 @@ public class CourseDetailBean implements Serializable{
 
         public void setUnlock_day(String unlock_day) {
             this.unlock_day = unlock_day;
-        }
-
-        public String getSid() {
-            return sid;
-        }
-
-        public void setSid(String sid) {
-            this.sid = sid;
-        }
-
-        public String getStage_name() {
-            return stage_name;
         }
 
         public void setStage_name(String stage_name) {
@@ -369,35 +357,21 @@ public class CourseDetailBean implements Serializable{
 
         public static class KejianListBean implements Serializable{
             /**
-             * id : 7
-             * title : 为何要做信用卡的额度提升？
-             * chapter_name : 导语
              * chapter_id : 1
-             * media : http://api.kzmen.cn/Uploads/Download/2017-08-19/5997c36721b89.mp3
-             * media_time : 1
+             * chapter_name : 导语
+             * kejian : [{"id":"7","title":"为何要做信用卡的额度提升？","media":"http://api.kzmen.cn/Uploads/Download/2017-08-19/5997c36721b89.mp3","media_time":"1"}]
              */
 
-            private String id;
-            private String title;
-            private String chapter_name;
             private String chapter_id;
-            private String media;
-            private String media_time;
+            private String chapter_name;
+            private List<KejianBean> kejian;
 
-            public String getId() {
-                return id;
+            public String getChapter_id() {
+                return chapter_id;
             }
 
-            public void setId(String id) {
-                this.id = id;
-            }
-
-            public String getTitle() {
-                return title;
-            }
-
-            public void setTitle(String title) {
-                this.title = title;
+            public void setChapter_id(String chapter_id) {
+                this.chapter_id = chapter_id;
             }
 
             public String getChapter_name() {
@@ -408,28 +382,58 @@ public class CourseDetailBean implements Serializable{
                 this.chapter_name = chapter_name;
             }
 
-            public String getChapter_id() {
-                return chapter_id;
+            public List<KejianBean> getKejian() {
+                return kejian;
             }
 
-            public void setChapter_id(String chapter_id) {
-                this.chapter_id = chapter_id;
+            public void setKejian(List<KejianBean> kejian) {
+                this.kejian = kejian;
             }
 
-            public String getMedia() {
-                return media;
-            }
+            public static class KejianBean implements Serializable{
+                /**
+                 * id : 7
+                 * title : 为何要做信用卡的额度提升？
+                 * media : http://api.kzmen.cn/Uploads/Download/2017-08-19/5997c36721b89.mp3
+                 * media_time : 1
+                 */
 
-            public void setMedia(String media) {
-                this.media = media;
-            }
+                private String id;
+                private String title;
+                private String media;
+                private String media_time;
 
-            public String getMedia_time() {
-                return media_time;
-            }
+                public String getId() {
+                    return id;
+                }
 
-            public void setMedia_time(String media_time) {
-                this.media_time = media_time;
+                public void setId(String id) {
+                    this.id = id;
+                }
+
+                public String getTitle() {
+                    return title;
+                }
+
+                public void setTitle(String title) {
+                    this.title = title;
+                }
+
+                public String getMedia() {
+                    return media;
+                }
+
+                public void setMedia(String media) {
+                    this.media = media;
+                }
+
+                public String getMedia_time() {
+                    return media_time;
+                }
+
+                public void setMedia_time(String media_time) {
+                    this.media_time = media_time;
+                }
             }
         }
 
@@ -506,6 +510,19 @@ public class CourseDetailBean implements Serializable{
 
             public void setCharge_end(String charge_end) {
                 this.charge_end = charge_end;
+            }
+
+            @Override
+            public String toString() {
+                return "XiaojiangListBean{" +
+                        "id='" + id + '\'' +
+                        ", title='" + title + '\'' +
+                        ", media='" + media + '\'' +
+                        ", media_time='" + media_time + '\'' +
+                        ", charge_type='" + charge_type + '\'' +
+                        ", charge_start='" + charge_start + '\'' +
+                        ", charge_end='" + charge_end + '\'' +
+                        '}';
             }
         }
     }

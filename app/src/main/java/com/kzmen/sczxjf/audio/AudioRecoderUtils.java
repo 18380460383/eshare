@@ -20,7 +20,7 @@ public class AudioRecoderUtils {
 
     private OnAudioStatusUpdateListener audioStatusUpdateListener;
 
-    public AudioRecoderUtils(){
+    public AudioRecoderUtils() {
         this.filePath = "/dev/null";
     }
 
@@ -33,7 +33,8 @@ public class AudioRecoderUtils {
 
     /**
      * 开始录音 使用amr格式
-     *      录音文件
+     * 录音文件
+     *
      * @return
      */
     public void startRecord() {
@@ -57,10 +58,12 @@ public class AudioRecoderUtils {
             mMediaRecorder.prepare();
             /* ④开始 */
             mMediaRecorder.start();
+            timeCount = 120;
             // AudioRecord audioRecord.
             /* 获取开始时间* */
             startTime = System.currentTimeMillis();
             updateMicStatus();
+          /*  updateText();*/
             Log.i("ACTION_START", "startTime" + startTime);
         } catch (IllegalStateException e) {
             Log.i(TAG, "call startAmr(File mRecAudioFile) failed!" + e.getMessage());
@@ -86,12 +89,18 @@ public class AudioRecoderUtils {
     }
 
     private final Handler mHandler = new Handler();
+    private final Handler mHandlerText = new Handler();
 
     private Runnable mUpdateMicStatusTimer = new Runnable() {
         public void run() {
             updateMicStatus();
         }
     };
+    /*private Runnable mUpdateTextTimer = new Runnable() {
+        public void run() {
+            updateText();
+        }
+    };*/
 
     /**
      * 更新话筒状态
@@ -103,21 +112,36 @@ public class AudioRecoderUtils {
         this.audioStatusUpdateListener = audioStatusUpdateListener;
     }
 
+    private int timeCount = 120;
+
     private void updateMicStatus() {
         if (mMediaRecorder != null) {
-            double ratio = (double)mMediaRecorder.getMaxAmplitude() / BASE;
+            double ratio = (double) mMediaRecorder.getMaxAmplitude() / BASE;
             double db = 0;// 分贝
+
             if (ratio > 1) {
                 db = 20 * Math.log10(ratio);
-                if(null != audioStatusUpdateListener) {
+                if (null != audioStatusUpdateListener) {
                     audioStatusUpdateListener.onUpdate(db);
                 }
             }
             mHandler.postDelayed(mUpdateMicStatusTimer, SPACE);
         }
     }
+   /* private void updateText(){
+        if (mMediaRecorder != null) {
+            timeCount--;
+            if (timeCount > 0) {
+                audioStatusUpdateListener.onUpText(timeCount);
+            }else{
+                this.stopRecord();
+            }
+            mHandlerText.postDelayed(mUpdateTextTimer, 1000);
+        }
+    }*/
 
     public interface OnAudioStatusUpdateListener {
         public void onUpdate(double db);
+        //public void onUpText(int db);
     }
 }

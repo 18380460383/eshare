@@ -21,6 +21,8 @@ import com.vondear.rxtools.view.RxToast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -223,8 +225,8 @@ public class OkhttpUtilManager {
     }
 
     public static void postNoCacah(Context mContext, String url, Map<String, String> param, final OkhttpUtilResult result) {
-        Gson gson=new Gson();
-        String data=gson.toJson(param);
+        Gson gson = new Gson();
+        String data = gson.toJson(param);
         //Log.e("tst",data);
         HttpHeaders headers = new HttpHeaders();
         headers.put("sign", AppContext.sign);    //所有的 header 都 不支持 中文
@@ -246,7 +248,53 @@ public class OkhttpUtilManager {
                             BaseBean bean = BaseBean.parseEntity(object);
                             if (bean.getCode() == 200) {
                                 result.onSuccess(100, bean.getData());
-                            }else if(bean.getCode()==998){
+                            } else if (bean.getCode() == 998) {
+                                AppContext.getInstance().setPersonageOnLine(false);
+                            } else {
+                                result.onErrorWrong(bean.getCode(), bean.getMessage());
+                            }
+                        } catch (JSONException e) {
+                            result.onErrorWrong(99, "测试" + e.toString());
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Response response, Exception e) {
+                        super.onError(call, response, e);
+                        if (result == null) {
+                            return;
+                        }
+                        result.onErrorWrong(99, e.toString());
+                    }
+                });
+    }
+    public static void postObjec(Context mContext, String url, Map<String, String> param, List<File> paramFile,  final OkhttpUtilResult result) {
+        Gson gson = new Gson();
+        String data = gson.toJson(param);
+        //Log.e("tst",data);
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("sign", AppContext.sign);    //所有的 header 都 不支持 中文
+        headers.put("token", AppContext.token);
+        headers.put("app_bate", AppContext.app_bate);
+        headers.put("from", AppContext.from);
+        OkHttpUtils.post(URL + url)
+                .tag(mContext)
+                .params(param)
+                .addFileParams("data",paramFile)
+                .headers(headers)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        try {
+                            JSONObject object = new JSONObject(s);
+                            if (result == null) {
+                                return;
+                            }
+                            BaseBean bean = BaseBean.parseEntity(object);
+                            if (bean.getCode() == 200) {
+                                result.onSuccess(100, bean.getData());
+                            } else if (bean.getCode() == 998) {
                                 AppContext.getInstance().setPersonageOnLine(false);
                             } else {
                                 result.onErrorWrong(bean.getCode(), bean.getMessage());
@@ -271,13 +319,14 @@ public class OkhttpUtilManager {
      * 网络请求对话框
      */
     private static CustomProgressDialog progressDialog;
+
     public static void setOrder(final Context mContext, String url, Map<String, String> param) {
         progressDialog = new CustomProgressDialog(mContext);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setText("生成订单中");
         progressDialog.show();
-        Gson gson=new Gson();
-        String data=gson.toJson(param);
+        Gson gson = new Gson();
+        String data = gson.toJson(param);
         //Log.e("tst",data);
         HttpHeaders headers = new HttpHeaders();
         headers.put("sign", AppContext.sign);    //所有的 header 都 不支持 中文
@@ -291,22 +340,23 @@ public class OkhttpUtilManager {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
-                        Log.e("order",s);
+                        Log.e("order", s);
                         try {
                             JSONObject object = new JSONObject(s);
                             BaseBean bean = BaseBean.parseEntity(object);
                             if (bean.getCode() == 200) {
-                                Gson gson=new Gson();
-                                JSONObject object1=new JSONObject(bean.getData());
-                                OrderBean orderBean=gson.fromJson(object1.getString("data"),OrderBean.class);
+                                Gson gson = new Gson();
+                                JSONObject object1 = new JSONObject(bean.getData());
+                                OrderBean orderBean = gson.fromJson(object1.getString("data"), OrderBean.class);
                                 Intent intent = new Intent(mContext, PayTypeAcitivity.class);
                                 Bundle bundle = new Bundle();
-                                bundle.putSerializable("orderBean",orderBean);
+                                bundle.putSerializable("orderBean", orderBean);
+                                intent.putExtras(bundle);
                                 mContext.startActivity(intent);
-                            }else if(bean.getCode()==998){
+                            } else if (bean.getCode() == 998) {
                                 AppContext.getInstance().setPersonageOnLine(false);
                             } else {
-                                RxToast.normal(""+bean.getMessage());
+                                RxToast.normal("" + bean.getMessage());
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -316,10 +366,63 @@ public class OkhttpUtilManager {
 
                     @Override
                     public void onError(Call call, Response response, Exception e) {
-                        Log.e("order",response.toString());
+
                         super.onError(call, response, e);
                         RxToast.normal("订单生成失败");
                         progressDialog.dismiss();
+                    }
+                });
+    }
+
+    public static void setUserOrder(final Context mContext, Map<String, String> param, final OkhttpUtilResult result) {
+        progressDialog = new CustomProgressDialog(mContext);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setText("生成订单中");
+        progressDialog.show();
+        Gson gson = new Gson();
+        String data = gson.toJson(param);
+        HttpHeaders headers = new HttpHeaders();
+        headers.put("sign", AppContext.sign);    //所有的 header 都 不支持 中文
+        headers.put("token", AppContext.token);
+        headers.put("app_bate", AppContext.app_bate);
+        headers.put("from", AppContext.from);
+        OkHttpUtils.post(URL + "Order/UserOrderPay")
+                .tag(mContext)
+                .params(param)
+                .headers(headers)
+                .execute(new StringCallback() {
+                    @Override
+                    public void onSuccess(String s, Call call, Response response) {
+                        Log.e("order", s);
+                        try {
+                            JSONObject object = new JSONObject(s);
+                            int code = object.getInt("code");
+                            BaseBean bean = BaseBean.parseEntity(object);
+                            if (bean.getCode() == 200) {
+                                JSONObject object1 = new JSONObject(bean.getData());
+                                JSONObject jsonObject = new JSONObject(object1.getString("data"));
+                                if (result != null) {
+                                    result.onSuccess(code, jsonObject.getString("charge"));
+                                }
+                            } else if (bean.getCode() == 998) {
+                                result.onErrorWrong(9999, bean.getMessage());
+                                AppContext.getInstance().setPersonageOnLine(false);
+                            } else {
+                                result.onErrorWrong(code, bean.getMessage());
+                                RxToast.normal("" + bean.getMessage());
+                            }
+                        } catch (JSONException e) {
+                            result.onErrorWrong(9999, e.toString());
+                            e.printStackTrace();
+                        }
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onError(Call call, Response response, Exception e) {
+                        super.onError(call, response, e);
+                        progressDialog.dismiss();
+                        result.onErrorWrong(999, "用户订单生成失败");
                     }
                 });
     }

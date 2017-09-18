@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.UpdateNickNameAcitivy">
 
     <RelativeLayout
@@ -12,10 +13,19 @@
         android:layout_height="wrap_content">
         <include
             layout="@layout/kz_title" />
+        <TextView
+            android:id="@+id/tv_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保存"
+            android:textSize="18dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:padding="8dp"/>
     </RelativeLayout>
       <com.kzmen.sczxjf.view.DJEditText
-          android:paddingTop="4dp"
-          android:paddingBottom="4dp"
+          android:id="@+id/et_input"
+          android:padding="8dp"
           android:layout_marginTop="40dp"
           android:hint="请输入您的新昵称"
           android:gravity="center"
@@ -24,6 +34,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content" />
     <TextView
+        android:padding="15dp"
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -6,16 +6,15 @@ import android.os.Message;
 import android.support.percent.PercentRelativeLayout;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
-import com.kzmen.sczxjf.bean.kzbean.ActivityListItemBean;
 import com.kzmen.sczxjf.bean.kzbean.All_Rank;
 import com.kzmen.sczxjf.bean.kzbean.RankListBean;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
@@ -33,7 +32,6 @@ import java.util.List;
 import butterknife.InjectView;
 
 import static com.kzmen.sczxjf.R.id.tv_mingc;
-import static com.kzmen.sczxjf.R.id.unread_view;
 
 /**
  * 积分榜单
@@ -51,6 +49,8 @@ public class IntegralListActivity extends SuperActivity {
     TextView tvMingc;
     @InjectView(R.id.lv_integral_list)
     ListView lvIntegralList;
+    @InjectView(R.id.iv_user_bg)
+    ImageView iv_user_bg;
     private CommonAdapter<All_Rank> adapter;
     private List<All_Rank> data_list;
     private int page = 0;
@@ -76,12 +76,12 @@ public class IntegralListActivity extends SuperActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     @Override
     public void onCreateDataForView() {
         setTitle(R.id.kz_tiltle, "积分排行");
-        titleName.setText("积分排行");
         setOnloading(R.id.ll_content);
-        data_list=new ArrayList<>();
+        data_list = new ArrayList<>();
         mLayout.onLoading();
         initView();
         initData();
@@ -101,13 +101,15 @@ public class IntegralListActivity extends SuperActivity {
                 try {
                     object = new JSONObject(data);
                     Gson gson = new Gson();
-                    RankListBean bean=gson.fromJson(object.getString("data"),RankListBean.class);
+                    RankListBean bean = gson.fromJson(object.getString("data"), RankListBean.class);
                     if (bean != null) {
                         data_list.addAll(bean.getAll_rank());
-                        titleName.setText(bean.getMe_rank().getRank());
+                        // titleName.setText(bean.getMe_rank().getRank());
                         tvName.setText(AppContext.getInstance().getUserLogin().getUsername());
                         tvMingc.setText(bean.getMe_rank().getRank());
-                        Log.e("tst",""+data_list.size());
+                        Glide.with(IntegralListActivity.this).load(AppContext.getInstance().getUserLogin().getAvatar()).placeholder(R.drawable.icon_image_normal)
+                                .into(iv_user_bg);
+                        Log.e("tst", "" + data_list.size());
                     } else {
                         mHandler.sendEmptyMessage(0);
                     }
@@ -118,31 +120,32 @@ public class IntegralListActivity extends SuperActivity {
                 mHandler.sendEmptyMessage(1);
                 adapter.notifyDataSetChanged();
             }
+
             @Override
             public void onErrorWrong(int code, String msg) {
-                Log.e("tst",msg);
+                Log.e("tst", msg);
                 mHandler.sendEmptyMessage(0);
             }
         });
     }
 
     private void initView() {
-        adapter=new CommonAdapter<All_Rank>(IntegralListActivity.this,R.layout.kz_integral_list_item,data_list) {
+        adapter = new CommonAdapter<All_Rank>(IntegralListActivity.this, R.layout.kz_integral_list_item, data_list) {
             @Override
             protected void convert(ViewHolder viewHolder, All_Rank item, int position) {
-                viewHolder.setText(R.id.tv_name,item.getUsername())
-                .setText(R.id.tv_mingc,item.getRank())
-                .setText(R.id.tv_grade,item.getAll_score());
-                viewHolder.setText(tv_mingc,""+item.getRank());
-                switch (position){
+                viewHolder.setText(R.id.tv_name, item.getUsername())
+                        .setText(R.id.tv_mingc, item.getRank())
+                        .setText(R.id.tv_grade, item.getAll_score());
+                viewHolder.setText(tv_mingc, "" + item.getRank());
+                switch (position) {
                     case 0:
-                        viewHolder.glideImage(R.id.iv_sign,R.drawable.icon_gold);
+                        viewHolder.glideImage(R.id.iv_sign, R.drawable.icon_gold);
                         break;
                     case 1:
-                        viewHolder.glideImage(R.id.iv_sign,R.drawable.icon_silver);
+                        viewHolder.glideImage(R.id.iv_sign, R.drawable.icon_silver);
                         break;
                     case 2:
-                        viewHolder.glideImage(R.id.iv_sign,R.drawable.icon_copper);
+                        viewHolder.glideImage(R.id.iv_sign, R.drawable.icon_copper);
                         break;
                     default:
                         viewHolder.getView(R.id.iv_sign).setVisibility(View.INVISIBLE);

@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
-import com.kzmen.sczxjf.ui.fragment.kzmessage.FragmentCollection;
+import com.kzmen.sczxjf.ui.fragment.kzmessage.CourseCollectionFragment;
 
 /**
  * Created by Administrator on 2017/8/9.
@@ -31,7 +31,7 @@ public class Kz_FragmentAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        Fragment fragment = new FragmentCollection();
+        Fragment fragment = new CourseCollectionFragment();
         Bundle bundle = null;
         switch (position) {
             case 0:

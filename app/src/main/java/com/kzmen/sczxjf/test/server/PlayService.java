@@ -432,7 +432,12 @@ public class PlayService extends Service implements MediaPlayer.OnCompletionList
         realPost = 0;
         mPlayingPosition = 0;
     }
-
+    public void setMusic(Music music){
+        this.mMusicList.clear();
+        this.mMusicList.add(music);
+        realPost = 0;
+        mPlayingPosition = 0;
+    }
     public PlayMessage getPlayMessage() {
         return playMessage;
     }

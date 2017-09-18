@@ -121,4 +121,20 @@ public class Music {
         }
         return this.getId() == ((Music) o).getId();
     }
+
+    @Override
+    public String toString() {
+        return "Music{" +
+                "type=" + type +
+                ", id=" + id +
+                ", title='" + title + '\'' +
+                ", artist='" + artist + '\'' +
+                ", album='" + album + '\'' +
+                ", duration=" + duration +
+                ", path='" + path + '\'' +
+                ", coverPath='" + coverPath + '\'' +
+                ", fileName='" + fileName + '\'' +
+                ", fileSize=" + fileSize +
+                '}';
+    }
 }

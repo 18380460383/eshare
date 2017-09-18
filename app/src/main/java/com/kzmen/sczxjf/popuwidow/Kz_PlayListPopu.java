@@ -3,21 +3,25 @@ package com.kzmen.sczxjf.popuwidow;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.bean.kzbean.CourseDetailBean;
+import com.kzmen.sczxjf.bean.kzbean.KzCoursePlayBean;
 import com.kzmen.sczxjf.commonadapter.CommonAdapter;
 import com.kzmen.sczxjf.commonadapter.ViewHolder;
 import com.kzmen.sczxjf.consta.PlayState;
 import com.kzmen.sczxjf.cusinterface.PlayPopuInterface;
-import com.kzmen.sczxjf.test.bean.Music;
+import com.kzmen.sczxjf.utils.TextUtil;
 import com.kzmen.sczxjf.view.MyListView;
+import com.vondear.rxtools.RxDeviceUtils;
 
 import java.util.List;
 
@@ -30,12 +34,19 @@ public class Kz_PlayListPopu extends PopupWindow {
     private View view;
     private TextView tv_cancle;
     private MyListView tv_play_list;
-    private List<Music> listData;
-    private CommonAdapter<Music> adapter;
+    private MyListView lv_xiaojiang_list;
+    private LinearLayout ll_xiaojiang;
     private PlayPopuInterface popuInterface;
     private int playPos = -1;
-    private int state=-1;
+    private int state = -1;
     private AnimationDrawable animationDrawable;
+    private List<KzCoursePlayBean> beanlist;
+    public CommonAdapter<KzCoursePlayBean> adapter2;
+    private List<CourseDetailBean.StageListBean.XiaojiangListBean> xiaojiangList;
+    private CommonAdapter<CourseDetailBean.StageListBean.XiaojiangListBean> xiaojAdapter;
+    private String title = "";
+    private String mediaName = "";
+
     public PlayPopuInterface getPopuInterface() {
         return popuInterface;
     }
@@ -50,6 +61,7 @@ public class Kz_PlayListPopu extends PopupWindow {
 
     public void setState(int state) {
         this.state = state;
+        adapter2.notifyDataSetChanged();
     }
 
     public int getPlayPos() {
@@ -60,11 +72,14 @@ public class Kz_PlayListPopu extends PopupWindow {
         this.playPos = playPos;
     }
 
-    public Kz_PlayListPopu(Context mContext, final List<Music> listData) {
-        this.listData = listData;
+    public Kz_PlayListPopu(Context mContext, final List<KzCoursePlayBean> beanlist, List<CourseDetailBean.StageListBean.XiaojiangListBean> xiaojiangList) {
+        this.beanlist = beanlist;
+        this.xiaojiangList = xiaojiangList;
         this.view = LayoutInflater.from(mContext).inflate(R.layout.kz_course_play_list, null);
         tv_cancle = (TextView) view.findViewById(R.id.tv_cancle);
-        tv_play_list = (MyListView) view.findViewById(R.id.tv_play_list);
+        tv_play_list = (MyListView) view.findViewById(R.id.lv_play_list);
+        lv_xiaojiang_list = (MyListView) view.findViewById(R.id.lv_xiaojiang_list);
+        ll_xiaojiang = (LinearLayout) view.findViewById(R.id.ll_xiaojiang);
         tv_cancle.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -72,79 +87,103 @@ public class Kz_PlayListPopu extends PopupWindow {
                 dismiss();
             }
         });
-        adapter = new CommonAdapter<Music>(mContext, R.layout.kz_course_detail_list_item, listData) {
+        Log.e("tstxiaojiang", xiaojiangList.toString());
+        if (null == xiaojiangList || xiaojiangList.size() == 0) {
+            ll_xiaojiang.setVisibility(View.GONE);
+        }
+        adapter2 = new CommonAdapter<KzCoursePlayBean>(mContext, R.layout.kz_course_detail_list_item, beanlist) {
             @Override
-            protected void convert(ViewHolder viewHolder, Music item, int position) {
+            protected void convert(ViewHolder viewHolder, final KzCoursePlayBean item, final int position) {
+                if (TextUtil.isEmpty(item.getMedia_time())) {
+                    item.setMedia_time("0");
+                }
+                int musicTime = Integer.valueOf(item.getMedia_time());
+                int min = musicTime / 60;
+                int sec = musicTime % 60;
+                String show = (min < 10 ? "0" + min : min) + ":" + (sec < 10 ? "0" + sec : sec);
                 viewHolder.getView(R.id.top_line).setVisibility(View.VISIBLE);
                 viewHolder.getView(R.id.bottom_line).setVisibility(View.VISIBLE);
-                animationDrawable = (AnimationDrawable) ((ImageView)viewHolder.getView(R.id.iv_play_state))
-                        .getDrawable();
-                if(position==0){
+                if (position == 0) {
                     viewHolder.getView(R.id.top_line).setVisibility(View.INVISIBLE);
                 }
-                if(position==(listData.size()-1)){
+                if (position == (beanlist.size() - 1)) {
                     viewHolder.getView(R.id.bottom_line).setVisibility(View.INVISIBLE);
                 }
-                if (position%2==0) {
+                if (item.getType() == 0) {
                     viewHolder.getView(R.id.iv_play_state).setVisibility(View.GONE);
                     viewHolder.getView(R.id.v_cricle_point).setVisibility(View.VISIBLE);
                     viewHolder.getView(R.id.tv_title).setVisibility(View.VISIBLE);
-                    viewHolder.setText(R.id.tv_title, item.getPath());
-                    viewHolder.getView(R.id.ll_play_state).setVisibility(View.GONE);
+                    viewHolder.setText(R.id.tv_title, item.getName());
+                    viewHolder.getView(R.id.ll_play_state).setVisibility(View.INVISIBLE);
                     viewHolder.getView(R.id.tv_second).setVisibility(View.INVISIBLE);
                 } else {
                     viewHolder.getView(R.id.v_cricle_point).setVisibility(View.GONE);
                     viewHolder.getView(R.id.iv_play_state).setVisibility(View.GONE);
-                    viewHolder.setText(R.id.tv_second, item.getPath());
+                    viewHolder.setText(R.id.tv_second, item.getName())
+                            .setText(R.id.tv_time, show);
                     viewHolder.getView(R.id.tv_second).setVisibility(View.VISIBLE);
                     viewHolder.getView(R.id.tv_title).setVisibility(View.INVISIBLE);
                     viewHolder.getView(R.id.ll_play_state).setVisibility(View.VISIBLE);
                 }
-               // viewHolder.setText(R.id.tv_title, item.getPath());
-
-                if (position == playPos) {
+                viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (item.getType() == 1) {
+                            if (popuInterface != null) {
+                                title = item.getName();
+                                mediaName = item.getMedia();
+                                popuInterface.onItemClic(item.getName(), item.getMedia());
+                            }
+                        }
+                    }
+                });
+                final AnimationDrawable animationDrawable = (AnimationDrawable) ((ImageView) viewHolder.getView(R.id.iv_play_state))
+                        .getDrawable();
+                if (item.getName().equals(title) && item.getMedia().equals(mediaName)) {
                     viewHolder.getView(R.id.iv_play_state).setVisibility(View.VISIBLE);
-                   switch (state){
-                       case PlayState.PLAY_PLAYING:
-                           animationDrawable.start();
-                           break;
-                       case PlayState.PLAY_PAUSE:
-                           animationDrawable.stop();
-                           break;
-                   }
+                    switch (state) {
+                        case PlayState.PLAY_PLAYING:
+                            animationDrawable.start();
+                            break;
+                        case PlayState.PLAY_PAUSE:
+                            animationDrawable.stop();
+                            break;
+                    }
                 } else {
-                    viewHolder.getView(R.id.iv_play_state).setVisibility(View.GONE);
+                    viewHolder.getView(R.id.iv_play_state).setVisibility(View.INVISIBLE);
+                    animationDrawable.stop();
                 }
             }
         };
-        tv_play_list.setAdapter(adapter);
-        tv_play_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        xiaojAdapter = new CommonAdapter<CourseDetailBean.StageListBean.XiaojiangListBean>(mContext, R.layout.kz_xiaojiang_list_item, this.xiaojiangList) {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (popuInterface != null) {
-                    popuInterface.onItemClic(position, listData.get(position));
-                    playPos=position;
-                    adapter.notifyDataSetChanged();
-                }
-                //dismiss();
+            protected void convert(ViewHolder viewHolder, final CourseDetailBean.StageListBean.XiaojiangListBean item, int position) {
+                int musicTime = Integer.valueOf(item.getMedia_time());
+                int min = musicTime / 60;
+                int sec = musicTime % 60;
+                String show = (min < 10 ? "0" + min : min) + ":" + (sec < 10 ? "0" + sec : sec);
+                viewHolder.setText(R.id.tv_xiaojiang_title1, item.getTitle())
+                        .setText(R.id.tv_xiaogjiangtime1, show);
+                viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (popuInterface != null) {
+                            popuInterface.onItemClic(item.getTitle(), item.getMedia());
+                        }
+                    }
+                });
             }
-        });
-        // 设置外部可点击
+        };
+        lv_xiaojiang_list.setAdapter(xiaojAdapter);
+        tv_play_list.setAdapter(adapter2);
         this.setOutsideTouchable(false);
-        // mMenuView添加OnTouchListener监听判断获取触屏位置如果在选择框外面则销毁弹出框
-    /* 设置弹出窗口特征 */
-        // 设置视图
         this.setContentView(this.view);
-        // 设置弹出窗体的宽和高
-        this.setHeight(RelativeLayout.LayoutParams.WRAP_CONTENT);
+        this.setHeight((int) (RxDeviceUtils.getScreenHeight(mContext) * 0.5));
         this.setWidth(RelativeLayout.LayoutParams.MATCH_PARENT);
-        // 设置弹出窗体可点击
         this.setFocusable(true);
-        // 实例化一个ColorDrawable颜色为半透明
         ColorDrawable dw = new ColorDrawable(0xb0000000);
-        // 设置弹出窗体的背景
         this.setBackgroundDrawable(dw);
-        // 设置弹出窗体显示时的动画，从底部向上弹出
         this.setAnimationStyle(R.style.playlist);
     }
 }

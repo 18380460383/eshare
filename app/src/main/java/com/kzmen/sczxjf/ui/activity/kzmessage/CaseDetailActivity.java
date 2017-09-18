@@ -10,11 +10,13 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.kzbean.CaseDetailBean;
+import com.kzmen.sczxjf.dialog.ShareDialog;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.smartlayout.widgit.CustomLoadingLayout;
@@ -45,6 +47,8 @@ public class CaseDetailActivity extends AppCompatActivity {
      */
     public TextView titleNameView;
     protected CustomLoadingLayout mLayout; //SmartLoadingLayout对象
+    @InjectView(R.id.iv_share)
+    ImageView ivshare;
     @InjectView(R.id.tv_title)
     TextView tvTitle;
     @InjectView(R.id.tv_pre_time)
@@ -69,8 +73,17 @@ public class CaseDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_case_detail);
+
         ButterKnife.inject(this);
+        ivshare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setShare(bean.getTitle(), bean.getDescribe(), bean.getSharepic(), bean.getLinkurl());
+            }
+        });
         setTitle(R.id.kz_tiltle, "案例");
+
+
         setOnloading(R.id.ll_content);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -82,13 +95,28 @@ public class CaseDetailActivity extends AppCompatActivity {
         initData();
     }
 
+    private ShareDialog shareDialog;
+
+    public void setShare(final String title, final String des, final String image, final String link) {
+
+        shareDialog = new ShareDialog(CaseDetailActivity.this, title, des, image, link);
+        shareDialog.setCancelButtonOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareDialog.dismiss();
+            }
+        });
+
+
+    }
+
     private void initData() {
         Map<String, String> params = new HashMap<>();
         params.put("data[id]", "" + id);
         OkhttpUtilManager.postNoCacah(this, "Newscase/getNewscaseShow", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
-                Log.e("tst",data);
+                Log.e("tst", data);
                 JSONObject object = null;
                 try {
                     object = new JSONObject(data);
@@ -156,10 +184,10 @@ public class CaseDetailActivity extends AppCompatActivity {
                 .into(myJCVideoPlayerStandard.thumbImageView);*/
         // JCVideoPlayer.setJcUserAction(new MyUserActionStandard());
         tvTitle.setText(bean.getTitle());
-        tvSource.setText("资料来源："+bean.getSource());
-        tvPreTime.setText("发布时间："+bean.getUpdate_time());
+        tvSource.setText("资料来源：" + bean.getSource());
+        tvPreTime.setText("发布时间：" + bean.getUpdate_time());
         wvContent.loadUrl(bean.getContent_url());
-        wvContent.setWebViewClient(new WebViewClient(){
+        wvContent.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 // TODO Auto-generated method stub

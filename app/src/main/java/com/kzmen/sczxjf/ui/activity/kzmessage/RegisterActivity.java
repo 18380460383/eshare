@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.bean.kzbean.EventBusBean;
 import com.kzmen.sczxjf.bean.kzbean.UserBean;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
@@ -25,6 +26,7 @@ import com.vondear.rxtools.RxRegUtils;
 import com.vondear.rxtools.view.RxToast;
 import com.vondear.rxtools.view.dialog.RxDialogSure;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -82,6 +84,7 @@ public class RegisterActivity extends SuperActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -111,6 +114,12 @@ public class RegisterActivity extends SuperActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     protected boolean isShareActivity() {
         return true;
     }
@@ -127,6 +136,7 @@ public class RegisterActivity extends SuperActivity {
                 break;
             case R.id.tv_register:
                 if (isAllRight()) {
+                    showProgressDialog("注册中。。。");
                     Map<String, String> params = new HashMap<>();
                     params.put("data[phone]", phone);
                     params.put("data[code]", yz);
@@ -138,23 +148,25 @@ public class RegisterActivity extends SuperActivity {
                         public void onSuccess(int type, String data) {
                             //注册成功
                             Log.e("tst", data);
-                            JSONObject object = null;
                             try {
-                                object = new JSONObject(data);
+                                JSONObject object = new JSONObject(data);
                                 Gson gson = new Gson();
                                 UserBean bean = gson.fromJson(object.getString("data"), UserBean.class);
                                 AppContext.getInstance().setUserLogin(bean);
+                                AppContext.getInstance().setPersonageOnLine(true);
                                 startActivity(new Intent(RegisterActivity.this, MainTabActivity.class));
+                                EventBus.getDefault().post(new EventBusBean());
                                 finish();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-
+                            dismissProgressDialog();
                         }
 
                         @Override
                         public void onErrorWrong(int code, String msg) {
                             RxToast.normal(msg);
+                            dismissProgressDialog();
                         }
                     });
                 }
@@ -182,21 +194,21 @@ public class RegisterActivity extends SuperActivity {
         OkhttpUtilManager.postNoCacah(this, "public/get_phone_code", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
-                if (timer != null) {
+               /* if (timer != null) {
                     timer.cancel();
-                }
+                }*/
                 Log.e("tst", data);
                 try {
                     JSONObject object = new JSONObject(data);
                     JSONObject object1 = new JSONObject(object.getString("data"));
                     String code = object1.getString("code");
-                    tvYz.setText(code);
+                    //tvYz.setText(code);
                     yzGet = code;
                 } catch (JSONException e) {
                     e.printStackTrace();
                     yzGet = "-9999";
                 }
-                tvYz.setEnabled(true);
+                //tvYz.setEnabled(true);
             }
 
             @Override
@@ -206,7 +218,7 @@ public class RegisterActivity extends SuperActivity {
                 }
                 Log.e("tst", msg);
                 yzGet = "-9999";
-                tvYz.setEnabled(true);
+                //tvYz.setEnabled(true);
             }
         });
     }
@@ -217,7 +229,7 @@ public class RegisterActivity extends SuperActivity {
             RxToast.normal("电话号码不能为空");
             return false;
         }
-        if(!RxRegUtils.isMobile(phone)){
+        if (!RxRegUtils.isMobile(phone)) {
             RxToast.normal("电话号码不合法");
         }
         return true;

@@ -27,6 +27,7 @@ import com.kzmen.sczxjf.bean.kzbean.HomeAskBean;
 import com.kzmen.sczxjf.bean.kzbean.HomeBanerBean;
 import com.kzmen.sczxjf.bean.kzbean.HomeCourseBean;
 import com.kzmen.sczxjf.bean.kzbean.HomepageMenuBean;
+import com.kzmen.sczxjf.bean.kzbean.UserMessageBean;
 import com.kzmen.sczxjf.cusinterface.PlayMessage;
 import com.kzmen.sczxjf.interfaces.MainAskListClick;
 import com.kzmen.sczxjf.interfaces.MainCourseListClick;
@@ -81,7 +82,7 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
     @InjectView(R.id.lv_ask)
     MyListView lvAsk;
     private SwipeRefreshLayout mSwipeLayout;
-    private View view = null;
+    //  private View view = null;
 
     private List<HomeBanerBean> bannerList;
     private List<String> bannerListUrl;
@@ -97,7 +98,7 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
     private Kz_MainCourseAdapter kz_mainCourseAdapter;
     private List<HomeCourseBean> listCourse;
 
-    private Kz_MainAskAdapter kz_mainAskAdapter;
+    public Kz_MainAskAdapter kz_mainAskAdapter;
     private List<HomeAskBean> listAsk;
 
     private boolean isCourseClick = false;
@@ -118,15 +119,19 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (view == null) {
-            view = inflater.inflate(R.layout.fragment_kz_message, container, false);
-        }
-
+        // if (view == null) {
+        View view = inflater.inflate(R.layout.fragment_kz_message, container, false);
+        //}
         ButterKnife.inject(this, view);
         initView(view);
         isPrepared = true;
-        lazyLoad();
+        //lazyLoad();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -181,7 +186,9 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
                     for (HomeBanerBean bean : bannerList) {
                         bannerListUrl.add(bean.getImageurl());
                     }
-                    blMainBanner.setViewUrls(bannerListUrl);
+                    if (blMainBanner != null) {
+                        blMainBanner.setViewUrls(bannerListUrl);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -211,7 +218,9 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
                     e.printStackTrace();
                 }
                 getFoucus();
-                ((MainTabActivity) getActivity()).mHandler.sendEmptyMessage(1);
+                if ((MainTabActivity) getActivity() != null) {
+                    ((MainTabActivity) getActivity()).mHandler.sendEmptyMessage(1);
+                }
                 mHandler.sendEmptyMessage(0);
             }
 
@@ -303,6 +312,28 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
                 ((MainTabActivity) getActivity()).mHandler.sendEmptyMessage(0);
             }
         });
+
+        OkhttpUtilManager.postNoCacah(getActivity(), "User/get_user_info", null, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                Log.e("tst", "获取用户信息：" + data);
+                try {
+                    JSONObject object = new JSONObject(data);
+                    Gson gson = new Gson();
+                    UserMessageBean bean = gson.fromJson(object.getString("data"), UserMessageBean.class);
+                    Log.e("tst", bean.toString());
+                    AppContext.userMessageBean = bean;
+                    AppContext.getInstance().setUserMessageBean(bean);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                Log.e("tst", "获取用户信息：" + msg);
+            }
+        });
     }
 
     private List<String> musicList;
@@ -359,8 +390,13 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
             }
 
             @Override
-            public void onClickXiaoJiang(int position) {
-                startActivity(new Intent(getActivity(), CoursePlayDeatilActivity.class));
+            public void onClickXiaoJiang(int position,int pos) {
+                Intent intent=new Intent(getActivity(), CoursePlayDeatilActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("cid",listCourse.get(position).getCid());
+                bundle.putString("sid",listCourse.get(position).getSid());
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
 
             @Override
@@ -372,20 +408,20 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
         kz_mainAskAdapter = new Kz_MainAskAdapter(getActivity(), listAsk, new MainAskListClick() {
             @Override
             public void onPosClick(int position) {
-                isCourseClick = false;
-                setMusic(listAsk.get(position).getAnswer_media());
-                /*if(listAsk.get(position).getIsopen().equals("1")){
-                    Intent intent=new Intent(getActivity(), PayTypeAcitivity.class);
-                    Bundle bundle=new Bundle();
-                    bundle.putString("price","1");
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                }*/
-                if (position == kz_mainAskAdapter.getPlayPosition()) {
-                    playPause();
-                } else {
-                    playStart();
-                }
+                /*if (listAsk.get(position).getIsopen().equals(KzConstanst.IS_FASLE)) {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("data[type]", "2");
+                    params.put("data[aid]", listAsk.get(position).getQid());
+                    OkhttpUtilManager.setOrder(getActivity(), KzConstanst.addEavesdropOrder, params);
+                } else {*/
+                    isCourseClick = false;
+                    setMusic(listAsk.get(position).getAnswer_media());
+                    if (position == kz_mainAskAdapter.getPlayPosition()) {
+                        playPause();
+                    } else {
+                        playStart();
+                    }
+                //}
             }
         });
         lvAsk.setAdapter(kz_mainAskAdapter);
@@ -413,10 +449,6 @@ public class KzMessageFragment extends SuperFragment implements PlayMessage, Swi
     }
 
     private void setMusilList(List<String> urlList) {
-        //baseUrl2 + "贫民百万歌星伴奏.mp3"
-        //baseUrl2 + "fade.mp3"
-        //baseUrl2 + "平凡之路.mp3"
-        //baseUrl2 + "星语心愿.mp3"
         mMusicList.clear();
         for (String str : urlList) {
             Music music = new Music();

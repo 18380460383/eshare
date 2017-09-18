@@ -27,9 +27,9 @@ import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.util.TLog;
 import com.kzmen.sczxjf.utils.JsonUtils;
 import com.loopj.android.http.RequestParams;
-import com.tencent.mm.sdk.modelmsg.SendAuth;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.apache.http.Header;
 import org.json.JSONException;

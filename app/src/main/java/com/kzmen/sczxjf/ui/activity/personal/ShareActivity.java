@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -17,19 +16,16 @@ import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.Config;
 import com.kzmen.sczxjf.bean.ShareMsgbean;
 import com.kzmen.sczxjf.control.CustomProgressDialog;
+import com.kzmen.sczxjf.net.NetworkDownload;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
+import com.kzmen.sczxjf.util.EshareLoger;
 import com.kzmen.sczxjf.utils.FileUtils;
 import com.kzmen.sczxjf.utils.JsonUtils;
-import com.kzmen.sczxjf.net.NetworkDownload;
-import com.kzmen.sczxjf.util.EshareLoger;
 import com.kzmen.sczxjf.view.EshareDialogFragment;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
-import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
-import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -133,7 +129,7 @@ public class ShareActivity extends SuperActivity {
     }
 
     public void share(int flag) {
-        WXWebpageObject webpage = new WXWebpageObject();
+        /*WXWebpageObject webpage = new WXWebpageObject();
 //        webpage.webpageUrl = "http://xiangyixia.360netnews.com/app.html?from=timeline&isappinstalled=1";
         if(null==shareMsgbean|| TextUtils.isEmpty(shareMsgbean.getWeixin().getShare())){
             webpage.webpageUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1beb00cf4c98140e&redirect_uri=http://jzz.360netnews.com/weixin/reg.php?uid=31&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect";
@@ -169,7 +165,7 @@ public class ShareActivity extends SuperActivity {
             Toast.makeText(this,"即将跳转到微信",Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(this,"无法访问到微信",Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
     private void getShareMsg(){
         showProgressDialog("获取分享标题中");

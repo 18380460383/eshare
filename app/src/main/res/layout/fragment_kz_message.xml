@@ -45,6 +45,7 @@
                     app:unSelectedIndicatorWidth="6dp" />
 
                 <com.kzmen.sczxjf.view.ExPandGridView
+                    android:layout_marginTop="@dimen/margin_top10"
                     android:id="@+id/gv_column"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

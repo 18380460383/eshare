@@ -21,13 +21,9 @@ import com.kzmen.sczxjf.bean.YaoBean;
 import com.kzmen.sczxjf.net.NetworkDownload;
 import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.util.EshareLoger;
-import com.kzmen.sczxjf.util.TLog;
-import com.tencent.mm.sdk.modelmsg.SendAuth;
-import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
-import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
@@ -234,7 +230,7 @@ public class YaoActivity extends BaseActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 bitmap = BitmapFactory.decodeByteArray(responseBody, 0, responseBody.length);
-                WXWebpageObject webpage = new WXWebpageObject();
+               /* WXWebpageObject webpage = new WXWebpageObject();
                 webpage.webpageUrl = bean.Link;
                 WXMediaMessage msg = new WXMediaMessage(webpage);
                 msg.title = bean.Title;
@@ -249,7 +245,7 @@ public class YaoActivity extends BaseActivity {
                 req.message = msg;
                 req.scene = 1;
                 api.sendReq(req);
-                showProgressDialog("正在分享");
+                showProgressDialog("正在分享");*/
             }
 
             @Override

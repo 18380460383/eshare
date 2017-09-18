@@ -1,8 +1,10 @@
 package com.kzmen.sczxjf.ui.activity.kzmessage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
@@ -62,11 +64,22 @@ public class ActivListActivity extends ListViewActivity {
         page = 1;
         adapter = new CommonAdapter<ActivityListItemBean>(this, R.layout.kz_activi_list_item, data_list) {
             @Override
-            protected void convert(ViewHolder viewHolder, ActivityListItemBean item, int position) {
+            protected void convert(ViewHolder viewHolder, final ActivityListItemBean item, int position) {
                 viewHolder.setText(R.id.tv_title, item.getTitle())
                         .setText(R.id.tv_state, item.getJiezhisj())
                         .setText(R.id.tv_count, item.getHits())
                         .glideImage(R.id.tv_image, item.getImageurl());
+                viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent=new Intent(ActivListActivity.this, WebAcitivity.class);
+                        Bundle bundle=new Bundle();
+                        bundle.putString("title",item.getTitle());
+                        bundle.putString("url",item.getLinkurl());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
             }
         };
         setmPullRefreshListView(mPullRefreshListView, adapter);

@@ -72,25 +72,31 @@ public class Kz_MainCourseAdapter extends BaseAdapter {
         viewHolder.tvCourseEx.setText(listData.get(position).getTitle());
         viewHolder.tvUserName.setText(listData.get(position).getTid_name());
         viewHolder.tvUserIdentity.setText(listData.get(position).getTid_title());
-        viewHolder.tv_views.setText(listData.get(position).getViews());
+        viewHolder.tv_views.setText(listData.get(position).getViews()+"人听过");
         Glide.with(mContext).load("http://api.kzmen.cn"+listData.get(position).getImage())
                 .placeholder(R.drawable.icon_image_normal)
                 .into(viewHolder.ivUserHead);
-        viewHolder.lvXiaojiang.setAdapter(new CommonAdapter<HomeCourseBean.XiaojiangArrBean>(mContext,R.layout.kz_xiaojiang_list_item,listData.get(position).getXiaojiang_arr()) {
-            @Override
-            protected void convert(com.kzmen.sczxjf.commonadapter.ViewHolder viewHolder, HomeCourseBean.XiaojiangArrBean item, int position) {
-                viewHolder.setText(R.id.tv_xiaojiang_title1,item.getTitle())
-                        .setText(R.id.tv_xiaogjiangtime1,item.getMedia_time());
-            }
-        });
-        viewHolder.lvXiaojiang.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (mainCourseListClick != null) {
-                    mainCourseListClick.onClickXiaoJiang(position);
+        if(null!=listData.get(position).getXiaojiang_arr()){
+            viewHolder.lvXiaojiang.setAdapter(new CommonAdapter<HomeCourseBean.XiaojiangArrBean>(mContext,R.layout.kz_xiaojiang_list_item,listData.get(position).getXiaojiang_arr()) {
+                @Override
+                protected void convert(com.kzmen.sczxjf.commonadapter.ViewHolder viewHolder, HomeCourseBean.XiaojiangArrBean item, int position) {
+                    int musicTime = Integer.valueOf(item.getMedia_time());
+                    int min=musicTime / 60;
+                    int sec=musicTime % 60;
+                    String  show = (min<10?"0"+min:min)+ ":" + (sec<10?"0"+sec:sec);
+                    viewHolder.setText(R.id.tv_xiaojiang_title1,item.getTitle())
+                            .setText(R.id.tv_xiaogjiangtime1,show);
                 }
-            }
-        });
+            });
+            viewHolder.lvXiaojiang.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+                    if (mainCourseListClick != null) {
+                        mainCourseListClick.onClickXiaoJiang(position,pos);
+                    }
+                }
+            });
+        }
         viewHolder.ivCoursePlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,7 +117,7 @@ public class Kz_MainCourseAdapter extends BaseAdapter {
         });
         if (position == playPosition) {
             viewHolder.tvMediaStartTime.setText(start);
-            viewHolder.tvMediaEndTime.setText(end);
+            viewHolder.tvMediaEndTime.setText(getTime(Integer.valueOf(listData.get(position).getKejian_arr().get(playPosition).getMedia_time())));
             viewHolder.sbPlay.setProgress(pos);
             switch (state) {
                 case PlayState.PLAY_PLAYING:
@@ -122,6 +128,9 @@ public class Kz_MainCourseAdapter extends BaseAdapter {
                     break;
             }
         } else {
+            viewHolder.tvMediaStartTime.setText("00:00");
+            viewHolder.tvMediaEndTime.setText("00:00");
+            viewHolder.sbPlay.setProgress(0);
             viewHolder.ivCoursePlay.setBackgroundResource(R.drawable.btn_player_play);
         }
         viewHolder.tv_play_state.setVisibility(View.GONE);
@@ -132,7 +141,12 @@ public class Kz_MainCourseAdapter extends BaseAdapter {
         }
         return convertView;
     }
-
+    private String getTime(int musicTime){
+        int min=musicTime / 60;
+        int sec=musicTime % 60;
+        String  show = (min<10?"0"+min:min)+ ":" + (sec<10?"0"+sec:sec);
+        return show;
+    }
     private int percent;
     private String start;
     private String end;

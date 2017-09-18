@@ -15,19 +15,18 @@ import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.Constants;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.WeixinInfo;
+import com.kzmen.sczxjf.bean.kzbean.EventBusBean;
 import com.kzmen.sczxjf.bean.kzbean.UserBean;
-import com.kzmen.sczxjf.bean.user.User_For_pe;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
-import com.kzmen.sczxjf.net.EnWebUtil;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
-import com.kzmen.sczxjf.util.TLog;
-import com.kzmen.sczxjf.utils.JsonUtils;
-import com.loopj.android.http.RequestParams;
-import com.tencent.mm.sdk.modelmsg.SendAuth;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.kzmen.sczxjf.utils.TextUtil;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.vondear.rxtools.RxLogUtils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,10 +36,7 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import cn.sharesdk.onekeyshare.OnekeyShare;
-import cn.sharesdk.wechat.friends.Wechat;
 
-import static com.alibaba.sdk.android.feedback.xblink.config.GlobalConfig.context;
 
 public class IndexActivity extends SuperActivity {
 
@@ -57,6 +53,7 @@ public class IndexActivity extends SuperActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -73,6 +70,19 @@ public class IndexActivity extends SuperActivity {
     public void setThisContentView() {
         setContentView(R.layout.activity_index);
         ButterKnife.inject(this);
+
+    }
+
+    @Override
+    public void funFinish(EventBusBean bean) {
+        super.funFinish(bean);
+        this.finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @OnClick({R.id.tv_login, R.id.tv_register, R.id.ll_login_weix})
@@ -95,7 +105,6 @@ public class IndexActivity extends SuperActivity {
             // finish();
         }
     }
-
 
 
     public void getToken() {
@@ -130,9 +139,12 @@ public class IndexActivity extends SuperActivity {
 
     private void loginForWeixin(Intent data) throws JSONException {
         String json = data.getExtras().getString(Constants.WEIXIN_ACCREDIT_KEY);
+        RxLogUtils.e("tst", "用户数据" + json);
         System.out.println("用户数据" + json);
         final WeixinInfo info = WeixinInfo.parseJson(new JSONObject(json));
         if (info != null) {
+            AppContext.getInstance().setWeixinInfo(json);
+            AppContext.getInstance().setLoginType("1");
             showProgressDialog("登陆中");
             Map<String, String> params = new HashMap<>();
             params.put("data[weixin]", info.unionid + "");
@@ -143,16 +155,25 @@ public class IndexActivity extends SuperActivity {
             params.put("data[third_province]", info.province + "");
             params.put("data[third_city]", info.city + "");
             params.put("data[third_sex]", info.sex + "");
-            OkhttpUtilManager.postNoCacah(this, "", params, new OkhttpUtilResult() {
+            OkhttpUtilManager.postNoCacah(this, "public/weixinLogin", params, new OkhttpUtilResult() {
                 @Override
                 public void onSuccess(int type, String data) {
+                    RxLogUtils.e("tst", "用户数据:::::::" + data);
                     JSONObject object = null;
                     try {
                         object = new JSONObject(data);
                         Gson gson = new Gson();
                         UserBean bean = gson.fromJson(object.getString("data"), UserBean.class);
-                        onLoginSuccess(bean);
-                        startActivity(new Intent(IndexActivity.this, MainTabActivity.class));
+                        if (TextUtil.isEmpty(bean.getPhone())) {
+                            Intent intent = new Intent(IndexActivity.this, BindPhoneAcitivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("userbean", bean);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                        } else {
+                            onLoginSuccess(bean);
+                            startActivity(new Intent(IndexActivity.this, MainTabActivity.class));
+                        }
                         finish();
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -161,6 +182,7 @@ public class IndexActivity extends SuperActivity {
 
                 @Override
                 public void onErrorWrong(int code, String msg) {
+                    dismissProgressDialog();
                     Toast.makeText(IndexActivity.this, "微信登录失败", Toast.LENGTH_SHORT).show();
                 }
             });

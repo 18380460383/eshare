@@ -37,6 +37,7 @@ import com.kzmen.sczxjf.ui.activity.menu.ShopOfIntegralActivity;
 import com.kzmen.sczxjf.ui.activity.menu.SpecialPowerActivity;
 import com.kzmen.sczxjf.ui.fragment.basic.SuperFragment;
 import com.kzmen.sczxjf.util.TextViewUtil;
+import com.kzmen.sczxjf.util.glide.GlideCircleTransform;
 import com.kzmen.sczxjf.utils.AppUtils;
 import com.kzmen.sczxjf.utils.BitmapUtils;
 
@@ -253,7 +254,7 @@ public class CMenuFragment extends SuperFragment {
         SpannableStringBuilder str = new SpannableStringBuilder("连续登陆：");
         cMenuUserLandingNumTv.setText(str.append(colorText));
         setDate();
-        Glide.with(getActivity()).load(peUser.getAvatar()).into(cMenuUserHeadIv);
+        Glide.with(getActivity()).load(peUser.getAvatar()).transform(new GlideCircleTransform(getActivity())).into(cMenuUserHeadIv);
         tvJifen.setText(peUser.getScore());
         tvPackage.setText(peUser.getBalance() + "");
     }

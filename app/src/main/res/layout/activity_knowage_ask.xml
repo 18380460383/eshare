@@ -1,154 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/sl_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.KnowageAskDetailActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include
-            layout="@layout/kz_title" />
+        <include layout="@layout/kz_title_with_share" />
     </RelativeLayout>
 
-    <android.support.v4.widget.NestedScrollView
-        android:padding="15dp"
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        android:id="@+id/sv_main"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/ll_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <com.kzmen.sczxjf.view.MyListView
                 android:id="@+id/lv_ask_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" />
-            <LinearLayout
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ImageView
-                    android:background="@drawable/icon_quiz_a"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    />
-                <LinearLayout
-                    android:layout_marginLeft="15dp"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-                    <TextView
-                        android:textSize="18dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:text="信用知识，快速问专家"/>
-                    <TextView
-                        android:layout_marginTop="@dimen/margin_top20"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="信用知识，快速问专家"/>
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/tv_ask_xy"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="@dimen/margin_top20"
-                    android:paddingRight="@dimen/margin_top20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="提问"
-                    android:background="@drawable/cornor_background_yellow_large"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_marginTop="30dp"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ImageView
-                    android:background="@drawable/icon_quiz_b"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    />
-                <LinearLayout
-                    android:layout_marginLeft="15dp"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-                    <TextView
-                        android:textSize="18dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:text="社群营销，唯我独尊"/>
-                    <TextView
-                        android:layout_marginTop="@dimen/margin_top20"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="信用知识，快速问专家"/>
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/tv_ask_yx"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="@dimen/margin_top20"
-                    android:paddingRight="@dimen/margin_top20"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="提问"
+                android:layout_marginTop="10dp"
+                android:divider="@color/transparent"
+                android:dividerHeight="0dp" />
 
-                    android:background="@drawable/cornor_background_yellow_large"
-                    />
-            </LinearLayout>
             <LinearLayout
-                android:layout_marginTop="@dimen/margin_top30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="@dimen/margin_top30"
                 android:orientation="horizontal">
+
                 <TextView
-                    android:paddingRight="10dp"
+                    android:id="@+id/tv_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
                     android:text="最新"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
+
                 <View
                     android:layout_width="2dp"
                     android:layout_height="match_parent"
-                    android:background="@color/no3_black"/>
+                    android:background="@color/no3_black" />
+
                 <TextView
-                    android:paddingLeft="10dp"
+                    android:id="@+id/tv_hasanswer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="最新"
-                    />
+                    android:paddingLeft="10dp"
+                    android:textColor="#adadad"
+                    android:text="已解答" />
             </LinearLayout>
+
             <com.kzmen.sczxjf.view.MyListView
                 android:id="@+id/lv_aks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"
+                android:divider="@color/transparent"
+                android:dividerHeight="0dp" />
+
+            <include
+                android:id="@+id/my_empty_page"
+                layout="@layout/smartloadinglayout_view_on_empty" />
+
+            <include
+                android:id="@+id/my_error_page"
+                layout="@layout/smartloadinglayout_view_on_error" />
+
+            <include
+                android:id="@+id/my_loading_page"
+                layout="@layout/smartloadinglayout_view_on_loading" />
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 </LinearLayout>
-</android.support.v4.widget.SwipeRefreshLayout>

@@ -28,7 +28,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_top30"
+                        android:layout_marginTop="@dimen/margin_top10"
                         android:paddingRight="15dp">
 
                         <ImageView
@@ -39,7 +39,7 @@
                             android:background="@drawable/close" />
                     </RelativeLayout>
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:layout_gravity="center"
@@ -52,7 +52,14 @@
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_centerHorizontal="true" />
-                    </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/icon_vip_default" />
+                    </RelativeLayout>
 
 
                 </LinearLayout>
@@ -264,6 +271,7 @@
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/c_menu_collect"
+                        android:background="@drawable/icon_member_collect"
                         android:scaleType="centerInside" />
 
                     <TextView
@@ -291,6 +299,7 @@
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/c_menu_friend"
+                        android:background="@drawable/icon_member_friends"
                         android:scaleType="centerInside" />
 
                     <TextView
@@ -317,6 +326,7 @@
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/c_menu_creative_collection"
+                        android:background="@drawable/icon_member_quiz"
                         android:scaleType="centerInside" />
 
                     <TextView
@@ -357,6 +367,7 @@
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/c_menu_credits_exchange"
+                        android:background="@drawable/icon_member_mall"
                         android:scaleType="centerInside" />
 
                     <TextView
@@ -385,6 +396,7 @@
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/c_menu_activity"
+                        android:background="@drawable/icon_member_vip"
                         android:scaleType="centerInside" />
 
                     <TextView

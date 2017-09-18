@@ -20,7 +20,7 @@ public class HomeAskBean {
      * teacher : 0
      */
 
-    private String id;
+    private String qid;
     private String content;
     private String isopen;
     private String views;
@@ -31,13 +31,16 @@ public class HomeAskBean {
     private String nickname;
     private String avatar;
     private String teacher;
+    private String teacher_title;
+    private String media_status;
 
-    public String getId() {
-        return id;
+
+    public String getQid() {
+        return qid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setQid(String qid) {
+        this.qid = qid;
     }
 
     public String getContent() {
@@ -120,10 +123,26 @@ public class HomeAskBean {
         this.teacher = teacher;
     }
 
+    public String getTeacher_title() {
+        return teacher_title;
+    }
+
+    public void setTeacher_title(String teacher_title) {
+        this.teacher_title = teacher_title;
+    }
+
+    public String getMedia_status() {
+        return media_status;
+    }
+
+    public void setMedia_status(String media_status) {
+        this.media_status = media_status;
+    }
+
     @Override
     public String toString() {
         return "HomeAskBean{" +
-                "id='" + id + '\'' +
+                "qid='" + qid + '\'' +
                 ", content='" + content + '\'' +
                 ", isopen='" + isopen + '\'' +
                 ", views='" + views + '\'' +

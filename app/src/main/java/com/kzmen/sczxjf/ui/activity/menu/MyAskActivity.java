@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
-import com.kzmen.sczxjf.ui.fragment.kzmessage.FragmentCollection;
+import com.kzmen.sczxjf.ui.fragment.kzmessage.CourseCollectionFragment;
 
 import butterknife.InjectView;
 
@@ -83,7 +83,7 @@ public class MyAskActivity extends SuperActivity {
         @Override
         public Fragment getItem(int position) {
 
-            Fragment fragment = new FragmentCollection();
+            Fragment fragment = new CourseCollectionFragment();
             Bundle bundle = null;
             switch (position) {
                 case 0:

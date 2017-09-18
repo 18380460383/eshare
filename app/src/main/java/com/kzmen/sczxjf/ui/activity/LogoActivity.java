@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.kzmen.sczxjf.AppContext;
@@ -13,10 +14,9 @@ import com.kzmen.sczxjf.AppManager;
 import com.kzmen.sczxjf.Constants;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.UIManager;
+import com.kzmen.sczxjf.bean.WeixinInfo;
 import com.kzmen.sczxjf.bean.kzbean.UserBean;
-import com.kzmen.sczxjf.bean.user.User_For_pe;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
-import com.kzmen.sczxjf.net.EnWebUtil;
 import com.kzmen.sczxjf.net.NetworkDownload;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
@@ -25,8 +25,8 @@ import com.kzmen.sczxjf.ui.activity.kzmessage.MainTabActivity;
 import com.kzmen.sczxjf.util.ELocationlistener;
 import com.kzmen.sczxjf.util.EshareLoger;
 import com.kzmen.sczxjf.utils.AppUtils;
-import com.kzmen.sczxjf.utils.JsonUtils;
 import com.loopj.android.http.RequestParams;
+import com.vondear.rxtools.RxLogUtils;
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -42,11 +42,13 @@ public class LogoActivity extends SuperActivity {
     private ELocationlistener listener = new ELocationlistener() {
         @Override
         public void onFinshLocation(EshareLocationInfo info) {
-            setLocation(info);
+            // setLocation(info);
         }
     };
+
     /**
      * 上传地理位置
+     *
      * @param info
      */
     private void setLocation(ELocationlistener.EshareLocationInfo info) {
@@ -76,9 +78,9 @@ public class LogoActivity extends SuperActivity {
 
     @Override
     public void onCreateDataForView() {
-         AppContext instance = AppContext.getInstance();
-        if(TextUtils.isEmpty(instance.getUserLogin().getUid())){
-           instance.setPersonageOnLine(false);
+        AppContext instance = AppContext.getInstance();
+        if (TextUtils.isEmpty(instance.getUserLogin().getUid())) {
+            instance.setPersonageOnLine(false);
         }
     }
 
@@ -128,48 +130,32 @@ public class LogoActivity extends SuperActivity {
             UIManager.showFirstGuideActivity(this);
             AppContext.getInstance().setFirst();
             finish();
-        }
-        else{
-            if(AppContext.getInstance().getPersonageOnLine()){
-               // updataToken();
+        } else {
+            if (AppContext.getInstance().getPersonageOnLine()) {
+                //updataToken();
                 OnLinelogin();
-            }else{
+            } else {
                 startActivity(new Intent(LogoActivity.this, IndexActivity.class));
                 finish();
-               //OnLinelogin();
+                //OnLinelogin();
             }
            /* startActivity(new Intent(this, MainTabActivity.class));
             finish();*/
         }
-        /*AdvertisementControl advertisementControl = AdvertisementControl.getAdvertisementControl();
-        Advertisement advertisement = advertisementControl.getAdvertisement();
-        long l = System.currentTimeMillis();
-        Long aLong = null;
-        Long aLong1=null;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        if(!TextUtils.isEmpty(advertisement.getStartdate())&&!TextUtils.isEmpty(advertisement.getEnddate())){
-             aLong = Long.valueOf(advertisement.getStartdate());
-             aLong1 = Long.valueOf(advertisement.getEnddate());
-        }
-        if (advertisementControl.isHaveAdvertisement()&&aLong!=null&&aLong1!=null&&aLong*1000 <l&& aLong1*1000 >l) {
-             System.out.println(sdf.format(new Date(aLong*1000))+"end"+sdf.format(new Date(aLong1*1000)));
-                //startActivity(new Intent(this, AdvertActivity.class));
-           // finish();
-        } else {*/
-            // 判断是否跳过新手引导界面
-
     }
-    private void updataToken(){
+
+    private void updataToken() {
         OkhttpUtilManager.postNoCacah(this, "Public/autoLogin", null, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
                 try {
-                    Log.e("tst",data);
+                    Log.e("tst", data);
                     JSONObject object = new JSONObject(data);
-                    JSONObject ob1=new JSONObject(object.getString("data"));
-                    String token=ob1.getString("token");
-                    AppContext.getInstance().token=token;
+                    JSONObject ob1 = new JSONObject(object.getString("data"));
+                    String token = ob1.getString("token");
+                    AppContext.getInstance().token = token;
                     AppContext.getInstance().getUserLogin().setToken(token);
+                    AppContext.getInstance().setPersonageOnLine(true);
                     startActivity(new Intent(LogoActivity.this, MainTabActivity.class));
                     finish();
                 } catch (JSONException e) {
@@ -180,21 +166,22 @@ public class LogoActivity extends SuperActivity {
 
             @Override
             public void onErrorWrong(int code, String msg) {
-                Log.e("tst",msg);
+                Log.e("tst", msg);
                 OnLinelogin();
             }
         });
     }
+
     private void OnLinelogin() {
         AppContext instance = AppContext.getInstance();
-        if (TextUtils.isEmpty(instance.getCpassword())) {
+        if (instance.getLoginType().equals("1")) {
             try {
                 loginForWeixin();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         } else {
-            if(instance.getCpassword()==null){
+            if (instance.getCpassword() == null) {
                 startActivity(new Intent(LogoActivity.this, IndexActivity.class));
                 finish();
                 return;
@@ -206,6 +193,7 @@ public class LogoActivity extends SuperActivity {
                 @Override
                 public void onSuccess(int type, String data) {
                     try {
+                        AppContext.getInstance().setLoginType("0");
                         JSONObject object = new JSONObject(data);
                         Gson gson = new Gson();
                         UserBean bean = gson.fromJson(object.getString("data"), UserBean.class);
@@ -227,53 +215,72 @@ public class LogoActivity extends SuperActivity {
                     dismissProgressDialog();
                     startActivity(new Intent(LogoActivity.this, IndexActivity.class));
                     finish();
-                   /* if(code==99){
-                        RxToast.normal("登陆失败");
-                    }else{
-                        RxToast.normal(msg);
-                    }*/
                 }
             });
         }
     }
+
     @Override
     protected boolean isShareActivity() {
         return true;
     }
-    private void loginForWeixin() throws JSONException {
 
-         User_For_pe peUser = AppContext.getInstance().getPEUser();
-        if(TextUtils.isEmpty(peUser.getWeixin())){
-            return;
-        }
-        RequestParams requestParams = new RequestParams();
-        requestParams.put("platform", "android");
-        requestParams.put("weixin", peUser.getWeixin());
-        requestParams.put("imageurl", peUser.getImageurl());
-        requestParams.put("username", peUser.getUsername());
-        requestParams.put("third_city", peUser.getCity());
-        requestParams.put("third_country", "");
-        requestParams.put("third_sex", "");
-        requestParams.put("third_province", peUser.getProvince());
-        requestParams.put("source", AppContext.getInstance().getChannel());
-        EnWebUtil.getInstance().post(null, new String[]{"OwnAccount", "loginAppByWeixin"}, requestParams, new EnWebUtil.AesListener2() {
-            @Override
-            public void onSuccess(String errorCode, String errorMsg, String data) {
-                if ("0".equals(errorCode)) {
+    private void loginForWeixin() throws JSONException {
+        String json = AppContext.getInstance().getWeixinInfo();
+        RxLogUtils.e("tst", "用户数据" + json);
+        System.out.println("用户数据" + json);
+        final WeixinInfo info = WeixinInfo.parseJson(new JSONObject(json));
+        if (info != null) {
+            AppContext.getInstance().setWeixinInfo(json);
+            AppContext.getInstance().setLoginType("1");
+            showProgressDialog("登陆中");
+            Map<String, String> params = new HashMap<>();
+            params.put("data[weixin]", info.unionid + "");
+            params.put("data[openid]", info.openid + "");
+            params.put("data[username]", info.nickname + "");
+            params.put("data[avatar]", info.headimgurl + "");
+            params.put("data[third_country]", info.country + "");
+            params.put("data[third_province]", info.province + "");
+            params.put("data[third_city]", info.city + "");
+            params.put("data[third_sex]", info.sex + "");
+            OkhttpUtilManager.postNoCacah(this, "public/weixinLogin", params, new OkhttpUtilResult() {
+                @Override
+                public void onSuccess(int type, String data) {
+                    RxLogUtils.e("tst", "用户数据:::::::" + data);
+                    JSONObject object = null;
                     try {
-                        User_For_pe bean = JsonUtils.getBean(new JSONObject(data), User_For_pe.class);
-                        AppContext.getInstance().setPEUser(bean);
-                        AppContext.getInstance().setPersonageOnLine(true);
+                        object = new JSONObject(data);
+                        Gson gson = new Gson();
+                        UserBean bean = gson.fromJson(object.getString("data"), UserBean.class);
+                        onLoginSuccess(bean);
+                        startActivity(new Intent(LogoActivity.this, MainTabActivity.class));
+                        finish();
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        startActivity(new Intent(LogoActivity.this, IndexActivity.class));
+                        finish();
                     }
                 }
-            }
-            @Override
-            public void onFail(String result) {
 
-            }
-        });
+                @Override
+                public void onErrorWrong(int code, String msg) {
+                    dismissProgressDialog();
+                    Toast.makeText(LogoActivity.this, "微信登录失败", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LogoActivity.this, IndexActivity.class));
+                    finish();
+                }
+            });
+        }
     }
 
+    private void onLoginSuccess(UserBean bean) {
+        AppContext.getInstance().setUserLogin(bean);
+        AppContext.getInstance().setPersonageOnLine(true);
+        AppContext.getInstance().setFirst();
+        dismissProgressDialog();
+        Intent intent = new Intent();
+        intent.putExtra("loginstate", 1);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
 }

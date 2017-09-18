@@ -55,7 +55,7 @@ dependencies {
     //微信登录，支付，分享包
     //compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.3.4'
     //支付宝 支付包
-    compile files('src/main/libs/alipaySdk-20170309.jar')
+   // compile files('src/main/libs/alipaySdk-20170309.jar')
     //二维码解析
     compile files('src/main/libs/zbardecoder.jar')
     //二维码生成

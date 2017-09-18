@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="com.kzmen.sczxjf.ui.activity.menu.MyIntegralActivity">
 
@@ -11,8 +12,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <include
-            layout="@layout/kz_title" />
+
+        <include layout="@layout/kz_title" />
     </RelativeLayout>
 
     <ScrollView
@@ -42,7 +43,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
-                    android:text="当前积分" />
+                    android:text="当前余额" />
             </LinearLayout>
 
             <TextView
@@ -52,7 +53,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="4dp"
                 android:layout_marginTop="15dp"
-                android:text="￥ 4396"
+                android:text=""
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
@@ -67,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_top20"
                     android:layout_weight="1"
-                    android:background="@color/yellow"
+                    android:background="#666666"
                     android:gravity="center"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
@@ -82,7 +83,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="@dimen/margin_top20"
                     android:layout_weight="1"
-                    android:background="@color/green"
+                    android:background="@color/yellow"
                     android:gravity="center"
                     android:paddingBottom="8dp"
                     android:paddingTop="8dp"
@@ -107,7 +108,7 @@
                     android:id="@+id/tv_money_edu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" ￥3232" />
+                    android:text=" " />
 
                 <ImageView
                     android:id="@+id/iv_know"
@@ -145,10 +146,18 @@
                 android:layout_marginTop="15dp"
                 android:text="积分记录" />
 
-            <ExpandableListView
-                android:id="@+id/lv_integral"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+
+                <ExpandableListView
+                    android:id="@+id/lv_integral"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <include layout="@layout/kz_empty_view" />
+            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/tv_more_list"

@@ -151,10 +151,6 @@ public class Mp3RecorderActivity extends AppCompatActivity implements View.OnTou
     public boolean onTouch(View view, MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-               /* recorder = new MP3Recorder(8000);
-                recorder.setFilePath("recoder", "mp3");//录音保存目录
-                recorder.setHandle(handler);
-                recorder.start();//开始录音*/
                 recoderUtils.startRecord();
                 downT = System.currentTimeMillis();
                 recoderDialog.showAtLocation(view, Gravity.CENTER, 0, 0);
@@ -186,6 +182,11 @@ public class Mp3RecorderActivity extends AppCompatActivity implements View.OnTou
             recoderDialog.setTime(System.currentTimeMillis() - downT);
         }
     }
+
+   /* @Override
+    public void onUpText(int db) {
+        recoderDialog.setMessageText(System.currentTimeMillis() - downT);
+    }*/
 
     @OnClick({R.id.iv_course_play, R.id.iv_delete})
     public void onViewClicked(View view) {

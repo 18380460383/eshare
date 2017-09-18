@@ -6,11 +6,24 @@
 
     <LinearLayout
         android:id="@+id/ll_main"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.kzmen.sczxjf.view.MyListView
             android:id="@+id/lv_play_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/transparent"
+            android:dividerHeight="0dp" />
+        <TextView
+            android:id="@+id/tv_xiaoj"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="小讲圈"/>
+        <com.kzmen.sczxjf.view.MyListView
+            android:id="@+id/lv_xiaojiang_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@color/transparent"
@@ -81,8 +94,8 @@
                 android:layout_marginLeft="8dp"
                 android:background="@drawable/cornor_backgroud_yellow"
                 android:paddingBottom="8dp"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
                 android:paddingTop="8dp"
                 android:text="立即解锁" />
         </LinearLayout>

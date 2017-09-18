@@ -5,7 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.AccountMessageActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/kz_title" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,11 +28,12 @@
             android:text="账号ID" />
 
         <TextView
+            android:id="@+id/tv_acountid"
             style="@style/account_seting_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:text="5242884" />
+            android:text="" />
     </LinearLayout>
 
     <LinearLayout
@@ -40,11 +49,12 @@
             android:text="真实姓名" />
 
         <TextView
+            android:id="@+id/tv_realname"
             style="@style/account_seting_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:text="测试" />
+            android:text="" />
     </LinearLayout>
 
     <LinearLayout
@@ -60,11 +70,12 @@
             android:text="绑定手机" />
 
         <TextView
+            android:id="@+id/tv_phone"
             style="@style/account_seting_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:text="138 0034 0034" />
+            android:text="" />
     </LinearLayout>
 
     <LinearLayout
@@ -86,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:text="4444" />
+            android:text="" />
     </LinearLayout>
 
     <LinearLayout
@@ -102,10 +113,11 @@
             android:text="累计收益" />
 
         <TextView
+            android:id="@+id/tv_souy"
             style="@style/account_seting_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:text="4444" />
+            android:text="" />
     </LinearLayout>
 </LinearLayout>

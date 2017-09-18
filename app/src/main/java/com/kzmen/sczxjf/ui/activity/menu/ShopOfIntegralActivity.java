@@ -39,7 +39,6 @@ public class ShopOfIntegralActivity extends ListViewActivity implements View.OnC
 
     @InjectView(R.id.shop_list)
     PullToRefreshStaggeredGridLayout shopList;
-
     ImageView bjNullIv;
     TextView biTitle;
     LinearLayout bjLl;

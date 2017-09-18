@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -21,23 +20,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.bean.kzbean.ReturnOrderBean;
 import com.kzmen.sczxjf.bean.kzbean.UserBean;
-import com.kzmen.sczxjf.bean.kzbean.UserMessageBean;
 import com.kzmen.sczxjf.control.ScreenControl;
-import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
 import com.kzmen.sczxjf.net.NetworkDownload;
-import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.ui.activity.personal.LoginActivity;
 import com.kzmen.sczxjf.ui.activity.personal.MsgCenterActivity;
 import com.kzmen.sczxjf.ui.fragment.kzmessage.KzMessageFragment;
 import com.kzmen.sczxjf.ui.fragment.personal.CMenuFragment;
+import com.kzmen.sczxjf.util.glide.GlideCircleTransform;
+import com.vondear.rxtools.RxLogUtils;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -51,6 +48,8 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     private static final int LOGIN = 4;
     @InjectView(R.id.main_headimage)
     ImageView headImage;
+    @InjectView(R.id.iv_sign)
+    ImageView iv_sign;
     @InjectView(R.id.framelayout)
     FrameLayout framelayout;
     @InjectView(R.id.id_drawerlayout)
@@ -106,43 +105,21 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         DrawerLayout.LayoutParams layoutParams = (DrawerLayout.LayoutParams) menu.getLayoutParams();
         layoutParams.width = (int) (i * 0.7);
         menu.setLayoutParams(layoutParams);
-
         back.setVisibility(View.INVISIBLE);
-        getCachTst();
         setOnloading(R.id.ll_content);
         mLayout.onLoading();
-        //mLayout.onDone();
-        Glide.with(this).load(AppContext.getInstance().getUserLogin().getAvatar()).into(headImage);
+        Glide.with(this).load(AppContext.getInstance().getUserLogin().getAvatar()).transform(new GlideCircleTransform(this)).into(headImage);
     }
 
     private void initUserMessage() {
-        OkhttpUtilManager.postNoCacah(this, "User/get_user_info", null, new OkhttpUtilResult() {
-            @Override
-            public void onSuccess(int type, String data) {
-                Log.e("tst","获取用户信息："+data);
-                try {
-                    JSONObject object=new JSONObject(data);
-                    Gson gson=new Gson();
-                    UserMessageBean bean=gson.fromJson(object.getString("data"),UserMessageBean.class);
-                    Log.e("tst",bean.toString());
-                    AppContext.userMessageBean=bean;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
 
-            @Override
-            public void onErrorWrong(int code, String msg) {
-                Log.e("tst","获取用户信息："+msg);
-            }
-        });
     }
 
-    public Handler mHandler = new Handler(){
+    public Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             // 数据下载完成，转换状态，显示内容视图
-            switch (msg.what){
+            switch (msg.what) {
                 case 0:
                     mLayout.onError();
                     break;
@@ -155,13 +132,12 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
             }
         }
     };
-    public boolean setScroll(int id) {
-        return setOnScroll(id);
-    }
 
     @Override
     public void setThisContentView() {
         setContentView(R.layout.activity_main_tab2);
+        EventBus.getDefault().register(this);
+        ButterKnife.inject(this);
     }
 
     @Override
@@ -169,31 +145,24 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         super.onResume();
     }
 
-    @OnClick({R.id.main_headimage, R.id.iv_history,R.id.ll_msg,R.id.ll_search})
+    @OnClick({R.id.main_headimage, R.id.iv_history, R.id.ll_msg, R.id.ll_search})
     public void onclick(View view) {
-        Intent intent=null;
+        Intent intent = null;
         switch (view.getId()) {
             case R.id.main_headimage:
                 //TODO 左侧打开菜单
                 idDrawerlayout.openDrawer(GravityCompat.START);
-               /* if (AppContext.getInstance().getPersonageOnLine()) {
-                    idDrawerlayout.openDrawer(GravityCompat.START);
-                } else {
-                    Intent intent = new Intent(this, LoginActivity.class);
-                    intent.putExtra("state", 8);
-                    startActivityForResult(intent, LOGIN);
-                }*/
                 break;
             case R.id.iv_history:
                 intent = new Intent(this, com.kzmen.sczxjf.ui.activity.kzmessage.LoginActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_msg:
-                intent= new Intent(this, CourseSearchActivity.class);
+                intent = new Intent(this, CourseSearchActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_search:
-                intent= new Intent(this, CourseSearchActivity.class);
+                intent = new Intent(this, CourseSearchActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -216,7 +185,8 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
         //TODO 加载菜单
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
         kzMessageFragment = new KzMessageFragment();
-        fragmentTransaction.replace(R.id.framelayout, kzMessageFragment);
+        // fragmentTransaction.replace(R.id.framelayout, kzMessageFragment);
+        fragmentTransaction.add(R.id.framelayout, kzMessageFragment);
         fragmentTransaction.commit();
         /*if (AppContext.getInstance().getPersonageOnLine()) {
             setHeadImageAndMenu(login);
@@ -226,6 +196,9 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
 
     public void setHeadImageAndMenu(UserBean login) {
         Glide.with(this).load(login.getAvatar()).placeholder(R.drawable.icon_image_normal).into(headImage);
+        if (login.getRole().equals("1")) {
+            iv_sign.setBackgroundResource(R.drawable.icon_vip);
+        }
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
         fragmentcmenu.setMenuBack(new CMenuFragment.MenuBack() {
             @Override
@@ -233,37 +206,12 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
                 idDrawerlayout.closeDrawer(GravityCompat.START);
             }
         });
-        fragmentTransaction.replace(R.id.id_drawer, fragmentcmenu);
+        fragmentTransaction.add(R.id.id_drawer, fragmentcmenu);
         //fragmentcmenu.setHeadImage(bm);
         fragmentTransaction.commitAllowingStateLoss();
-     //   putJPusID();
+        //   putJPusID();
 
     }
-
-
-    /**
-     * 上传极光ID
-     */
-  /*  private void putJPusID() {
-        String registrationID = JPushInterface.getRegistrationID(getApplicationContext());
-        Map<String, String> map = new HashMap<>();
-        new RequestParams();
-        map.put("uid", AppContext.getInstance().getPEUser().getUid());
-        map.put("form", "android");
-
-        map.put("jpushid", registrationID);
-        RequestParams requestParams = AppUtils.getParm(map);
-        NetworkDownload.jsonPost(this, Constants.URL_PUT_JPUSID, requestParams, new NetworkDownload.NetworkDownloadCallBackJson() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
-            }
-
-            @Override
-            public void onFailure() {
-
-            }
-        });
-    }*/
 
     @Override
     public void onBackPressed() {
@@ -305,8 +253,9 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     protected void onDestroy() {
         super.onDestroy();
         AppContext.getInstance().setNoLine();
+        EventBus.getDefault().unregister(this);
         NetworkDownload.stopRequest(this);
-        unregisterReceiver(receiver);
+        //unregisterReceiver(receiver);
     }
 
 
@@ -378,7 +327,7 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     }
 
     public void extP() {
-        headImage.setImageResource(R.drawable.userhead);
+        headImage.setImageResource(R.drawable.icon_image_normal);
     }
 
     public void closeDraw() {
@@ -388,11 +337,16 @@ public class MainTabActivity extends SuperActivity implements DrawerLayout.Drawe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.inject(this);
+
     }
 
-    public void getCachTst() {
-
+    @Override
+    public void funOrder(ReturnOrderBean bean) {
+        super.funOrder(bean);
+       // showOrderPayBack(bean);
+        RxLogUtils.e("tst",bean.toString());
+        if(bean.getType()==1){
+            kzMessageFragment.kz_mainAskAdapter.updateOpen();
+        }
     }
 }

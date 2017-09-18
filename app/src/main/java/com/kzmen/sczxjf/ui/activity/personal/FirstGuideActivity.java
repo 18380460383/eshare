@@ -19,9 +19,9 @@ import com.kzmen.sczxjf.control.CustomProgressDialog;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.ui.activity.kzmessage.IndexActivity;
 import com.kzmen.sczxjf.utils.AppUtils;
-import com.tencent.mm.sdk.modelmsg.SendAuth;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.ArrayList;
 import java.util.List;

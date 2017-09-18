@@ -25,15 +25,16 @@ import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.Constants;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.request.UpdateMsg;
-import com.kzmen.sczxjf.bean.returned.SetInfoReturn;
+import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
+import com.kzmen.sczxjf.net.NetworkDownload;
+import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
-import com.kzmen.sczxjf.ui.activity.kzmessage.PersonMessActivity;
+import com.kzmen.sczxjf.ui.activity.kzmessage.AccountMessageActivity;
+import com.kzmen.sczxjf.util.EshareLoger;
 import com.kzmen.sczxjf.utils.AppUtils;
 import com.kzmen.sczxjf.utils.JsonUtils;
-import com.kzmen.sczxjf.net.NetworkDownload;
-import com.kzmen.sczxjf.util.EToastUtil;
-import com.kzmen.sczxjf.util.EshareLoger;
 import com.loopj.android.http.RequestParams;
+import com.vondear.rxtools.view.RxToast;
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -68,7 +69,9 @@ public class SetActivity extends SuperActivity {
     @InjectView(R.id.exit)
     public LinearLayout exit;
 
-    /**设置的信息*/
+    /**
+     * 设置的信息
+     */
     public String info_set;
     public boolean currentSet;
     public JSONObject data;
@@ -76,6 +79,7 @@ public class SetActivity extends SuperActivity {
     private AlertDialog alertDialog;
     private DownloadChangeObserver downloadChangeObserver;
     private AlertDialog dialog1;
+
     @Override
     public void onCreateDataForView() {
         initData();
@@ -113,7 +117,7 @@ public class SetActivity extends SuperActivity {
                 case R.id.activity_set_ly_about:
                     Intent intent2 = new Intent(SetActivity.this, AboutActivity.class);
                     try {
-                        if(data != null) {
+                        if (data != null) {
                             intent2.putExtra(AboutActivity.EXTRA_URL, data.getString("setting_about"));
                             intent2.putExtra(AboutActivity.EXTRA_TITLE, "关于卡掌门");
                         } else {
@@ -127,15 +131,16 @@ public class SetActivity extends SuperActivity {
                     startActivity(intent2);
                     break;
                 case R.id.activity_set_ly_account:
-                    Intent intent = new Intent(SetActivity.this, PersonMessActivity.class);
-                    intent.putExtra(AccountActivity.KEY_ACCOUNT, info_set);
+                    Intent intent = new Intent(SetActivity.this, AccountMessageActivity.class);
+                    //intent.putExtra(AccountActivity.KEY_ACCOUNT, info_set);
                     startActivity(intent);
                     break;
                 case R.id.title_back:
                     finish();
                     break;
                 case R.id.activity_set_ly_check:
-                    update();
+                    //update();
+                    RxToast.normal("版本更新");
                     break;
                 case R.id.activity_set_tb_msg:
                     EshareLoger.logI("currentSet = " + currentSet);
@@ -165,13 +170,14 @@ public class SetActivity extends SuperActivity {
                 dialog1.dismiss();
             }
         });
-         dialog1 = alertDialog.create();
+        dialog1 = alertDialog.create();
         alertDialog.show();
 
     }
 
     /**
      * 获取版本信息
+     *
      * @return
      */
     public int getAppVersion() {
@@ -199,12 +205,12 @@ public class SetActivity extends SuperActivity {
     private void update() {
         showProgressDialog(null);
         RequestParams params = new RequestParams();
-        params.add("type","2");
-        params.add("source",AppContext.getInstance().getChannel());
+        params.add("type", "2");
+        params.add("source", AppContext.getInstance().getChannel());
         NetworkDownload.byteGet(this, Constants.URL_UP, params, new NetworkDownload.NetworkDownloadCallBackbyte() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
-               dismissProgressDialog();
+                dismissProgressDialog();
                 JSONObject jsonObject;
                 try {
                     String json = new String(bytes);
@@ -231,14 +237,20 @@ public class SetActivity extends SuperActivity {
     }
 
 
-
-
-
     /**
      * 获取设置信息
      */
     public void getSetInfo() {
-       showProgressDialog(null);
+        if (AppContext.getInstance().getUserMessageBean().getIsjpush().equals("1")) {
+            tb_msg.setChecked(true);
+            currentSet = true;
+            JPushInterface.resumePush(SetActivity.this);
+        } else {
+            tb_msg.setChecked(false);
+            currentSet = false;
+            JPushInterface.stopPush(SetActivity.this);
+        }
+      /* showProgressDialog(null);
         RequestParams params = new RequestParams();
         params.put("uid", AppContext.getInstance().getPEUser().getUid());
         NetworkDownload.jsonGetForCode1(this, Constants.URL_GET_SETINFO, params, new NetworkDownload.NetworkDownloadCallBackJson() {
@@ -264,37 +276,37 @@ public class SetActivity extends SuperActivity {
             public void onFailure() {
                dismissProgressDialog();
             }
-        });
+        });*/
     }
 
     /**
      * 发送是否接收推送的消息
+     *
      * @param can
      */
+    String isjp = "";
+
     public void sendPushInfo(final boolean can) {
         EshareLoger.logI("sendPushInfo(" + can + ")");
-        Map<String,String> map=new HashMap<>();
-        map.put("uid", AppContext.getInstance().getPEUser().getUid());
-        if(can) {
-            map.put("isjpush", "1");
+        Map<String, String> map = new HashMap<>();
+
+        if (can) {
+            map.put("data[isjpush]", "1");
+            isjp = "1";
         } else {
-            map.put("isjpush", "2");
+            isjp = "2";
+            map.put("data[isjpush]", "2");
         }
-        RequestParams params = AppUtils.getParm(map);
         showProgressDialog("正在设置。。。");
-        NetworkDownload.jsonPostForCode1(this, Constants.URL_SET_PUSHINFO, params, new NetworkDownload.NetworkDownloadCallBackJson() {
+        OkhttpUtilManager.postNoCacah(this, "User/save_user_info", map, new OkhttpUtilResult() {
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) throws JSONException {
-                EshareLoger.logI("设置成功");
-                tb_msg.setChecked(can);
-                currentSet = tb_msg.isChecked();
+            public void onSuccess(int type, String data) {
+                AppContext.getInstance().getUserMessageBean().setIsjpush(isjp);
                 dismissProgressDialog();
             }
 
             @Override
-            public void onFailure() {
-                EToastUtil.show(SetActivity.this, "设置提醒失败");
-                tb_msg.setChecked(currentSet);
+            public void onErrorWrong(int code, String msg) {
                 dismissProgressDialog();
             }
         });
@@ -401,14 +413,14 @@ public class SetActivity extends SuperActivity {
         DownloadManager.Request request = new DownloadManager.Request(uri);
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/eshare/");
-        if(!file.exists()){
+        if (!file.exists()) {
             file.mkdirs();
         }
-        File filee=new File(file.getAbsolutePath()+"eshare" + data.getShowversion() + ".apk");
+        File filee = new File(file.getAbsolutePath() + "eshare" + data.getShowversion() + ".apk");
 
         request.setDestinationUri(Uri.fromFile(filee));
         long reference = downloadManager.enqueue(request);
-        downloadChangeObserver = new DownloadChangeObserver(null,this);
+        downloadChangeObserver = new DownloadChangeObserver(null, this);
         getContentResolver().registerContentObserver(Uri.parse("content://downloads/my_downloads"), true, downloadChangeObserver);
         AppContext.getInstance().setDownId(reference);
     }
@@ -417,11 +429,12 @@ public class SetActivity extends SuperActivity {
 
         private DownloadManager.Query query;
         private ProgressDialog pbarDialog;
-        public DownloadChangeObserver(Handler handler,Context context) {
+
+        public DownloadChangeObserver(Handler handler, Context context) {
 
             super(handler);
 
-            pbarDialog = new ProgressDialog( context );
+            pbarDialog = new ProgressDialog(context);
             pbarDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             pbarDialog.setMessage("下载进度...");
             pbarDialog.setCancelable(false);
@@ -454,9 +467,9 @@ public class SetActivity extends SuperActivity {
                 sb.append("Downloaded ").append(bytesDL).append(" / ").append(fileSize);
                 System.out.println(sb);
                 DecimalFormat df = new DecimalFormat("0");//格式化小数
-                double value = (double)bytesDL*100/(double)fileSize;
+                double value = (double) bytesDL * 100 / (double) fileSize;
                 pbarDialog.setProgress(Integer.valueOf(df.format(value)));
-                if(!selfChange&&bytesDL==fileSize){
+                if (!selfChange && bytesDL == fileSize) {
                     pbarDialog.dismiss();
                     Uri uriForDownloadedFile = ((DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE)).getUriForDownloadedFile(AppContext.getInstance().getDownId());
                     Intent intent = new Intent(Intent.ACTION_VIEW);

@@ -1,10 +1,12 @@
 package com.kzmen.sczxjf.bean.kzbean;
 
+import java.io.Serializable;
+
 /**
  * Created by pjj18 on 2017/9/1.
  */
 
-public class UserBean {
+public class UserBean  implements Serializable{
 
     /**
      * uid : 5001

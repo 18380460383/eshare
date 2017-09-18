@@ -1,55 +1,50 @@
 package com.kzmen.sczxjf.wxapi;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.widget.Toast;
 
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.Constants;
 import com.kzmen.sczxjf.bean.TokenBean;
-import com.kzmen.sczxjf.control.CustomProgressDialog;
 import com.kzmen.sczxjf.net.NetworkDownload;
 import com.kzmen.sczxjf.util.EshareLoger;
 import com.kzmen.sczxjf.util.TLog;
 import com.loopj.android.http.RequestParams;
-import com.tencent.mm.sdk.constants.ConstantsAPI;
-import com.tencent.mm.sdk.modelbase.BaseReq;
-import com.tencent.mm.sdk.modelbase.BaseResp;
-import com.tencent.mm.sdk.modelmsg.SendAuth;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.tencent.mm.opensdk.constants.ConstantsAPI;
+import com.tencent.mm.opensdk.modelbase.BaseReq;
+import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.vondear.rxtools.RxLogUtils;
 
 import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import cn.sharesdk.wechat.utils.WXAppExtendObject;
-import cn.sharesdk.wechat.utils.WXMediaMessage;
-import cn.sharesdk.wechat.utils.WechatHandlerActivity;
+public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
-/**
- * weixin返回信息
- */
-public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEventHandler {
+    private static final int TIMELINE_SUPPORTED_VERSION = 0x21020001;
 
-    private CustomProgressDialog progressDialog;
-    protected boolean _isVisible;
+
+    // IWXAPI 是第三方app和微信通信的openapi接口
     private IWXAPI api;
-    public boolean isPdShow;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppContext.getInstance().setOneActivity(this);
+        ///setContentView(R.layout.entry);
+        // 通过WXAPIFactory工厂，获取IWXAPI的实例
+       // api = WXAPIFactory.createWXAPI(this, Constants.APP_ID, false);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        progressDialog = new CustomProgressDialog(this);
-        progressDialog.setCanceledOnTouchOutside(false);
+        //注意：
+        //第三方开发者如果使用透明界面来实现WXEntryActivity，需要判断handleIntent的返回值，如果返回值为false，则说明入参不合法未被SDK处理，应finish当前透明界面，避免外部通过传递非法参数的Intent导致停留在透明界面，引起用户的疑惑
         initWeixin();
     }
-
     private void initWeixin() {
         if(api == null) {
             api = WXAPIFactory.createWXAPI(this, Constants.APP_ID);
@@ -57,21 +52,22 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
         api.registerApp(Constants.APP_ID);
         api.handleIntent(getIntent(), this);
     }
-
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        setIntent(intent);
         api.handleIntent(intent, this);
     }
 
+    // 微信发送请求到第三方应用时，会回调到该方法
     @Override
-    public void onReq(BaseReq baseReq) {
+    public void onReq(BaseReq req) {
 
     }
 
     @Override
     public void onResp(BaseResp baseResp) {
-        Log.e("weixin",""+baseResp.errCode);
+        RxLogUtils.e("weixin","errCode  :::"+baseResp.errCode+"  errStr  :::"+baseResp.errStr+"  transaction  :::"+baseResp.transaction+"  openId  :::"+baseResp.openId+"  ");
         if(baseResp.getType() == ConstantsAPI.COMMAND_SENDAUTH) {
             // 认证登录
             if(baseResp.errCode == BaseResp.ErrCode.ERR_OK) {
@@ -80,7 +76,6 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                         + ((SendAuth.Resp) baseResp).country + ((SendAuth.Resp) baseResp).lang);
                 AppContext.getInstance().weixinCode = ((SendAuth.Resp)baseResp).code;
                 getToken(AppContext.getInstance().weixinCode);
-
             } else {
                 // 认证失败
                 Toast.makeText(this, "认证失败", Toast.LENGTH_SHORT).show();
@@ -95,14 +90,13 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
                 weixinShare.setAction(Constants.WEIXIN_SHARE);
                 weixinShare.putExtra(Constants.WEIXIN_SHARE_KEY,Constants.WEIXIN_SHARE_VALUE_SUCCEED);
                 sendBroadcast(weixinShare);
-                Log.e("weixin",""+baseResp.errCode);
+                RxLogUtils.e("weixin",""+baseResp.errCode);
             } else {
-                Log.e("weixin","wrong:"+baseResp.errCode);
+                RxLogUtils.e("weixin","wrong:"+baseResp.errCode);
                 weixinShare.setAction(Constants.WEIXIN_SHARE);
                 weixinShare.putExtra(Constants.WEIXIN_SHARE_KEY,Constants.WEIXIN_SHARE_VALUE_FAILURE);
                 sendBroadcast(weixinShare);
                 // 认证失败
-
                 if(AppContext.getInstance().mBaseWebAct != null) {
                     EshareLoger.logI("BaseWeb不为空fail");
                     AppContext.getInstance().mBaseWebAct.onShareCancel();
@@ -141,8 +135,6 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
             }
         });
     }
-
-
     // 获取微信信息
     private void getUserInfo() {
         TLog.error("idid" + AppContext.getInstance().openid);
@@ -152,12 +144,12 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
         NetworkDownload.byteGet(this, Constants.URL_GET_USERINFO, params, new NetworkDownload.NetworkDownloadCallBackbyte() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] bytes) {
-                    String json = new String(bytes);
-                    Intent weixinacc=new Intent();
-                    weixinacc.setAction(Constants.WEIXIN_ACCREDIT);
-                    weixinacc.putExtra(Constants.WEIXIN_ACCREDIT_KEY,json);
-                    sendBroadcast(weixinacc);
-                    WXEntryActivity.this.finish();
+                String json = new String(bytes);
+                Intent weixinacc=new Intent();
+                weixinacc.setAction(Constants.WEIXIN_ACCREDIT);
+                weixinacc.putExtra(Constants.WEIXIN_ACCREDIT_KEY,json);
+                sendBroadcast(weixinacc);
+                WXEntryActivity.this.finish();
             }
             @Override
             public void onFailure() {
@@ -167,45 +159,4 @@ public class WXEntryActivity extends WechatHandlerActivity implements IWXAPIEven
         });
     }
 
-
-
-
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        this.finish();
-    }
-
-  /*  *//**
-     * 处理微信发出的向第三方应用请求app message
-     * <p>
-     * 在微信客户端中的聊天页面有“添加工具”，可以将本应用的图标添加到其中
-     * 此后点击图标，下面的代码会被执行。Demo仅仅只是打开自己而已，但你可
-     * 做点其他的事情，包括根本不打开任何页面
-     */
-    public void onGetMessageFromWXReq(WXMediaMessage msg) {
-        Intent iLaunchMyself = getPackageManager().getLaunchIntentForPackage(getPackageName());
-        startActivity(iLaunchMyself);
-    }
-    /**
-     * 处理微信向第三方应用发起的消息
-     * <p>
-     * 此处用来接收从微信发送过来的消息，比方说本demo在wechatpage里面分享
-     * 应用时可以不分享应用文件，而分享一段应用的自定义信息。接受方的微信
-     * 客户端会通过这个方法，将这个信息发送回接收方手机上的本demo中，当作
-     * 回调。
-     * <p>
-     * 本Demo只是将信息展示出来，但你可做点其他的事情，而不仅仅只是Toast
-     */
-    public void onShowMessageFromWXReq(WXMediaMessage msg) {
-        Toast.makeText(this, "aaaaaaaaaaaaa", Toast.LENGTH_SHORT).show();
-        Intent iLaunchMyself = getPackageManager().getLaunchIntentForPackage(getPackageName());
-        startActivity(iLaunchMyself);
-        if (msg != null && msg.mediaObject != null
-                && (msg.mediaObject instanceof WXAppExtendObject)) {
-            WXAppExtendObject obj = (WXAppExtendObject) msg.mediaObject;
-            Toast.makeText(this, obj.extInfo, Toast.LENGTH_SHORT).show();
-        }
-    }
 }

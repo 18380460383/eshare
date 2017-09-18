@@ -12,11 +12,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -26,28 +24,33 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
+import com.kzmen.sczxjf.AppContext;
+import com.kzmen.sczxjf.KzConstanst;
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.adapter.KzCoursePlayDetailAdapter;
 import com.kzmen.sczxjf.adapter.Kz_CourseDetaiListAdapter;
 import com.kzmen.sczxjf.adapter.Kz_Course_FragmentAdapter;
 import com.kzmen.sczxjf.bean.kzbean.CourseDetailBean;
-import com.kzmen.sczxjf.bean.kzbean.CourseListBean;
 import com.kzmen.sczxjf.bean.kzbean.CouseQuestionBean;
-import com.kzmen.sczxjf.commonadapter.CommonAdapter;
-import com.kzmen.sczxjf.commonadapter.ViewHolder;
+import com.kzmen.sczxjf.bean.kzbean.OrderBean;
+import com.kzmen.sczxjf.bean.kzbean.ReturnOrderBean;
+import com.kzmen.sczxjf.cusinterface.PlayMessage;
 import com.kzmen.sczxjf.dialog.ShareDialog;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
+import com.kzmen.sczxjf.interfaces.PlayDetailOperate;
 import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.popuwidow.Kz_CourseAskPopu;
+import com.kzmen.sczxjf.test.bean.Music;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.ui.activity.menu.PayTypeAcitivity;
-import com.kzmen.sczxjf.util.EToastUtil;
-import com.kzmen.sczxjf.utils.TextUtil;
 import com.kzmen.sczxjf.view.ExpandViewPager;
 import com.kzmen.sczxjf.view.ExpandableTextView;
 import com.kzmen.sczxjf.view.MyListView;
 import com.kzmen.sczxjf.view.loading.LoadingView;
+import com.vondear.rxtools.RxLogUtils;
 import com.vondear.rxtools.view.RxToast;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -62,7 +65,7 @@ import butterknife.OnClick;
 /**
  * 课程详情
  */
-public class CourseDetailAcitivity extends SuperActivity {
+public class CourseDetailAcitivity extends SuperActivity implements PlayMessage {
     @InjectView(R.id.lv_question)
     MyListView lv_question;
     /*  @InjectView(R.id.ll_main)
@@ -85,7 +88,6 @@ public class CourseDetailAcitivity extends SuperActivity {
     TextView tvAsk;
     @InjectView(R.id.sv_main)
     PullToRefreshScrollView mPullRefreshScrollView;
-    ;
     @InjectView(R.id.kz_tiltle)
     LinearLayout llTitle;
     @InjectView(R.id.iv_collect)
@@ -98,6 +100,8 @@ public class CourseDetailAcitivity extends SuperActivity {
     LinearLayout llHudong;
     @InjectView(R.id.ll_xiaojianghudong)
     LinearLayout llXiaojianghudong;
+    @InjectView(R.id.ll_buycouse)
+    LinearLayout ll_buycouse;
     @InjectView(R.id.expandable_text)
     TextView expandableText;
     @InjectView(R.id.ex_message)
@@ -120,7 +124,7 @@ public class CourseDetailAcitivity extends SuperActivity {
     LoadingView loadView;
     @InjectView(R.id.ll_loading)
     LinearLayout llLoading;
-    private String[] titles ;//= new String[]{"阶段一", "阶段二", "阶段三", "阶段四", "阶段五"}
+    private String[] titles;//= new String[]{"阶段一", "阶段二", "阶段三", "阶段四", "阶段五"}
     private ShareDialog shareDialog;
     private Kz_Course_FragmentAdapter adapter;
     // private CustomLoadingLayout mLayout; //SmartLoadingLayout对象
@@ -147,7 +151,7 @@ public class CourseDetailAcitivity extends SuperActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -160,11 +164,46 @@ public class CourseDetailAcitivity extends SuperActivity {
 
     private void initView() {
         if (courseDetailBean != null) {
-            titles=new String[courseDetailBean.getStage_list().size()];
-            for (int i = 0; i < courseDetailBean.getStage_list().size(); i++) {
-                titles[i]=courseDetailBean.getStage_list().get(i).getStage_name();
+            if (courseDetailBean.getStage_list() != null) {
+                titles = new String[courseDetailBean.getStage_list().size()];
+                for (int i = 0; i < courseDetailBean.getStage_list().size(); i++) {
+                    titles[i] = courseDetailBean.getStage_list().get(i).getStage_name();
+                }
+                adapter = new Kz_Course_FragmentAdapter(getSupportFragmentManager(), CourseDetailAcitivity.this, titles, courseDetailBean);
+                adapter.setTitles(titles);
+                infoViewpager.setAdapter(adapter);
+                tabLayout.setupWithViewPager(infoViewpager);
+                //设置Tablayout
+                //设置TabLayout模式 -该使用Tab数量比较多的情况
+                tabLayout.setTabMode(TabLayout.MODE_FIXED);
+                //设置自定义Tab--加入图标的demo
+                for (int i = 0; i < titles.length; i++) {
+                    TabLayout.Tab tab = tabLayout.getTabAt(i);
+                    tab.setCustomView(adapter.getTabView(i));
+                    //tab.getCustomView().setBackgroundColor(Color.argb(255,255,0,0));
+                }
+                final int currentSelectedPosition = infoViewpager.getCurrentItem();
+
+                infoViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    }
+
+                    @Override
+                    public void onPageSelected(int position) {
+                        View view = infoViewpager.getChildAt(currentSelectedPosition);
+                        int height = view.getMeasuredHeight();
+                        ViewGroup.LayoutParams layoutParams = (LinearLayout.LayoutParams) infoViewpager.getLayoutParams();
+                        layoutParams.height = height;
+                        infoViewpager.setLayoutParams(layoutParams);
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+                    }
+                });
             }
-            if (courseDetailBean.getIscollect()==1) {
+            if (courseDetailBean.getIscollect() == 1) {
                 ivCollect.setBackgroundResource(R.drawable.btn_collect_current);
             }
             Glide.with(this).load(courseDetailBean.getBanner()).placeholder(R.drawable.icon_image_normal)
@@ -184,46 +223,12 @@ public class CourseDetailAcitivity extends SuperActivity {
             tvQuestionsDesc.setText(courseDetailBean.getQuestions_desc());
             expandTextView.setText(courseDetailBean.getDescribe());
         }
-
-        adapter = new Kz_Course_FragmentAdapter(getSupportFragmentManager(), CourseDetailAcitivity.this, titles,courseDetailBean);
-        adapter.setTitles(titles);
-        infoViewpager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(infoViewpager);
-        //设置Tablayout
-        //设置TabLayout模式 -该使用Tab数量比较多的情况
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
-        //设置自定义Tab--加入图标的demo
-        for (int i = 0; i < titles.length; i++) {
-            TabLayout.Tab tab = tabLayout.getTabAt(i);
-            tab.setCustomView(adapter.getTabView(i));
-            //tab.getCustomView().setBackgroundColor(Color.argb(255,255,0,0));
-        }
-
-        final int currentSelectedPosition = infoViewpager.getCurrentItem();
-        infoViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                View view = infoViewpager.getChildAt(currentSelectedPosition);
-                int height = view.getMeasuredHeight();
-                ViewGroup.LayoutParams layoutParams = (LinearLayout.LayoutParams) infoViewpager.getLayoutParams();
-                layoutParams.height = height;
-                infoViewpager.setLayoutParams(layoutParams);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
     }
 
     private List<CouseQuestionBean> beanlist;
     private Kz_CourseDetaiListAdapter adapter1;
-    private CommonAdapter<CouseQuestionBean> adapter2;
+    // private CommonAdapter<CouseQuestionBean> adapter2;
+    private KzCoursePlayDetailAdapter adapter2;
 
     private void initData() {
         beanlist = new ArrayList<>();
@@ -238,6 +243,9 @@ public class CourseDetailAcitivity extends SuperActivity {
                     JSONObject object = new JSONObject(data);
                     Gson gson = new Gson();
                     courseDetailBean = gson.fromJson(object.getString("data"), CourseDetailBean.class);
+                    if (!courseDetailBean.getType().equals("1")) {
+                        ll_buycouse.setVisibility(View.VISIBLE);
+                    }
                     Log.e("tst", courseDetailBean.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -251,110 +259,49 @@ public class CourseDetailAcitivity extends SuperActivity {
                 mHandler.sendEmptyMessage(0);
             }
         });
-
-        adapter2 = new CommonAdapter<CouseQuestionBean>(CourseDetailAcitivity.this, R.layout.kz_good_ask_item, beanlist) {
+        adapter2 = new KzCoursePlayDetailAdapter(beanlist, this, new PlayDetailOperate() {
             @Override
-            protected void convert(ViewHolder viewHolder, final CouseQuestionBean item, int position) {
-                viewHolder.setText(R.id.tv_title, "" + item.getContent())
-                        .glideImage(R.id.iv_user_head, item.getAvatar())
-                        .glideImage(R.id.iv_answer_img, item.getAnswer_avatar())
-                        .setText(R.id.tv_user_name, item.getUsername())
-                        .setText(R.id.tv_time, "" + item.getDatetime())
-                        .setText(R.id.tv_zans, "" + item.getZans())
-                        .setText(R.id.tv_views, "" + item.getViews())
-                        .setText(R.id.tv_ask_listen_state2, item.getMedia_button())
-                        .setText(R.id.tv_content, item.getAnswer_content());
-                viewHolder.getView(R.id.ll_listens).setBackgroundResource(R.drawable.bg_play_blue);
-                if (item.getIsopen().equals("1")) {
-                    viewHolder.getView(R.id.ll_listens).setBackgroundResource(R.drawable.bg_play_green);
-                }
-                viewHolder.getView(R.id.ll_listens).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (item.getIsopen().equals("1")) {
-                            doPay(item.getMedia_money());
-                        } else {
-                            RxToast.normal("播放" + item.getAnswer_media());
-                        }
-                    }
-                });
-                viewHolder.getView(R.id.imageView4).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showPopFormBottom(v);
-                    }
-                });
-                viewHolder.getView(R.id.iv_zans).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        RxToast.normal("点赞或者取消");
-                    }
-                });
-                if (TextUtil.isEmpty(item.getAnswer_media())) {
-                    viewHolder.getView(R.id.ll_txt).setVisibility(View.VISIBLE);
-                    viewHolder.getView(R.id.ll_media).setVisibility(View.GONE);
+            public void doPlay(String id, String url) {
+                Music musicp = new Music();
+                musicp.setType(Music.Type.ONLINE);
+                musicp.setPath(url);
+                AppContext.getPlayService().setMusic(musicp);
+                AppContext.getPlayService().setPlayMessage(CourseDetailAcitivity.this);
+                if (adapter2.getMedia_name().equals(url) && adapter2.getPlayPosition().equals(id)) {
+                    AppContext.getPlayService().playPause();
                 } else {
-                    viewHolder.getView(R.id.ll_txt).setVisibility(View.GONE);
-                    viewHolder.getView(R.id.ll_media).setVisibility(View.VISIBLE);
-                }
-                viewHolder.getView(R.id.lv_add_question).setVisibility(View.GONE);
-                if (item.getZhuijia_list() != null) {
-                    viewHolder.getView(R.id.lv_add_question).setVisibility(View.VISIBLE);
-                    ((MyListView) viewHolder.getView(R.id.lv_add_question)).setAdapter(new CommonAdapter<CouseQuestionBean.ZhuijiaListBean>(CourseDetailAcitivity.this, R.layout.kz_question_list_item, item.getZhuijia_list()) {
-                        @Override
-                        protected void convert(ViewHolder viewHolder, final CouseQuestionBean.ZhuijiaListBean item, int position) {
-                            viewHolder.setText(R.id.tv_user_name, "" + item.getContent())
-                                    .glideImage(R.id.iv_user_head, item.getAvatar())
-                                    .glideImage(R.id.iv_answer_img, item.getAnswer_avatar())
-                                    .setText(R.id.tv_user_name, item.getUsername())
-                                    .setText(R.id.tv_time, "" + item.getDatetime())
-                                    .setText(R.id.tv_zans, "" + item.getZans())
-                                    .setText(R.id.tv_views, "" + item.getViews())
-                                    .setText(R.id.tv_ask_listen_state2, item.getMedia_button())
-                                    .setText(R.id.tv_content, item.getAnswer_content());
-                            viewHolder.getView(R.id.ll_listens).setBackgroundResource(R.drawable.bg_play_blue);
-                            if (item.getIsopen().equals("1")) {
-                                viewHolder.getView(R.id.ll_listens).setBackgroundResource(R.drawable.bg_play_green);
-                            }
-                            viewHolder.getView(R.id.ll_listens).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    if (item.getIsopen().equals("1")) {
-                                        doPay(item.getMedia_money());
-                                    } else {
-                                        RxToast.normal("播放" + item.getAnswer_media());
-                                    }
-                                }
-                            });
-                            if (TextUtil.isEmpty(item.getAnswer_media())) {
-                                viewHolder.getView(R.id.ll_txt).setVisibility(View.VISIBLE);
-                                viewHolder.getView(R.id.ll_media).setVisibility(View.GONE);
-                            } else {
-                                viewHolder.getView(R.id.ll_txt).setVisibility(View.GONE);
-                                viewHolder.getView(R.id.ll_media).setVisibility(View.VISIBLE);
-                            }
-                        }
-                    });
+                    AppContext.getPlayService().stop();
+                    AppContext.getPlayService().playStart();
                 }
             }
-        };
-        //setmPullRefreshListView(mPullRefreshListView, adapter2);
+
+            @Override
+            public void doInput(View view, String qid) {
+                showPopFormBottom(view);
+                playPop.setQid(qid);
+            }
+
+            @Override
+            public void doZan(String opType, String id, String state) {
+                setZans(opType, id, state);
+            }
+
+            @Override
+            public void doCollect(String opType, String id, String state) {
+
+            }
+        });
         lv_question.setAdapter(adapter2);
         getQuestion();
     }
 
     private int page = 1;
 
-    /* @Override
-     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-         page++;
-         getQuestion();
-     }*/
     private void getQuestion() {
         Map<String, String> params1 = new HashMap<>();
         params1.put("data[page]", "" + page);
         params1.put("data[limit]", "20");
-        params1.put("data[cid]", "1");
+        params1.put("data[cid]", cid);
         OkhttpUtilManager.postNoCacah(this, "Course/getCourseQuestion", params1, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
@@ -373,11 +320,8 @@ public class CourseDetailAcitivity extends SuperActivity {
                     }
                     Log.e("tst", beanlist.toString());
                 } catch (JSONException e) {
-                    // mPullRefreshListView.setEmptyView(llMain);
                     e.printStackTrace();
                 }
-                // mPullRefreshListView.setEmptyView(llMain);
-                // mPullRefreshListView.onRefreshComplete();
                 getFoucus();
                 adapter2.notifyDataSetChanged();
                 mPullRefreshScrollView.onRefreshComplete();
@@ -428,19 +372,19 @@ public class CourseDetailAcitivity extends SuperActivity {
         ivUserBg.requestFocus();
     }
 
-    @OnClick({R.id.iv_share, R.id.tv_ask, R.id.iv_collect})
+    @OnClick({R.id.iv_share, R.id.tv_ask, R.id.iv_collect, R.id.ll_buycouse})
     public void onViewClicked(View view) {
         Intent intent = null;
         switch (view.getId()) {
             case R.id.iv_share:
-                shareDialog = new ShareDialog(this);
+                shareDialog = new ShareDialog(this, courseDetailBean.getShare_title(), courseDetailBean.getShare_des(), courseDetailBean.getShare_des(), courseDetailBean.getShare_linkurl());
                 shareDialog.setCancelButtonOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         shareDialog.dismiss();
                     }
                 });
-                shareDialog.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                /*shareDialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> arg0, View arg1,
                                             int arg2, long arg3) {
@@ -448,18 +392,53 @@ public class CourseDetailAcitivity extends SuperActivity {
                         EToastUtil.show(CourseDetailAcitivity.this, "" + item.get("ItemText"));
                         shareDialog.dismiss();
                     }
-                });
+                });*/
                 break;
             case R.id.tv_ask:
               /*  intent = new Intent(CourseDetailAcitivity.this, KnowageAskIndexActivity.class);
                 startActivity(intent);*/
                 showPopFormBottom(view);
+                playPop.setQid("");
                 break;
             case R.id.iv_collect:
-                testType++;
-                setUserCollect("" + testType, courseDetailBean.getCid(), courseDetailBean.getIscollect()==1 ? "0" : "1");//   protected void setUserCollect(final String optype, String aid, String state){
+                setUserCollect("1", courseDetailBean.getCid(), courseDetailBean.getIscollect() == 1 ? "0" : "1");//   protected void setUserCollect(final String optype, String aid, String state){
+                break;
+            case R.id.ll_buycouse:
+                setCourseOrder();
                 break;
         }
+    }
+
+    private void setCourseOrder() {
+        showProgressDialog("生成订单中");
+        Map<String, String> params = new HashMap<>();
+        params.put("data[cid]", courseDetailBean.getCid());
+        params.put("data[tid]", courseDetailBean.getTid());
+        OkhttpUtilManager.postNoCacah(this, "Course/addCourseOrder", params, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                Log.e("order", data);
+                try {
+                    JSONObject object = new JSONObject(data);
+                    Gson gson = new Gson();
+                    OrderBean orderBean = gson.fromJson(object.getString("data"), OrderBean.class);
+                    Intent intent = new Intent(CourseDetailAcitivity.this, PayTypeAcitivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("orderBean", orderBean);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                dismissProgressDialog();
+            }
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                RxLogUtils.e("order", msg);
+                dismissProgressDialog();
+            }
+        });
     }
 
     private int testType = 0;
@@ -467,21 +446,20 @@ public class CourseDetailAcitivity extends SuperActivity {
     @Override
     public void onError(String type) {
         super.onError(type);
-        RxToast.normal("失败" + type);
+        RxToast.normal("失败");
     }
 
     @Override
-    public void onOperateSuccess(String type, String state) {
-        super.onOperateSuccess(type, state);
+    public void onOperateSuccess(String opType, String type, String state, String id) {
+        super.onOperateSuccess(opType, type, state, id);
         switch (type) {
-            case "1":
-                ivCollect.setBackgroundResource(state.equals("1") ? R.drawable.btn_collect : R.drawable.btn_collect_current);
+            case "1"://收藏
+                ivCollect.setBackgroundResource(state.equals(KzConstanst.IS_FASLE) ? R.drawable.btn_collect : R.drawable.btn_collect_current);
                 break;
-            case "2":
-
-                break;
+            case "2"://举报
+                break;//点赞
             case "3":
-
+                adapter2.upZan();
                 break;
         }
     }
@@ -490,7 +468,7 @@ public class CourseDetailAcitivity extends SuperActivity {
     WindowManager.LayoutParams params;
 
     public void showPopFormBottom(View view) {
-        playPop = new Kz_CourseAskPopu(this);
+        playPop = new Kz_CourseAskPopu(this, courseDetailBean);
 //        设置Popupwindow显示位置（从底部弹出）
         playPop.showAtLocation(view, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
         params = getWindow().getAttributes();
@@ -505,13 +483,43 @@ public class CourseDetailAcitivity extends SuperActivity {
                 getWindow().setAttributes(params);
             }
         });
+    }
+
+    @Override
+    public void prePercent(int percent) {
 
     }
 
-    public void doPay(String price) {
-        Intent intent = new Intent(CourseDetailAcitivity.this, PayTypeAcitivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("price", price);
-        startActivity(intent);
+    @Override
+    public void time(String start, String end, int pos) {
+
+    }
+
+    @Override
+    public void playposition(int position) {
+
+    }
+
+    @Override
+    public void state(int state) {
+        adapter2.setState(state);
+        adapter2.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        if (AppContext.getPlayService() != null) {
+            AppContext.getPlayService().stop();
+        }
+    }
+
+    @Override
+    public void funOrder(ReturnOrderBean bean) {
+        super.funOrder(bean);
+        if (bean.getType() == 1) {
+            adapter2.updateOpen();
+        }
     }
 }

@@ -77,12 +77,12 @@ public class Kz_Course_FragmentAdapter extends FragmentStatePagerAdapter {
         tv.setText(titles[position]);
         ImageView img = (ImageView) view.findViewById(R.id.imageView);
         LinearLayout ll_main= (LinearLayout) view.findViewById(R.id.ll_main);
-        if(bean.getStage_list().get(position).getIsunlock()!=1){
-            img.setVisibility(View.VISIBLE);
-            ll_main.setBackgroundResource(R.color.title);
-        }else{
+        if(bean.getStage_list().get(position).getIsunlock()==1){
             img.setVisibility(View.GONE);
             ll_main.setBackgroundResource(R.color.white);
+        }else{
+            img.setVisibility(View.VISIBLE);
+            ll_main.setBackgroundResource(R.color.title);
         }
         return view;
     }

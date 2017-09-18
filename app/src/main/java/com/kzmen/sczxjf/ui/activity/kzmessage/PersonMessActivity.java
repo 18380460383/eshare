@@ -8,10 +8,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.bean.kzbean.UserMessageBean;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
 import com.kzmen.sczxjf.util.EToastUtil;
+import com.kzmen.sczxjf.util.glide.GlideCircleTransform;
+import com.kzmen.sczxjf.utils.TextUtil;
 import com.kzmen.sczxjf.view.wheelview.OptionsPickerView;
+import com.vondear.rxtools.RxLogUtils;
+import com.vondear.rxtools.view.dialog.RxDialogWheelYearMonthDay;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,13 +86,47 @@ public class PersonMessActivity extends SuperActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+    }
 
+    @Override
+    public void funUpdate(UserMessageBean bean) {
+        super.funUpdate(bean);
+        setUserInfo(bean);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
     public void onCreateDataForView() {
-        setTitle(R.id.kz_tiltle,"个人信息");
+        setTitle(R.id.kz_tiltle, "个人信息");
         initData();
+        initView();
+    }
+
+    private void initView() {
+        UserMessageBean userMessageBean = AppContext.getInstance().getUserMessageBean();
+        setUserInfo(userMessageBean);
+    }
+
+    private void setUserInfo(UserMessageBean userMessageBean) {
+        if (userMessageBean != null) {
+            Glide.with(this).load(userMessageBean.getAvatar()).transform(new GlideCircleTransform(this)).into(ivUserHead);
+            tvUserName.setText(userMessageBean.getUsername());
+            tvDaySign.setText("连续登录 " + userMessageBean.getHotnum() + " 天");
+            tvNickname.setText(userMessageBean.getUsername());
+            tvRealname.setText(userMessageBean.getNickname());
+            tvSex.setText(userMessageBean.getSex().equals("1") ? "男" : "女");
+            tvBirth.setText(userMessageBean.getBirthday());
+            tvHangye.setText(userMessageBean.getRole().equals("0") ? "普通会员" : "认证会员");
+            tvPhone.setText(userMessageBean.getPhone());
+            String wxId = AppContext.getInstance().getUserLogin().getWeixin();
+            tvWx.setText(TextUtil.isEmpty(wxId) ? "未绑定" : wxId);
+        }
     }
 
     @Override
@@ -109,12 +152,14 @@ public class PersonMessActivity extends SuperActivity {
         }
     }
 
+    private RxDialogWheelYearMonthDay rxDialogWheelYearMonthDay;
+
     @OnClick({R.id.ll_nickname, R.id.ll_sex, R.id.ll_birth})
     public void onViewClicked(View view) {
-        Intent intent=null;
+        Intent intent = null;
         switch (view.getId()) {
             case R.id.ll_nickname:
-                intent=new Intent(PersonMessActivity.this,UpdateNickNameAcitivy.class);
+                intent = new Intent(PersonMessActivity.this, UpdateNickNameAcitivy.class);
                 startActivity(intent);
                 break;
             case R.id.ll_sex:
@@ -123,9 +168,10 @@ public class PersonMessActivity extends SuperActivity {
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         //返回的分别是三个级别的选中位置
                         String tx = sexList.get(options1);
+                        tvSex.setText(tx);
                         EToastUtil.show(PersonMessActivity.this, tx);
-                           }
-                          })
+                    }
+                })
                         .setTitleText("性别选择")
                         .setContentTextSize(20)//设置滚轮文字大小
                         .setDividerColor(Color.GREEN)//设置分割线的颜色
@@ -142,7 +188,25 @@ public class PersonMessActivity extends SuperActivity {
                 pvOptions.show();
                 break;
             case R.id.ll_birth:
-                pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
+                rxDialogWheelYearMonthDay = new RxDialogWheelYearMonthDay(PersonMessActivity.this, 2016, 2019);
+                rxDialogWheelYearMonthDay.show();
+                rxDialogWheelYearMonthDay.getTv_sure().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String date = rxDialogWheelYearMonthDay.getSelectorYear() + "-" + rxDialogWheelYearMonthDay.getSelectorMonth() + "-" + rxDialogWheelYearMonthDay.getSelectorDay();
+                        RxLogUtils.e("tst", date);
+                        rxDialogWheelYearMonthDay.dismiss();
+                        tvBirth.setText("" + date);
+                    }
+                });
+                rxDialogWheelYearMonthDay.getTv_cancle().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rxDialogWheelYearMonthDay.dismiss();
+                    }
+                });
+
+              /*  pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         //返回的分别是三个级别的选中位置
@@ -163,7 +227,7 @@ public class PersonMessActivity extends SuperActivity {
                         .setBackgroundId(0x20000000) //设置外部遮罩颜色
                         .build();
                 pvOptions.setPicker(ageList);//一级选择器
-                pvOptions.show();
+                pvOptions.show();*/
                 break;
 
         }

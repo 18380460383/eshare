@@ -148,21 +148,21 @@ public class ForgetPassActivity extends SuperActivity {
         OkhttpUtilManager.postNoCacah(this, "public/get_phone_code", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
-                if (timer != null) {
+                /*if (timer != null) {
                     timer.cancel();
-                }
+                }*/
                 Log.e("tst", data);
                 try {
                     JSONObject object = new JSONObject(data);
                     JSONObject object1 = new JSONObject(object.getString("data"));
                     String code = object1.getString("code");
-                    tvYz.setText(code);
-                    yzen = code;
+                    //tvYz.setText(code);
+                    yzenGet = code;
                 } catch (JSONException e) {
                     e.printStackTrace();
                     yzenGet = "-9999";
                 }
-                tvYz.setEnabled(true);
+                //tvYz.setEnabled(true);
             }
 
             @Override
@@ -172,7 +172,7 @@ public class ForgetPassActivity extends SuperActivity {
                 }
                 Log.e("tst", msg);
                 yzenGet = "-9999";
-                tvYz.setEnabled(true);
+               // tvYz.setEnabled(true);
             }
         });
     }

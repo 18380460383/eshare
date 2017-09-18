@@ -8,14 +8,37 @@ package com.kzmen.sczxjf.bean.kzbean;
  * 获取用户全部信息
  */
 public class UserMessageBean {
+
+    /**
+     * uid : 5002
+     * username : 手机用户***5398
+     * avatar :
+     * nickname :
+     * phone : 15801035398
+     * balance : 0
+     * score : 9873
+     * role : 0
+     * state : 1
+     * invite_code : FD8NAU
+     * teacher : 1
+     * birthday : 0000-00-00
+     * sex : 1
+     * fannum : 0
+     * hotnum : 11
+     * alipay : zhaohongfei1991@sina.com
+     * earn_money : 0
+     * withdraw_ok : 0
+     * isjpush : 1
+     * logindate : 1505216738
+     * app_bate : 0
+     */
+
     private String uid;
     private String username;
     private String avatar;
     private String nickname;
     private String phone;
     private String balance;
-    private String earn_money;
-    private String withdraw_ok;
     private String score;
     private String role;
     private String state;
@@ -26,9 +49,19 @@ public class UserMessageBean {
     private String fannum;
     private String hotnum;
     private String alipay;
+    private String earn_money;
+    private String withdraw_ok;
     private String isjpush;
     private String logindate;
     private String app_bate;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public String getUsername() {
         return username;
@@ -68,22 +101,6 @@ public class UserMessageBean {
 
     public void setBalance(String balance) {
         this.balance = balance;
-    }
-
-    public String getEarn_money() {
-        return earn_money;
-    }
-
-    public void setEarn_money(String earn_money) {
-        this.earn_money = earn_money;
-    }
-
-    public String getWithdraw_ok() {
-        return withdraw_ok;
-    }
-
-    public void setWithdraw_ok(String withdraw_ok) {
-        this.withdraw_ok = withdraw_ok;
     }
 
     public String getScore() {
@@ -166,6 +183,22 @@ public class UserMessageBean {
         this.alipay = alipay;
     }
 
+    public String getEarn_money() {
+        return earn_money;
+    }
+
+    public void setEarn_money(String earn_money) {
+        this.earn_money = earn_money;
+    }
+
+    public String getWithdraw_ok() {
+        return withdraw_ok;
+    }
+
+    public void setWithdraw_ok(String withdraw_ok) {
+        this.withdraw_ok = withdraw_ok;
+    }
+
     public String getIsjpush() {
         return isjpush;
     }
@@ -190,11 +223,30 @@ public class UserMessageBean {
         this.app_bate = app_bate;
     }
 
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
+    @Override
+    public String toString() {
+        return "UserMessageBean{" +
+                "uid='" + uid + '\'' +
+                ", username='" + username + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", phone='" + phone + '\'' +
+                ", balance='" + balance + '\'' +
+                ", score='" + score + '\'' +
+                ", role='" + role + '\'' +
+                ", state='" + state + '\'' +
+                ", invite_code='" + invite_code + '\'' +
+                ", teacher='" + teacher + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", sex='" + sex + '\'' +
+                ", fannum='" + fannum + '\'' +
+                ", hotnum='" + hotnum + '\'' +
+                ", alipay='" + alipay + '\'' +
+                ", earn_money='" + earn_money + '\'' +
+                ", withdraw_ok='" + withdraw_ok + '\'' +
+                ", isjpush='" + isjpush + '\'' +
+                ", logindate='" + logindate + '\'' +
+                ", app_bate='" + app_bate + '\'' +
+                '}';
     }
 }

@@ -263,10 +263,10 @@ public class ExpandableTextView extends LinearLayout implements View.OnClickList
         mCollapseDrawable = typedArray.getDrawable(R.styleable.ExpandableTextView_collapseDrawable);
 
         if (mExpandDrawable == null) {
-            mExpandDrawable = getDrawable(getContext(), R.drawable.icon_arrow_down);
+            mExpandDrawable = getDrawable(getContext(), R.drawable.btn_arrow_down_yellow);
         }
         if (mCollapseDrawable == null) {
-            mCollapseDrawable = getDrawable(getContext(), R.drawable.icon_arrow_up);
+            mCollapseDrawable = getDrawable(getContext(), R.drawable.btn_arrow_up_yellow);
         }
 
         typedArray.recycle();

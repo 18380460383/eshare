@@ -11,13 +11,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.kzmen.sczxjf.KzConstanst;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.bean.kzbean.HomeAskBean;
 import com.kzmen.sczxjf.consta.PlayState;
 import com.kzmen.sczxjf.interfaces.MainAskListClick;
+import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.util.glide.GlideCircleTransform;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -68,8 +72,9 @@ public class Kz_MainAskAdapter extends BaseAdapter {
         viewHolder.tvAskTitle1.setText(listData.get(position).getContent());
         viewHolder.tvAskListenState2.setText(listData.get(position).getIsopen_str());
         viewHolder.tvAskListenCount1.setText(listData.get(position).getViews()+"人听过");
+        viewHolder.tvAskListenType1.setText(""+listData.get(position).getTeacher_title());
         viewHolder.tvAskListenType1.setVisibility(View.GONE);
-        if(listData.get(position).getTeacher().equals("1")){
+        if("1".equals(listData.get(position).getTeacher())){
             viewHolder.tvAskListenType1.setVisibility(View.VISIBLE);
         }
         viewHolder.tvAskListenName1.setText(listData.get(position).getNickname());
@@ -85,8 +90,16 @@ public class Kz_MainAskAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if (mainAskListClick != null) {
-                    mainAskListClick.onPosClick(position);
                     playPosition = position;
+                    if(listData.get(position).getIsopen().equals("1")){
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("data[type]", "2");
+                        params.put("data[aid]", listData.get(position).getQid());
+                        OkhttpUtilManager.setOrder(mContext, KzConstanst.addEavesdropOrder, params);
+                    }else if(listData.get(position).getMedia_status().equals("1")){
+                        mainAskListClick.onPosClick(position);
+                        playPosition = position;
+                    }
                 }
             }
         });
@@ -115,7 +128,14 @@ public class Kz_MainAskAdapter extends BaseAdapter {
     public void setPlayPosition(int playPosition) {
         this.playPosition = playPosition;
     }
-
+    public void updateOpen(){
+        if(this.playPosition!=-1){
+            listData.get(playPosition).setIsopen("0");
+            listData.get(playPosition).setMedia_status("1");
+            listData.get(playPosition).setIsopen_str("点击播放");
+            this.notifyDataSetChanged();
+        }
+    }
     public int getPlayPosition() {
         return playPosition;
     }

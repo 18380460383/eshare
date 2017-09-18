@@ -1,5 +1,6 @@
 package com.kzmen.sczxjf.ui.activity.kzmessage;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,15 +9,19 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.adapter.ImagePickerAdapter;
+import com.kzmen.sczxjf.bean.kzbean.OrderBean;
 import com.kzmen.sczxjf.dialog.SelectDialog;
 import com.kzmen.sczxjf.easypermissions.AfterPermissionGranted;
 import com.kzmen.sczxjf.easypermissions.AppSettingsDialog;
@@ -25,11 +30,21 @@ import com.kzmen.sczxjf.imagepicker.ImagePicker;
 import com.kzmen.sczxjf.imagepicker.bean.ImageItem;
 import com.kzmen.sczxjf.imagepicker.ui.ImageGridActivity;
 import com.kzmen.sczxjf.imagepicker.ui.ImagePreviewDelActivity;
+import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
+import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
-import com.kzmen.sczxjf.util.EToastUtil;
+import com.kzmen.sczxjf.ui.activity.menu.PayTypeAcitivity;
+import com.kzmen.sczxjf.utils.TextUtil;
+import com.vondear.rxtools.view.RxToast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -38,7 +53,7 @@ import butterknife.OnClick;
  * 提问
  */
 
-public class KnowageAskPreActivity extends SuperActivity implements ImagePickerAdapter.OnRecyclerViewItemClickListener  , EasyPermissions.PermissionCallbacks {
+public class KnowageAskPreActivity extends SuperActivity implements ImagePickerAdapter.OnRecyclerViewItemClickListener, EasyPermissions.PermissionCallbacks {
     @InjectView(R.id.tv_cancle)
     TextView tvCancle;
     @InjectView(R.id.back)
@@ -60,6 +75,11 @@ public class KnowageAskPreActivity extends SuperActivity implements ImagePickerA
     LinearLayout llShowDialog;
     @InjectView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @InjectView(R.id.sw_nim)
+    Switch swNim;
+    @InjectView(R.id.sw_pri)
+    Switch swPri;
+    private String cid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +92,7 @@ public class KnowageAskPreActivity extends SuperActivity implements ImagePickerA
         initView();
         initWidget();
     }
+
     private void initWidget() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         selImageList = new ArrayList<>();
@@ -107,6 +128,57 @@ public class KnowageAskPreActivity extends SuperActivity implements ImagePickerA
     @Override
     public void setThisContentView() {
         setContentView(R.layout.activity_knowage_ask_pre);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            cid = bundle.getString("cid");
+        }
+    }
+
+    private void preQues() {
+        String content = etContent.getText().toString();
+        if (TextUtil.isEmpty(content)) {
+            RxToast.normal("内容不能为空");
+            return;
+        }
+        String nim = swNim.isChecked() ? "1" : "0";
+        String pri = swPri.isChecked() ? "1" : "0";
+
+        Map<String, String> params = new HashMap<>();
+        params.put("data[type]", "2");
+        params.put("data[cid]", cid);
+        params.put("data[content]", content);
+        params.put("data[isopen]", pri);
+        params.put("data[isanony]", nim);
+        List<File >fileList=new ArrayList<>();
+        for (ImageItem bean: selImageList){
+            File file=new File(bean.path);
+            fileList.add(file);
+        }
+
+        OkhttpUtilManager.postObjec(this, "Question/addQuestion", params,fileList, new OkhttpUtilResult() {
+            @Override
+            public void onSuccess(int type, String data) {
+                try {
+                    Log.e("tst", data);
+                    Gson gson = new Gson();
+                    JSONObject object = null;
+                    object = new JSONObject(data);
+                    OrderBean orderBean = gson.fromJson(object.getString("data"), OrderBean.class);
+                    Intent intent = new Intent(KnowageAskPreActivity.this, PayTypeAcitivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("orderBean", orderBean);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onErrorWrong(int code, String msg) {
+                Log.e("tst", msg);
+            }
+        });
     }
 
     @OnClick({R.id.tv_cancle, R.id.tv_pre, R.id.iv_choice_pic, R.id.ll_show_dialog})
@@ -116,7 +188,8 @@ public class KnowageAskPreActivity extends SuperActivity implements ImagePickerA
                 finish();
                 break;
             case R.id.tv_pre:
-                EToastUtil.show(KnowageAskPreActivity.this, "发布吧");
+                preQues();
+                //EToastUtil.show(KnowageAskPreActivity.this, "发布吧");
                 break;
             case R.id.iv_choice_pic:
                 List<String> names = new ArrayList<>();
@@ -195,50 +268,30 @@ public class KnowageAskPreActivity extends SuperActivity implements ImagePickerA
     public void onItemClick(View view, int position) {
         switch (position) {
             case IMAGE_ITEM_ADD:
-               /* List<String> names = new ArrayList<>();
-                names.add("拍照");
-                names.add("相册");
-                showDialog(new SelectDialog.SelectDialogListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        switch (position) {
-                            case 0: // 直接调起相机
-                                //打开选择,本次允许选择的数量
-                                cameraTask();
-                                break;
-                            case 1:
-                                //打开选择,本次允许选择的数量
-                                ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
-                                Intent intent1 = new Intent(KnowageAskPreActivity.this, ImageGridActivity.class);
-                                startActivityForResult(intent1, REQUEST_CODE_SELECT);
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                }, names);*/
                 break;
             default:
                 //打开预览
                 Intent intentPreview = new Intent(this, ImagePreviewDelActivity.class);
                 intentPreview.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, (ArrayList<ImageItem>) adapter.getImages());
                 intentPreview.putExtra(ImagePicker.EXTRA_SELECTED_IMAGE_POSITION, position);
-                intentPreview.putExtra(ImagePicker.EXTRA_FROM_ITEMS,true);
+                intentPreview.putExtra(ImagePicker.EXTRA_FROM_ITEMS, true);
                 startActivityForResult(intentPreview, REQUEST_CODE_PREVIEW);
                 break;
         }
     }
+
     private static final int RC_CAMERA_PERM = 123;
+
     @AfterPermissionGranted(RC_CAMERA_PERM)
     public void cameraTask() {
-        if (EasyPermissions.hasPermissions(this, android.Manifest.permission.CAMERA)) {
+        if (EasyPermissions.hasPermissions(this, Manifest.permission.CAMERA)) {
             ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
             Intent intent = new Intent(KnowageAskPreActivity.this, ImageGridActivity.class);
-            intent.putExtra(ImageGridActivity.EXTRAS_TAKE_PICKERS,true); // 是否是直接打开相机
+            intent.putExtra(ImageGridActivity.EXTRAS_TAKE_PICKERS, true); // 是否是直接打开相机
             startActivityForResult(intent, REQUEST_CODE_SELECT);
         } else {
             EasyPermissions.requestPermissions(this, getString(R.string.rationale_camera),
-                    RC_CAMERA_PERM, android.Manifest.permission.CAMERA);
+                    RC_CAMERA_PERM, Manifest.permission.CAMERA);
         }
     }
 
@@ -246,7 +299,7 @@ public class KnowageAskPreActivity extends SuperActivity implements ImagePickerA
     public void onPermissionsGranted(int requestCode, List<String> perms) {
         ImagePicker.getInstance().setSelectLimit(maxImgCount - selImageList.size());
         Intent intent = new Intent(KnowageAskPreActivity.this, ImageGridActivity.class);
-        intent.putExtra(ImageGridActivity.EXTRAS_TAKE_PICKERS,true); // 是否是直接打开相机
+        intent.putExtra(ImageGridActivity.EXTRAS_TAKE_PICKERS, true); // 是否是直接打开相机
         startActivityForResult(intent, REQUEST_CODE_SELECT);
     }
 
@@ -256,6 +309,7 @@ public class KnowageAskPreActivity extends SuperActivity implements ImagePickerA
             new AppSettingsDialog.Builder(this).build().show();
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

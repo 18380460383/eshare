@@ -5,6 +5,6 @@ package com.kzmen.sczxjf.interfaces;
  */
 
 public interface UserOperate {
-    void onOperateSuccess(String type,String state);
+    void onOperateSuccess(String opType,String type,String state,String id);
     void onError(String type);
 }

@@ -65,11 +65,13 @@
                     android:text="1" />
 
                 <ImageView
+                    android:id="@+id/iv_zans"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:background="@drawable/kz_icon_like" />
 
                 <ImageView
+                    android:id="@+id/imageView4"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginLeft="10dp"
@@ -115,7 +117,12 @@
                     android:paddingLeft="4dp"
                     android:paddingRight="16dp"
                     android:paddingTop="8dp">
-
+                    <ImageView
+                        android:id="@+id/iv_anim"
+                        android:layout_marginLeft="8dp"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/kz_play_anim"/>
                     <TextView
                         android:id="@+id/tv_ask_listen_state2"
                         android:layout_width="wrap_content"

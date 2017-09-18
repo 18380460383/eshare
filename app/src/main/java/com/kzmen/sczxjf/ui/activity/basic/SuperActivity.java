@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.FragmentActivity;
@@ -25,8 +26,12 @@ import android.widget.Toast;
 
 import com.kzmen.sczxjf.AppContext;
 import com.kzmen.sczxjf.R;
+import com.kzmen.sczxjf.bean.kzbean.EventBusBean;
+import com.kzmen.sczxjf.bean.kzbean.ReturnOrderBean;
+import com.kzmen.sczxjf.bean.kzbean.UserMessageBean;
 import com.kzmen.sczxjf.control.CustomProgressDialog;
 import com.kzmen.sczxjf.cusinterface.ServerConnect;
+import com.kzmen.sczxjf.dialog.ShareDialog;
 import com.kzmen.sczxjf.easypermissions.AppSettingsDialog;
 import com.kzmen.sczxjf.easypermissions.EasyPermissions;
 import com.kzmen.sczxjf.interfaces.OkhttpUtilResult;
@@ -41,6 +46,11 @@ import com.kzmen.sczxjf.ui.activity.kzmessage.LoginActivity;
 import com.kzmen.sczxjf.util.EToastUtil;
 import com.kzmen.sczxjf.util.Utils;
 import com.kzmen.sczxjf.view.MyScrollView;
+import com.vondear.rxtools.RxLogUtils;
+import com.vondear.rxtools.view.dialog.RxDialogPayBack;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.List;
@@ -55,7 +65,7 @@ import butterknife.ButterKnife;
  * 功能描述：超级Activity,本项目所有的Activity的父类
  */
 public abstract class SuperActivity extends FragmentActivity implements ServerConnect, EasyPermissions.PermissionCallbacks,
-        ScrollViewOnScroll,UserOperate {
+        ScrollViewOnScroll, UserOperate {
     private static final String TAG = "BasicActivity";
     private static final int RP_CAMERA_AND_STORAGE = 1;
     /**
@@ -85,16 +95,18 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
 
     private MyScrollView scrollView;
 
+    protected RxDialogPayBack rxDialogPayBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //判断此界面是不是对外直接开放的
         //如果不是
-       if (!isShareActivity()) {
+        if (!isShareActivity()) {
             if (!AppContext.getInstance().getPersonageOnLine()) {
                 Intent intent = new Intent(this, LoginActivity.class);
                 this.startActivity(intent);
-             this.finish();
+                this.finish();
             } else {
                 initActivity();
             }
@@ -102,9 +114,9 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
         //如果是
         else {
             initActivity();
-       }
-       // setInnerAct();
-      //  Utils.setStatusBar(this,false,false);
+        }
+        // setInnerAct();
+        //  Utils.setStatusBar(this,false,false);
     }
 
     public void setInnerAct() {
@@ -126,6 +138,8 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
         }
         progressDialog = new CustomProgressDialog(this);
         progressDialog.setCanceledOnTouchOutside(false);
+        rxDialogPayBack = new RxDialogPayBack(this);
+        rxDialogPayBack.setCanCancle(false);
         onCreateDataForView();
     }
 
@@ -162,15 +176,70 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
         super.onRestart();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void funFinish(EventBusBean bean) {
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void funUpdate(UserMessageBean bean) {
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void funOrder(ReturnOrderBean bean) {
+
+        if (bean.getType() == 1) {
+            rxDialogPayBack.setPrice("" + bean.getPrice());
+            rxDialogPayBack.setMsg("支付成功");
+        } else {
+            rxDialogPayBack.setPrice("" + bean.getPrice());
+            String msg = "";
+            switch (bean.getErrType()) {
+                case "fail":
+                    msg = "支付失败";
+                    break;
+                case "cancel":
+                    msg = "取消支付";
+                    break;
+                case "invalid":
+                    msg = "支付插件未安装";
+                    break;
+                case "unknown":
+                    msg = "app进程异常被杀死";
+                    break;
+            }
+            rxDialogPayBack.setMsg("" + msg);
+        }
+        rxDialogPayBack.show();
+        handler.sendEmptyMessageDelayed(1, 1500);
+    }
+
+    private Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            if (null != rxDialogPayBack) {
+                try {
+                    rxDialogPayBack.dismiss();
+                } catch (Exception e) {
+                }
+            }
+            return false;
+        }
+    });
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        try {
+            progressDialog.dismiss();
+            rxDialogPayBack.getDialog().dismiss();
+        } catch (Exception e) {
+        }
         NetworkDownload.stopRequest(this);
         if (isStartExitReceiver) {
             unregisterReceiver(exitReceiver);
             isStartExitReceiver = false;
         }
-        if(mPlayServiceConnection!=null){
+        if (mPlayServiceConnection != null) {
             unbindService(mPlayServiceConnection);
         }
     }
@@ -203,6 +272,24 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
             }
 
         }
+    }
+
+    private ShareDialog shareDialog;
+
+    public void setShare(int id, final String title, final String des, final String image, final String link) {
+        findViewById(id).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareDialog = new ShareDialog(SuperActivity.this, title, des, image, link);
+                shareDialog.setCancelButtonOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        shareDialog.dismiss();
+                    }
+                });
+            }
+        });
+
     }
 
     /**
@@ -361,27 +448,29 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
 
     /**
      * 权限同意的回调
+     *
      * @param requestCode
      * @param perms
      */
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
         Log.e("tag", "授权了:" + requestCode + ":" + perms.size());
-        if(requestCode == RP_CAMERA_AND_STORAGE){
-            Toast.makeText(this,"用户已经同意些权限了,该干嘛干嘛吧",Toast.LENGTH_SHORT).show();
+        if (requestCode == RP_CAMERA_AND_STORAGE) {
+            Toast.makeText(this, "用户已经同意些权限了,该干嘛干嘛吧", Toast.LENGTH_SHORT).show();
         }
     }
 
     /**
      * 权限被拒绝的回调
+     *
      * @param requestCode
-     * @param perms 代表拒绝的权限
+     * @param perms       代表拒绝的权限
      */
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
         Log.e("tag", "拒绝了:" + requestCode + ":" + perms.size());
-        if(requestCode == RP_CAMERA_AND_STORAGE){
-            Toast.makeText(this,"用户拒绝了某些权限了",Toast.LENGTH_SHORT).show();
+        if (requestCode == RP_CAMERA_AND_STORAGE) {
+            Toast.makeText(this, "用户拒绝了某些权限了", Toast.LENGTH_SHORT).show();
             //检查是否有永久的权限列表中至少有一个权限是永久的被拒绝(用户点击“永不再问”)。
             if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
                 new AppSettingsDialog.Builder(this, "为了您能正常使用，请开启权限！")
@@ -410,7 +499,7 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
         try {
             ll_title = (LinearLayout) findViewById(R.id.kz_tiltle);
         } catch (Exception e) {
-            Log.e("tst",e.toString());
+            Log.e("tst", e.toString());
             return false;
         }
         if (ll_title == null) {
@@ -426,21 +515,24 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
         }
         if (scrollY > 0) {
             ll_title.setBackgroundResource(R.color.white);
-            Utils.setStatusBar(this,true,true);
+            Utils.setStatusBar(this, true, true);
         } else {
             ll_title.setBackgroundResource(R.color.transparent);
-            Utils.setStatusBar(this,false,false);
+            Utils.setStatusBar(this, false, false);
         }
     }
-    private boolean isConnect(){
-        if(AppContext.getInstance().getNetState()==1 || AppContext.getInstance().getNetState()==3){
+
+    private boolean isConnect() {
+        if (AppContext.getInstance().getNetState() == 1 || AppContext.getInstance().getNetState() == 3) {
             return true;
         }
-        EToastUtil.show(this,"当前无网络链接！");
+        EToastUtil.show(this, "当前无网络链接！");
         return false;
     }
+
     protected CustomLoadingLayout mLayout; //SmartLoadingLayout对象
-    protected void setOnloading(int contentID){
+
+    protected void setOnloading(int contentID) {
         mLayout = SmartLoadingLayout.createCustomLayout(this);
         mLayout.setLoadingView(R.id.my_loading_page);
         mLayout.setContentView(contentID);
@@ -453,38 +545,42 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
     }
 
     @Override
-    public void onOperateSuccess(String type,String state) {
+    public void onOperateSuccess(String opType, String type, String state, String id) {
     }
 
     @Override
     public void onError(String type) {
+
     }
 
-    protected void setUserCollect(final String optype, String aid, final String state){
-        Map<String,String> params=new HashMap<>();
-        params.put("data[type]",optype);//收藏类型1课程2问题3商品4回答
-        params.put("data[aid]",aid);//id
-        params.put("data[state]",state);//1收藏 其他取消
+    protected void setUserCollect(final String optype, final String aid, final String state) {
+        Map<String, String> params = new HashMap<>();
+        params.put("data[type]", optype);//收藏类型1课程2问题3商品4回答
+        params.put("data[aid]", aid);//id
+        params.put("data[state]", state);//1收藏 其他取消
         OkhttpUtilManager.postNoCacah(this, "User/setCollect", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
-                onOperateSuccess("1",state);
+                RxLogUtils.e("tst", data);
+                onOperateSuccess(optype, "1", state, aid);
             }
 
             @Override
             public void onErrorWrong(int code, String msg) {
                 onError("1");
+                RxLogUtils.e("tst", msg);
             }
         });
     }
-    protected void setReports(final String optype,String rid,final String state){
-        Map<String,String> params=new HashMap<>();
-        params.put("data[type]",optype);//举报类型1课程2问题3商品4回答
-        params.put("data[rid]",rid);//id
+
+    protected void setReports(final String optype, final String rid, final String state) {
+        Map<String, String> params = new HashMap<>();
+        params.put("data[type]", optype);//举报类型1课程2问题3商品4回答
+        params.put("data[rid]", rid);//id
         OkhttpUtilManager.postNoCacah(this, "User/setCollect", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
-                onOperateSuccess("2",state);
+                onOperateSuccess(optype, "2", state, rid);
             }
 
             @Override
@@ -493,21 +589,25 @@ public abstract class SuperActivity extends FragmentActivity implements ServerCo
             }
         });
     }
-    protected void setZans(final String optype,String zid,final String state){
-        Map<String,String> params=new HashMap<>();
-        params.put("data[type]",optype);//举报类型1课程2问题3商品4回答
-        params.put("data[zid]",zid);//id
-        params.put("data[state]",state);//id
-        OkhttpUtilManager.postNoCacah(this, "User/setCollect", params, new OkhttpUtilResult() {
+
+    protected void setZans(final String optype, final String zid, final String state) {
+        Map<String, String> params = new HashMap<>();
+        params.put("data[type]", optype);//举报类型1课程2问题3商品4回答
+        params.put("data[zid]", zid);//id
+        params.put("data[state]", state);//id
+        OkhttpUtilManager.postNoCacah(this, "User/setZans", params, new OkhttpUtilResult() {
             @Override
             public void onSuccess(int type, String data) {
-                onOperateSuccess("3",state);
+                RxLogUtils.e("tst", data);
+                onOperateSuccess("3", "3", state, zid);
             }
 
             @Override
             public void onErrorWrong(int code, String msg) {
+                RxLogUtils.e("tst", msg);
                 onError("3");
             }
         });
     }
+
 }

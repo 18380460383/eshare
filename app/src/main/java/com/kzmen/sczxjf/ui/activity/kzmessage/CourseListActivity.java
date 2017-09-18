@@ -24,7 +24,6 @@ import com.kzmen.sczxjf.net.OkhttpUtilManager;
 import com.kzmen.sczxjf.ui.activity.basic.ListViewActivity;
 import com.kzmen.sczxjf.util.glide.GlideRoundTransform;
 import com.kzmen.sczxjf.view.MyListView;
-import com.vondear.rxtools.view.RxToast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -78,7 +77,7 @@ public class CourseListActivity extends ListViewActivity {
                         viewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                RxToast.normal(item.getCid());
+                                //RxToast.normal(item.getCid());
                                 Intent intent=new Intent(CourseListActivity.this,CourseDetailAcitivity.class);
                                 Bundle bundle=new Bundle();
                                 bundle.putCharSequence("cid",item.getCid());
@@ -91,13 +90,6 @@ public class CourseListActivity extends ListViewActivity {
             }
         };
         setmPullRefreshListView(mPullRefreshListView, adapter);
-       /* mPullRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(CourseListActivity.this,CourseDetailAcitivity.class);
-                startActivity(intent);
-            }
-        });*/
         setADD();
     }
 

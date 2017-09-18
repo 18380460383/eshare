@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.KnowageAskDetailActivity">
 
     <RelativeLayout
@@ -124,6 +125,7 @@
                     android:textStyle="bold" />
 
                 <Switch
+                    android:id="@+id/sw_nim"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
@@ -149,6 +151,7 @@
                     android:textStyle="bold" />
 
                 <Switch
+                    android:id="@+id/sw_pri"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"

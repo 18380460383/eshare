@@ -34,4 +34,7 @@ public class AudioRecoderDialog extends BasePopupWindow {
     public void setTime(long time) {
         textView.setText(ProgressTextUtils.getProgressText(time));
     }
+    public void setMessageText(long time) {
+        textView.setText("剩余录制时间"+time+"s");
+    }
 }

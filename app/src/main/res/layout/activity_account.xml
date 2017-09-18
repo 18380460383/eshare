@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f2f2f2"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="com.kzmen.sczxjf.ui.activity.kzmessage.PersonMessActivity">
 
@@ -40,7 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="安东"
+                    android:text=""
                     android:textSize="16dp"
                     android:textStyle="bold" />
 
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_user_name"
                     android:layout_marginTop="10dp"
-                    android:text="用户名"
+                    android:text=""
                     android:textSize="16dp" />
 
                 <LinearLayout
@@ -68,7 +68,6 @@
                         android:id="@+id/iv_user_head"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:background="@drawable/icon_user"
                         android:layout_centerHorizontal="true" />
                 </LinearLayout>
 
@@ -79,7 +78,7 @@
                 style="@style/accuntsetting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_top30"
+                android:layout_marginTop="@dimen/margin_top20"
                 android:orientation="horizontal">
 
                 <TextView
@@ -95,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="183" />
+                    android:text="" />
 
                 <ImageView
                     style="@style/iamge_more"
@@ -127,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="安东" />
+                    android:text="" />
 
                 <ImageView
                     style="@style/iamge_more"
@@ -159,9 +158,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-
                     android:gravity="right"
-                    android:text="男" />
+                    android:text="" />
 
                 <ImageView
                     style="@style/iamge_more"
@@ -186,6 +184,7 @@
                     android:layout_height="wrap_content"
                     android:text="生日" />
 
+
                 <TextView
                     android:id="@+id/tv_birth"
                     style="@style/account_seting_text"
@@ -193,7 +192,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="22" />
+                    android:text="" />
 
                 <ImageView
                     style="@style/iamge_more"
@@ -226,7 +225,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="挖矿" />
+                    android:text="" />
 
                 <ImageView
                     style="@style/iamge_more"
@@ -260,7 +259,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="183****0383" />
+                    android:text="" />
 
                 <ImageView
                     style="@style/iamge_more"

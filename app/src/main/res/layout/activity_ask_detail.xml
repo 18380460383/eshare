@@ -4,21 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <include layout="@layout/kz_title_with_share" />
+
+        <include layout="@layout/kz_title" />
     </RelativeLayout>
 
     <ScrollView
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="15dp">
+      >
 
         <LinearLayout
+            android:padding="15dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
@@ -30,39 +34,42 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/iv_user_img"
                     android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="@drawable/btn_player_play" />
+                    android:layout_height="48dp" />
 
                 <TextView
+                    android:id="@+id/tv_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="8dp"
-                    android:text="匿名用户" />
+                    android:layout_marginLeft="8dp" />
 
                 <TextView
+                    android:id="@+id/tv_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="right"
-                    android:text="佣金 ￥ 10.0"
                     android:textColor="@color/bottom_yellow" />
 
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_top20"
-                android:text="提问内容" />
+                android:layout_marginTop="@dimen/margin_top20" />
 
             <com.kzmen.sczxjf.view.ExPandGridView
+                android:id="@+id/gv_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:numColumns="3" />
 
             <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_ques_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -70,18 +77,21 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tv_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="剩余24小时" />
+                android:text="" />
 
             <TextView
+                android:id="@+id/tv_state_des"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="2人抢答，1人免费" />
+                android:text="" />
 
             <LinearLayout
+                android:id="@+id/ll_ask"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
@@ -89,9 +99,9 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:background="@drawable/btn_player_play" />
+                    android:id="@+id/iv_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -100,31 +110,147 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="信用知识，快速问专家"
                         android:textSize="18dp"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tv_des"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_top20"
-                        android:text="信用知识，快速问专家" />
+                        android:layout_marginTop="@dimen/margin_top20" />
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_width="24dp"
+                    android:id="@+id/imageView5"
+                    android:layout_width="16dp"
                     android:layout_height="32dp"
                     android:background="@drawable/into" />
             </LinearLayout>
 
             <com.kzmen.sczxjf.view.MyListView
+                android:divider="@color/transparent"
+                android:dividerHeight="0dp"
                 android:id="@+id/lv_aks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp" />
         </LinearLayout>
     </ScrollView>
+    <RelativeLayout
+        android:id="@+id/rl_ishow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
 
+        <LinearLayout
+            android:id="@+id/ll_recoder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:id="@+id/tv_start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:padding="@dimen/margin_top30"
+                android:text="按住 回答问题" />
+        </LinearLayout>
+        <include layout="@layout/include_reply_layout"/>
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_show"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:layout_marginTop="@dimen/margin_top20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="试听语音" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_media_start_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="00:00" />
+
+                    <TextView
+                        android:id="@+id/tv_media_end_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="8dp"
+                        android:text="00:00" />
+
+                    <SeekBar
+                        android:id="@+id/sb_play"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_media_start_time"
+                        android:layout_gravity="center"
+                        android:max="100"
+                        android:maxHeight="20px"
+                        android:minHeight="20px"
+                        android:progressDrawable="@drawable/kz_seekbar_define_color_style"
+                        android:thumb="@drawable/kz_seekbar_define_style" />
+                    <!--android:thumb="@drawable/kz_seekbar_define_style"-->
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/iv_course_play"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/btn_play" />
+
+                <ImageView
+                    android:id="@+id/iv_delete"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/btn_delete" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_pre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/cornor_backgroud_yellow"
+                android:gravity="center_horizontal"
+                android:padding="15dp"
+                android:text="提交语音" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_line" />
+    </RelativeLayout>
 </LinearLayout>

@@ -6,6 +6,6 @@ package com.kzmen.sczxjf.interfaces;
 
 public interface MainCourseListClick {
     void onPlay(int position);
-    void onClickXiaoJiang(int position);
+    void onClickXiaoJiang(int coursePos,int position);
     void onClickMore(int position);
 }

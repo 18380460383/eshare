@@ -15,7 +15,9 @@ import android.widget.TextView;
 
 import com.kzmen.sczxjf.R;
 import com.kzmen.sczxjf.ui.activity.basic.SuperActivity;
-import com.kzmen.sczxjf.ui.fragment.kzmessage.FragmentCollection;
+import com.kzmen.sczxjf.ui.fragment.kzmessage.AnswerCollectionFragment;
+import com.kzmen.sczxjf.ui.fragment.kzmessage.CourseCollectionFragment;
+import com.kzmen.sczxjf.ui.fragment.kzmessage.GoodsCollectionFragment;
 
 import butterknife.InjectView;
 
@@ -85,18 +87,21 @@ public class MyCollectionAcitivity extends SuperActivity {
         @Override
         public Fragment getItem(int position) {
 
-            Fragment fragment = new FragmentCollection();
+            Fragment fragment =null;
             Bundle bundle = null;
             switch (position) {
                 case 0:
+                    fragment= new CourseCollectionFragment();
                     bundle = new Bundle();
                     bundle.putString("type", "1");
                     break;
                 case 1:
+                    fragment= new AnswerCollectionFragment();
                     bundle = new Bundle();
                     bundle.putString("type", "2");
                     break;
                 case 2:
+                    fragment= new GoodsCollectionFragment();
                     bundle = new Bundle();
                     bundle.putString("type", "3");
                     break;

@@ -12,7 +12,11 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:backgroundDimAmount">0.6</item>
     </style>
-
+    <style name="custom_dialog_notitle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
     <!-- shapeDialog style-->
     <style name="tran_dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>

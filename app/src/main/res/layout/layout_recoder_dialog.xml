@@ -19,7 +19,6 @@
             android:layout_height="48dp"
             android:id="@android:id/progress"
             android:src="@drawable/layer_recording_animation" />
-
         <TextView
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
@@ -29,5 +28,6 @@
             android:gravity="center"
             android:textSize="16sp"
             android:text="00:00" />
+
     </LinearLayout>
 </LinearLayout>
